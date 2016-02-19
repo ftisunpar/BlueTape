@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->library('session');
 ?><?php if (isset($_SESSION['error'])): ?>
-    <blockquote><?= $_SESSION['error'] ?></blockquote>
+    <div class="callout alert"><?= $_SESSION['error'] ?></div>
 <?php endif; ?>
 <?php if (isset($_SESSION['info'])): ?>
-    <blockquote><?= $_SESSION['info'] ?></blockquote>
+    <div class="callout info"><?= $_SESSION['info'] ?></div>
 <?php endif; ?>

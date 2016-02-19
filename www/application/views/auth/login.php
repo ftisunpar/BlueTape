@@ -1,13 +1,29 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html>
+?><!doctype html>
+<html class="no-js" lang="en">
     <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login</title>
+        <link rel="stylesheet" href="/public/foundation-6/css/foundation.css" />
+        <link rel="stylesheet" href="/public/foundation-6/css/app.css" />
     </head>
     <body>
-        <h1>Selamat datang di BlueTape</h1>
         <?php $this->load->view('templates/flashmessage'); ?>
-        <a href="<?= $authURL; ?>" role="button">Login dengan Google</a> (gunakan akun @unpar.ac.id atau @student.unpar.ac.id Anda)
+        <div class="row">
+            <div class="large-12 columns">
+                <h1>BlueTape</h1>
+                <p>Silahkan login, dengan menekan tombol di bawah ini. Gunakan akun
+                    <b>@unpar.ac.id</b> atau <b>@student.unpar.ac.id</b>.</p>
+                <a href="<?= $authURL; ?>" class="button">Login dengan Google</a>
+            </div>
+        </div>
+
+        <script src="/public/foundation-6/js/vendor/jquery.min.js"></script>
+        <script src="/public/foundation-6/js/vendor/what-input.min.js"></script>
+        <script src="/public/foundation-6/js/foundation.min.js"></script>
+        <script src="/public/foundation-6/js/app.js"></script>
     </body>
 </html>
