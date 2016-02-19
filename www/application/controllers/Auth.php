@@ -19,7 +19,8 @@ class Auth extends CI_Controller {
             $code = $this->input->get('code');
             if ($code !== NULL) {
                 $this->Auth_model->authenticateOauthCode($code);
-                header("Location: /auth/success"); // TODO
+                $userInfo = $this->Auth_model->getUserInfo();
+                echo json_encode($userInfo);
             } else {
                 throw new Exception("Parameter code tidak ada, mohon mengikuti flow login yang benar.");
             }

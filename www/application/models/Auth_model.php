@@ -41,24 +41,54 @@ class Auth_model extends CI_Model {
         $oauth2Service = new Google_Service_Oauth2($this->client);
         $userinfo = $oauth2Service->userinfo->get();
         $email = $userinfo['email'];
-        
+
         $roles = array();
         foreach ($this->config->item('roles') as $role => $pattern) {
             if (preg_match("/$pattern/", $email)) {
                 $roles[] = $role;
             }
         }
-        if (sizeof($roles) === 0) {
+        $modules = array();
+        foreach ($this->config->item('modules') as $module => $module_roles) {
+            $accessible = FALSE;
+            foreach ($roles as $role) {
+                if (in_array($role, $module_roles)) {
+                    $accessible = TRUE;
+                }
+            }
+            if ($accessible) {
+                $modules[] = $module;
+            }
+        }
+        if (sizeof($roles) === 0 || sizeof($modules) === 0) {
             throw new Exception("Email $email tidak memiliki hak akses!");
         }
-        $this->session->set_userdata('roles', $roles);
+        $this->session->set_userdata('auth', array(
+            'email' => $email,
+            'roles' => $roles,
+            'modules' => $modules
+        ));
+    }
+
+    public function getUserInfo() {
+        return $this->session->userdata('auth');
+    }
+
+    public function checkModuleAllowed($module) {
+        $userInfo = $this->getUserInfo();
+        if ($userInfo === NULL) {
+            throw new Exception("Mohon login terlebih dahulu.");
+        }
+        if (!in_array($module, $this->session->userdata('auth')['modules'])) {
+            throw new Exception($userInfo['email'] . " tidak memiliki hak akses ke $module");
+        }
     }
     
     /**
      * Melakukan logout
      */
     public function logout() {
-        $this->session->unset_userdata('roles');
+        $this->session->unset_userdata('auth');
     }
 
 }
