@@ -11,7 +11,6 @@ class Auth_model extends CI_Model {
 
         require_once 'application/libraries/ext/google-api-php-client/src/Google/autoload.php';
         $this->load->config('auth');
-        $this->load->library('session');
         $this->client = new Google_Client();
         $this->client->setClientId($this->config->item('google-clientid'));
         $this->client->setClientSecret($this->config->item('google-clientsecret'));

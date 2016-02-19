@@ -6,7 +6,6 @@ class Auth extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('Auth_model');
     }
     
     public function index() {
@@ -20,9 +19,9 @@ class Auth extends CI_Controller {
             if ($code !== NULL) {
                 $this->Auth_model->authenticateOauthCode($code);
                 $userInfo = $this->Auth_model->getUserInfo();
-                echo json_encode($userInfo);
+                header('Location: /' . $userInfo['modules'][0]);
             } else {
-                throw new Exception("Parameter code tidak ada, mohon mengikuti flow login yang benar.");
+                throw new Exception("Mohon login terlebih dahulu.");
             }
         } catch (Exception $ex) {
             $this->session->set_flashdata('error', $ex->getMessage());
