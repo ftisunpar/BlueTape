@@ -13,6 +13,6 @@ $config['roles'] = array(
 );
 
 $config['modules'] = array(
-    'TranskripRequest' => 'mahasiswa.ftis',
-    'TranskripManage' => 'tu.ftis'
+    'TranskripRequest' => array('mahasiswa.ftis'),
+    'TranskripManage' => array('tu.ftis')
 );
