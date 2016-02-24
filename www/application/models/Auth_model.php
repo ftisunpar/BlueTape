@@ -16,6 +16,7 @@ class Auth_model extends CI_Model {
         $this->client->setClientSecret($this->config->item('google-clientsecret'));
         $this->client->setRedirectUri($this->config->item('google-redirecturi'));
         $this->client->addScope('https://www.googleapis.com/auth/userinfo.email');
+        $this->client->addScope('https://www.googleapis.com/auth/userinfo.profile');
     }
 
     /**
@@ -40,7 +41,8 @@ class Auth_model extends CI_Model {
         $oauth2Service = new Google_Service_Oauth2($this->client);
         $userinfo = $oauth2Service->userinfo->get();
         $email = $userinfo['email'];
-
+        $name = $userinfo['name'];
+        
         $roles = array();
         foreach ($this->config->item('roles') as $role => $pattern) {
             if (preg_match("/$pattern/", $email)) {
@@ -64,6 +66,7 @@ class Auth_model extends CI_Model {
         }
         $this->session->set_userdata('auth', array(
             'email' => $email,
+            'name' => $name,
             'roles' => $roles,
             'modules' => $modules
         ));
@@ -89,5 +92,4 @@ class Auth_model extends CI_Model {
     public function logout() {
         $this->session->unset_userdata('auth');
     }
-
 }

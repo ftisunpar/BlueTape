@@ -6,3 +6,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php if (isset($_SESSION['info'])): ?>
     <div class="callout primary"><?= $_SESSION['info'] ?></div>
 <?php endif; ?>
+
+&nbsp;

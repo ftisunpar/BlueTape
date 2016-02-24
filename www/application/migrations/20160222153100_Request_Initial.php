@@ -7,38 +7,47 @@ class Migration_Request_Initial extends CI_Migration {
     public function up() {
         $this->dbforge->add_field('id');
         $fields = array(
-            'requestEmail' => array(
+            'requestByEmail' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '256'
+            ),
+            'requestByName' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '256'
             ),
             'requestDateTime' => array(
                 'type' => 'DATETIME'
             ),
-            'requestMessage' => array(
+            'requestUsage' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '256'
             ),
-            'approvalEmail' => array(
+            'answer' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '16',
+                'null' => TRUE,
+            ),
+            'answeredByEmail' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '256',
                 'null' => TRUE,
             ),
-            'approvalDateTime' => array(
+            'answeredDateTime' => array(
                 'type' => 'DATETIME',
                 'null' => TRUE,
             ),
-            'approvalMessage' => array(
+            'answeredMessage' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '256',
                 'null' => TRUE,
             )
         );
         $this->dbforge->add_field($fields);
-        $this->dbforge->create_table('Request');
+        $this->dbforge->create_table('Transkrip');
     }
 
     public function down() {
-        $this->dbforge->drop_table('Request', TRUE);
+        $this->dbforge->drop_table('Transkrip', TRUE);
     }
 
 }
