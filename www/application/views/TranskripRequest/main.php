@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="submit" class="button" value="Kirim Permintaan">
                         </form>
                     <?php else: ?>
-                    <div class="alert callout"><?= json_encode($submitAllowed) ?></div>
+                    <div class="alert callout"><?= $submitAllowed ?></div>
                     <?php endif ?>
                 </div>
                 <div class="callout">

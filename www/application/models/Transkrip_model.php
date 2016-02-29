@@ -6,11 +6,13 @@ class Transkrip_model extends CI_Model {
 
     /**
      * Mendapatkan seluruh request dari email tertentu
-     * @param type $email email yang melakukan request
+     * @param type $email email yang melakukan request atau NULL untuk semua
      * @return array hasil dari $query->result()
      */
     public function requestsBy($email) {
-        $this->db->where('requestByEmail', $email);
+        if ($email !== NULL) {
+            $this->db->where('requestByEmail', $email);
+        }
         $this->db->from('Transkrip');
         $this->db->order_by('requestDateTime', 'DESC');
         $query = $this->db->get();
@@ -32,14 +34,16 @@ class Transkrip_model extends CI_Model {
             }
             $year = intval(substr($request->requestDateTime, 0, 4));
             $month = intval(substr($request->requestDateTime, 6, 2));
-            $semesters[$this->bluetape->yearMonthToSemesterCode($year, $month)] = TRUE;
+            if ($request->answer === 'printed') {
+                $semesters[$this->bluetape->yearMonthToSemesterCode($year, $month)] = TRUE;
+            }
         }
         $date = getdate();
         $currentYear = $date['year'];
         $currentMonth = $date['mon'];
         $currentSemester = $this->bluetape->yearMonthToSemesterCode($currentYear, $currentMonth);
         if (isset($semesters[$currentSemester])) {
-            return 'Anda tidak bisa meminta cetak karena sudah pernah di semester ini (' . $this->bluetape->semesterCodeToString($currentSemester) . ').';
+            return 'Anda tidak bisa meminta cetak karena sudah pernah dikabulkan di semester ini (' . $this->bluetape->semesterCodeToString($currentSemester) . ').';
         }
         return TRUE;
     }

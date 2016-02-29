@@ -22,18 +22,18 @@ class TranskripRequest extends CI_Controller {
         $userInfo = $this->Auth_model->getUserInfo();
         // Retrieve requests for this user
         $requests = $this->Transkrip_model->requestsBy($userInfo['email']);
-        $submitAllowed = /* $this->Transkrip_model->isRequestAllowed($requests); */ TRUE;
+        $submitAllowed = $this->Transkrip_model->isRequestAllowed($requests);;
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
-                $request->status = 'Tunggu';                
+                $request->status = 'TUNGGU';                
                 $request->labelClass = 'secondary';                
                 $request->answeredDateTime = '-';
                 $request->answeredMessage = '-';
             } else if ($request->answer === 'printed') {
-                $request->status = 'Tercetak';
+                $request->status = 'TERCETAK';
                 $request->labelClass = 'success';
             } else if ($request->answer === 'rejected') {
-                $request->status = 'Ditolak';
+                $request->status = 'DITOLAK';
                 $request->labelClass = 'alert';
             }
         }
