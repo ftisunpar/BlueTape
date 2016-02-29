@@ -37,3 +37,11 @@
         border-right: 1px solid #4e4e4e;
     }
 }
+
+.centered {
+    text-align: center;
+}
+
+.textsized {
+    height: 1em;
+}

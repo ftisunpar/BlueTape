@@ -13,6 +13,10 @@ Gunakan nama _module_ untuk mengelompokkan controller dan view. Gunakan nama _mo
 * Nama tabel (opsional): `Transkrip`
 * Migration script (opsional): `migrations/20160222120000_Transkrip_initial.php`
 
+Buatlah model hanya jika fungsi-fungsinya digunakan lebih dari sekali. Jika hanya digunakan sekali, biarkan ada di controller saja.
+
+Library `bluetape` berisi fungsi-fungsi yang umum digunakan, seperti konversi email ke NPM, semester, dll.
+
 # Hak Akses
 
 Hak akses setiap _module_ diatur pada file `config/auth.php` (tidak terekam Git, contoh ambil dari `config/auth-dev.php`). Tambahkan _module_ Anda ke dalam array config "module", dan berikan hak akses ke role yang sesuai. Contoh:

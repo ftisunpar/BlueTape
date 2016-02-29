@@ -14,9 +14,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
         <div class="row">
             <div class="large-3 columns">&nbsp;</div>
-            <div class="large-6 columns">
-                <h1>BlueTape</h1>
-                <p>Silahkan login, dengan menekan tombol di bawah ini. Gunakan akun
+            <div class="large-6 columns centered">
+                <img src="/public/images/logo.png" alt="Logo BlueTape"/>
+                <p>Silahkan login di aplikasi BlueTape, dengan menekan tombol di bawah ini. Gunakan akun
                     <b>@unpar.ac.id</b> atau <b>@student.unpar.ac.id</b>.</p>
                 <a href="<?= $authURL; ?>" class="button">Login dengan Google</a>
             </div>

@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="medium-12 column">
                 <div class="callout">
                     <h5>Permintaan Baru</h5>
-                    <?php if ($disallowSubmit === NULL): ?>
+                    <?php if ($submitAllowed === TRUE): ?>
                         <form method="POST" action="/TranskripRequest/add">
                             <div class="row">
                                 <div class="large-4 column">
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="submit" class="button" value="Kirim Permintaan">
                         </form>
                     <?php else: ?>
-                    <div class="alert callout"><strong><?= $disallowSubmit ?></strong> Silahkan menghubungi staf TU untuk keterangan lebih lanjut.</div>
+                    <div class="alert callout"><?= json_encode($submitAllowed) ?></div>
                     <?php endif ?>
                 </div>
                 <div class="callout">
