@@ -17,40 +17,112 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="callout">
                 <h5>Permintaan Transkrip</h5>
-                <table class="scroll">
+                <table class="stack">
                     <thead>
                         <tr>
-                            <th>Informasi Permintaan</th>
-                            <th>Informasi Jawaban</th>
+                            <th>ID</th>
                             <th>Status</th>
-                            <th>Aksi</th>
+                            <th>Tanggal Permohonan</th>
+                            <th>NPM</th>
+                            <th>Lihat Detail</th>
+                            <th>Tolak Permohonan</th>
+                            <th>Cetak Permohonan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($requests as $request): ?>
                             <tr>
-                                <td>
-                                    <strong>Tanggal:</strong> <time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateTime ?></time><br/>
-                                    <strong>Email:</strong> <?= $request->requestByEmail ?><br/>
-                                    <strong>NPM:</strong> <?= $this->bluetape->emailToNPM($request->requestByEmail, 'tidak ada') ?><br/>
-                                    <strong>Nama:</strong><?= $request->requestByName ?><br/>
-                                    <strong>Keperluan:</strong> <?= $request->requestUsage ?>
-                                </td>
-                                <td>
-                                    <?php if ($request->answeredDateTime === NULL): ?>
-                                        -
-                                    <?php else: ?>
-                                        <strong>Tanggal:</strong> <time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateTime ?><br/>
-                                        <strong>Email:</strong> <?= $request->answeredByEmail ?><br/>
-                                        <strong>Pesan:</strong> <q><?= $request->answeredMessage ?></q><br/>
-                                    <?php endif ?>
-                                </td>
+                                <td><?= $request->id ?></td>
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
+                                <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateTime ?></time></td>
+                                <td><?= $this->bluetape->emailToNPM($request->requestByEmail, 'tidak ada') ?></td>
                                 <td>
-                                    <form action="/TranskripManage/answer" method="POST">
-                                        <button action="submit" name="action" value="print" class="success button">Cetak</button>
-                                        <button action="submit" name="action" value="reject" class="alert button">Tolak</button>
-                                    </form>
+                                    <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
+                                        <h5>Detail Permohonan</h5>
+                                        <table class="stack">
+                                            <tbody>
+                                                <tr>
+                                                    <th>E-mail Pemohon</th>
+                                                    <td><?= $request->requestByEmail ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Nama Pemohon</th>
+                                                    <td><?= $request->requestByName ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tanggal Permohonan</th>
+                                                    <td><?= $request->requestDateTime ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Keperluan</th>
+                                                    <td><?= $request->requestUsage ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Jawaban</th>
+                                                    <td><?= $request->answer ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>E-mail Penjawab</th>
+                                                    <td><?= $request->answeredByEmail ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tanggal Dijawab</th>
+                                                    <td><?= $request->answeredDateTime ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Keterangan Penjawab</th>
+                                                    <td><?= $request->answeredMessage ?></td>   
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button class="close-button" data-close aria-label="Tutup" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <a data-open="detail<?= $request->id ?>">detail</a>
+                                </td>
+                                <td>
+                                    <div class="reveal" id="tolak<?= $request->id ?>" data-reveal>
+                                        <h5>Tolak Permohonan</h5>
+                                        <form method="POST" action="/TranskripManage/answer">
+                                            <label>Alasan penolakan
+                                                <div class="input-group">
+                                                    <input class="input-group-field" type="text" required/>
+                                                    <div class="input-group-button">
+                                                        <input type="submit" class="alert button" name="action" value="Tolak">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </form>
+                                        <button class="close-button" data-close aria-label="Tutup" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <a data-open="tolak<?= $request->id ?>">tolak</a>
+                                </td>
+                                <td>
+                                    <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
+                                        <h5>Cetak Permohonan</h5>
+                                        <?php if ($this->bluetape->emailToNPM($request->requestByEmail) !== NULL): ?>
+                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $this->bluetape->emailToNPM($request->requestByEmail) ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS</a>
+                                        <?php else: ?>
+                                            Link DPS tidak tersedia
+                                        <?php endif ?>
+                                        <form method="POST" action="/TranskripManage/answer">
+                                            <label>Pesan khusus:
+                                                <div class="input-group">
+                                                    <input class="input-group-field" type="text" value="Silahkan mengambil di TU" required/>
+                                                    <div class="input-group-button">
+                                                        <input type="submit" class="success button" name="action" value="Cetak">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </form>
+                                        <button class="close-button" data-close aria-label="Tutup" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <a data-open="cetak<?= $request->id ?>">cetak</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -26,13 +26,10 @@ class TranskripManage extends CI_Controller {
             } else if ($request->answer === 'printed') {
                 $request->status = 'SUDAH DICETAK';
                 $request->labelClass = 'success';
-                $request->answeredDateTime = substr($request->answeredDateTime, 0, 10);
             } else if ($request->answer === 'rejected') {
                 $request->status = 'SUDAH DITOLAK';
                 $request->labelClass = 'alert';
-                $request->answeredDateTime = substr($request->answeredDateTime, 0, 10);
             }
-            $request->requestDateTime = substr($request->requestDateTime, 0, 10);
         }
         unset($request);
 
