@@ -8,11 +8,12 @@ $config['google-clientsecret'] = 'FILLME';
 $config['google-redirecturi'] = $config['domain'] . '/auth/oauth2callback';
 
 $config['roles'] = array(
-    'tu.ftis' => '(pascal|shao\\.wei)@unpar\\.ac\\.id',
+    'root' => 'pascal@unpar\\.ac\\.id',
+    'tu.ftis' => '(shao\\.wei)@unpar\\.ac\\.id',
     'mahasiswa.ftis' => '7[123]\\d{5}@student\\.unpar\\.ac\\.id'
 );
 
 $config['modules'] = array(
-    'TranskripRequest' => array('mahasiswa.ftis'),
-    'TranskripManage' => array('tu.ftis')
+    'TranskripRequest' => array('root', 'mahasiswa.ftis'),
+    'TranskripManage' => array('root', 'tu.ftis')
 );

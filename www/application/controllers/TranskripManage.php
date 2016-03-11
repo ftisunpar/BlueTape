@@ -21,21 +21,42 @@ class TranskripManage extends CI_Controller {
         $requests = $this->Transkrip_model->requestsBy(NULL);
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
-                $request->status = 'TUNGGU JAWABAN';
+                $request->status = 'MENUNGGU';
                 $request->labelClass = 'warning';
             } else if ($request->answer === 'printed') {
-                $request->status = 'SUDAH DICETAK';
+                $request->status = 'TERCETAK';
                 $request->labelClass = 'success';
             } else if ($request->answer === 'rejected') {
-                $request->status = 'SUDAH DITOLAK';
+                $request->status = 'DITOLAK';
                 $request->labelClass = 'alert';
             }
         }
         unset($request);
 
+        $userInfo = $this->Auth_model->getUserInfo();
         $this->load->view('TranskripManage/main', array(
+            'answeredByEmail' => $userInfo['email'],
             'currentModule' => get_class(),
             'requests' => $requests,
         ));
     }
+
+    public function answer() {
+        date_default_timezone_set("Asia/Jakarta");
+        try {
+            $userInfo = $this->Auth_model->getUserInfo();
+            $this->db->where('id', $this->input->post('id'));
+            $this->db->update('Transkrip', array(
+                'answer' => $this->input->post('answer'),
+                'answeredByEmail' => $userInfo['email'],
+                'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                'answeredMessage' => $this->input->post('answeredMessage')
+            ));
+            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dijawab.');
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /TranskripManage');
+    }
+
 }

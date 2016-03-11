@@ -85,14 +85,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="reveal" id="tolak<?= $request->id ?>" data-reveal>
                                         <h5>Tolak Permohonan</h5>
                                         <form method="POST" action="/TranskripManage/answer">
-                                            <label>Alasan penolakan
-                                                <div class="input-group">
-                                                    <input class="input-group-field" type="text" required/>
-                                                    <div class="input-group-button">
-                                                        <input type="submit" class="alert button" name="action" value="Tolak">
-                                                    </div>
-                                                </div>
+                                            <input type="hidden" name="id" value="<?= $request->id ?>"/>
+                                            <input type="hidden" name="answer" value="rejected"/>
+                                            <label>Email penjawab:
+                                                <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
                                             </label>
+                                            <label>Alasan penolakan:
+                                                <input name="answeredMessage" class="input-group-field" type="text" required/>
+                                            </label>
+                                            <input type="submit" class="alert button" value="Tolak"/>
                                         </form>
                                         <button class="close-button" data-close aria-label="Tutup" type="button">
                                             <span aria-hidden="true">&times;</span>
@@ -109,14 +110,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             Link DPS tidak tersedia
                                         <?php endif ?>
                                         <form method="POST" action="/TranskripManage/answer">
-                                            <label>Pesan khusus:
-                                                <div class="input-group">
-                                                    <input class="input-group-field" type="text" value="Silahkan mengambil di TU" required/>
-                                                    <div class="input-group-button">
-                                                        <input type="submit" class="success button" name="action" value="Cetak">
-                                                    </div>
-                                                </div>
+                                            <input type="hidden" name="id" value="<?= $request->id ?>"/>
+                                            <input type="hidden" name="answer" value="printed"/>
+                                            <label>Email penjawab:
+                                                <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
                                             </label>
+                                            <label>Keterangan tambahan:
+                                                <input name="answeredMessage" class="input-group-field" type="text" required/>
+                                            </label>
+                                            <input type="submit" class="alert button" value="Cetak"/>
                                         </form>
                                         <button class="close-button" data-close aria-label="Tutup" type="button">
                                             <span aria-hidden="true">&times;</span>

@@ -62,7 +62,7 @@ class Auth_model extends CI_Model {
             }
         }
         if (sizeof($roles) === 0 || sizeof($modules) === 0) {
-            throw new Exception("Email $email tidak memiliki hak akses! " . json_encode($roles) . "/" . json_encode($modules));
+            throw new Exception("Email $email tidak memiliki hak akses!");
         }
         $this->session->set_userdata('auth', array(
             'email' => $email,
