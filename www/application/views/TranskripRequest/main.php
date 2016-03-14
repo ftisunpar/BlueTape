@@ -2,14 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?= $currentModule ?></title>
-        <link rel="stylesheet" href="/public/foundation-6/css/foundation.css" />
-        <link rel="stylesheet" href="/public/foundation-6/css/app.css" />
-    </head>
+    <?php $this->load->view('templates/head_loggedin'); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
@@ -17,12 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="medium-12 column">
                 <div class="callout">
-                    <h5>Permintaan Baru</h5>
+                    <h5>Permohonan Baru</h5>
                     <?php if ($submitAllowed === TRUE): ?>
                         <form method="POST" action="/TranskripRequest/add">
                             <div class="row">
                                 <div class="large-4 column">
-                                    <label>Yang meminta:
+                                    <label>Yang memohon:
                                         <input type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly="true"/>
                                     </label>
                                 </div>
@@ -44,14 +37,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </label>
                                 </div>
                             </div>
-                            <input type="submit" class="button" value="Kirim Permintaan">
+                            <input type="submit" class="button" value="Kirim Permohonan">
                         </form>
                     <?php else: ?>
                         <div class="alert callout"><?= $submitAllowed ?></div>
                     <?php endif ?>
                 </div>
                 <div class="callout">
-                    <h5>Histori Permintaan</h5>
+                    <h5>Histori Permohonan</h5>
                     <table class="stack">
                         <thead>
                             <tr>

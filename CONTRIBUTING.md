@@ -19,12 +19,23 @@ Library `bluetape` berisi fungsi-fungsi yang umum digunakan, seperti konversi em
 
 # Hak Akses
 
-Hak akses setiap _module_ diatur pada file `config/auth.php` (tidak terekam Git, contoh ambil dari `config/auth-dev.php`). Tambahkan _module_ Anda ke dalam array config "module", dan berikan hak akses ke role yang sesuai. Contoh:
+Hak akses dan nama setiap _module_ diatur pada file `config/modules.php`. Contoh:
 
 ```php
+$config['module-names'] = array(
+    'TranskripRequest' => 'Permohonan Cetak Transkrip',
+    'TranskripManage' => 'Manajemen Cetak Transkrip'
+);
+
 $config['modules'] = array(
-    'TranskripRequest' => array('mahasiswa.ftis'),
-    'TranskripManage' => array('tu.ftis')
+    'TranskripRequest' => array('root', 'mahasiswa.ftis'),
+    'TranskripManage' => array('root', 'tu.ftis')
+);
+
+$config['roles'] = array(
+    'root' => 'pascal@unpar\\.ac\\.id',
+    'tu.ftis' => '(shao\\.wei)@unpar\\.ac\\.id',
+    'mahasiswa.ftis' => '7[123]\\d{5}@student\\.unpar\\.ac\\.id'
 );
 ```
 
@@ -68,14 +79,7 @@ View Anda memanfaatkan HTML framework Zurb Foundation, dan mengandung template m
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?= $currentModule ?></title>
-        <link rel="stylesheet" href="/public/foundation-6/css/foundation.css" />
-        <link rel="stylesheet" href="/public/foundation-6/css/app.css" />
-    </head>
+    <?php $this->load->view('templates/head_loggedin'); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>

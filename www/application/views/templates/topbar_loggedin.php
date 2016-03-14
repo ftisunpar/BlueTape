@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="menu" data-responsive-menu="dropdown">
             <li class="menu-text"><img src="/public/images/logo.png" class="textsized" alt="B"/></li>
             <?php foreach ($this->Auth_model->getUserInfo()['modules'] as $module): ?>
-                <li<?= $module === $currentModule ? ' class="menu-active"' : '' ?>><a href="/<?= $module ?>"><?= $module ?></a></li>
+                <li<?= $module === $currentModule ? ' class="menu-active"' : '' ?>><a href="/<?= $module ?>"><?= $this->config->item('module-names')[$module] ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>
