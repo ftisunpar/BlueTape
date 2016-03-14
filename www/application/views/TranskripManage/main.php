@@ -24,9 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th>Status</th>
                             <th>Tanggal Permohonan</th>
                             <th>NPM</th>
-                            <th>Lihat Detail</th>
-                            <th>Tolak Permohonan</th>
-                            <th>Cetak Permohonan</th>
+                            <th>Detail...</th>
+                            <th>Tolak...</th>
+                            <th>Cetak...</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,51 +36,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateTime ?></time></td>
                                 <td><?= $this->bluetape->emailToNPM($request->requestByEmail, 'tidak ada') ?></td>
-                                <td>
-                                    <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
-                                        <h5>Detail Permohonan</h5>
-                                        <table class="stack">
-                                            <tbody>
-                                                <tr>
-                                                    <th>E-mail Pemohon</th>
-                                                    <td><?= $request->requestByEmail ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Nama Pemohon</th>
-                                                    <td><?= $request->requestByName ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Tanggal Permohonan</th>
-                                                    <td><?= $request->requestDateTime ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Keperluan</th>
-                                                    <td><?= $request->requestUsage ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Jawaban</th>
-                                                    <td><?= $request->answer ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>E-mail Penjawab</th>
-                                                    <td><?= $request->answeredByEmail ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Tanggal Dijawab</th>
-                                                    <td><?= $request->answeredDateTime ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Keterangan Penjawab</th>
-                                                    <td><?= $request->answeredMessage ?></td>   
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <button class="close-button" data-close aria-label="Tutup" type="button">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <a data-open="detail<?= $request->id ?>">detail</a>
-                                </td>
+                                    <td>
+                                        <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
+                                            <h5>Detail Permohonan</h5>
+                                            <table class="stack">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>E-mail Pemohon</th>
+                                                        <td><?= $request->requestByEmail ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Nama Pemohon</th>
+                                                        <td><?= $request->requestByName ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Tanggal Permohonan</th>
+                                                        <td><?= $request->requestDateTime ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Keperluan</th>
+                                                        <td><?= $request->requestUsage ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Jawaban</th>
+                                                        <td><?= $request->answer ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>E-mail Penjawab</th>
+                                                        <td><?= $request->answeredByEmail ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Tanggal Dijawab</th>
+                                                        <td><?= $request->answeredDateTime ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Keterangan Penjawab</th>
+                                                        <td><?= $request->answeredMessage ?></td>   
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button class="close-button" data-close aria-label="Tutup" type="button">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <a data-open="detail<?= $request->id ?>">DETAIL</a>
+                                    </td>
                                 <td>
                                     <div class="reveal" id="tolak<?= $request->id ?>" data-reveal>
                                         <h5>Tolak Permohonan</h5>
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <a data-open="tolak<?= $request->id ?>">tolak</a>
+                                    <a data-open="tolak<?= $request->id ?>">TOLAK</a>
                                 </td>
                                 <td>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
@@ -124,7 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <a data-open="cetak<?= $request->id ?>">cetak</a>
+                                    <a data-open="cetak<?= $request->id ?>">CETAK</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
