@@ -78,6 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="reveal" id="tolak<?= $request->id ?>" data-reveal>
                                         <h5>Tolak Permohonan</h5>
                                         <form method="POST" action="/TranskripManage/answer">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                             <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                             <input type="hidden" name="answer" value="rejected"/>
                                             <label>Email penjawab:
@@ -103,8 +104,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             Link DPS tidak tersedia
                                         <?php endif ?>
                                         <form method="POST" action="/TranskripManage/answer">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                             <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                             <input type="hidden" name="answer" value="printed"/>
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                             <label>Email penjawab:
                                                 <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
                                             </label>

@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h5>Permohonan Baru</h5>
                     <?php if ($submitAllowed === TRUE): ?>
                         <form method="POST" action="/TranskripRequest/add">
+                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <div class="row">
                                 <div class="large-4 column">
                                     <label>Yang memohon:
