@@ -22,13 +22,11 @@ class TranskripRequest extends CI_Controller {
         $userInfo = $this->Auth_model->getUserInfo();
         // Retrieve requests for this user
         $requests = $this->Transkrip_model->requestsBy($userInfo['email']);
-        $submitAllowed = $this->Transkrip_model->isRequestAllowed($requests);;
+        $submitAllowed = $this->Transkrip_model->isRequestAllowed($requests);
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
-                $request->status = 'TUNGGU';                
-                $request->labelClass = 'secondary';                
-                $request->answeredDateTime = '-';
-                $request->answeredMessage = '-';
+                $request->status = 'TUNGGU';
+                $request->labelClass = 'secondary';
             } else if ($request->answer === 'printed') {
                 $request->status = 'TERCETAK';
                 $request->labelClass = 'success';
@@ -36,6 +34,8 @@ class TranskripRequest extends CI_Controller {
                 $request->status = 'DITOLAK';
                 $request->labelClass = 'alert';
             }
+            $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
+            $request->answeredDateString = $this->bluetape->dbDateTimeToReadableDate($request->answeredDateTime);
         }
         unset($request);
 

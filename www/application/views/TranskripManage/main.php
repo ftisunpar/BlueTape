@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <td><?= $request->id ?></td>
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
-                                <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateTime ?></time></td>
+                                <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                 <td><?= $this->bluetape->emailToNPM($request->requestByEmail, 'tidak ada') ?></td>
                                 <td>
                                     <div class="reveal" id="detail<?= $request->id ?>" data-reveal>

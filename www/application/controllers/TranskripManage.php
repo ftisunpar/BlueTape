@@ -30,6 +30,8 @@ class TranskripManage extends CI_Controller {
                 $request->status = 'DITOLAK';
                 $request->labelClass = 'alert';
             }
+            $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
+            $request->answeredDateString = $this->bluetape->dbDateTimeToReadableDate($request->answeredDateTime);
         }
         unset($request);
 

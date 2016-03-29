@@ -41,4 +41,15 @@ class BlueTape {
         }
         return FALSE;
     }
+    
+    /**
+     * Konversi datetime dari DB 'YYYY-MM-DD HH:MM:SS' ke format yang dapat
+     * dibaca manusia.
+     * @param string $dbDateTime datetime dalam format DB.
+     * @return string format baru atau NULL jika parameter NULL
+     */
+    public function dbDateTimeToReadableDate($dbDateTime) {
+        setlocale(LC_TIME, 'id_ID');
+        return $dbDateTime === NULL ? NULL : strftime('%A, %#d %B %Y', (new DateTime($dbDateTime))->getTimestamp());
+    }
 }
