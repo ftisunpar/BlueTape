@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td><?= $request->id ?></td>
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
-                                <td><?= $this->bluetape->emailToNPM($request->requestByEmail, 'tidak ada') ?></td>
+                                <td><?= $this->bluetape->getNPM($request->requestByEmail, '-') ?></td>
                                 <td>
                                     <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
                                         <h5>Detail Permohonan</h5>
@@ -98,8 +98,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
-                                        <?php if ($this->bluetape->emailToNPM($request->requestByEmail) !== NULL): ?>
-                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $this->bluetape->emailToNPM($request->requestByEmail) ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS</a>
+                                        <?php if ($this->bluetape->getNPM($request->requestByEmail) !== NULL): ?>
+                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $this->bluetape->getNPM($request->requestByEmail) ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS</a>
                                         <?php else: ?>
                                             Link DPS tidak tersedia
                                         <?php endif ?>

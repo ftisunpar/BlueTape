@@ -43,7 +43,7 @@ class Auth_model extends CI_Model {
         $userinfo = $oauth2Service->userinfo->get();
         $email = $userinfo['email'];
         $name = $userinfo['name'];
-        
+
         $roles = array();
         foreach ($this->config->item('roles') as $role => $pattern) {
             if (preg_match("/$pattern/", $email)) {
@@ -65,6 +65,12 @@ class Auth_model extends CI_Model {
         if (sizeof($roles) === 0 || sizeof($modules) === 0) {
             throw new Exception("Email $email tidak memiliki hak akses!");
         }
+        $this->load->database();
+        $this->db->insert('Bluetape_Userinfo', array(
+            'email' => $email,
+            'name' => $name,
+            'lastUpdate' => strftime('%Y-%m-%d %H:%M:%S')
+        ));
         $this->session->set_userdata('auth', array(
             'email' => $email,
             'name' => $name,
@@ -86,11 +92,12 @@ class Auth_model extends CI_Model {
             throw new Exception($userInfo['email'] . " tidak memiliki hak akses ke $module");
         }
     }
-    
+
     /**
      * Melakukan logout
      */
     public function logout() {
         $this->session->unset_userdata('auth');
     }
+
 }

@@ -46,8 +46,6 @@ class Migration_Request_Initial extends CI_Migration {
         $this->dbforge->create_table('Transkrip');
     }
 
-    public function down() {
-        $this->dbforge->drop_table('Transkrip', TRUE);
-    }
+    public function down() { }
 
 }

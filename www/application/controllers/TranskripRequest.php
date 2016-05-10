@@ -42,7 +42,7 @@ class TranskripRequest extends CI_Controller {
         $this->load->view('TranskripRequest/main', array(
             'currentModule' => get_class(),
             'requestByEmail' => $userInfo['email'],
-            'requestByNPM' => $this->bluetape->emailToNPM($userInfo['email'], '(bukan mahasiswa)'),
+            'requestByNPM' => $this->bluetape->getNPM($userInfo['email'], '-'),
             'requestByName' => $userInfo['name'],
             'requests' => $requests,
             'submitAllowed' => $submitAllowed
@@ -60,7 +60,6 @@ class TranskripRequest extends CI_Controller {
             }
             $this->db->insert('Transkrip', array(
                 'requestByEmail' => $userInfo['email'],
-                'requestByName' => $userInfo['name'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                 'requestUsage' => $this->input->post('requestUsage')
             ));
