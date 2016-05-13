@@ -128,11 +128,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
             </div>
         </div>
-    </div>
-
-    <script src="/public/foundation-6/js/vendor/jquery.min.js"></script>
-    <script src="/public/foundation-6/js/vendor/what-input.min.js"></script>
-    <script src="/public/foundation-6/js/foundation.min.js"></script>
-    <script src="/public/foundation-6/js/app.js"></script>
-</body>
+        <?php $this->load->view('templates/script_foundation'); ?>
+    </body>
 </html>
