@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th>ID</th>
                             <th>Status</th>
                             <th>Tanggal Permohonan</th>
+                            <th>Tipe Transkrip</th>
                             <th>NPM</th>
                             <th>Detail...</th>
                             <th>Tolak...</th>
@@ -28,7 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td><?= $request->id ?></td>
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
-                                <td><?= $this->bluetape->getNPM($request->requestByEmail, '-') ?></td>
+                                <td><?= $request->requestType ?></td>
+                                <td><?= isset($request->requestByNPM) ? $request->requestByNPM : '-' ?></td>
                                 <td>
                                     <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
                                         <h5>Detail Permohonan</h5>
@@ -45,6 +47,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <tr>
                                                     <th>Tanggal Permohonan</th>
                                                     <td><?= $request->requestDateTime ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tipe Transkrip</th>
+                                                    <td><?= $request->requestType ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Keperluan</th>
@@ -98,8 +104,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
-                                        <?php if ($this->bluetape->getNPM($request->requestByEmail) !== NULL): ?>
-                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $this->bluetape->getNPM($request->requestByEmail) ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS</a>
+                                        <?php if ($request->requestByNPM !== NULL): ?>
+                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $request->requestByNPM ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS (BETA)</a>
                                         <?php else: ?>
                                             Link DPS tidak tersedia
                                         <?php endif ?>

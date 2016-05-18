@@ -31,6 +31,7 @@ class TranskripManage extends CI_Controller {
                 $request->labelClass = 'alert';
             }
             $request->requestByName = $this->bluetape->getName($request->requestByEmail, '(belum tersedia)');
+            $request->requestByNPM = $this->bluetape->getNPM($request->requestByEmail);
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
             $request->answeredDateString = $this->bluetape->dbDateTimeToReadableDate($request->answeredDateTime);
         }

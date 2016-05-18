@@ -35,6 +35,7 @@ class TranskripRequest extends CI_Controller {
                 $request->labelClass = 'alert';
             }
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
+            $request->requestByName = $this->bluetape->getName($request->requestByEmail);
             $request->answeredDateString = $this->bluetape->dbDateTimeToReadableDate($request->answeredDateTime);
         }
         unset($request);
@@ -61,6 +62,7 @@ class TranskripRequest extends CI_Controller {
             $this->db->insert('Transkrip', array(
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                'requestType' => $this->input->post('requestType'),
                 'requestUsage' => $this->input->post('requestUsage')
             ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Mohon tunggu satu hari kerja, dan cek kembali statusnya di sini.');

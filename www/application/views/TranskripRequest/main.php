@@ -32,7 +32,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="large-12 column">
+                                <div class="large-4 column">
+                                    <label>Tipe Transkrip:
+                                        <select name="requestType">
+                                            <option value="DPS">DPS (Seluruh Semester)</option>
+                                            <option value="LHS">LHS (Semester Terakhir)</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="large-8 column">
                                     <label>Keperluan:
                                         <input type="text" name="requestUsage" required/>
                                     </label>
@@ -41,7 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="submit" class="button" value="Kirim Permohonan">
                         </form>
                     <?php else: ?>
-                        <div class="alert callout"><?= $submitAllowed ?></div>
+                    <p>&nbsp;</p>
+                        <?= $submitAllowed ?>
                     <?php endif ?>
                 </div>
                 <div class="callout">
@@ -52,6 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>ID</th>
                                 <th>Status</th>
                                 <th>Tanggal Permohonan</th>
+                                <th>Tipe Transkrip</th>
                                 <th>Tanggal Jawab/Cetak</th>
                                 <th>Keterangan</th>
                                 <th>Detail...</th>
@@ -60,14 +70,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tbody>
                             <?php foreach ($requests as $request): ?>
                                 <tr>
-                                    <td><?= $request->id ?></td>
+                                    <td>#<?= $request->id ?></td>
                                     <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
                                     <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
+                                    <td><?= $request->requestType ?></td>
                                     <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></td>
                                     <td><?= $request->answeredMessage ?></td>
                                     <td>
                                         <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
-                                            <h5>Detail Permohonan</h5>
+                                            <h5>Detail Permohonan #<?= $request->id ?></h5>
                                             <table class="stack">
                                                 <tbody>
                                                     <tr>
@@ -81,6 +92,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <tr>
                                                         <th>Tanggal Permohonan</th>
                                                         <td><?= $request->requestDateTime ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Tipe Transkrip</th>
+                                                        <td><?= $request->requestType ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Keperluan</th>

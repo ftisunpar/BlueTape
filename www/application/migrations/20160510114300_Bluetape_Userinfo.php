@@ -34,7 +34,6 @@ class Migration_Bluetape_Userinfo extends CI_Migration {
         );
         $this->dbforge->modify_column('Transkrip', $modifyfields);
         $this->dbforge->drop_column('Transkrip', 'requestByName');
-        $this->dbforge->drop_column('Transkrip', 'answeredByName');
     }
 
     public function down() { }

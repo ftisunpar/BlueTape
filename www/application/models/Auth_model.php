@@ -66,7 +66,7 @@ class Auth_model extends CI_Model {
             throw new Exception("Email $email tidak memiliki hak akses!");
         }
         $this->load->database();
-        $this->db->insert('Bluetape_Userinfo', array(
+        $this->db->replace('Bluetape_Userinfo', array(
             'email' => $email,
             'name' => $name,
             'lastUpdate' => strftime('%Y-%m-%d %H:%M:%S')
