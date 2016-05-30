@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
                                         <?php if ($request->requestByNPM !== NULL): ?>
-                                            <a target="_blank" href="https://staf.admin.unpar/akademik/includes/cetak_kps.pre.php?sub=091403&content=cetak_kps&npm1=<?= $request->requestByNPM ?>&npm2=&tahun_akd=&sem_akd=&file=&ttd_mhs=0&lang=id&stat_mhs=,A,C,S">Klik untuk membuka DPS (BETA)</a>
+                                            <a target="_blank" href="<?= sprintf($transkripURLs[$request->requestType], $request->requestByNPM) ?>">Klik untuk membuka DPS/LHS</a>
                                         <?php else: ?>
                                             Link DPS tidak tersedia
                                         <?php endif ?>

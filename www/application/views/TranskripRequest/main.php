@@ -35,7 +35,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="large-4 column">
                                     <label>Tipe Transkrip:
                                         <select name="requestType">
-                                            <option value="DPS">DPS (Seluruh Semester)</option>
+                                            <option value="DPS_ID">DPS Bahasa Indonesia (Seluruh Semester)</option>
+                                            <option value="DPS_EN">DPS Bahasa Inggris (Seluruh Semester)</option>
                                             <option value="LHS">LHS (Semester Terakhir)</option>
                                         </select>
                                     </label>

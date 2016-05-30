@@ -18,6 +18,7 @@ class TranskripManage extends CI_Controller {
     }
 
     public function index() {
+        $this->load->config('transkrip');
         $requests = $this->Transkrip_model->requestsBy(NULL);
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
@@ -42,6 +43,7 @@ class TranskripManage extends CI_Controller {
             'answeredByEmail' => $userInfo['email'],
             'currentModule' => get_class(),
             'requests' => $requests,
+            'transkripURLs' => $this->config->item('url')
         ));
     }
 
