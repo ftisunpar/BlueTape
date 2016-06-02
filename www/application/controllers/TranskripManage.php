@@ -65,4 +65,15 @@ class TranskripManage extends CI_Controller {
         header('Location: /TranskripManage');
     }
 
+    public function remove() {
+        try {
+            $id = $this->input->post('id');
+            $this->db->where('id', $id);
+            $this->db->delete('Transkrip');
+            $this->session->set_flashdata('info', "Permohonan #$id telah dihapus.");
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /TranskripManage');
+    }
 }

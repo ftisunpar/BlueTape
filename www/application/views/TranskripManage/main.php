@@ -123,6 +123,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </button>
                                     </div>
                                     <a data-open="cetak<?= $request->id ?>"><i class="fi-print"></i></a>
+                                    <div class="reveal" id="hapus<?= $request->id ?>" data-reveal>
+                                        <h5>Hapus Permohonan</h5>
+                                        <form method="POST" action="/TranskripManage/remove">
+                                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                            <input type="hidden" name="id" value="<?= $request->id ?>"/>
+                                            <input type="hidden" name="answer" value="remove"/>
+                                            <p><strong>Yakin ingin menghapus?</strong></p>
+                                            <p>Data akan hilang selamanya dari catatan. Biasanya menghapus tidak diperlukan, cukup menolak atau mencetak.</p>
+                                            <input type="submit" class="alert button" value="Hapus"/>
+                                        </form>
+                                        <button class="close-button" data-close aria-label="Tutup" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <a data-open="hapus<?= $request->id ?>"><i class="fi-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
