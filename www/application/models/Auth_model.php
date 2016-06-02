@@ -46,7 +46,16 @@ class Auth_model extends CI_Model {
 
         $roles = array();
         foreach ($this->config->item('roles') as $role => $pattern) {
-            if (preg_match("/$pattern/", $email)) {
+            $allowed = FALSE;
+            switch (gettype($pattern)) {
+                case 'string':
+                    $allowed = preg_match("/$pattern/", $email);
+                    break;
+                case 'array':
+                    $allowed = in_array($email, $pattern);
+                    break;
+            }
+            if ($allowed) {
                 $roles[] = $role;
             }
         }

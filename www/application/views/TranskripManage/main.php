@@ -74,9 +74,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button class="close-button" data-close aria-label="Tutup" type="button">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
                                     </div>
                                     <a data-open="detail<?= $request->id ?>">DETAIL</a>
                                 </td>
