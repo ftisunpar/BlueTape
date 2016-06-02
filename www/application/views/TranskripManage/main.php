@@ -18,9 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th>Tanggal Permohonan</th>
                             <th>Tipe Transkrip</th>
                             <th>NPM</th>
-                            <th>Detail...</th>
-                            <th>Tolak...</th>
-                            <th>Cetak...</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,10 +72,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button class="close-button" data-close aria-label="Tutup" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>                                        
                                     </div>
-                                    <a data-open="detail<?= $request->id ?>">DETAIL</a>
-                                </td>
-                                <td>
+                                    <a data-open="detail<?= $request->id ?>"><i class="fi-eye"></i></a>
                                     <div class="reveal" id="tolak<?= $request->id ?>" data-reveal>
                                         <h5>Tolak Permohonan</h5>
                                         <form method="POST" action="/TranskripManage/answer">
@@ -90,15 +89,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <label>Alasan penolakan:
                                                 <input name="answeredMessage" class="input-group-field" type="text" required/>
                                             </label>
+                                            <p>&nbsp;</p>                                            
                                             <input type="submit" class="alert button" value="Tolak"/>
                                         </form>
                                         <button class="close-button" data-close aria-label="Tutup" type="button">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <a data-open="tolak<?= $request->id ?>">TOLAK</a>
-                                </td>
-                                <td>
+                                    <a data-open="tolak<?= $request->id ?>"><i class="fi-dislike"></i></a>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
                                         <?php if ($request->requestByNPM !== NULL): ?>
@@ -117,13 +115,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <label>Keterangan tambahan:
                                                 <input name="answeredMessage" class="input-group-field" type="text" required/>
                                             </label>
-                                            <input type="submit" class="alert button" value="Cetak"/>
+                                            <p>&nbsp;</p>                                            
+                                            <input type="submit" class="button" value="Sudah dicetak"/>
                                         </form>
                                         <button class="close-button" data-close aria-label="Tutup" type="button">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <a data-open="cetak<?= $request->id ?>">CETAK</a>
+                                    <a data-open="cetak<?= $request->id ?>"><i class="fi-print"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

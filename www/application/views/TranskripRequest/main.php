@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Tipe Transkrip</th>
                                 <th>Tanggal Jawab/Cetak</th>
                                 <th>Keterangan</th>
-                                <th>Detail...</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,7 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <a data-open="detail<?= $request->id ?>">DETAIL</a>
+                                        <a data-open="detail<?= $request->id ?>"><i class="fi-eye"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

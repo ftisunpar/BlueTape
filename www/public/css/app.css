@@ -41,3 +41,9 @@
 .textsized {
     height: 1em;
 }
+
+i[class^="fi-"] {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;    
+}
