@@ -65,7 +65,7 @@ class TranskripRequest extends CI_Controller {
                 'requestType' => $this->input->post('requestType'),
                 'requestUsage' => $this->input->post('requestUsage')
             ));
-            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Mohon tunggu satu hari kerja, dan cek kembali statusnya di sini.');
+            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }

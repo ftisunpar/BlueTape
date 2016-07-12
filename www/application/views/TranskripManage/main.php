@@ -99,11 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <a data-open="tolak<?= $request->id ?>"><i class="fi-dislike"></i></a>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
-                                        <?php if ($request->requestByNPM !== NULL): ?>
-                                            <a target="_blank" href="<?= sprintf($transkripURLs[$request->requestType], $request->requestByNPM) ?>">Klik untuk membuka DPS/LHS</a>
-                                        <?php else: ?>
-                                            Link DPS tidak tersedia
-                                        <?php endif ?>
+                                        <a target="_blank" href="<?= $transkripURLs[$request->requestType] ?>">Link mencetak DPS/LHS</a>
                                         <form method="POST" action="/TranskripManage/answer">
                                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                             <input type="hidden" name="id" value="<?= $request->id ?>"/>
