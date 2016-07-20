@@ -9,9 +9,12 @@ class Transkrip_model extends CI_Model {
      * @param type $email email yang melakukan request atau NULL untuk semua
      * @return array hasil dari $query->result()
      */
-    public function requestsBy($email) {
+    public function requestsBy($email, $rows = NULL, $start = NULL) {
         if ($email !== NULL) {
             $this->db->where('requestByEmail', $email);
+        }
+        if ($start !== NULL && $rows !== NULL) {
+            $this->db->limit($rows, $start);
         }
         $this->db->from('Transkrip');
         $this->db->order_by('requestDateTime', 'DESC');

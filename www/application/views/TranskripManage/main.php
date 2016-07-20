@@ -24,14 +24,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tbody>
                         <?php foreach ($requests as $request): ?>
                             <tr>
-                                <td><?= $request->id ?></td>
+                                <td>#<?= $request->id ?></td>
                                 <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                 <td><?= $request->requestType ?></td>
                                 <td><?= isset($request->requestByNPM) ? $request->requestByNPM : '-' ?></td>
                                 <td>
                                     <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
-                                        <h5>Detail Permohonan</h5>
+                                        <h5>Detail Permohonan #<?= $request->id ?></h5>
                                         <table class="stack">
                                             <tbody>
                                                 <tr>
@@ -99,7 +99,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <a data-open="tolak<?= $request->id ?>"><i class="fi-dislike"></i></a>
                                     <div class="reveal" id="cetak<?= $request->id ?>" data-reveal>
                                         <h5>Cetak Permohonan</h5>
-                                        <a target="_blank" href="<?= $transkripURLs[$request->requestType] ?>">Link mencetak DPS/LHS</a>
+                                        <?php if ($request->requestByNPM !== NULL): ?>
+                                            <a target="_blank" href="<?= sprintf($transkripURLs[$request->requestType], $request->requestByNPM) ?>">Klik untuk membuka DPS/LHS</a>
+                                        <?php else: ?>
+                                            Link DPS tidak tersedia
+                                        <?php endif ?>
                                         <form method="POST" action="/TranskripManage/answer">
                                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                             <input type="hidden" name="id" value="<?= $request->id ?>"/>
@@ -139,6 +143,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                    <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                        <?php if ($i === $page): ?>
+                            <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
+                        <?php else: ?>
+                            <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </ul>            
             </div>
         </div>
         <?php $this->load->view('templates/script_foundation'); ?>
