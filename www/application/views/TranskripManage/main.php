@@ -10,6 +10,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="callout">
                 <h5>Permintaan Transkrip</h5>
+                <form method="GET" action="/TranskripManage">
+                    <div class="input-group">
+                        <span class="input-group-label">Cari NPM:</span>
+                        <input name="npm" class="input-group-field" type="text" placeholder="2013730013" maxlength="10" minlength="10"<?= $npmQuery === NULL ? '' : " value='$npmQuery'" ?>/>
+                        <div class="input-group-button">
+                            <input class="button" type="submit" value="Cari"/>
+                        </div>
+                    </div>
+                </form>
                 <table class="stack">
                     <thead>
                         <tr>
@@ -143,15 +152,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-                    <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                        <?php if ($i === $page): ?>
-                            <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
-                        <?php else: ?>
-                            <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
-                        <?php endif; ?>
-                    <?php endfor; ?>
-                </ul>            
+                <?php if ($numOfPages > 1): ?>
+                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <?php if ($i === $page): ?>
+                                <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
+                                <?php else: ?>
+                                <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </ul>
+                <?php endif; ?>
             </div>
         </div>
         <?php $this->load->view('templates/script_foundation'); ?>

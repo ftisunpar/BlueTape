@@ -11,6 +11,13 @@ class BlueTape {
         return $default;
     }
     
+    public function getEmail($npm, $default = NULL) {
+        if (preg_match('/\\d{10}/', $npm)) {
+            return substr($npm, 4, 2) . substr($npm, 2, 2) . substr($npm, 7, 3) . '@student.unpar.ac.id';
+        }
+        return $default;        
+    }
+    
     public function getName($email, $default = NULL) {
         $CI =& get_instance();
         $CI->load->database();
@@ -41,6 +48,20 @@ class BlueTape {
         return substr($year, 2, 2) . $semester;
     }
 
+    /**
+     * Konversi tahun dan bulan ke kode semester, disederhanakan menjadi dua semester.
+     * @param int $year tahun (20xx)
+     * @param int $month bulan (1..12)
+     */
+    public function yearMonthToSemesterCodeSimplified($year, $month) {
+        if ($month >= 1 && $month <= 6) {
+            $semester = 2;
+        } else {
+            $semester = 1;
+        }
+        return substr($year, 2, 2) . $semester;
+    }    
+    
     /**
      * Konversi kode semester ke string (contoh: "141" menjadi "Padat 2014/2015")
      * @param string $semesterCode kode semester

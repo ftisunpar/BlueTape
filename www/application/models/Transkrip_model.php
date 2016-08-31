@@ -38,13 +38,13 @@ class Transkrip_model extends CI_Model {
             $year = intval(substr($request->requestDateTime, 0, 4));
             $month = intval(substr($request->requestDateTime, 6, 2));
             if ($request->answer === 'printed') {
-                $semesters[$this->bluetape->yearMonthToSemesterCode($year, $month)] = TRUE;
+                $semesters[$this->bluetape->yearMonthToSemesterCodeSimplified($year, $month)] = TRUE;
             }
         }
         $date = getdate();
         $currentYear = $date['year'];
         $currentMonth = $date['mon'];
-        $currentSemester = $this->bluetape->yearMonthToSemesterCode($currentYear, $currentMonth);
+        $currentSemester = $this->bluetape->yearMonthToSemesterCodeSimplified($currentYear, $currentMonth);
         if (isset($semesters[$currentSemester])) {
             return 'Anda tidak bisa meminta cetak karena sudah pernah dikabulkan di semester ini (' . $this->bluetape->semesterCodeToString($currentSemester) . ').';
         }

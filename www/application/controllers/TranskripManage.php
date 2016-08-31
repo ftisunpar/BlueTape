@@ -20,18 +20,23 @@ class TranskripManage extends CI_Controller {
     public function index() {
         $this->load->config('transkrip');
 
-        // Paging
-        $rowsPerPage = $this->config->item('rowsPerPage');
-        $numberOfPages = intval(ceil($this->db->count_all('Transkrip') / $rowsPerPage));
-        $page = $this->input->get('page');
-        if ($page === NULL) {
-            $page = 1;
+        $npmQuery = $this->input->get('npm');
+        if ($npmQuery === NULL) {
+            // Paging
+            $rowsPerPage = $this->config->item('rowsPerPage');
+            $numberOfPages = intval(ceil($this->db->count_all('Transkrip') / $rowsPerPage));
+            $page = $this->input->get('page');
+            if ($page === NULL) {
+                $page = 1;
+            }
+            $page = intval($page);
+            $startPage = max($page - 5, 1);
+            $endPage = min($page + 5, $numberOfPages);
+            $requests = $this->Transkrip_model->requestsBy(NULL, $rowsPerPage, (($page - 1) * $rowsPerPage));
+        } else {
+            $requests = $this->Transkrip_model->requestsBy($this->bluetape->getEmail($npmQuery));
+            $page = $numberOfPages = $startPage = $endPage = 1;
         }
-        $page = intval($page);
-        $startPage = max($page - 5, 1);
-        $endPage = min($page + 5, $numberOfPages);
-        
-        $requests = $this->Transkrip_model->requestsBy(NULL, $rowsPerPage, (($page - 1) * $rowsPerPage));
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
                 $request->status = 'MENUNGGU';
@@ -59,7 +64,8 @@ class TranskripManage extends CI_Controller {
             'page' => $page,
             'numOfPages' => $numberOfPages,
             'startPage' => $startPage,
-            'endPage' => $endPage
+            'endPage' => $endPage,
+            'npmQuery' => $npmQuery
         ));
     }
 
