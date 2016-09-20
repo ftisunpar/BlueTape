@@ -9,7 +9,6 @@ class Auth_model extends CI_Model {
     public function __construct() {
         parent::__construct();
 
-        require_once 'application/libraries/ext/google-api-php-client/src/Google/autoload.php';
         $this->load->config('auth');
         $this->load->config('modules');
         $this->client = new Google_Client();
