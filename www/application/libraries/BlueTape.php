@@ -84,7 +84,7 @@ class BlueTape {
      * @return string format baru atau NULL jika parameter NULL
      */
     public function dbDateTimeToReadableDate($dbDateTime) {
-        setlocale(LC_TIME, 'id_ID');
+        setlocale(LC_TIME, 'ind');
         return $dbDateTime === NULL ? NULL : strftime('%A, %#d %B %Y', (new DateTime($dbDateTime))->getTimestamp());
     }
 }
