@@ -22,7 +22,7 @@ class TranskripRequest extends CI_Controller {
         $userInfo = $this->Auth_model->getUserInfo();
         // Retrieve requests for this user
         $requests = $this->Transkrip_model->requestsBy($userInfo['email']);
-        $submitAllowed = $this->Transkrip_model->isRequestAllowed($requests);
+        $forbiddenTypes = $this->Transkrip_model->requestTypesForbidden($requests);
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
                 $request->status = 'TUNGGU';
@@ -46,7 +46,7 @@ class TranskripRequest extends CI_Controller {
             'requestByNPM' => $this->bluetape->getNPM($userInfo['email'], '-'),
             'requestByName' => $userInfo['name'],
             'requests' => $requests,
-            'submitAllowed' => $submitAllowed
+            'forbiddenTypes' => $forbiddenTypes
         ));
     }
 
@@ -55,14 +55,18 @@ class TranskripRequest extends CI_Controller {
             date_default_timezone_set("Asia/Jakarta");
             $userInfo = $this->Auth_model->getUserInfo();
             $requests = $this->Transkrip_model->requestsBy($userInfo['email']);
-            $requestAllowed = $this->Transkrip_model->isRequestAllowed($requests);
-            if ($requestAllowed !== TRUE) {
-                throw new Exception($requestAllowed);
+            $forbiddenTypes = $this->Transkrip_model->requestTypesForbidden($requests);
+            if (is_string($forbiddenTypes)) {
+                throw new Exception($forbiddenTypes);
+            }
+            $requestType = $this->input->post('requestType');
+            if (in_array($requestType, $forbiddenTypes)) {
+                throw new Exception("Tidak bisa, karena transkrip $requestType sudah pernah dicetak di semester ini.");
             }
             $this->db->insert('Transkrip', array(
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
-                'requestType' => $this->input->post('requestType'),
+                'requestType' => $requestType,
                 'requestUsage' => $this->input->post('requestUsage')
             ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');

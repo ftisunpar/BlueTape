@@ -11,23 +11,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="medium-12 column">
                 <div class="callout">
                     <h5>Permohonan Baru</h5>
-                    <?php if ($submitAllowed === TRUE): ?>
+                    <?php if (is_array($forbiddenTypes)): ?>
                         <form method="POST" action="/TranskripRequest/add">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <div class="row">
                                 <div class="large-4 column">
                                     <label>Yang memohon:
-                                        <input type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly="true"/>
+                                        <input type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly="readonly"/>
                                     </label>
                                 </div>
                                 <div class="large-4 column">
                                     <label>NPM:
-                                        <input type="text" value="<?= $requestByNPM ?>" readonly="true"/>
+                                        <input type="text" value="<?= $requestByNPM ?>" readonly="readonly"/>
                                     </label>
                                 </div>
                                 <div class="large-4 column">
                                     <label>Nama:
-                                        <input type="text" name="requestByName" value="<?= $requestByName ?>" readonly="true"/>
+                                        <input type="text" name="requestByName" value="<?= $requestByName ?>" readonly="readonly"/>
                                     </label>
                                 </div>
                             </div>
@@ -35,9 +35,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="large-4 column">
                                     <label>Tipe Transkrip:
                                         <select name="requestType">
-                                            <option value="DPS_ID">DPS Bahasa Indonesia (Seluruh Semester)</option>
-                                            <option value="DPS_EN">DPS Bahasa Inggris (Seluruh Semester)</option>
-                                            <option value="LHS">LHS (Semester Terakhir)</option>
+                                            <?php foreach (Transkrip_model::REQUEST_TYPES as $type => $name): ?>
+                                                <?php if (!in_array($type, $forbiddenTypes)): ?>
+                                                    <option value="<?= $type ?>"><?= $name ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </label>
                                 </div>
@@ -50,8 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="submit" class="button" value="Kirim Permohonan">
                         </form>
                     <?php else: ?>
-                    <p>&nbsp;</p>
-                        <?= $submitAllowed ?>
+                        <p>&nbsp;</p>
+                        <?= $forbiddenTypes ?>
                     <?php endif ?>
                 </div>
                 <div class="callout">

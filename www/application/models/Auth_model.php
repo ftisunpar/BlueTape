@@ -17,6 +17,7 @@ class Auth_model extends CI_Model {
         $this->client->setRedirectUri($this->config->item('google-redirecturi'));
         $this->client->addScope('https://www.googleapis.com/auth/userinfo.email');
         $this->client->addScope('https://www.googleapis.com/auth/userinfo.profile');
+        $this->client->addScope('https://www.googleapis.com/auth/gmail.compose');
     }
 
     /**
