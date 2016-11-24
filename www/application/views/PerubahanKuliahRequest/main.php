@@ -116,77 +116,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
         </div>
-        <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
-            <h5>Detail Permohonan #<?= $request->id ?></h5>
-            <table class="stack">
-                <tbody>
-                    <tr>
-                        <th>E-mail Pemohon</th>
-                        <td><?= $request->requestByEmail ?></td>
-                    </tr>
-                    <tr>
-                        <th>Nama Pemohon</th>
-                        <td><?= $request->requestByName ?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Permohonan</th>
-                        <td><?= $request->requestDateTime ?></td>
-                    </tr>
-                    <tr>
-                        <th>Kode Mata Kuliah</th>
-                        <td><?= $request->mataKuliahCode ?></td>
-                    </tr>
-                    <tr>
-                        <th>Nama Mata Kuliah</th>
-                        <td><?= $request->mataKuliahName ?></td>
-                    </tr>
-                    <tr>
-                        <th>Kelas</th>
-                        <td><?= $request->class ?></td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Perubahan</th>
-                        <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
-                    </tr>
-                    <tr>
-                        <th>Dari Hari/Jam</th>
-                        <td><time datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?></time></td>
-                    </tr>
-                    <tr>
-                        <th>Dari Ruang</th>
-                        <td><?= $request->fromRoom ?></td>
-                    </tr>
-                    <tr>
-                        <th>Menjadi Hari/Jam</th>
-                        <td><time datetime="<?= $request->toDateTime ?>"><?= $request->toDateTime ?></time></td>
-                    </tr>
-                    <tr>
-                        <th>Menjadi Ruang</th>
-                        <td><?= $request->toRoom ?></td>
-                    </tr>
-                    <tr>
-                        <th>Keterangan</th>
-                        <td><?= $request->remarks ?></td>
-                    </tr>
-                    <tr>
-                        <th>E-mail Penjawab</th>
-                        <td><?= $request->answeredByEmail ?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Dijawab</th>
-                        <td><?= $request->answeredDateTime ?></td>
-                    </tr>
-                    <tr>
-                        <th>Keterangan Penjawab</th>
-                        <td><?= $request->answeredMessage ?></td>   
-                    </tr>
-                </tbody>
-            </table>
-            <button class="close-button" data-close aria-label="Tutup" type="button">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <?php foreach ($requests as $request): ?>
 
+            <div class="reveal" id="detail<?= $request->id ?>" data-reveal>
+                <h5>Detail Permohonan #<?= $request->id ?></h5>
+                <table class="stack">
+                    <tbody>
+                        <tr>
+                            <th>E-mail Pemohon</th>
+                            <td><?= $request->requestByEmail ?></td>
+                        </tr>
+                        <tr>
+                            <th>Nama Pemohon</th>
+                            <td><?= $request->requestByName ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Permohonan</th>
+                            <td><?= $request->requestDateTime ?></td>
+                        </tr>
+                        <tr>
+                            <th>Kode Mata Kuliah</th>
+                            <td><?= $request->mataKuliahCode ?></td>
+                        </tr>
+                        <tr>
+                            <th>Nama Mata Kuliah</th>
+                            <td><?= $request->mataKuliahName ?></td>
+                        </tr>
+                        <tr>
+                            <th>Kelas</th>
+                            <td><?= $request->class ?></td>
+                        </tr>
+                        <tr>
+                            <th>Jenis Perubahan</th>
+                            <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Dari Hari/Jam</th>
+                            <td><time datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?></time></td>
+                        </tr>
+                        <tr>
+                            <th>Dari Ruang</th>
+                            <td><?= $request->fromRoom ?></td>
+                        </tr>
+                        <tr>
+                            <th>Menjadi Hari/Jam</th>
+                            <td><time datetime="<?= $request->toDateTime ?>"><?= $request->toDateTime ?></time></td>
+                        </tr>
+                        <tr>
+                            <th>Menjadi Ruang</th>
+                            <td><?= $request->toRoom ?></td>
+                        </tr>
+                        <tr>
+                            <th>Keterangan</th>
+                            <td><?= $request->remarks ?></td>
+                        </tr>
+                        <tr>
+                            <th>E-mail Penjawab</th>
+                            <td><?= $request->answeredByEmail ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Dijawab</th>
+                            <td><?= $request->answeredDateTime ?></td>
+                        </tr>
+                        <tr>
+                            <th>Keterangan Penjawab</th>
+                            <td><?= $request->answeredMessage ?></td>   
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="close-button" data-close aria-label="Tutup" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endforeach; ?>
         <?php $this->load->view('templates/script_foundation'); ?>
         <script>
             $(document).ready(function () {

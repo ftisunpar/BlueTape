@@ -3,10 +3,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['module-names'] = array(
-    'TranskripRequest' => 'Permohonan Cetak Transkrip',
+    'TranskripRequest' => 'Cetak Transkrip',
     'TranskripManage' => 'Manajemen Cetak Transkrip',
-    'PerubahanKuliahRequest' => 'Permohonan Perubahan Kuliah',
-    'PerubahanKuliahManage' => 'Manajemen Perubahan Kuliah'
+    'PerubahanKuliahRequest' => '[TEST] Perubahan Kuliah',
+    'PerubahanKuliahManage' => '[TEST] Manajemen Perubahan Kuliah'
 );
 
 $config['modules'] = array(
