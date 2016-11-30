@@ -18,6 +18,6 @@ $config['modules'] = array(
 $config['roles'] = array(
     'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id'),
     'tu.ftis' => array('shao.wei@unpar.ac.id'),
-    'mahasiswa.ftis' => '/7[123]\\d{5}@student\\.unpar\\.ac\\.id/',
-    'staf.unpar' => '/.+@unpar\\.ac\\.id/'
+    'mahasiswa.ftis' => '7[123]\\d{5}@student\\.unpar\\.ac\\.id',
+    'staf.unpar' => '.+@unpar\\.ac\\.id'
 );
