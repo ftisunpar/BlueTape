@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+setlocale(LC_TIME, 'ind');
 ?><!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -35,6 +36,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             table.detail td {
                 padding-top: 20px;
             }
+            table.detail td[colspan="3"] {
+                text-align: center;
+                font-style: italic;
+            }
             table.detail td:nth-child(3) {
                 border-bottom: black dotted
             }
@@ -67,41 +72,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <td><?= $perubahan->class ?></td>
                 </tr>
                 <tr>
-                    <td colspan="3"><?= $perubahan->changeType === 'T' ? 'tambahan' : 'semula'?></td>
+                    <td colspan="3"><?= $perubahan->changeType === 'T' ? 'ditambahkan' : 'semula' ?></td>
                 </tr>
+                <?php if ($perubahan->changeType !== 'T'): ?>                
+                    <tr>
+                        <td>Hari</td>
+                        <td>:</td>
+                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->fromDateTime) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Jam</td>
+                        <td>:</td>
+                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%H:%M', $perubahan->fromDateTime) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Ruang</td>
+                        <td>:</td>
+                        <td><?= $perubahan->fromRoom ?></td>
+                    </tr>
+                <?php endif; ?>                
                 <tr>
-                    <td>Hari</td>
-                    <td>:</td>
-                    <td><?= $perubahan->fromDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->fromDateTime) ?></td>
+                    <td colspan="3"><?= $perubahan->changeType === 'X' ? 'ditiadakan' : 'menjadi' ?></td>
                 </tr>
-                <tr>
-                    <td>Jam</td>
-                    <td>:</td>
-                    <td><?= $perubahan->fromDateTime === null ? '' : strftime('%H:%M', $perubahan->fromDateTime) ?></td>
-                </tr>
-                <tr>
-                    <td>Ruang</td>
-                    <td>:</td>
-                    <td><?= $perubahan->fromRoom ?></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><?= $perubahan->changeType === 'X' ? 'ditiadakan' : 'menjadi'?></td>
-                </tr>
-                <tr>
-                    <td>Hari</td>
-                    <td>:</td>
-                    <td><?= $perubahan->toDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->toDateTime) ?></td>
-                </tr>
-                <tr>
-                    <td>Jam</td>
-                    <td>:</td>
-                    <td><?= $perubahan->toDateTime === null ? '' : strftime('%H:%M', $perubahan->toDateTime) ?></td>
-                </tr>
-                <tr>
-                    <td>Ruang</td>
-                    <td>:</td>
-                    <td><?= $perubahan->toRoom ?></td>
-                </tr>
+                <?php if ($perubahan->changeType !== 'X'): ?>
+                    <tr>
+                        <td>Hari</td>
+                        <td>:</td>
+                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->toDateTime) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Jam</td>
+                        <td>:</td>
+                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%H:%M', $perubahan->toDateTime) ?></td>
+                    </tr>
+                    <tr>
+                        <td>Ruang</td>
+                        <td>:</td>
+                        <td><?= $perubahan->toRoom ?></td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
                     <td>Keterangan</td>
                     <td>:</td>
