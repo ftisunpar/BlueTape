@@ -70,8 +70,8 @@ class TranskripRequest extends CI_Controller {
                 'requestUsage' => $this->input->post('requestUsage')
             ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
+
             $this->load->model('Email_model');
-            
             $recipients = $this->config->item('roles')['tu.ftis'];
             if (is_array($recipients)) {
                 foreach ($recipients as $email) {

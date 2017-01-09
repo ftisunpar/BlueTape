@@ -65,6 +65,21 @@ class PerubahanKuliahRequest extends CI_Controller {
                 'remarks' => $this->input->post('remarks'),
             ));
             $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
+
+            $this->load->model('Email_model');
+            $recipients = $this->config->item('roles')['tu.ftis'];
+            if (is_array($recipients)) {
+                foreach ($recipients as $email) {
+                    $requestByName = $this->bluetape->getName($userInfo['email']);
+                    $subject = "Permohonan Perubahan Kuliah dari $requestByName";
+                    $message = $this->load->view('PerubahanKuliahRequest/email', array(
+                        'name' => $this->bluetape->getName($email),
+                        'requestByName' => $requestByName
+                    ), TRUE);
+                    $this->Email_model->send_email($email, $subject, $message);
+                }
+            }
+            
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }
