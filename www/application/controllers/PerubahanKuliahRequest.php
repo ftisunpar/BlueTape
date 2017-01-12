@@ -54,15 +54,15 @@ class PerubahanKuliahRequest extends CI_Controller {
             $this->db->insert('PerubahanKuliah', array(
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
-                'mataKuliahName' => $this->input->post('mataKuliahName'),
-                'mataKuliahCode' => $this->input->post('mataKuliahCode'),
+                'mataKuliahName' => htmlspecialchars($this->input->post('mataKuliahName')),
+                'mataKuliahCode' => htmlspecialchars($this->input->post('mataKuliahCode')),
                 'class' => $this->input->post('class'),
                 'changeType' => $this->input->post('changeType'),
                 'fromDateTime' => $this->input->post('fromDateTime'),
-                'fromRoom' => $this->input->post('fromRoom'),
+                'fromRoom' => htmlspecialchars($this->input->post('fromRoom')),
                 'toDateTime' => $this->input->post('toDateTime'),
-                'toRoom' => $this->input->post('toRoom'),
-                'remarks' => $this->input->post('remarks'),
+                'toRoom' => htmlspecialchars($this->input->post('toRoom')),
+                'remarks' => htmlspecialchars($this->input->post('remarks')),
             ));
             $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
 

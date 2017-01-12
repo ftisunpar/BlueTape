@@ -75,10 +75,10 @@ class TranskripManage extends CI_Controller {
             $userInfo = $this->Auth_model->getUserInfo();
             $this->db->where('id', $this->input->post('id'));
             $this->db->update('Transkrip', array(
-                'answer' => $this->input->post('answer'),
+                'answer' => htmlspecialchars($this->input->post('answer')),
                 'answeredByEmail' => $userInfo['email'],
                 'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
-                'answeredMessage' => $this->input->post('answeredMessage')
+                'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
             ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dijawab.');
         } catch (Exception $e) {

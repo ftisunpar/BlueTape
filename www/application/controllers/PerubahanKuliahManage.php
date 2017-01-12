@@ -70,7 +70,7 @@ class PerubahanKuliahManage extends CI_Controller {
                 'answer' => $this->input->post('answer'),
                 'answeredByEmail' => $userInfo['email'],
                 'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
-                'answeredMessage' => $this->input->post('answeredMessage')
+                'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
             ));
             $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dijawab.');
         } catch (Exception $e) {
