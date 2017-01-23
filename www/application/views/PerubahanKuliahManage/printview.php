@@ -78,7 +78,7 @@ setlocale(LC_TIME, 'ind');
                     <tr>
                         <td>Hari</td>
                         <td>:</td>
-                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->fromDateTime) ?></td>
+                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%A, %#d %B %Y', $perubahan->fromDateTime) ?></td>
                     </tr>
                     <tr>
                         <td>Jam</td>
@@ -98,7 +98,7 @@ setlocale(LC_TIME, 'ind');
                     <tr>
                         <td>Hari</td>
                         <td>:</td>
-                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%A, %e %B %Y', $perubahan->toDateTime) ?></td>
+                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%A, %#d %B %Y', $perubahan->toDateTime) ?></td>
                     </tr>
                     <tr>
                         <td>Jam</td>
@@ -122,7 +122,7 @@ setlocale(LC_TIME, 'ind');
                     <td></td>
                     <td></td>
                     <td>
-                        Bandung, <?= strftime('%e-%b-%Y') ?><br/>
+                        Bandung, <?= strftime('%#d-%b-%Y') ?><br/>
                         <br/>
                         <br/>
                         <br/>
