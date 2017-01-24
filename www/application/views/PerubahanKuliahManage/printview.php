@@ -11,6 +11,7 @@ setlocale(LC_TIME, 'ind');
         <style>
             .printable {
                 width: 800px;
+                margin: auto;
             }
             h1 {
                 text-align: center;
@@ -20,34 +21,42 @@ setlocale(LC_TIME, 'ind');
                 letter-spacing: 14px;
                 margin-top: 50px;
                 margin-bottom: 0px;
+                font-weight: normal;
             }
             h2 {
                 text-align: center;
                 font-size: 48px;
                 margin: 0px;
+                font-weight: normal;
             }
             table {
                 width: 100%;
-                font-size: 24px;
+                font-size: 32px;
             }
             table.detail {
                 margin-top: 30px;
             }
             table.detail td {
-                padding-top: 20px;
+                padding-top: 5px;
+                vertical-align: top;
             }
             table.detail td[colspan="3"] {
                 text-align: center;
                 font-style: italic;
+                padding-top: 30px;
+                padding-bottom: 25px;
+            }
+            table.detail td:first-child {
+                width: 200px;
             }
             table.detail td:nth-child(3) {
-                border-bottom: black dotted
+                border-bottom: black dotted;
             }
             table.signature {
                 margin-top: 40px;
             }
             table.signature td {
-                width: 33%;
+                width: 50%;
             }
         </style>
     </head>
@@ -120,10 +129,8 @@ setlocale(LC_TIME, 'ind');
             <table class="signature">
                 <tr>
                     <td></td>
-                    <td></td>
                     <td>
                         Bandung, <?= strftime('%#d-%b-%Y') ?><br/>
-                        <br/>
                         <br/>
                         <br/>
                         <br/>
