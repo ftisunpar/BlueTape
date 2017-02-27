@@ -7,8 +7,9 @@ $config['module-names'] = array(
     'TranskripManage' => 'Manajemen Cetak Transkrip',
     'PerubahanKuliahRequest' => 'Perubahan Kuliah',
     'PerubahanKuliahManage' => 'Manajemen Perubahan Kuliah',
-	'LihatJadwalMingguan' => 'Lihat Jadwal Mingguan',
-	'EntryJadwalMingguan' => 'Entry Jadwal Mingguan'
+	'EntriJadwalDosen' => 'Entri Jadwal Dosen',
+	'LihatJadwalDosen' => 'Lihat Jadwal Dosen'
+	
 );
 
 $config['modules'] = array(
@@ -16,8 +17,8 @@ $config['modules'] = array(
     'TranskripManage' => array('root', 'tu.ftis'),
     'PerubahanKuliahRequest' => array('root', 'staf.unpar'),
     'PerubahanKuliahManage' => array('root', 'tu.ftis'),
-	'EntryJadwalMingguan' => array('root', 'dosen.it'),
-	'LihatJadwalMingguan' => array('root', 'mahasiswa.it')
+	'EntriJadwalDosen' => array('root', 'dosen.it'),
+	'LihatJadwalDosen' => array('root', 'mahasiswa.it')
 );
 
 $config['roles'] = array(
