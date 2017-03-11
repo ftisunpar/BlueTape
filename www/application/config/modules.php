@@ -18,7 +18,7 @@ $config['modules'] = array(
     'PerubahanKuliahRequest' => array('root', 'staf.unpar'),
     'PerubahanKuliahManage' => array('root', 'tu.ftis'),
 	'EntriJadwalDosen' => array('root', 'dosen.it'),
-	'LihatJadwalDosen' => array('root', 'mahasiswa.it')
+	'LihatJadwalDosen' => array('root', 'mahasiswa.it', 'dosen.it')
 );
 
 $config['roles'] = array(
