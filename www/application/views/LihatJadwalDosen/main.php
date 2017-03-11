@@ -12,10 +12,26 @@
 		<div class="row">
 			<div class="large-12 column">
 				<div class="reveal" id="asd" data-reveal>
-					test <br>
-					Jam Mulai <br>
-					Jenis <br>
-					Label <br>
+					<form method="POST" action="">
+						Hari 
+						<select name="hari"> 
+							<option> Senin </option>
+							<option> Selasa </option>
+							<option> Rabu </option>
+							<option> Kamis</option>
+							<option> Jumat </option>
+						</select><br>
+						Jam Mulai <input type="time" name="jam-mulai"> </input>
+						Durasi <input type="time" name="durasi"> </input>
+						Jenis  
+						<select name="jenis_jadwal"> 
+							<option> Konsultasi </option>
+							<option> Perwalian</option>
+							<option> Kelas </option>
+						</select>
+						Label <input type="text" name="label_jadwal"><br>
+						<input type="submit" class="button" value="Submit"><input type="cancel" class="button" value="Cancel">
+					</form>
 					<button class="close-button" data-close aria-label="Tutup" type="button">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -27,7 +43,7 @@
 						<td></td> <td>Senin</td> <td>Selasa</td> <td>Rabu</td> <td>Kamis</td> <td>Jumat</td>
 					</tr>
 					<tr>
-						<td>7-8</td> <td></td>  <td></td>  <td></td> <td></td>  <td></td> 
+						<td>7-8</td> <td bgcolor="red"></td>  <td></td>  <td></td> <td></td>  <td></td> 
 					</tr>
 					<tr>
 						<td>8-9</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> 
