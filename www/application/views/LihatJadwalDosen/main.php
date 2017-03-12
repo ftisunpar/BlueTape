@@ -21,7 +21,7 @@
 							<option> Kamis</option>
 							<option> Jumat </option>
 						</select><br>
-						Jam Mulai <input type="time" name="jam-mulai"> </input>
+						Jam Mulai <input type="time" name="jam_mulai"> </input>
 						Durasi <input type="time" name="durasi"> </input>
 						Jenis  
 						<select name="jenis_jadwal"> 
@@ -37,50 +37,56 @@
 					</button>
 				</div>
 			<a data-open="asd">+ Tambah Jadwal</i></a>
+			
 			<div class="table-scroll">
 				<table>
-					<tr> 
-						<td></td> <td>Senin</td> <td>Selasa</td> <td>Rabu</td> <td>Kamis</td> <td>Jumat</td>
-					</tr>
-					<tr>
-						<td>7-8</td> <td bgcolor="red"></td>  <td></td>  <td></td> <td></td>  <td></td> 
-					</tr>
-					<tr>
-						<td>8-9</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> 
-					</tr>
-					<tr>
-						<td>9-10</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> 
-					</tr>
-					<tr>
-						<td>10-11</td> <td></td>  <td></td>  <td></td>  <td></td> <td></td> 
-					</tr>
-					<tr>
-						<td>11-12</td> <td></td>  <td></td>  <td></td>  <td></td>  <td></td> 
-					</tr>
-					<tr>
-						<td>12-13</td> <td></td>  <td></td>  <td></td> <td></td> <td></td> 
-					</tr>
-					<tr>
-						<td>13-14</td> <td></td> <td></td>  <td></td> <td></td> <td></td> 
-					</tr>
-					<tr>
-						<td>14-15</td> <td></td>  <td></td>  <td></td> <td></td> <td></td> 
-					</tr>
-					<tr>
-						<td>15-16</td> <td></td>  <td></td> <td></td>  <td></td>  <td></td> 
-					</tr>
-					<tr>
-						<td>16-17</td> <td></td>  <td></td>  <td></td> <td></td> <td></td> 
-					</tr>
+					<?php
+						$nama_hari=['Senin','Selasa','Rabu','Kamis','Jumat'];
+						?>
+						<tr> <td></td>
+						<?php
+							for($i=0;$i<5;$i++){
+								echo "<td>".$nama_hari[$i]."</td>";
+							}
+						?>
+						</tr>
+						<?php
+						for($i=7; $i<17 ;$i++){
+							echo "<tr><td>".$i."-".($i+1);
+							for($j=0;$j<5;$j++){
+								if($request_add_jadwal!=null){
+									if($request_add_jadwal['hari']==$nama_hari[$j]){
+										$temp=idate('H',strtotime($request_add_jadwal['jam_mulai']))+idate('H',strtotime($request_add_jadwal['durasi']));
+										if($i>=idate('H', strtotime($request_add_jadwal['jam_mulai'])) && $i<$temp){
+											echo"<td bgcolor='#FF0000'>"."</td>";
+										}
+										else{
+											echo"<td>"."</td>";
+										}
+									}
+									else{
+											echo"<td>"."</td>";
+										}
+								}
+								else{
+									echo"<td>"."</td>";
+								}
+							}
+							echo "</tr>";
+						}
+					?>
 				</table>
-			</div>
+			</div> 
 		</div>
 	</div>
 	
 	<?php $this->load->view('templates/script_foundation'); ?>
 	
-	
-	
+	<script>
+		$(document).ready(function(){
+			$('#modal-ajax').foundation('reveal');
+		});  
+	</script>
 	
 </body>
 </html>
