@@ -21,7 +21,21 @@ class EntriJadwalDosen extends CI_Controller {
          // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
         $this->load->view('EntriJadwalDosen/main', array(
-            'currentModule' => get_class()
+            'currentModule' => get_class(),
+			'request_add_jadwal' => $this->session->userdata('request_add_jadwal')
         ));
     }
+	
+	public function add() {
+		$userInfo = $this->Auth_model->getUserInfo();
+		$data = array(
+			'hari' => $this->input->post('hari'),
+			'jam_mulai' => $this->input->post('jam_mulai'),
+			'durasi' => $this->input->post('durasi'),
+			'jenis_jadwal' => $this->input->post('jenis_jadwal'),
+			'label_jadwal' => $this->input->post('label_jadwal')
+		);
+		$this->session->set_userdata('request_add_jadwal',$data);
+		 header('Location: /EntriJadwalDosen');
+	}
 }
