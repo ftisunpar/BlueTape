@@ -22,7 +22,8 @@ class LihatJadwalDosen extends CI_Controller {
          // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
           $this->load->view('LihatJadwalDosen/main', array(
-            'currentModule' => get_class()
+            'currentModule' => get_class(),
+			'request_add_jadwal' => $this->session->userdata('request_add_jadwal')
         ));
     }
 }
