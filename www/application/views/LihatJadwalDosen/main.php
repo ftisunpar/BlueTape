@@ -30,7 +30,7 @@
 							<option> Kelas </option>
 						</select>
 						Label <input type="text" name="label_jadwal"><br>
-						<input type="submit" class="button" value="Submit"><input type="cancel" class="button" value="Cancel">
+						<input type="submit" class="button" value="Submit">
 					</form>
 					<button class="close-button" data-close aria-label="Tutup" type="button">
 						<span aria-hidden="true">&times;</span>
@@ -42,23 +42,28 @@
 				<table>
 					<?php
 						$nama_hari=['Senin','Selasa','Rabu','Kamis','Jumat'];
-						?>
-						<tr> <td></td>
+						?><tr> <td></td>
 						<?php
 							for($i=0;$i<5;$i++){
 								echo "<td>".$nama_hari[$i]."</td>";
 							}
 						?>
 						</tr>
-						<?php
+					<?php
 						for($i=7; $i<17 ;$i++){
 							echo "<tr><td>".$i."-".($i+1);
 							for($j=0;$j<5;$j++){
 								if($request_add_jadwal!=null){
 									if($request_add_jadwal['hari']==$nama_hari[$j]){
 										$temp=idate('H',strtotime($request_add_jadwal['jam_mulai']))+idate('H',strtotime($request_add_jadwal['durasi']));
+										if($request_add_jadwal['jenis_jadwal']=="konsultasi"){
+											$color="#FEFF00";
+										}
+										else{
+											$color="#92D14F";
+										}
 										if($i>=idate('H', strtotime($request_add_jadwal['jam_mulai'])) && $i<$temp){
-											echo"<td bgcolor='#FF0000'>"."</td>";
+											echo"<td bgcolor=$color>"."</td>";
 										}
 										else{
 											echo"<td>"."</td>";
@@ -69,7 +74,7 @@
 										}
 								}
 								else{
-									echo"<td>"."</td>";
+									echo"<td bgcolor=''>"."</td>";
 								}
 							}
 							echo "</tr>";
@@ -77,8 +82,12 @@
 					?>
 				</table>
 			</div> 
+			<a href="/LihatJadwalDosen/export" class="button">Export to XLS</a>
 		</div>
 	</div>
+	
+	<div id="modal-ajax" class="reveal-modal" data-reveal></div>
+	
 	
 	<?php $this->load->view('templates/script_foundation'); ?>
 	
