@@ -14,7 +14,7 @@
 			}
 			$this->load->library('bluetape');
 			$this->load->library('excel');
-			$this->load->model('Transkrip_model');
+			$this->load->model('JadwalDosen_model');
 			$this->load->database();
 		}
 		
@@ -22,18 +22,19 @@
 			
 			// Retrieve logged in user data
 			$userInfo = $this->Auth_model->getUserInfo();
+			$dataJadwal = $this->JadwalDosen_model->getAllJadwal();
 			$this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
-			'request_add_jadwal' => $this->session->userdata('request_add_jadwal')
+			'dataJadwal'    =>$dataJadwal
 			));
 		}
 		
 		public function export(){
 			$request_print = $this->session->userdata('request_add_jadwal');
 			
+			// ------------------------------------------------------------ TEMPLATE JADWAL DOSEN -----------------------------------------------------------------------------
 			$this->excel->setActiveSheetIndex(0);
 			$this->excel->getActiveSheet()->setTitle('Jadwal Dosen');
-			
 			//Menulis header file XLS
 			$this->excel->getActiveSheet()->setCellValue('A1', 'JADWAL AKTIVITAS DOSEN');
 			$this->excel->getActiveSheet()->getStyle("A1")->getFont()->setBold(true);
@@ -46,30 +47,6 @@
 			$this->excel->getActiveSheet()->setCellValue('D4', 'Rabu');
 			$this->excel->getActiveSheet()->setCellValue('E4', 'Kamis');
 			$this->excel->getActiveSheet()->setCellValue('F4', 'Jumat');
-			
-			//menulis jam-jam dalam tabel jadwal dosen
-			$jam=7;
-			$column_hari=$this->hari_ke_kolom($request_print['hari']);
-			if($request_print['jenis_jadwal']=="konsultasi"){
-				$color="FEFF00";
-			}
-			else{
-				$color="92D14F";
-			}
-			for($i=5 ; $i<15 ; $i++){
-				$column='A'.$i;
-				$this->excel->getActiveSheet()->setCellValue($column, ($jam).'-'.($jam+1));
-				
-				$temp=idate('H',strtotime($request_print['jam_mulai']))+idate('H',strtotime($request_print['durasi']));
-				if($jam>=idate('H', strtotime($request_print['jam_mulai'])) && $jam<$temp){
-					$column_hari_used=$column_hari.$i;
-					$this->excel->getActiveSheet()->getStyle($column_hari_used)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color);
-				}
-				
-				$jam++;
-			}
-			
-			
 			//Menentukan style dari border
 			$borderStyleArray = array(
 			'borders' => array(
@@ -94,7 +71,6 @@
 			
 			//Membuat semua tulisan dalam tabel menggunakan align center
 			$this->excel->getActiveSheet()->getStyle('A4:F14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-			
 			for($col = ord('A'); $col <= ord('F'); $col++){
 				//mengatur lebar setiap kolom $col
 				$this->excel->getActiveSheet()->getColumnDimension(chr($col))->setWidth(15);
@@ -103,7 +79,29 @@
 				//mengatur tinggi setiap baris $row
 				$this->excel->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
 			}
+			//-----------------------------------------------------------------------------------------------------------------------------------------------------------
 			
+			//menulis jam-jam dalam tabel jadwal dosen
+			$jam=7;
+			$column_hari=$this->hari_ke_kolom($request_print['hari']);
+			if($request_print['jenis_jadwal']=="konsultasi"){
+				$color="FEFF00";
+			}
+			else{
+				$color="92D14F";
+			}
+			for($i=5 ; $i<15 ; $i++){
+				$column='A'.$i;
+				$this->excel->getActiveSheet()->setCellValue($column, ($jam).'-'.($jam+1));
+				
+				$temp=idate('H',strtotime($request_print['jam_mulai']))+idate('H',strtotime($request_print['durasi']));
+				if($jam>=idate('H', strtotime($request_print['jam_mulai'])) && $jam<$temp){
+					$column_hari_used=$column_hari.$i;
+					$this->excel->getActiveSheet()->getStyle($column_hari_used)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color);
+				}
+				
+				$jam++;
+			}
 			
 			$filename='Jadwal Dosen.xlsx'; //Nama file XLS yang akan dibuat
 			header('Content-type: application/vnd.ms-excel');
