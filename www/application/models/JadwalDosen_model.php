@@ -47,9 +47,15 @@ class JadwalDosen_model extends CI_Model {
 		$this->db->insert('jadwal', $this);
     }
 	
-	public function getAllJadwal(){
-		$query = $this->db->get('jadwal', 10);
+	/* public function getAllJadwal(){
+		$query = $this->db->get('jadwal');
                 return $query->result();
+	} */
+	 public function getAllJadwal(){
+		 $query = $this->db->query('SELECT jadwal.*, bluetape_userinfo.name
+			FROM jadwal
+			INNER JOIN bluetape_userinfo ON jadwal.user=bluetape_userinfo.email');
+			return $query->result();
 	}
 	
 	public function getJadwalByUsername($user){
@@ -57,4 +63,10 @@ class JadwalDosen_model extends CI_Model {
                 return $query->result();
 	}
 	
+	public function getNamaDosenByUsername($user){
+		$query = $this->db
+				->where('email',$user)
+				->get('bluetape_userinfo');
+				return $query->result();
+	}
 }
