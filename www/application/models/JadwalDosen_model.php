@@ -63,10 +63,14 @@ class JadwalDosen_model extends CI_Model {
                 return $query->result();
 	}
 	
-	public function getNamaDosenByUsername($user){
+	
+	public function updateJadwal($id_jadwal,$data){
 		$query = $this->db
-				->where('email',$user)
-				->get('bluetape_userinfo');
-				return $query->result();
+				->where('id',$id_jadwal)
+				->update('jadwal', $data);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		}
+		return false;
 	}
 }
