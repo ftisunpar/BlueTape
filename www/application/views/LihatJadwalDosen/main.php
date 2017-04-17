@@ -8,30 +8,21 @@
         <?php //$this->load->view('templates/flashmessage'); ?>
 		
 		
-		
 		<div class="row">
 			
-			
-			
-			
-			<?php
-				//=================================================Mengelompokan data jadwal per user======================================
-				
-				//==========================================================================================================
-			?>
 			<div class="large-12 column">
 				<ul class="tabs" data-tabs id="tab_jadwal">
 					<?php
 						$idx=0;
 						foreach($dataJadwalPerUser as $currRow){
 							if($idx==0){
-							?>
-							<li class="tabs-title is-active"><a href="#hal<?php echo $idx; ?>" aria-selected="true"><?php echo $currRow[$idx]->name; ?></a></li>
+								?>
+							<li class="tabs-title is-active"><a href="#hal<?php echo $idx; ?>" aria-selected="true"><?php foreach($currRow as $data ){echo $data->name; break; } ?></a></li> <!-- menggunakan foreach untuk mendapatkan nama dosen karena key pada dimensi kedua bisa loncat-loncat (misal 3,5,19) -->
 							<?php
 							}
 							else{
 							?>
-							<li class="tabs-title"><a a href="#hal<?php echo $idx; ?>"><?php echo $currRow[$idx]->name; ?></a></li>
+							<li class="tabs-title"><a a href="#hal<?php echo $idx; ?>"><?php foreach($currRow as $data ){echo $data->name; break; } ?></a></li>
 							<?php
 							}
 							$idx++;	
@@ -89,6 +80,9 @@
 																$jam_selesai = $dataHariIni->jam_mulai + $dataHariIni->durasi;
 																if($dataHariIni->jenis=="konsultasi"){
 																	$color="#FEFF00";
+																}
+																else if($dataHariIni->jenis=="kelas"){
+																	$color="#FFFFFF";
 																}
 																else{
 																	$color="#92D14F"; //#c1c1c1
