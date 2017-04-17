@@ -4,6 +4,7 @@
 <html class="no-js" lang="en">
 	<?php $this->load->view('templates/script_foundation'); ?>
     <?php $this->load->view('templates/head_loggedin'); ?>
+	<?php $this->load->helper('url');	?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php //$this->load->view('templates/flashmessage'); ?>
@@ -51,7 +52,8 @@
 						Jenis  
 						<select name="jenis_jadwal"> 
 							<option value="konsultasi"> Konsultasi </option>
-							<option value="terjadwal"> Jadwal Kelas</option>
+							<option value="terjadwal"> Terjadwal</option>
+							<option value="kelas"> Kelas </option>
 						</select>
 					</div>
 					<div class="large-4 columns">
@@ -77,25 +79,35 @@
 						?>
 					</tr>
 					<?php
-						
+						//GENERATE BODY UTAMA TABEL
+						$cellRowID=0;
 						for($i=7; $i<17 ;$i++){
 							echo "<tr><td>".$i."-".($i+1);
+							$cellColID=0;
 							for($j=0;$j<5;$j++){
-								echo"<td align='center'>"."</td>";
+								echo"<td align='center' id='cell".$cellColID."-".$cellRowID."'>"."</td>";
+								$cellColID++;
 							}
+							$cellRowID++;
 						} 
+						
+						// MEWARNAI TABEL
 						$rowIdx=1;
+						$cellRowID=0;
 						for($i=7; $i<17 ;$i++){
+							
 							foreach($dataJadwal as $dataHariIni){
 								$colIdx=1;
-								
-								//kode dibawah untuk mewarnai tabel
+								$cellColID=0;
 								for($j=0;$j<5;$j++){ 
 									if($dataHariIni!=null){
 										if($dataHariIni->hari==$nama_hari[$j]){
 											$jam_selesai = $dataHariIni->jam_mulai + $dataHariIni->durasi;
 											if($dataHariIni->jenis=="konsultasi"){
 												$color="#FEFF00";
+											}
+											else if($dataHariIni->jenis == "kelas"){
+												$color="#FFFFFF";
 											}
 											else{
 												$color="#92D14F"; 
@@ -112,31 +124,43 @@
 												?>
 												<script>
 													rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].innerHTML= "<?php echo $dataHariIni->label ?>";
-													$(document).ready(function() {
-														$('#buttona1').click(function(e) {        // Button which will activate our modal
-															$('#edit').foundation('open');		  // Modal to show
-															return false;
-														});
-													});
 												</script>
 												<?php
 												}
+											?>
+											<script>
+												var $cellLocation = "#cell<?php echo $cellColID;?>-<?php echo $cellRowID;?>";								// nama dengan pagar
+												var $cellLocationChangeName = "cell<?php echo $cellColID;?>-<?php echo $cellRowID;?>";						// nama tanpa pagar
+												var $cellName = document.getElementById($cellLocationChangeName).name = "<?php echo $dataHariIni->id ?>";	
+												$(document).on("click", $cellLocation, function(){
+													$('#edit').foundation('open');	
+													
+													var $id_jadwal = rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].name;
+													$("#aid_jadwal").html( $id_jadwal );
+													$('input[name="id_jadwal_parameter"]').val($id_jadwal);
+												});
+											</script>
+											<?php
 											}
 										}
 									}
+									$cellColID++;
 									$colIdx++;
 								}
 							}
+							$cellRowID++;
 							$rowIdx++;
 						} 
 					?>
 				</table>
-				<a class="button" id="buttona1">Click me for another modal!</a>
 			</div>
 			
-			<div id="edit" class="reveal" data-reveal>
-				<form method="POST" action="/EntriJadwalDosen/edit">
+			
+			<div id="edit" class="large-12 column reveal"  data-reveal style="display: block; right:30%;" >
+				<form method="POST" action="/EntriJadwalDosen/update">
 					<input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+					<input type="hidden" name="id_jadwal_parameter"> </a> <br>
+					<!--  <a id="aid_jadwal"> </a> <br>  //Sekedar Keperluan Testing saja -->
 					Hari 
 					<select name="hari"> 
 						<option> Senin </option>
@@ -173,12 +197,15 @@
 					Jenis  
 					<select name="jenis_jadwal"> 
 						<option value="konsultasi"> Konsultasi </option>
-						<option> Perwalian</option>
-						<option value="terjadwal"> Kelas </option>
+						<option value="terjadwal"> Terjadwal</option>
+						<option value="kelas"> Kelas </option>
 					</select>
+					Label <input type="text" name="label_jadwal"><br>
 					<input type="submit" class="button" value="Save">
 				</div>
 				
-				<?php $this->load->view('templates/script_foundation'); ?>
-			</body>
-		</html>											
+			</div>
+			
+			<?php $this->load->view('templates/script_foundation'); ?>
+		</body>
+	</html>																												
