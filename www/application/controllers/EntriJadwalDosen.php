@@ -22,10 +22,12 @@ class EntriJadwalDosen extends CI_Controller {
          // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
 		$dataJadwal = $this->JadwalDosen_model->getJadwalByUsername($userInfo['email']);
+		$namaHari = $this->JadwalDosen_model->getNamaHari();
         $this->load->view('EntriJadwalDosen/main', array(
             'currentModule' => get_class(),
 			'request_add_jadwal' => $this->session->userdata('request_add_jadwal'),
-			'dataJadwal'	=> $dataJadwal
+			'dataJadwal'	=> $dataJadwal,
+			'namaHari'		=> $namaHari
         ));
     }
 	
@@ -44,9 +46,8 @@ class EntriJadwalDosen extends CI_Controller {
 		 header('Location: /EntriJadwalDosen');
 	}
 	
-	public function update() {
+	public function update($id_jadwal) {
 		$userInfo = $this->Auth_model->getUserInfo();
-		$id_jadwal_parameter = $this->input->post('id_jadwal_parameter');
 		$data = array(
 			'hari' => $this->input->post('hari'),
 			'jam_mulai' => $this->input->post('jam_mulai'),
@@ -54,7 +55,7 @@ class EntriJadwalDosen extends CI_Controller {
 			'jenis' => $this->input->post('jenis_jadwal'),
 			'label' => $this->input->post('label_jadwal')
 		);
-		$this->JadwalDosen_model->updateJadwal($id_jadwal_parameter, $data);
+		$this->JadwalDosen_model->updateJadwal($id_jadwal, $data);
 		 header('Location: /EntriJadwalDosen');
 	}
 	

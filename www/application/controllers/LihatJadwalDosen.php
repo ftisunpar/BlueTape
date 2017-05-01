@@ -31,10 +31,11 @@
 			}
 			ksort($dataJadwalPerUser);
 			$_SESSION['dataJadwalPerUser']=$dataJadwalPerUser; //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
-			
+			$namaHari = $this->JadwalDosen_model->getNamaHari();
 			$this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
-			'dataJadwalPerUser'    =>$dataJadwalPerUser
+			'dataJadwalPerUser'    =>$dataJadwalPerUser,
+			'namaHari' 		=> $namaHari
 			));
 		}
 		
@@ -70,7 +71,7 @@
 				//Menulis hari-hari dalam tabel jadwal dosen
 				for($dayCol='B';$dayCol<='F';$dayCol++){
 					$dayCell=$dayCol.$dayRow;
-					$hari=$this->kolom_ke_hari($dayCol);
+					$hari=$this->JadwalDosen_model->kolomKeHari($dayCol);
 					$this->excel->getActiveSheet()->setCellValue($dayCell, $hari);
 				}
 				
@@ -83,13 +84,6 @@
 				)
 				);
 				
-				$borderStyleOutline = array(
-				'borders' => array(
-				'outline' => array(
-				'style' => PHPExcel_Style_Border::BORDER_THIN
-				),
-				)
-				);
 
 				//Menulis bagian keterangan
 				$this->excel->getActiveSheet()->setCellValue('A'.$keteranganRow, 'Keterangan :');
@@ -98,23 +92,15 @@
 				$this->excel->getActiveSheet()->setCellValue('C'.$keteranganRow, 'Waktu Konsultasi');
 				$this->excel->getActiveSheet()->setCellValue('C'.($keteranganRow+1), 'Jika Dijadwalkan');
 				
-				//membuat border pada tabel
-				$this->excel->getActiveSheet()->getStyle('A'.$dayRow.':A'.($dayRow+10))->applyFromArray($borderStyleArray);		//menambah border pada kolom label jam
-				$this->excel->getActiveSheet()->getStyle('A'.$dayRow.':F'.$dayRow)->applyFromArray($borderStyleArray);			//menambah border pada baris label hari
-				//$this->excel->getActiveSheet()->getStyle('A4:F14'.$dayRow)->applyFromArray($borderStyleArray);
-				for($outlineCol="B" ; $outlineCol<"G" ; $outlineCol++){
-					$firstCell=$outlineCol.$dayRow;
-					$lastCell=$outlineCol.($dayRow+10);
-					$cellsToBeOutlined=$firstCell.":".$lastCell;
-					$this->excel->getActiveSheet()->getStyle($cellsToBeOutlined)->applyFromArray($borderStyleOutline);	//menambah outline pada body tabel
-				}
-				
+				//Membuat border
+				$this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($borderStyleArray);				//menambah outline pada body tabel
 				$this->excel->getActiveSheet()->getStyle('B'.$keteranganRow)->applyFromArray($borderStyleArray);				//menambah border pada kotak keterangan
 				$this->excel->getActiveSheet()->getStyle('B'.($keteranganRow+1))->applyFromArray($borderStyleArray);			//menambah border pada kotak keterangan yang kedua
 				unset($borderStyleArray);
 				
 				//Membuat semua tulisan dalam tabel menggunakan align center
 				$this->excel->getActiveSheet()->getStyle('A'.$dayRow.':F'.($dayRow+10))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$this->excel->getActiveSheet()->getStyle('A'.$dayRow.':F'.($dayRow+10))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 				for($col = ord('A'); $col <= ord('F'); $col++){
 					//mengatur lebar setiap kolom $col
 					$this->excel->getActiveSheet()->getColumnDimension(chr($col))->setWidth(15);
@@ -123,7 +109,7 @@
 					//mengatur tinggi setiap baris $row
 					$this->excel->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
 				}
-				//--------------------------------------------------------------------------------END TEMPLATE---------------------------------------------------------------------------
+			//--------------------------------------------------------------------------------END TEMPLATE---------------------------------------------------------------------------
 				
 				//menulis jam-jam dalam tabel jadwal dosen
 				$jam=7;
@@ -136,7 +122,7 @@
 				//mewarnai tabel sesuai jadwal yang sudah dimasukkan
 				foreach($currRow as $dataHariIni){
 					if($dataHariIni!=null){
-						$colHari=$this->hari_ke_kolom($dataHariIni->hari);					//index kolom hari
+						$colHari=$this->JadwalDosen_model->hariKeKolom($dataHariIni->hari);					//index kolom hari
 						$row_jam_mulai= $dataHariIni->jam_mulai + $startColoredCell;		//$startColoredCell berfungsi agar nilai row_jam_mulai tepat berada pada index baris yang tepat (jam mulai dan index baris jam pada excelnya berselisih 2 , maka startColoredCell bernilai "-2". Karena misal jam_mulai = 7, tetapi pada excel baris yang bertanda "jam 7" ada pada baris ke 5, bukan baris ke 7)
 						$row_jam_selesai = $row_jam_mulai + $dataHariIni->durasi;
 						if($row_jam_selesai > 15){											//agar pewarnaan maupun outline jadwal tidak melebihi tabel yang sudah ditentukan di atas
@@ -151,19 +137,13 @@
 						else{
 							$color="92D14F";
 						}
-						$counterForLabel=0; //counter untuk meletakan posisi label jadwal
-						for($rowHour=$row_jam_mulai ; $rowHour<$row_jam_selesai; $rowHour++){
-							$cellToBeColored=$colHari.$rowHour;
-							$this->excel->getActiveSheet()->getStyle($cellToBeColored)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
-							if( ($counterForLabel) == (int)($dataHariIni->durasi/2) || ($dataHariIni->durasi)==1){ 								// kondisi peletakan label
-								$this->excel->getActiveSheet()->setCellValue($cellToBeColored, $dataHariIni->label);
-							}
-							$counterForLabel++;
-						}
-						$outlineBorderStart=$colHari.$row_jam_mulai;																			//cell pertama yang akan diberi outline
-						$outlineBorderEnd=$colHari.(($row_jam_selesai-1));																		//cell terakhir yang akan diberi outline
-						$cellsToBeOutlined=$outlineBorderStart.":".$outlineBorderEnd;											
-						$this->excel->getActiveSheet()->getStyle($cellsToBeOutlined)->applyFromArray($borderStyleOutline);						//mengoutline cell-cell yang telah diwarnai
+						
+						$jadwalStartCell=$colHari.$row_jam_mulai;																				//cell pertama penulisan jadwal pada tabel
+						$jadwalEndCell=$colHari.(($row_jam_selesai-1));																			//cell terakhir dari jadwal
+						$cellsToBeMerged=$jadwalStartCell.":".$jadwalEndCell;
+						$this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);
+						$this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
+						$this->excel->getActiveSheet()->setCellValue($jadwalStartCell, $dataHariIni->label);
 					}
 				}
 				$idx++;
@@ -183,33 +163,4 @@
 			$objWriter->save('php://output');  //membuat file langsung di download
 		}
 		
-		public function hari_ke_kolom($hari){
-			switch ($hari) {
-				case "Senin":
-				return "B";
-				case "Selasa":
-				return "C";
-				case "Rabu":
-				return "D";
-				case "Kamis":
-				return "E";
-				case "Jumat":
-				return "F";
-			}
-		}
-		
-		public function kolom_ke_hari($col){
-			switch ($col) {
-				case "B":
-				return "Senin";
-				case "C":
-				return "Senin";
-				case "D":
-				return "Rabu";
-				case "E":
-				return "Kamis";
-				case "F":
-				return "Jumat";
-			}
-		}
 	}
