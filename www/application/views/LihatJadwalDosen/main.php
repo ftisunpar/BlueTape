@@ -5,6 +5,8 @@
     <?php $this->load->view('templates/head_loggedin'); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
+		<?php $this->load->helper('url');	?>
+		<?php $this->load->view('templates/script_foundation'); ?>
         <?php //$this->load->view('templates/flashmessage'); ?>
 		
 		
@@ -16,7 +18,7 @@
 						$idx=0;
 						foreach($dataJadwalPerUser as $currRow){
 							if($idx==0){
-								?>
+							?>
 							<li class="tabs-title is-active"><a href="#hal<?php echo $idx; ?>" aria-selected="true"><?php foreach($currRow as $data ){echo $data->name; break; } ?></a></li> <!-- menggunakan foreach untuk mendapatkan nama dosen karena key pada dimensi kedua bisa loncat-loncat (misal 3,5,19) -->
 							<?php
 							}
@@ -40,95 +42,90 @@
 						<div class="table-scroll" id="jadwal_table<?php echo $idx; ?>">
 							<?php
 								if($idx==0){
-								
-								 echo '<div class="tabs-panel is-active" id="hal'.$idx.'">';
+									echo '<div class="tabs-panel is-active" id="hal'.$idx.'">';
 								?>
+								<?php
+								}
+								else{
+								?>
+								<div class="tabs-panel" id="hal<?php echo $idx;?>">
 									<?php
 									}
-									else{
-									?>
-									<div class="tabs-panel" id="hal<?php echo $idx;?>">
+									
+								?>
+								<table id="tabel<?php echo $idx; ?>">
+									<!-- 						---------------------- GENERATE TEMPLATE TABEL 		------------------------------------ -->
+									<tr> 
+										<td style='width:10%'>
+										</td>
+										<?php
+											for($i=0;$i<5;$i++){
+												echo "<td style='width:18%'>".$namaHari[$i]."</td>";
+											}
+										?>
+									</tr>
+									<?php
+										$cellRowID=1;
+										for($i=7; $i<17 ;$i++){
+											echo "<tr><td>".$i."-".($i+1);
+											$cellColID=1;
+											for($j=0;$j<5;$j++){
+												echo"<td align='center' id='cell".$cellRowID."-".$cellColID."'>"."</td>";
+												$cellColID++;
+											}
+											$cellRowID++;
+										} 
+										
+										// MEWARNAI TABEL
+										$rowIdx=1;
+										$cellRowID=0;
+										//	----------------------------------------------------------------------------------------------------------------------- 
+										
+										foreach($currRow as $dataHariIni){
+											$colIdx=$dataHariIni->hari + 1; 		// + 1 karena perbedaan selisih index tabel dan value hari di database 
+											$rowIdx=$dataHariIni->jam_mulai - 6; 	// + 1 karena perbedaan selisih index tabel dan value jam_mulai di database 
+											if($dataHariIni->jenis=="konsultasi"){
+												$color="#FEFF00";
+											}
+											else if($dataHariIni->jenis == "kelas"){
+												$color="#FFFFFF";
+											}
+											else{
+												$color="#92D14F"; 
+											}
+										?>
+										<script >
+											
+											var table = document.getElementById('jadwal_table<?php echo $idx; ?>');
+											var rows = table.getElementsByTagName('tr');
+											
+											rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].style.backgroundColor = "<?php echo $color; ?>";
+											$(rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>]).attr('rowspan', <?php echo $dataHariIni->durasi?> );
+											rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].innerHTML= "<?php echo $dataHariIni->label ?>";
+											
+											var $cellLocation = "cell<?php echo $rowIdx;?>-<?php echo $colIdx;?>";								// nama dengan pagar
+											var $menuName = "#edit_menu<?php echo $dataHariIni->id ?>";
+											//var $test =  "#aid_jadwal<?php echo $dataHariIni->id ?>";
+											
+											
+										</script>
 										<?php
 										}
-										
 									?>
-									<table id="tabel<?php echo $idx; ?>">
-										<?php $nama_hari=['Senin','Selasa','Rabu','Kamis','Jumat']; ?>
-										<tr> 
-											<td style='width:10%'>
-											</td>
-												<?php
-													for($i=0;$i<5;$i++){
-														echo "<td style='width:18%'>".$nama_hari[$i]."</td>";
-													}
-												?>
-										</tr>
-										<?php
-											$rowIdx=1;
-											for($i=7; $i<17 ;$i++){
-												echo "<tr><td>".$i."-".($i+1);
-												for($j=0;$j<5;$j++){
-													echo"<td align='center'>"."</td>";
-												}
-											} 
-											for($i=7; $i<17 ;$i++){
-												foreach($currRow as $dataHariIni){
-													$colIdx=1;
-													for($j=0;$j<5;$j++){
-														if($dataHariIni!=null){
-															if($dataHariIni->hari==$nama_hari[$j]){
-																$jam_selesai = $dataHariIni->jam_mulai + $dataHariIni->durasi;
-																if($dataHariIni->jenis=="konsultasi"){
-																	$color="#FEFF00";
-																}
-																else if($dataHariIni->jenis=="kelas"){
-																	$color="#FFFFFF";
-																}
-																else{
-																	$color="#92D14F"; //#c1c1c1
-																}
-																if($i >= $dataHariIni->jam_mulai && $i < $jam_selesai){
-																?>
-																<script type="text/javascript">
-																	var table = document.getElementById('jadwal_table<?php echo $idx; ?>');
-																	var rows = table.getElementsByTagName('tr')
-																	rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].style.backgroundColor = "<?php echo $color; ?>";
-																</script>
-																<?php
-																	if( ($i - $dataHariIni->jam_mulai) ==(int)(($dataHariIni->durasi)/2) || ($dataHariIni->durasi)==1){ // If ini untuk menampilkan label ditengah-tengah
-																	?>
-																	<script>
-																		rows[<?php echo $rowIdx; ?>].cells[<?php echo ($colIdx); ?>].innerHTML= "<?php echo $dataHariIni->label ?>";
-																	</script>
-																	<?php
-																	}
-																}
-															}
-														}
-														$colIdx++;
-													}
-												}
-												$rowIdx++;
-											} 
-										?>
-									</table>
-								</div> 
-								<?php
-									
-									$idx++;
-								}
+								</table>
+							</div> 
+							<?php
 								
-							?>
+								$idx++;
+							}
 							
-							<a href="/LihatJadwalDosen/export/" class="button">Export to XLS</a>
-						</div>
+						?>
+						
+						<a href="/LihatJadwalDosen/export/" class="button">Export to XLS</a>
 					</div>
 				</div>
-				
-			
+			</div>
 			
 			<?php $this->load->view('templates/script_foundation'); ?>
-			
-			
 		</body>
 	</html>
