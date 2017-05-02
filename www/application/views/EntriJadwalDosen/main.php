@@ -7,7 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php $this->load->helper('url'); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
-        <?php //$this->load->view('templates/flashmessage'); ?>
 
         <div class="row">
 
@@ -185,8 +184,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="kelas" <?php if ($dataHariIni->jenis == 'kelas') echo "selected"; ?>> Kelas </option>
                             </select>
                             Label <input type="text" name="label_jadwal" value="<?php echo $dataHariIni->label; ?>"><br> 
-                            <input type="submit" name="submitId<?php echo $dataHariIni->id ?>" class="button" value="Save">
+                            <input type="submit" name="submitId<?php echo $dataHariIni->id ?>" class="button" value="Save  ">
+							
                         </form>
+						<form name="formDelete<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/delete/<?php echo $dataHariIni->id ?>">
+								<input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+								<input type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" class="alert button" value="Delete">
+						 </form>
                     </div>
             <?php } ?>
             </div>
