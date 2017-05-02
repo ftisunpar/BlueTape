@@ -156,8 +156,6 @@ class LihatJadwalDosen extends CI_Controller {
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
-        //if you want to save it as .XLSX Excel 2007 format
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
         ob_end_clean();
         $filepath = APPPATH . "/third_party/";

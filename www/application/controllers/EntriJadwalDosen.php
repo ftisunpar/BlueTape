@@ -58,6 +58,11 @@ class EntriJadwalDosen extends CI_Controller {
         $this->JadwalDosen_model->updateJadwal($id_jadwal, $data);
         header('Location: /EntriJadwalDosen');
     }
+	
+	public function delete($id_jadwal) {
+        $this->JadwalDosen_model->deleteJadwal($id_jadwal);
+        header('Location: /EntriJadwalDosen');
+    }
 
     public function getDataJadwal($id_jadwal) {
         echo $this->JadwalDosen_model->getJadwalByIdJadwal($id_jadwal);
