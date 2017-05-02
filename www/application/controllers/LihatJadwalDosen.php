@@ -67,7 +67,7 @@ class LihatJadwalDosen extends CI_Controller {
             $titleCell = 'A' . $titleRow;
             $this->excel->getActiveSheet()->setCellValue($titleCell, 'JADWAL AKTIVITAS DOSEN');
             $this->excel->getActiveSheet()->getStyle($titleCell)->getFont()->setBold(true);
-            $this->excel->getActiveSheet()->setCellValue('A' . $nameRow, 'Dosen :' . $name); 		// menulis nama dosen yang bersangkutan 
+            $this->excel->getActiveSheet()->setCellValue('A' . $nameRow, 'Dosen : ' . $name); 		// menulis nama dosen yang bersangkutan 
 
             $this->excel->getActiveSheet()->getStyle('A' . $nameRow)->getFont()->setBold(true);
 
