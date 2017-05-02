@@ -50,13 +50,11 @@ class JadwalDosen_model extends CI_Model {
     }
 
     public function updateJadwal($id_jadwal, $data) {
-        $query = $this->db
-                ->where('id', $id_jadwal)
-                ->update('jadwal', $data);
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        }
-        return false;
+       $this->db->where('id', $id_jadwal)->update('jadwal', $data);
+    }
+	
+	public function deleteJadwal($id_jadwal) {
+        $this->db->where('id',$id_jadwal)->delete('jadwal');
     }
 
     public function getNamaHari() {
