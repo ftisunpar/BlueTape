@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li class="tabs-title is-active"><a href="#hal<?php echo $idx; ?>" aria-selected="true"><?php foreach ($currRow as $data) {
                         echo $data->name;
                         break;
-                    } ?></a></li> <!-- menggunakan foreach untuk mendapatkan nama dosen karena key pada dimensi kedua bisa loncat-loncat (misal 3,5,19) -->
+                    } ?></a></li> 
                             <?php
                         } else {
                             ?>

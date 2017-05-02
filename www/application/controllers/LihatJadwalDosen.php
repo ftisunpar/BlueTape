@@ -60,14 +60,14 @@ class LihatJadwalDosen extends CI_Controller {
             foreach ($currRow as $oneData) {
                 $name = $oneData->name;
                 break;
-            }; //menggunakan foreach untuk mendapatkan nama dosen karena key pada dimensi kedua bisa loncat-loncat (misal 3,5,19)
+            }; 
             $this->excel->getActiveSheet()->setTitle('Jadwal ' . $name);
 
             //Menulis header tabel
             $titleCell = 'A' . $titleRow;
             $this->excel->getActiveSheet()->setCellValue($titleCell, 'JADWAL AKTIVITAS DOSEN');
             $this->excel->getActiveSheet()->getStyle($titleCell)->getFont()->setBold(true);
-            $this->excel->getActiveSheet()->setCellValue('A' . $nameRow, 'Dosen :' . $name); // menulis nama dosen yang bersangkutan 
+            $this->excel->getActiveSheet()->setCellValue('A' . $nameRow, 'Dosen :' . $name); 		// menulis nama dosen yang bersangkutan 
 
             $this->excel->getActiveSheet()->getStyle('A' . $nameRow)->getFont()->setBold(true);
 
@@ -98,9 +98,9 @@ class LihatJadwalDosen extends CI_Controller {
             $this->excel->getActiveSheet()->setCellValue('C' . ($keteranganRow + 1), 'Jika Dijadwalkan');
 
             //Membuat border
-            $this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($borderStyleArray);    //menambah outline pada body tabel
-            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->applyFromArray($borderStyleArray);    //menambah border pada kotak keterangan
-            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->applyFromArray($borderStyleArray);   //menambah border pada kotak keterangan yang kedua
+            $this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->applyFromArray($borderStyleArray);    			//menambah border pada kotak keterangan
+            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->applyFromArray($borderStyleArray);   		//menambah border pada kotak keterangan yang kedua
             unset($borderStyleArray);
 
             //Membuat semua tulisan dalam tabel menggunakan align center
@@ -126,13 +126,13 @@ class LihatJadwalDosen extends CI_Controller {
             //mewarnai tabel sesuai jadwal yang sudah dimasukkan
             foreach ($currRow as $dataHariIni) {
                 if ($dataHariIni != null) {
-                    $colHari = $this->JadwalDosen_model->hariKeKolom($dataHariIni->hari);     //index kolom hari
-                    $row_jam_mulai = $dataHariIni->jam_mulai + $startColoredCell;  //$startColoredCell berfungsi agar nilai row_jam_mulai tepat berada pada index baris yang tepat (jam mulai dan index baris jam pada excelnya berselisih 2 , maka startColoredCell bernilai "-2". Karena misal jam_mulai = 7, tetapi pada excel baris yang bertanda "jam 7" ada pada baris ke 5, bukan baris ke 7)
+                    $colHari = $this->JadwalDosen_model->hariKeKolom($dataHariIni->hari);     	//index kolom hari
+                    $row_jam_mulai = $dataHariIni->jam_mulai + $startColoredCell;  				//$startColoredCell berfungsi agar nilai row_jam_mulai tepat berada pada index baris yang tepat (jam mulai dan index baris jam pada excelnya berselisih 2 , maka startColoredCell bernilai "-2". Karena misal jam_mulai = 7, tetapi pada excel baris yang bertanda "jam 7" ada pada baris ke 5, bukan baris ke 7)
                     $row_jam_selesai = $row_jam_mulai + $dataHariIni->durasi;
-                    if ($row_jam_selesai > 15) {           //agar pewarnaan maupun outline jadwal tidak melebihi tabel yang sudah ditentukan di atas
+                    if ($row_jam_selesai > 15) {           										//agar pewarnaan maupun outline jadwal tidak melebihi tabel yang sudah ditentukan di atas
                         $row_jam_selesai = 15;
                     }
-                    if ($dataHariIni->jenis == "konsultasi") {        //pemilihan warna tergantung dari tipe jadwal
+                    if ($dataHariIni->jenis == "konsultasi") {        							//pemilihan warna tergantung dari tipe jadwal
                         $color = "FEFF00";
                     } else if ($dataHariIni->jenis == "kelas") {
                         $color = "FFFFFF";
@@ -140,7 +140,7 @@ class LihatJadwalDosen extends CI_Controller {
                         $color = "92D14F";
                     }
 
-                    $jadwalStartCell = $colHari . $row_jam_mulai;                    //cell pertama penulisan jadwal pada tabel
+                    $jadwalStartCell = $colHari . $row_jam_mulai;                   		 //cell pertama penulisan jadwal pada tabel
                     $jadwalEndCell = $colHari . (($row_jam_selesai - 1));                   //cell terakhir dari jadwal
                     $cellsToBeMerged = $jadwalStartCell . ":" . $jadwalEndCell;
                     $this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);

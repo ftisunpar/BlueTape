@@ -41,7 +41,7 @@ class EntriJadwalDosen extends CI_Controller {
             'jenis_jadwal' => $this->input->post('jenis_jadwal'),
             'label_jadwal' => $this->input->post('label_jadwal')
         );
-        //$this->session->set_userdata('request_add_jadwal',$data);
+       
         $this->JadwalDosen_model->addJadwal($data);
         header('Location: /EntriJadwalDosen');
     }

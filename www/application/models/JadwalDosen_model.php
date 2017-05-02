@@ -24,13 +24,7 @@ class JadwalDosen_model extends CI_Model {
         return $query->result();
     }
 
-    /**
-     * Memeriksa jenis request apa saja yang diperbolehkan.
-     * @param $requests array hasil dari requestsBy($email)
-     * @return mixed array daftar requestType yang tidak diperbolehkan,
-     * atau string berisi alasan kenapa tidak diperbolehkan jika semuanya tidak
-     * diperbolehkan.
-     */
+	
     public function addJadwal($data) {
         $this->user = $data['user'];
         $this->hari = $data['hari'];
@@ -42,10 +36,6 @@ class JadwalDosen_model extends CI_Model {
         $this->db->insert('jadwal', $this);
     }
 
-    /* public function getAllJadwal(){
-      $query = $this->db->get('jadwal');
-      return $query->result();
-      } */
 
     public function getAllJadwal() {
         $query = $this->db->query('SELECT jadwal.*, bluetape_userinfo.name
