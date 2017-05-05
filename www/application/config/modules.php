@@ -17,12 +17,13 @@ $config['modules'] = array(
     'TranskripManage' => array('root', 'tu.ftis'),
     'PerubahanKuliahRequest' => array('root', 'staf.unpar'),
     'PerubahanKuliahManage' => array('root', 'tu.ftis'),
-	'EntriJadwalDosen' => array('root', 'dosen.informatika'),
-	'LihatJadwalDosen' => array('root', 'mahasiswa.informatika', 'dosen.informatika')
+	'EntriJadwalDosen' => array('root', 'dosen.informatika' , 'adrian_skripsi'),
+	'LihatJadwalDosen' => array('root', 'mahasiswa.informatika', 'dosen.informatika' , 'adrian_skripsi')
 );
 
 $config['roles'] = array(
-    'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id', 'adrianreynaldi@yahoo.com'),
+    'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id'),
+	'adrian_skripsi' => array ('adrianreynaldi@yahoo.com'),
     'tu.ftis' => array('shao.wei@unpar.ac.id', 'pranyoto@unpar.ac.id', 'walip@unpar.ac.id'),
     'mahasiswa.ftis' => '7[123]\\d{5}@student\\.unpar\\.ac\\.id',
     'staf.unpar' => '.+@unpar\\.ac\\.id',
