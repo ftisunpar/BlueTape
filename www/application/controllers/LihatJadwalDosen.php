@@ -13,7 +13,7 @@ class LihatJadwalDosen extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
-		$this->excel = new PHPExcel();
+        $this->excel = new PHPExcel();
         $this->load->library('bluetape');
         $this->load->library('session');
         $this->load->model('JadwalDosen_model');
@@ -21,7 +21,6 @@ class LihatJadwalDosen extends CI_Controller {
     }
 
     public function index() {
-	
         // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
 
