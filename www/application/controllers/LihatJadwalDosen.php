@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class LihatJadwalDosen extends CI_Controller {
 
+	private $excel;
     public function __construct() {
         parent::__construct();
         try {
@@ -12,15 +13,14 @@ class LihatJadwalDosen extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
+        $this->excel = new PHPExcel();
         $this->load->library('bluetape');
-        $this->load->library('excel');
         $this->load->library('session');
         $this->load->model('JadwalDosen_model');
         $this->load->database();
     }
 
     public function index() {
-
         // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
 
