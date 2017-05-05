@@ -4,8 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class JadwalDosen_model extends CI_Model {
 
-    public $NAMA_HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
-
+	const DAY_NAME = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
     /**
      * Mendapatkan seluruh request dari email tertentu
      * @param type $email email yang melakukan request atau NULL untuk semua
@@ -58,37 +57,17 @@ class JadwalDosen_model extends CI_Model {
     }
 
     public function getNamaHari() {
-        return $this->NAMA_HARI;
+        return JadwalDosen_model::DAY_NAME;
     }
 
     public function kolomKeHari($namaHari) {
-        switch ($namaHari) {
-            case "B":
-                return 0;
-            case "C":
-                return 1;
-            case "D":
-                return 2;
-            case "E":
-                return 3;
-            case "F":
-                return 4;
-        }
+        return strpos("BCDEF",$namaHari);
     }
 
     public function hariKeKolom($col) {
-        switch ($col) {
-            case 0:
-                return "B";
-            case 1:
-                return "C";
-            case 2:
-                return "D";
-            case 3:
-                return "E";
-            case 4:
-                return "F";
-        }
+        return substr("BCDEF" , $col, 1);
     }
 
 }
+
+
