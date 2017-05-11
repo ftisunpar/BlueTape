@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <!-- ===================================================================== Pembentukan Tabel ============================================================================= -->
 
 
-                email : <?php echo $dataJadwal[0]->user; ?>
+                email : <?php if($dataJadwal !=null){echo $dataJadwal[0]->user;} ?>
                 <div class="table-scroll" id="jadwal_table">
                     <table border=1>
                         <tr> 
