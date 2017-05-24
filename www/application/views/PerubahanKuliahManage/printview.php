@@ -107,17 +107,29 @@ setlocale(LC_TIME, 'ind');
                     <tr>
                         <td>Hari</td>
                         <td>:</td>
-                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%A, %#d %B %Y', $perubahan->toDateTime) ?></td>
+                        <td>
+                            <?php foreach ($perubahan->to as $to): ?>
+                                <?= $to->dateTime === null ? '' : strftime('%A, %#d %B %Y', $to->dateTime) ?><br/>
+                            <?php endforeach; ?>            
+                        </td>
                     </tr>
                     <tr>
                         <td>Jam</td>
                         <td>:</td>
-                        <td><?= $perubahan->toDateTime === null ? '' : strftime('%H:%M', $perubahan->toDateTime) ?></td>
+                        <td>
+                            <?php foreach ($perubahan->to as $to): ?>
+                                <?= $to->dateTime === null ? '' : strftime('%H:%M', $to->dateTime) ?><br/>
+                            <?php endforeach; ?>                
+                        </td>
                     </tr>
                     <tr>
                         <td>Ruang</td>
                         <td>:</td>
-                        <td><?= $perubahan->toRoom ?></td>
+                        <td>
+                            <?php foreach ($perubahan->to as $to): ?>
+                                <?= $to->room ?><br/>
+                            <?php endforeach; ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
                 <tr>

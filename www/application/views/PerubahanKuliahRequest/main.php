@@ -52,33 +52,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>                            
                         </div>
                         <div class="row">
-                            <div class="large-2 column">
+                            <div class="large-3 column">
                                 <label>Dari Hari &amp; Jam:
                                     <input class="disableable" type="text" name="fromDateTime" id="fromDateTime"/>
                                 </label>
                             </div>
-                            <div class="large-2 column">
+                            <div class="large-3 column">
                                 <label>Dari Ruang:
                                     <input class="disableable" type="text" name="fromRoom"/>
                                 </label>
                             </div>
-                            <div class="large-2 column">
-                                <label>Menjadi Hari &amp; Jam:
-                                    <input class="disableable" type="text" name="toDateTime" id="toDateTime"/>
-                                </label>
-                            </div>
-                            <div class="large-2 column">
-                                <label>Menjadi Ruang:
-                                    <input class="disableable" type="text" name="toRoom"/>
-                                </label>
-                            </div>
-                            <div class="large-4 column">
+                            <div class="large-6 column">
                                 <label>Keterangan Tambahan:
                                     <input class="disableable" type="text" name="remarks"/>
                                 </label>
                             </div>                                                        
                         </div>
-                        <input type="submit" class="button" value="Kirim Permohonan">
+                        <div class="row toFields">
+                            <div class="large-3 column">
+                                <label>Menjadi Hari &amp; Jam:
+                                    <input class="disableable toDateTime" type="text" name="toDateTime[]"/>
+                                </label>
+                            </div>
+                            <div class="large-3 column">
+                                <label>Menjadi Ruang:
+                                    <input class="disableable toRoom" type="text" name="toRoom[]"/>
+                                </label>
+                            </div>
+                            <div class="large-6 column">
+                                <br/>
+                                <a href="#" class="eraseButton button secondary">Hapus</a>
+                            </div>
+                        </div>
+                        <div class="row" id="sendDiv">
+                            <div class="large-12 column">
+                                <input type="submit" class="button" value="Kirim Permohonan">
+                                <a href="#" id="addToButton" class="button secondary">Tambah Pertemuan Ekstra</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="callout">
@@ -158,14 +169,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th>Dari Ruang</th>
                             <td><?= $request->fromRoom ?></td>
                         </tr>
+                        <?php foreach (json_decode($request->to) as $to): ?>
                         <tr>
                             <th>Menjadi Hari/Jam</th>
-                            <td><time datetime="<?= $request->toDateTime ?>"><?= $request->toDateTime ?></time></td>
+                            <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
                         </tr>
                         <tr>
                             <th>Menjadi Ruang</th>
-                            <td><?= $request->toRoom ?></td>
+                            <td><?= $to->room ?></td>
                         </tr>
+                        <?php endforeach; ?>
                         <tr>
                             <th>Keterangan</th>
                             <td><?= $request->remarks ?></td>
@@ -192,16 +205,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/script_foundation'); ?>
         <script>
             $(document).ready(function () {
-                $('#fromDateTime').fdatepicker({
+                var datepickeroptions = {
                     format: 'yyyy-mm-dd hh:ii',
                     disableDblClickSelection: true,
                     pickTime: true
-                });
-                $('#toDateTime').fdatepicker({
-                    format: 'yyyy-mm-dd hh:ii',
-                    disableDblClickSelection: true,
-                    pickTime: true
-                });
+                };
+                function removeRow() {
+                    $(this).closest('.row').remove();
+                }
+                $('#fromDateTime').fdatepicker(datepickeroptions);
+                $('.toDateTime').fdatepicker(datepickeroptions);
+                $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
                     $('input.disableable').removeAttr('disabled');
                     switch ($(this).val()) {
@@ -210,12 +224,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $('input[name="fromRoom"]').attr('disabled', 'disabled');
                             break;
                         case 'X':
-                            $('input[name="toDateTime"]').attr('disabled', 'disabled');
-                            $('input[name="toRoom"]').attr('disabled', 'disabled');
+                            $('input.toDateTime').attr('disabled', 'disabled');
+                            $('input.toRoom').attr('disabled', 'disabled');
                             break;
                     }
                 });
                 $('select[name="changeType"]').change();
+                var toFields = $('.toFields').clone();
+                $('.toFields').find('.eraseButton').remove();
+                $('#addToButton').click(function(e) {
+                    e.preventDefault();
+                    var newFields = toFields.clone();
+                    newFields.insertBefore($('#sendDiv'));
+                    newFields.find('.toDateTime').fdatepicker(datepickeroptions);
+                    newFields.find('.eraseButton').click(removeRow);
+                });
             });
         </script>
     </body>
