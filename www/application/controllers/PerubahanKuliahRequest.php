@@ -51,6 +51,17 @@ class PerubahanKuliahRequest extends CI_Controller {
         try {
             date_default_timezone_set("Asia/Jakarta");
             $userInfo = $this->Auth_model->getUserInfo();
+            $tos = [];
+            $rooms = $this->input->post('toRoom');
+            $dateTimes = $this->input->post('toDateTime');
+            if ($rooms !== NULL && $dateTimes !== NULL) {
+                foreach ($rooms as $i => $room) {
+                    $tos[] = [
+                        'dateTime' => $dateTimes[$i] . ':00',
+                        'room' => $room 
+                    ];
+                }
+            }
             $this->db->insert('PerubahanKuliah', array(
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
@@ -60,8 +71,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                 'changeType' => $this->input->post('changeType'),
                 'fromDateTime' => $this->input->post('fromDateTime'),
                 'fromRoom' => htmlspecialchars($this->input->post('fromRoom')),
-                'toDateTime' => $this->input->post('toDateTime'),
-                'toRoom' => htmlspecialchars($this->input->post('toRoom')),
+                'to' => json_encode($tos),
                 'remarks' => htmlspecialchars($this->input->post('remarks')),
             ));
             $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');

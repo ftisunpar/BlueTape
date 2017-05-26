@@ -98,8 +98,11 @@ class PerubahanKuliahManage extends CI_Controller {
             if ($result->fromDateTime !== null) {
                 $result->fromDateTime = date_create_from_format('Y-m-d H:i:s', $result->fromDateTime)->getTimeStamp();
             }
-            if ($result->toDateTime !== null) {
-                $result->toDateTime = date_create_from_format('Y-m-d H:i:s', $result->toDateTime)->getTimeStamp();
+            if ($result->to !== null) {
+                $result->to = json_decode($result->to);
+                foreach ($result->to as $to) {
+                    $to->dateTime = date_create_from_format('Y-m-d H:i:s', $to->dateTime)->getTimeStamp();
+                }
             }
             $this->load->view('PerubahanKuliahManage/printview', array(
                 'perubahan' => $result
