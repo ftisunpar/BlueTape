@@ -17,7 +17,7 @@ class JadwalDosen_model extends CI_Model {
         if ($start !== NULL && $rows !== NULL) {
             $this->db->limit($rows, $start);
         }
-        $this->db->from('jadwal');
+        $this->db->from('jadwal_dosen');
         $this->db->order_by('requestDateTime', 'DESC');
         $query = $this->db->get();
         return $query->result();
@@ -32,28 +32,28 @@ class JadwalDosen_model extends CI_Model {
         $this->jenis = $data['jenis_jadwal'];
         $this->label = $data['label_jadwal'];
 
-        $this->db->insert('jadwal', $this);
+        $this->db->insert('jadwal_dosen', $this);
     }
 
 
     public function getAllJadwal() {
-        $query = $this->db->query('SELECT jadwal.*, bluetape_userinfo.name
-			FROM jadwal
-			INNER JOIN bluetape_userinfo ON jadwal.user=bluetape_userinfo.email');
+        $query = $this->db->query('SELECT jadwal_dosen.*, bluetape_userinfo.name
+			FROM jadwal_dosen
+			INNER JOIN bluetape_userinfo ON jadwal_dosen.user=bluetape_userinfo.email');
         return $query->result();
     }
 
     public function getJadwalByUsername($user) {
-        $query = $this->db->get_where('jadwal', array('user' => $user));
+        $query = $this->db->get_where('jadwal_dosen', array('user' => $user));
         return $query->result();
     }
 
     public function updateJadwal($id_jadwal, $data) {
-       $this->db->where('id', $id_jadwal)->update('jadwal', $data);
+       $this->db->where('id', $id_jadwal)->update('jadwal_dosen', $data);
     }
 	
 	public function deleteJadwal($id_jadwal) {
-        $this->db->where('id',$id_jadwal)->delete('jadwal');
+        $this->db->where('id',$id_jadwal)->delete('jadwal_dosen');
     }
 
     public function getNamaHari() {

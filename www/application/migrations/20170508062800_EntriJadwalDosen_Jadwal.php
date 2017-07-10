@@ -34,7 +34,7 @@ class Migration_EntriJadwalDosen_Jadwal extends CI_Migration {
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table('Jadwal');
+		$this->dbforge->create_table('Jadwal_dosen');
 
         
     }

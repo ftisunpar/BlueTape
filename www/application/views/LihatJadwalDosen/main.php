@@ -122,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                         ?>
 
-                        <a href="/LihatJadwalDosen/export/" class="button">Export to XLS</a>
+                        <a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
                     </div>
                 </div>
             </div>
