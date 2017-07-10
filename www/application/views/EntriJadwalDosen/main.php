@@ -44,9 +44,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select><br>
                             Jenis  
                             <select name="jenis_jadwal"> 
-                                <option value="konsultasi" background-color="blue"> Konsultasi </option>
-                                <option value="terjadwal"> Terjadwal</option>
-                                <option value="kelas"> Kelas </option>
+                                <option value="konsultasi" style="background-color:yellow"> Konsultasi </option>
+                                <option value="terjadwal" style="background-color:green;color:white"> Terjadwal</option>
+                                <option value="kelas" style="background-color:white"> Kelas </option>
                             </select>
                         </div>
                         <div class="large-4 columns">
@@ -132,6 +132,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <button class="close-button" data-close aria-label="Close modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h5> Edit Jadwal </h5>
                         <form name="form<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/update/<?php echo $dataHariIni->id ?>">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <input type="hidden" name="id_jadwal_parameter" value="<?php echo $dataHariIni->id ?>"> </a> <br>
@@ -187,19 +188,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select><br>
                             Jenis  
                             <select name="jenis_jadwal"> 
-                                <option value="konsultasi" <?php if ($dataHariIni->jenis == 'konsultasi') echo "selected"; ?> > Konsultasi </option>
-                                <option value="terjadwal" <?php if ($dataHariIni->jenis == 'terjadwal') echo "selected"; ?>> Terjadwal</option>
-                                <option value="kelas" <?php if ($dataHariIni->jenis == 'kelas') echo "selected"; ?>> Kelas </option>
+                                <option style="background-color:yellow" value="konsultasi" <?php if ($dataHariIni->jenis == 'konsultasi') echo "selected"; ?> > Konsultasi </option>
+                                <option style="background-color:green" value="terjadwal" <?php if ($dataHariIni->jenis == 'terjadwal') echo "selected"; ?>> Terjadwal</option>
+                                <option style="background-color:white" value="kelas" <?php if ($dataHariIni->jenis == 'kelas') echo "selected"; ?>> Kelas </option>
                             </select>
                             Label <input type="text" name="label_jadwal" value="<?php echo $dataHariIni->label; ?>"><br> 
-                            <input type="submit" name="submitId<?php echo $dataHariIni->id ?>" class="button" value="Save  ">
-
-                        </form>
-                        <form name="formDelete<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/delete/<?php echo $dataHariIni->id ?>">
-                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                            <input type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" class="alert button" value="Delete">
-                        </form>
-
+                           <div class="row large-4 column">
+                            <div class="large-2 column">
+                                <input type="submit" name="submitId<?php echo $dataHariIni->id ?>" class="button" value="Save  ">
+                                </form>
+                            </div>
+                            <div class="large-2 column ">
+                                <form name="formDelete<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/delete/<?php echo $dataHariIni->id ?>">
+                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                    <input type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" class="alert button" value="Delete">
+                                </form>
+                            </div>
+                           </div>
                     </div>
                 <?php } ?>
             </div>
