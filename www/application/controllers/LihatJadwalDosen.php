@@ -61,14 +61,13 @@ class LihatJadwalDosen extends CI_Controller {
                 $name = $oneData->name;
                 break;
             }; 
-            $this->excel->getActiveSheet()->setTitle('Jadwal ' . $name);
+            $this->excel->getActiveSheet()->setTitle($name);
 
             //Menulis header tabel
             $titleCell = 'A' . $titleRow;
             $this->excel->getActiveSheet()->setCellValue($titleCell, 'JADWAL AKTIVITAS DOSEN');
             $this->excel->getActiveSheet()->getStyle($titleCell)->getFont()->setBold(true);
             $this->excel->getActiveSheet()->setCellValue('A' . $nameRow, 'Dosen : ' . $name); 		// menulis nama dosen yang bersangkutan 
-
             $this->excel->getActiveSheet()->getStyle('A' . $nameRow)->getFont()->setBold(true);
 
             //Menulis hari-hari dalam tabel jadwal dosen
@@ -151,7 +150,9 @@ class LihatJadwalDosen extends CI_Controller {
             $idx++;
             $sheetIdx;
         }
-        $filename = 'Jadwal Dosen.xlsx'; //Nama file XLS yang akan dibuat
+		$this->excel->removeSheetByIndex($sheetIdx+1); //menghapus sheet default "Worksheet" yang selalu berada di sheet terakhir
+		
+        $filename = 'JadwalDosen-'.date("Ymd").'xlsx'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
