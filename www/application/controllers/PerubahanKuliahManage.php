@@ -72,7 +72,23 @@ class PerubahanKuliahManage extends CI_Controller {
                 'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                 'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
             ));
-            $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dijawab.');
+
+            $this->load->model('Email_model');
+            $query = $this->db->get_where('PerubahanKuliah', ['id' => $this->input->post('id')]);
+            $row = $query->row();
+            $subject = "Status Permohonan Perubahan Kuliah Anda";
+            $message = $this->load->view('PerubahanKuliahManage/email', array(
+                'answeredByName' => $this->bluetape->getName($userInfo['email']),
+                'requestByName' => $this->bluetape->getName($row->requestByEmail),
+                'id' => $row->id,
+                'mataKuliahCode' => $row->mataKuliahCode,
+                'mataKuliahName' => $row->mataKuliahName,
+                'answer' => $row->answer,
+                'answeredMessage' => $row->answeredMessage
+            ), TRUE);
+            $this->Email_model->send_email($row->requestByEmail, $subject, $message);
+            
+            $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dijawab dan email notifikasi sudah dikirimkan.');
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }

@@ -14,7 +14,7 @@ class Email_model extends CI_Model {
         $this->load->library('email', $config);
         $this->email->set_newline("\r\n");
         $this->email->set_crlf("\r\n");
-        $this->email->from('pascal@unpar.ac.id', 'Pascal on behalf of BlueTape');
+        $this->email->from('no-reply@bluetape.azurewebsites.net', 'BlueTape');
         $this->email->to($email);
         $this->email->subject($subject);
         $this->email->message($message);
