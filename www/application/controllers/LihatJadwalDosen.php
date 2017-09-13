@@ -164,6 +164,7 @@ class LihatJadwalDosen extends CI_Controller {
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
+		exit();
     }
 
 }
