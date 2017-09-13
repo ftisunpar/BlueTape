@@ -152,7 +152,7 @@ class LihatJadwalDosen extends CI_Controller {
         }
 		$this->excel->removeSheetByIndex($sheetIdx+1); //menghapus sheet default "Worksheet" yang selalu berada di sheet terakhir
 		
-        $filename = 'JadwalDosen-'.date("Ymd").'xlsx'; //Nama file XLS yang akan dibuat
+        $filename = 'JadwalDosen-'.date("Ymd").'.xlsx'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
