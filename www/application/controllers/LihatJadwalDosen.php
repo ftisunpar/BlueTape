@@ -161,7 +161,7 @@ class LihatJadwalDosen extends CI_Controller {
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
 		exit();
