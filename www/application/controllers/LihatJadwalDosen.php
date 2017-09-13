@@ -30,7 +30,7 @@ class LihatJadwalDosen extends CI_Controller {
             $dataJadwalPerUser[$indexValue->user][$key] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
-        $this->session->set_userdata($dataJadwalPerUser); //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
+        $_SESSION['dataJadwalPerUser'] = $dataJadwalPerUser; //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
         $namaHari = $this->JadwalDosen_model->getNamaHari();
         $this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
@@ -40,8 +40,7 @@ class LihatJadwalDosen extends CI_Controller {
     }
 
     public function export() {
-        $dataToExport = $this->session->userdata("dataJadwalPerUser");
-
+        $dataToExport = $_SESSION["dataJadwalPerUser"];
         // ------------------------------------------------------------ TEMPLATE TABEL JADWAL DOSEN || TIDAK PERLU DIUBAH LAGI-----------------------------------------------------------------------------
         $startHourRow = 5;
         $endHourRow = $startHourRow + 10;
@@ -159,12 +158,10 @@ class LihatJadwalDosen extends CI_Controller {
         $filename = 'JadwalDosen-'.date("Ymd").'.xls'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
-        header('Cache-Control: max-age=0');
 
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
-		exit();
     }
 
 }
