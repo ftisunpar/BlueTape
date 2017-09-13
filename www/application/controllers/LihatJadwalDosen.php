@@ -30,17 +30,17 @@ class LihatJadwalDosen extends CI_Controller {
             $dataJadwalPerUser[$indexValue->user][$key] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
-        $_SESSION['dataJadwalPerUser'] = $dataJadwalPerUser; //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
+        $this->session->set_userdata($dataJadwalPerUser); //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
         $namaHari = $this->JadwalDosen_model->getNamaHari();
         $this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
             'dataJadwalPerUser' => $dataJadwalPerUser,
-            'namaHari' => $namaHari
+            'namaHari' => $namaHari,
         ));
     }
 
     public function export() {
-        $dataToExport = $_SESSION["dataJadwalPerUser"];
+        $dataToExport = $this->session->userdata("dataJadwalPerUser");
 
         // ------------------------------------------------------------ TEMPLATE TABEL JADWAL DOSEN || TIDAK PERLU DIUBAH LAGI-----------------------------------------------------------------------------
         $startHourRow = 5;
@@ -140,17 +140,21 @@ class LihatJadwalDosen extends CI_Controller {
                     }
 
                     $jadwalStartCell = $colHari . $row_jam_mulai;                   		 //cell pertama penulisan jadwal pada tabel
-                    $jadwalEndCell = $colHari . (($row_jam_selesai - 1));                   //cell terakhir dari jadwal
+                    $jadwalEndCell = $colHari . (($row_jam_selesai - 1));                    //cell terakhir dari jadwal
                     $cellsToBeMerged = $jadwalStartCell . ":" . $jadwalEndCell;
                     $this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);
                     $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
                     $this->excel->getActiveSheet()->setCellValue($jadwalStartCell, $dataHariIni->label);
+					$this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getAlignment()->setWrapText(true); ; //agar tulisan tidak keluar dari area cell
                 }
             }
             $idx++;
             $sheetIdx;
         }
-		$this->excel->removeSheetByIndex($sheetIdx+1); //menghapus sheet default "Worksheet" yang selalu berada di sheet terakhir
+		
+		$this->excel->setActiveSheetIndexByName('Worksheet');	//Mencari default worksheet 'worksheet'
+		$sheetIndex = $this->excel->getActiveSheetIndex();		//worksheet aktif dibuah ke default worksheet tadi
+		$this->excel->removeSheetByIndex($sheetIndex);			//menghapus worksheet aktif
 		
         $filename = 'JadwalDosen-'.date("Ymd").'.xlsx'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
@@ -158,7 +162,6 @@ class LihatJadwalDosen extends CI_Controller {
         header('Cache-Control: max-age=0');
 
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
-        ob_end_clean();
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
     }
