@@ -30,7 +30,7 @@ class LihatJadwalDosen extends CI_Controller {
             $dataJadwalPerUser[$indexValue->user][$key] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
-        $_SESSION['dataJadwalPerUser'] = $dataJadwalPerUser; //agar dapat dibaca oleh controller LihatJadwalDosen fungsi export() 
+		$this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
         $namaHari = $this->JadwalDosen_model->getNamaHari();
         $this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
@@ -40,11 +40,11 @@ class LihatJadwalDosen extends CI_Controller {
     }
 
     public function export() {
-        $dataToExport = $_SESSION["dataJadwalPerUser"];
+        $dataToExport = $this->session->userdata('dataJadwalPerUser');
         // ------------------------------------------------------------ TEMPLATE TABEL JADWAL DOSEN || TIDAK PERLU DIUBAH LAGI-----------------------------------------------------------------------------
         $startHourRow = 5;
         $endHourRow = $startHourRow + 10;
-        $startColoredCell = -2; // minus dua karena perbedaan penomoran baris di excel dengan jam paling pagi bisa dicatatnya sebuah jadwal
+        $startColoredCell = -2; // minus dua karena perbedaan penomoran baris di excel dengan jam paling pagi yang bisa dicatat di jadwal
         $titleRow = 1;
         $nameRow = 2;
         $dayRow = 4;
