@@ -86,6 +86,13 @@ class LihatJadwalDosen extends CI_Controller {
                     )
                 )
             );
+			$outlineStyle = array(
+				'borders' => array(
+					'outline' => array(
+						'style' => PHPExcel_Style_Border::BORDER_THIN
+					)	
+				)
+			);
 
 
             //Menulis bagian keterangan
@@ -96,7 +103,13 @@ class LihatJadwalDosen extends CI_Controller {
             $this->excel->getActiveSheet()->setCellValue('C' . ($keteranganRow + 1), 'Jika Dijadwalkan');
 
             //Membuat border
-            $this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('A4:A14')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('B4:F4')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('B4:B14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('C4:C14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('D4:D14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('E4:E14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
             $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->applyFromArray($borderStyleArray);    			//menambah border pada kotak keterangan
             $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->applyFromArray($borderStyleArray);   		//menambah border pada kotak keterangan yang kedua
             unset($borderStyleArray);
@@ -142,6 +155,7 @@ class LihatJadwalDosen extends CI_Controller {
                     $jadwalEndCell = $colHari . (($row_jam_selesai - 1));                    //cell terakhir dari jadwal
                     $cellsToBeMerged = $jadwalStartCell . ":" . $jadwalEndCell;
                     $this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);
+					$this->excel->getActiveSheet()->getStyle($cellsToBeMerged)->applyFromArray($outlineStyle);
                     $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
                     $this->excel->getActiveSheet()->setCellValue($jadwalStartCell, $dataHariIni->label);
 					$this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getAlignment()->setWrapText(true); ; //agar tulisan tidak keluar dari area cell
