@@ -80,7 +80,20 @@ class TranskripManage extends CI_Controller {
                 'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                 'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
             ));
+            
+            $this->load->model('Email_model');
+            
+            $transcriptRequest = $this->Transkrip_model->requestsByID($this->input->post('id'))[0];
+            $subject = "Tanggapan Permohonan Pencetakan Transkrip anda (#" . $this->input->post('id') . ")";
+            $message = $this->load->view('TranskripManage/email', array(
+                'name' => $this->bluetape->getName($transcriptRequest->requestByEmail),
+                'requestByName' => $transcriptRequest->requestByEmail
+            ), TRUE);
+            
+            $this->Email_model->send_email($transcriptRequest->requestByEmail, $subject, $message);
+            
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dijawab.');
+            
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }

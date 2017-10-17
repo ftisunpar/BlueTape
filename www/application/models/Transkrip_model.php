@@ -27,6 +27,24 @@ class Transkrip_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    /**
+     * Mendapatkan request dari id tertentu
+     * @param type $id id dari transkrip atau NULL untuk semua
+     * @return array hasil dari $query->result()
+     */
+    public function requestsByID($id, $rows = NULL, $start = NULL) {
+        if ($id !== NULL) {
+            $this->db->where('id', $id);
+        }
+        if ($start !== NULL && $rows !== NULL) {
+            $this->db->limit($rows, $start);
+        }
+        $this->db->from('Transkrip');
+        $this->db->order_by('requestDateTime', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     /**
      * Memeriksa jenis request apa saja yang diperbolehkan.
