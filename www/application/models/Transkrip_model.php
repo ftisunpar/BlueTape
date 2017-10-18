@@ -31,9 +31,9 @@ class Transkrip_model extends CI_Model {
     /**
      * Mendapatkan request dari id tertentu
      * @param type $id id dari transkrip atau NULL untuk semua
-     * @return array hasil dari $query->result()
+     * @return object hasil dari $query->result()
      */
-    public function requestsByID($id, $rows = NULL, $start = NULL) {
+    public function requestByID($id, $rows = NULL, $start = NULL) {
         if ($id !== NULL) {
             $this->db->where('id', $id);
         }
