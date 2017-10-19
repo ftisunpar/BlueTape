@@ -43,7 +43,7 @@ class Transkrip_model extends CI_Model {
         $this->db->from('Transkrip');
         $this->db->order_by('requestDateTime', 'DESC');
         $query = $this->db->get();
-        return $query->result();
+        return $query->result()[0];
     }
 
     /**

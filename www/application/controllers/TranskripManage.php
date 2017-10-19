@@ -83,7 +83,7 @@ class TranskripManage extends CI_Controller {
             
             $this->load->model('Email_model');
             
-            $transcriptRequest = $this->Transkrip_model->requestByID($this->input->post('id'))[0];
+            $transcriptRequest = $this->Transkrip_model->requestByID($this->input->post('id'));
             $subject = "Tanggapan Permohonan Pencetakan Transkrip anda (#" . $this->input->post('id') . ")";
             $message = $this->load->view('TranskripManage/email', array(
                 'name' => $this->bluetape->getName($transcriptRequest->requestByEmail),
