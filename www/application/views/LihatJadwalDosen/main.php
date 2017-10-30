@@ -138,13 +138,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<?php
 								}
 								?>
-                           
+							<a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
+                            </div> 
                             <?php
                             $idx++;
                         }
                         ?>
-						 </div> 
-                        <a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
+                        
                     </div>
                 </div>
             </div>
