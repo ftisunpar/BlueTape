@@ -32,7 +32,7 @@ class JadwalDosen_model extends CI_Model {
         $this->durasi = $data['durasi'];
         $this->jenis = $data['jenis_jadwal'];
         $this->label = $data['label_jadwal'];
-
+		$this->lastUpdate=date('Y-m-d H:i:s');
         $this->db->insert('jadwal_dosen', $this);
     }
 

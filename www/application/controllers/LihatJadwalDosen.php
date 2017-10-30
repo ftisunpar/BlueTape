@@ -32,10 +32,12 @@ class LihatJadwalDosen extends CI_Controller {
         ksort($dataJadwalPerUser);
 		$this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
         $namaHari = $this->JadwalDosen_model->getNamaHari();
+		$namaBulan = $this->JadwalDosen_model->getNamaBulan();
         $this->load->view('LihatJadwalDosen/main', array(
             'currentModule' => get_class(),
             'dataJadwalPerUser' => $dataJadwalPerUser,
             'namaHari' => $namaHari,
+			'namaBulan'=> $namaBulan
         ));
     }
 

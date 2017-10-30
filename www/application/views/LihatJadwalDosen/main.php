@@ -116,12 +116,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     }
                                     ?>
                                 </table>
-                            </div> 
+								<?php
+								if($currRow!=null){
+									$palingBaru=date('Y-m-d H:i:s', 0); // datetime paling awal di PHP (1 Januari 1970 00:00:00) agar langsung tertimpa di foreach di bawah
+									foreach($currRow as $perJadwal){
+										if($palingBaru < $perJadwal->lastUpdate){
+												$palingBaru = $perJadwal->lastUpdate;
+										}
+									}
+								$tgl = date('d',strtotime($palingBaru));
+								$tgl = $tgl.' '.$namaBulan[date('m',strtotime($palingBaru)) - 1]; // minus 1 karena index dimulai dari 0
+								$tgl = $tgl.' '.date('Y',strtotime($palingBaru));
+								?>
+									Terakhir diupdate pada : <?=$tgl?><br>
+								<?php
+								}
+								else{
+									$palingBaru=FALSE;
+									?>
+									Terakhir diupdate pada : Belum ada jadwal <br>
+								<?php
+								}
+								?>
+                           
                             <?php
                             $idx++;
                         }
                         ?>
-
+						 </div> 
                         <a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
                     </div>
                 </div>

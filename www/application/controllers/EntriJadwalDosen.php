@@ -55,7 +55,8 @@ class EntriJadwalDosen extends CI_Controller {
             'jam_mulai' => $this->input->post('jam_mulai'),
             'durasi' => $this->input->post('durasi'),
             'jenis' => $this->input->post('jenis_jadwal'),
-            'label' => $this->input->post('label_jadwal')
+            'label' => $this->input->post('label_jadwal'),
+			'lastUpdate' => date('Y-m-d H:i:s')
         );
         $this->JadwalDosen_model->updateJadwal($id_jadwal, $data);
         header('Location: /EntriJadwalDosen');
