@@ -23,11 +23,13 @@ class EntriJadwalDosen extends CI_Controller {
         $userInfo = $this->Auth_model->getUserInfo();
         $dataJadwal = $this->JadwalDosen_model->getJadwalByUsername($userInfo['email']);
         $namaHari = $this->JadwalDosen_model->getNamaHari();
+		$namaBulan = $this->JadwalDosen_model->getNamaBulan();
         $this->load->view('EntriJadwalDosen/main', array(
             'currentModule' => get_class(),
             'request_add_jadwal' => $this->session->userdata('request_add_jadwal'),
             'dataJadwal' => $dataJadwal,
-            'namaHari' => $namaHari
+            'namaHari' => $namaHari,
+			'namaBulan'=> $namaBulan
         ));
     }
 
@@ -63,6 +65,12 @@ class EntriJadwalDosen extends CI_Controller {
         $this->JadwalDosen_model->deleteJadwal($id_jadwal);
         header('Location: /EntriJadwalDosen');
     }
+	
+	public function deleteAll(){
+		$userInfo = $this->Auth_model->getUserInfo();
+		$this->JadwalDosen_model->deleteByUsername($userInfo['email']);
+        header('Location: /EntriJadwalDosen');
+	}
 
     public function getDataJadwal($id_jadwal) {
         echo $this->JadwalDosen_model->getJadwalByIdJadwal($id_jadwal);

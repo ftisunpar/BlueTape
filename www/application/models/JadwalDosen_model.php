@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class JadwalDosen_model extends CI_Model {
 
 	const DAY_NAME = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
+	const MONTH_NAME = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     /**
      * Mendapatkan seluruh request dari email tertentu
      * @param type $email email yang melakukan request atau NULL untuk semua
@@ -59,6 +60,10 @@ class JadwalDosen_model extends CI_Model {
     public function getNamaHari() {
         return JadwalDosen_model::DAY_NAME;
     }
+	
+	public function getNamaBulan() {
+        return JadwalDosen_model::MONTH_NAME;
+    }
 
     public function kolomKeHari($namaHari) {
         return strpos("BCDEF",$namaHari);
@@ -67,7 +72,11 @@ class JadwalDosen_model extends CI_Model {
     public function hariKeKolom($col) {
         return substr("BCDEF" , $col, 1);
     }
-
+	
+	public function deleteByUsername($username){
+		$this->db->where('user',$username)->delete('jadwal_dosen');
+	}
+	
 }
 
 

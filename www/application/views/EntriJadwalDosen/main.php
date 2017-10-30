@@ -123,11 +123,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                         </table>
                     </div>
-                </div>
-
-                <?php $this->load->view('templates/script_foundation'); ?>
-                <!-- ===================================================================== END Pembentukan Tabel ============================================================================= -->
-                <?php foreach ($dataJadwal as $dataHariIni) { ?>
+					<?php
+					if($dataJadwal!=null){
+						$palingBaru=$dataJadwal[0]->lastUpdate;
+						foreach($dataJadwal as $perJadwal){
+							if($palingBaru<$perJadwal->lastUpdate){
+									$palingBaru=$perJadwal->lastUpdate;
+							}
+						}
+					$tgl = date('d',strtotime($palingBaru));
+					$tgl = $tgl.' '.$namaBulan[date('m',strtotime($palingBaru)) - 1]; // minus 1 karena index dimulai dari 0
+					$tgl = $tgl.' '.date('Y',strtotime($palingBaru));
+					?>
+						Terakhir diupdate pada : <?=$tgl?><br>
+					<?php
+					}
+					else{
+						$palingBaru=FALSE;
+						?>
+						Terakhir diupdate pada : Belum ada jadwal <br>
+					<?php
+					}
+					?>
+					<a href="/EntriJadwalDosen/deleteAll/export/" class="alert button">Delete All</a>
+				</div>
+				
+ <!-- ===================================================================== END Pembentukan Tabel ============================================================================= -->
+               
+<!--  ===================================================================== MENU EDIT JADWAL =================================================================================== -->
+			   <?php foreach ($dataJadwal as $dataHariIni) { ?>
                     <div id="edit_menu<?php echo $dataHariIni->id ?>" class="reveal"  data-reveal >
                         <button class="close-button" data-close aria-label="Close modal" type="button">
                             <span aria-hidden="true">&times;</span>
@@ -202,12 +226,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <form name="formDelete<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/delete/<?php echo $dataHariIni->id ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                     <input type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" class="alert button" value="Delete">
-                                </form>
+                                </form><div>
                             </div>
                            </div>
                     </div>
                 <?php } ?>
             </div>
+ <!--  =====================================================================END MENU EDIT JADWAL =================================================================================== -->
             <?php $this->load->view('templates/script_foundation'); ?>
     </body>
 </html>																													
