@@ -7,6 +7,8 @@ class BlueTape {
     public function getNPM($email, $default = NULL) {
         if (preg_match('/\\d{7}@student\\.unpar\\.ac\\.id/', $email)) {
             return '20' . substr($email, 2, 2) . substr($email, 0, 2) . '0' . substr($email, 4, 3);
+        } else if (preg_match('/\\d{10}@student\\.unpar\\.ac\\.id/', $email)) {
+            return substr($email, 0, 10);
         }
         return $default;
     }
