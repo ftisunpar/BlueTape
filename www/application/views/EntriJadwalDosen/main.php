@@ -145,7 +145,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php
 					}
 					?>
-					<a href="/EntriJadwalDosen/deleteAll/export/" class="alert button">Delete All</a>
+					<a href="/EntriJadwalDosen/deleteAll/export/" class="alert button" onClick="return konfirmasi();">Delete All</a>
+					<script>
+						function konfirmasi()
+						{
+							yakin = confirm("Anda yakin mau menghapus semua data jadwal? Aksi ini tidak dapat dibatalkan");
+							if(yakin!=true)
+							{
+								return false;
+							}
+						}
+					</script>
 				</div>
 				
  <!-- ===================================================================== END Pembentukan Tabel ============================================================================= -->

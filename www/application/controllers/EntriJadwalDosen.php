@@ -35,16 +35,30 @@ class EntriJadwalDosen extends CI_Controller {
 
     public function add() {
         $userInfo = $this->Auth_model->getUserInfo();
-        $data = array(
+		
+		$jam_mulai = $this->input->post('jam_mulai');
+		$durasi = $this->input->post('durasi');
+		$jam_akhir = $jam_mulai + $durasi ;
+		$bisaMasuk = true;
+		
+		for($i=$jam_mulai ; $i<$jam_akhir ; $i++){
+			//memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
+			if($this->JadwalDosen_model->cekJadwalByJamMulai($i)){  // jika true berarti ada jadwal lain dan user tidak dapat memasukan jadwal baru
+				$bisaMasuk = false;
+				break;
+			}
+		}
+		if($bisaMasuk){
+			$data = array(
             'user' => $userInfo['email'],
             'hari' => $this->input->post('hari'),
             'jam_mulai' => $this->input->post('jam_mulai'),
             'durasi' => $this->input->post('durasi'),
             'jenis_jadwal' => $this->input->post('jenis_jadwal'),
             'label_jadwal' => $this->input->post('label_jadwal')
-        );
-       
-        $this->JadwalDosen_model->addJadwal($data);
+			);
+			$this->JadwalDosen_model->addJadwal($data);
+		}
         header('Location: /EntriJadwalDosen');
     }
 
