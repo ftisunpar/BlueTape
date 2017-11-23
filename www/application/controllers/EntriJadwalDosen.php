@@ -39,12 +39,12 @@ class EntriJadwalDosen extends CI_Controller {
 		$jam_mulai = $this->input->post('jam_mulai');
 		$durasi = $this->input->post('durasi');
 		$jam_akhir = $jam_mulai + $durasi ;
-		$bisaMasuk = true;
-		
+		$hari = $this->input->post('hari');
+		$bisaMasuk = TRUE;
 		for($i=$jam_mulai ; $i<$jam_akhir ; $i++){
 			//memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
-			if($this->JadwalDosen_model->cekJadwalByJamMulai($i)){  // jika true berarti ada jadwal lain dan user tidak dapat memasukan jadwal baru
-				$bisaMasuk = false;
+			if($this->JadwalDosen_model->cekJadwalByJamMulai($i,$hari,$userInfo['email'])){  // jika TRUE berarti ada jadwal lain dan user tidak dapat memasukan jadwal baru
+				$bisaMasuk = FALSE;
 				break;
 			}
 		}
@@ -58,6 +58,22 @@ class EntriJadwalDosen extends CI_Controller {
             'label_jadwal' => $this->input->post('label_jadwal')
 			);
 			$this->JadwalDosen_model->addJadwal($data);
+		}
+		else{
+			echo 'konfirmasi2();';
+;			sleep(3);
+		?>
+			<script>
+				function konfirmasi2()
+				{
+					yakin = confirm("Anda yakin mau menghapus semua data jadwal? Aksi ini tidak dapat dibatalkan");
+					if(yakin!=true)
+					{
+						return false;
+					}
+				}
+			</script>
+			<?php
 		}
         header('Location: /EntriJadwalDosen');
     }
@@ -90,5 +106,4 @@ class EntriJadwalDosen extends CI_Controller {
     public function getDataJadwal($id_jadwal) {
         echo $this->JadwalDosen_model->getJadwalByIdJadwal($id_jadwal);
     }
-
 }
