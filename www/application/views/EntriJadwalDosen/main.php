@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="no-js" lang="en">
     <?php $this->load->view('templates/script_foundation'); ?>
     <?php $this->load->view('templates/head_loggedin'); ?>
+	<?php $this->load->view('templates/flashmessage'); ?>
     <?php $this->load->helper('url'); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
@@ -60,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="large-12 column callout">
                     <h5>Daftar Jadwal</h5>
                     <div class="table-scroll" id="jadwal_table">
-                        <table border=1>
+                        <table border=1 style="border-color:black ; border-collapse:separate">
                             <tr> 
                                 <td style='width:10%'></td>
                                 <?php

@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
     }
     ?>
-                                <table id="tabel<?php echo $idx; ?>" border=1>
+                                <table id="tabel<?php echo $idx; ?>" border=1 style="border-color:black ; border-collapse:separate">
                                     <!-- 						---------------------- GENERATE TEMPLATE TABEL 		------------------------------------ -->
                                     <tr> 
                                         <td style='width:10%'>

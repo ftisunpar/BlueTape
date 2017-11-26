@@ -20,6 +20,7 @@ class LihatJadwalDosen extends CI_Controller {
         $this->load->database();
     }
 
+	//method yang dipanggil ketika halaman LihatJadwalDosen dibuka
     public function index() {
         // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
@@ -41,6 +42,7 @@ class LihatJadwalDosen extends CI_Controller {
         ));
     }
 
+	//method untuk mengubah jadwal di database kedalam file .xls
     public function export() {
         $dataToExport = $this->session->userdata('dataJadwalPerUser');
         // ------------------------------------------------------------ TEMPLATE TABEL JADWAL DOSEN || TIDAK PERLU DIUBAH LAGI-----------------------------------------------------------------------------

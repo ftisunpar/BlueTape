@@ -79,10 +79,8 @@ class JadwalDosen_model extends CI_Model {
 	
 	public function cekJadwalByJamMulai($jam_mulai,$hari,$user){
 		 $query = $this->db->get_where('jadwal_dosen', array('jam_mulai' => $jam_mulai, 'hari' =>$hari, 'user' =>$user ));
-		 if ($query->num_rows()> 0) {
-				return true;
-		 }
-		 return false;
+		 return $query->result();
+		 
 	}
 }
 
