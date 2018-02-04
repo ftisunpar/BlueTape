@@ -149,15 +149,16 @@ class EntriJadwalDosen extends CI_Controller {
         $idx = 0;
         $sheetIdx = 0;
         foreach ($dataToExport as $currRow) {
-			
-            $objWorkSheet = $this->excel->createSheet($sheetIdx);
-            $this->excel->setActiveSheetIndex(0);
-            foreach ($currRow as $oneData) {
+			foreach ($currRow as $oneData) {
                 $name = $oneData->name;
 				$email = $oneData ->user;
                 break;
             }; 
 			if($email == $curr_user){
+			$curr_name = $name;
+			$curr_email = $email;
+            $objWorkSheet = $this->excel->createSheet($sheetIdx);
+            $this->excel->setActiveSheetIndex(0);
             $this->excel->getActiveSheet()->setTitle($name);
 
             //Menulis header tabel
@@ -269,11 +270,8 @@ class EntriJadwalDosen extends CI_Controller {
 		$sheetIndex = $this->excel->getActiveSheetIndex();		//worksheet aktif dibuah ke default worksheet tadi
 		$this->excel->removeSheetByIndex($sheetIndex);			//menghapus worksheet aktif
 		
-		$this->excel->setActiveSheetIndexByName('Worksheet 1');	//Mencari default worksheet 'worksheet'
-		$sheetIndex = $this->excel->getActiveSheetIndex();		//worksheet aktif dibuah ke default worksheet tadi
-		$this->excel->removeSheetByIndex($sheetIndex);			//menghapus worksheet aktif
 		
-        $filename = 'Jadwal-'.$name.'-'.date("Ymd").'.xls'; //Nama file XLS yang akan dibuat
+        $filename = 'Jadwal-'.$curr_name.'-'.date("Ymd").'.xls'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
 
