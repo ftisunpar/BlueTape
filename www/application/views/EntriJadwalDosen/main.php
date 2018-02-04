@@ -145,7 +145,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php
 					}
 					?>
-					<a href="/EntriJadwalDosen/deleteAll/export/" class="alert button">Delete All</a>
+					<a href="/EntriJadwalDosen/deleteAll/export/" class="alert button">Delete All</a><br>
+					<a href="/EntriJadwalDosen/export/" class="button">Ekspor ke XLS</a>
 				</div>
 				
  <!-- ===================================================================== END Pembentukan Tabel ============================================================================= -->
@@ -230,11 +231,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                            </div>
                     </div>
+					
 					</div>
                 <?php } ?>
+				
             </div>
  <!--  =====================================================================END MENU EDIT JADWAL =================================================================================== -->
             <?php $this->load->view('templates/script_foundation'); ?>
-			 <a href="/EntriJadwalDosen/export/" class="button">Ekspor ke XLS</a>
+			
     </body>
 </html>																													
