@@ -127,7 +127,7 @@ class LihatJadwalDosen extends CI_Controller {
                 //mengatur tinggi setiap baris $row
                 $this->excel->getActiveSheet()->getRowDimension($row)->setRowHeight(20);
             }
-            //--------------------------------------------------------------------------------END TEMPLATE---------------------------------------------------------------------------
+           
             //menulis jam-jam dalam tabel jadwal dosen
             $jam = 7;
             for ($i = $startHourRow; $i < ($endHourRow); $i++) {
@@ -136,6 +136,8 @@ class LihatJadwalDosen extends CI_Controller {
                 $jam++;
             }
 
+			 //--------------------------------------------------------------------------------END TEMPLATE---------------------------------------------------------------------------
+			 
             //mewarnai tabel sesuai jadwal yang sudah dimasukkan
             foreach ($currRow as $dataHariIni) {
                 if ($dataHariIni != null) {

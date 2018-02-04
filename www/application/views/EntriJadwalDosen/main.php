@@ -235,5 +235,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
  <!--  =====================================================================END MENU EDIT JADWAL =================================================================================== -->
             <?php $this->load->view('templates/script_foundation'); ?>
+			 <a href="/EntriJadwalDosen/export/" class="button">Ekspor ke XLS</a>
     </body>
 </html>																													
