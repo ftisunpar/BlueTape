@@ -22,11 +22,11 @@ $config['modules'] = array(
 );
 
 $config['roles'] = array(
-    'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id', 'adrianreynaldi@yahoo.com'),
+    'root' => array('pascal@unpar.ac.id', 'shao.wei@unpar.ac.id'),
 	'adrian_skripsi' => array ('adrianreynaldi@yahoo.com'),
-    'tu.ftis' => array('shao.wei@unpar.ac.id', 'pranyoto@unpar.ac.id', 'walip@unpar.ac.id'),
-    'mahasiswa.ftis' => '7[123]\\d{5}@student\\.unpar\\.ac\\.id',
+    'tu.ftis' => array('shao.wei@unpar.ac.id', 'pranyoto@unpar.ac.id', 'walip@unpar.ac.id', 'dwina@unpar.ac.id'),
+    'mahasiswa.ftis' => '(7[123]\\d{5})|(20[1-9][0-9]7[123][0-9]{4})@student\\.unpar\\.ac\\.id',
     'staf.unpar' => '.+@unpar\\.ac\\.id',
-	'dosen.informatika' => array ('cheni@unpar.ac.id', 'mariskha@unpar.ac.id', 'nico@unpar.ac.id', 'anung@unpar.ac.id', 'moertini@unpar.ac.id', 'aditya-bagoes@unpar.ac.id', 'chandraw@unpar.ac.id', 'elisatih@unpar.ac.id', 'gkarya@unpar.ac.id', 'husnulhakim@unpar.ac.id', 'joanna@unpar.ac.id', 'lionov@unpar.ac.id', 'luciana@unpar.ac.id', 'claudio-fransicus@unpar.ac.id', 'pascal@unpar.ac.id', 'rosad5@unpar.ac.id', 'vania-natali@unpar.ac.id', 'reynaldi95@gmail.com'),
+	'dosen.informatika' => array ('cheni@unpar.ac.id', 'mariskha@unpar.ac.id', 'anung@unpar.ac.id', 'moertini@unpar.ac.id', 'natalia@unpar.ac.id', 'chandraw@unpar.ac.id', 'elisatih@unpar.ac.id', 'gkarya@unpar.ac.id', 'husnulhakim@unpar.ac.id', 'joanna@unpar.ac.id', 'lionov@unpar.ac.id', 'luciana@unpar.ac.id', 'claudio.fransicus@unpar.ac.id', 'pascal@unpar.ac.id', 'rosad5@unpar.ac.id', 'vania.natali@unpar.ac.id', 'kristopher.h@unpar.ac.id', 'raymond.chandra@unpar.ac.id', 'reynaldi95@gmail.com'),
 	'mahasiswa.informatika' => '73\\d{5}@student\\.unpar\\.ac\\.id'
 );

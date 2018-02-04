@@ -77,6 +77,11 @@ class JadwalDosen_model extends CI_Model {
 		$this->db->where('user',$username)->delete('jadwal_dosen');
 	}
 	
+	public function cekJadwalByJamMulai($jam_mulai,$hari,$user){
+		 $query = $this->db->get_where('jadwal_dosen', array('jam_mulai' => $jam_mulai, 'hari' =>$hari, 'user' =>$user ));
+		 return $query->result();
+		 
+	}
 }
 
 

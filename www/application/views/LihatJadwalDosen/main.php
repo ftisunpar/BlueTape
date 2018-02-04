@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
     }
     ?>
-                                <table id="tabel<?php echo $idx; ?>" border=1>
+                                <table id="tabel<?php echo $idx; ?>" border=1 style="border-color:black ; border-collapse:separate">
                                     <!-- 						---------------------- GENERATE TEMPLATE TABEL 		------------------------------------ -->
                                     <tr> 
                                         <td style='width:10%'>
@@ -138,13 +138,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<?php
 								}
 								?>
-                           
+							<a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
+                            </div> 
                             <?php
                             $idx++;
                         }
                         ?>
-						 </div> 
-                        <a href="/LihatJadwalDosen/export/" class="button">Ekspor ke XLS</a>
+                        
                     </div>
                 </div>
             </div>
