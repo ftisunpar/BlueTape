@@ -12,7 +12,7 @@ class Migration_PerubahanKuliah_Initial extends CI_Migration {
                 'constraint' => '256'
             ),
             'requestDateTime' => array(
-                'type' => 'DATETIME'
+                'type' => 'timestamp'
             ),
             'mataKuliahName' => array(
                 'type' => 'VARCHAR',
@@ -31,7 +31,7 @@ class Migration_PerubahanKuliah_Initial extends CI_Migration {
                 'constraint' => '1'
             ),
             'fromDateTime' => array(
-                'type' => 'DATETIME',
+                'type' => 'timestamp',
                 'null' => TRUE
             ),
             'fromRoom' => array(
@@ -40,7 +40,7 @@ class Migration_PerubahanKuliah_Initial extends CI_Migration {
                 'null' => TRUE
             ),
             'toDateTime' => array(
-                'type' => 'DATETIME',
+                'type' => 'timestamp',
                 'null' => TRUE
             ),
             'toRoom' => array(
@@ -63,7 +63,7 @@ class Migration_PerubahanKuliah_Initial extends CI_Migration {
                 'null' => TRUE,
             ),
             'answeredDateTime' => array(
-                'type' => 'DATETIME',
+                'type' => 'timestamp',
                 'null' => TRUE,
             ),            
             'answeredMessage' => array(

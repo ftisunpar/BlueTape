@@ -19,7 +19,7 @@ class Migration_PerubahanKuliah_MultipleTo extends CI_Migration {
         $query = $this->db->get('PerubahanKuliah');
         foreach ($query->result() as $row) {
             $this->db->set('to', json_encode([[
-                'dateTime' => $row->toDateTime,
+                'timestamp' => $row->toDateTime,
                 'room' => $row->toRoom
             ]]));
             $this->db->where('id', $row->id);

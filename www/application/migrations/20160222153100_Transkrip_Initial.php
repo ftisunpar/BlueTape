@@ -16,7 +16,7 @@ class Migration_Transkrip_Initial extends CI_Migration {
                 'constraint' => '256'
             ),
             'requestDateTime' => array(
-                'type' => 'DATETIME'
+                'type' => 'timestamp'
             ),
             'requestUsage' => array(
                 'type' => 'VARCHAR',
@@ -33,7 +33,7 @@ class Migration_Transkrip_Initial extends CI_Migration {
                 'null' => TRUE,
             ),
             'answeredDateTime' => array(
-                'type' => 'DATETIME',
+                'type' => 'timestamp',
                 'null' => TRUE,
             ),
             'answeredMessage' => array(

@@ -15,7 +15,7 @@ class Migration_Bluetape_Userinfo extends CI_Migration {
                 'constraint' => '256'
             ),
             'lastUpdate' => array(
-                'type' => 'DATETIME'
+                'type' => 'timestamp'
             ),
         );
         $this->dbforge->add_field($fields);
