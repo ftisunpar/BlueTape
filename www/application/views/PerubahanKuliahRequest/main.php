@@ -206,15 +206,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script>
             $(document).ready(function () {
                 var datepickeroptions = {
-                    format: 'yyyy-mm-dd hh:ii',
-                    disableDblClickSelection: true,
-                    pickTime: true
+                    format: 'Y-m-d H:i'
                 };
                 function removeRow() {
                     $(this).closest('.row').remove();
                 }
-                $('#fromDateTime').fdatepicker(datepickeroptions);
-                $('.toDateTime').fdatepicker(datepickeroptions);
+                $('#fromDateTime').datetimepicker(datepickeroptions);
+                $('.toDateTime').datetimepicker(datepickeroptions);
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
                     $('input.disableable').removeAttr('disabled');
@@ -236,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     e.preventDefault();
                     var newFields = toFields.clone();
                     newFields.insertBefore($('#sendDiv'));
-                    newFields.find('.toDateTime').fdatepicker(datepickeroptions);
+                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);
                     newFields.find('.eraseButton').click(removeRow);
                 });
             });
