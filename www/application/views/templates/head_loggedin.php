@@ -7,6 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title><?= $this->config->item('module-names')[$currentModule] ?></title>
     <link rel="stylesheet" href="/public/css/foundation.css" />
     <link rel="stylesheet" href="/public/css/foundation-icons.css" />
-    <link rel="stylesheet" href="/public/css/foundation-datepicker.min.css" />
     <link rel="stylesheet" href="/public/css/app.css" />
+    <link rel="stylesheet" href="/public/lib/xdan-datetimepicker/jquery.datetimepicker.min.css" />
 </head>
