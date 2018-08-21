@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="large-2 column">
                                 <label>Kode MK:
-                                    <input type="text" name="mataKuliahCode" required maxlength="6" pattern="[A-Z]{3}[0-9]{3}" title="Kode MK dalam format XYZ123"/>
+                                    <input type="text" name="mataKuliahCode" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123"/>
                                 </label>
                             </div>
                             <div class="large-5 column">

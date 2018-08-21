@@ -6,18 +6,24 @@ class BlueTape {
 
     public function getNPM($email, $default = NULL) {
         if (preg_match('/^\\d{7}@student\\.unpar\\.ac\\.id$/', $email)) {
+            // Sebelum 2017
             return '20' . substr($email, 2, 2) . substr($email, 0, 2) . '0' . substr($email, 4, 3);
         } else if (preg_match('/^\\d{10}@student\\.unpar\\.ac\\.id$/', $email)) {
+            // 2017 ke atas
             return substr($email, 0, 10);
         }
         return $default;
     }
     
     public function getEmail($npm, $default = NULL) {
-        if (preg_match('/\\d{10}/', $npm)) {
+        if (preg_match('/20\\d{8}/', $npm) && intval(substr($npm, 0, 4)) <= 2017) {
+            // Sebelum 2017
             return substr($npm, 4, 2) . substr($npm, 2, 2) . substr($npm, 7, 3) . '@student.unpar.ac.id';
+        } else {
+            // 2017 ke atas
+            return $npm . '@student.unpar.ac.id';
         }
-        return $default;        
+        return $default;
     }
     
     public function getName($email, $default = NULL) {
