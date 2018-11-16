@@ -59,7 +59,7 @@ class TranskripRequest extends CI_Controller {
             if (is_string($forbiddenTypes)) {
                 throw new Exception($forbiddenTypes);
             }
-            $requestType = htmlspecialchars($this->input->post('requestType'));
+            $requestType = $this->input->post('requestType');
             if (in_array($requestType, $forbiddenTypes)) {
                 throw new Exception("Tidak bisa, karena transkrip $requestType sudah pernah dicetak di semester ini.");
             }
@@ -67,7 +67,7 @@ class TranskripRequest extends CI_Controller {
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                 'requestType' => $requestType,
-                'requestUsage' => htmlspecialchars($this->input->post('requestUsage'))
+                'requestUsage' => $this->input->post('requestUsage')
             ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
 
