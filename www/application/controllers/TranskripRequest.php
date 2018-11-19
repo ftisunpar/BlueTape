@@ -52,12 +52,8 @@ class TranskripRequest extends CI_Controller {
 
     public function other()
     {
-        if ($this->input->post('requestUsage')) {
-            $this->add();
-            die();
-        } else {
-            $this->load->view('TranskripRequest/other');
-        }
+        if ($this->input->post('requestUsage')) $this->add();
+        else $this->load->view('TranskripRequest/other');
     }
 
     public function add() {
@@ -79,6 +75,12 @@ class TranskripRequest extends CI_Controller {
 
             $sql = "INSERT INTO Transkrip (requestByEmail,requestDateTime,requestType,requestUsage,answer,answeredByEmail,answeredDateTime,answeredMessage) VALUES ('$email','$date','$requestType','$requestUsage',NULL,'','','')";
             $this->db->query($sql);
+            // $this->db->insert('Transkrip', array(
+            //     'requestByEmail' => $userInfo['email'],
+            //     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+            //     'requestType' => $requestType,
+            //     'requestUsage' => htmlspecialchars($this->input->post('requestUsage'))
+            // ));
             $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
 
             $this->load->model('Email_model');
