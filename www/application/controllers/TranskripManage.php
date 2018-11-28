@@ -72,28 +72,31 @@ class TranskripManage extends CI_Controller {
     public function answer() {
         date_default_timezone_set("Asia/Jakarta");
         try {
-            $userInfo = $this->Auth_model->getUserInfo();
-            $this->db->where('id', $this->input->post('id'));
-            $this->db->update('Transkrip', array(
-                'answer' => htmlspecialchars($this->input->post('answer')),
-                'answeredByEmail' => $userInfo['email'],
-                'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
-                'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
-            ));
-            
-            $this->load->model('Email_model');
-            
-            $transcriptRequest = $this->Transkrip_model->requestByID($this->input->post('id'));
-            $subject = "Tanggapan Permohonan Pencetakan Transkrip anda (#" . $this->input->post('id') . ")";
-            $message = $this->load->view('TranskripManage/email', array(
-                'name' => $this->bluetape->getName($transcriptRequest->requestByEmail),
-                'requestByName' => $transcriptRequest->requestByEmail
-            ), TRUE);
-            
-            $this->Email_model->send_email($transcriptRequest->requestByEmail, $subject, $message);
-            
-            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dijawab.');
-            
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                $userInfo = $this->Auth_model->getUserInfo();
+                $this->db->where('id', $this->input->post('id'));
+                $this->db->update('Transkrip', array(
+                    'answer' => htmlspecialchars($this->input->post('answer')),
+                    'answeredByEmail' => $userInfo['email'],
+                    'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
+                ));
+                
+                $this->load->model('Email_model');
+                
+                $transcriptRequest = $this->Transkrip_model->requestByID($this->input->post('id'));
+                $subject = "Tanggapan Permohonan Pencetakan Transkrip anda (#" . $this->input->post('id') . ")";
+                $message = $this->load->view('TranskripManage/email', array(
+                    'name' => $this->bluetape->getName($transcriptRequest->requestByEmail),
+                    'requestByName' => $transcriptRequest->requestByEmail
+                ), TRUE);
+                
+                $this->Email_model->send_email($transcriptRequest->requestByEmail, $subject, $message);
+                
+                $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dijawab.');
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }
@@ -102,10 +105,14 @@ class TranskripManage extends CI_Controller {
 
     public function remove() {
         try {
-            $id = $this->input->post('id');
-            $this->db->where('id', $id);
-            $this->db->delete('Transkrip');
-            $this->session->set_flashdata('info', "Permohonan #$id telah dihapus.");
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                $id = $this->input->post('id');
+                $this->db->where('id', $id);
+                $this->db->delete('Transkrip');
+                $this->session->set_flashdata('info', "Permohonan #$id telah dihapus.");
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }

@@ -37,80 +37,90 @@ class EntriJadwalDosen extends CI_Controller {
 
 	//fungsi untuk menambah jadwal ke dalam database dari input user
     public function add() {
-        $userInfo = $this->Auth_model->getUserInfo();
-		
-		$jam_mulai = $this->input->post('jam_mulai');
-		$durasi = $this->input->post('durasi');
-		$jam_akhir = $jam_mulai + $durasi ;
-		$hari = $this->input->post('hari');
-		$bisaMasuk = TRUE;
-		for($i=7 ; $i<17 ; $i++){
-			//memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
-			$exist=$this->JadwalDosen_model->cekJadwalByJamMulai($i,$hari,$userInfo['email']);
-			if($exist!=null){  //ada potensi jadwal bentrok
-				$existJamAkhir = $exist[0]->jam_mulai+$exist[0]->durasi; //mendapatkan jam akhir dari jadwal yang berpotensi bentrok
-				if(($exist[0]->jam_mulai<=$jam_mulai && $existJamAkhir>$jam_mulai) || ($exist[0]->jam_mulai<$jam_akhir && $existJamAkhir>=$jam_akhir)){
-					$bisaMasuk = FALSE;
-					break;
-				}
-			}
-		}
-		if($bisaMasuk){
-			$data = array(
-            'user' => $userInfo['email'],
-            'hari' => $this->input->post('hari'),
-            'jam_mulai' => $this->input->post('jam_mulai'),
-            'durasi' => $this->input->post('durasi'),
-            'jenis_jadwal' => $this->input->post('jenis_jadwal'),
-            'label_jadwal' => $this->input->post('label_jadwal')
-			);
-			$this->JadwalDosen_model->addJadwal($data);
-			header('Location: /EntriJadwalDosen');
-		}
-		else{
-			$this->session->set_flashdata('error', 'Jadwal gagal dimasukan karena sudah ada jadwal pada waktu tersebut, silahkan pilih waktu lain.');
-			header('Location: /EntriJadwalDosen');
-		}
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $userInfo = $this->Auth_model->getUserInfo();
+            $jam_mulai = $this->input->post('jam_mulai');
+            $durasi = $this->input->post('durasi');
+            $jam_akhir = $jam_mulai + $durasi ;
+            $hari = $this->input->post('hari');
+            $bisaMasuk = TRUE;
+            for($i=7 ; $i<17 ; $i++){
+                //memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
+                $exist=$this->JadwalDosen_model->cekJadwalByJamMulai($i,$hari,$userInfo['email']);
+                if($exist!=null){  //ada potensi jadwal bentrok
+                    $existJamAkhir = $exist[0]->jam_mulai+$exist[0]->durasi; //mendapatkan jam akhir dari jadwal yang berpotensi bentrok
+                    if(($exist[0]->jam_mulai<=$jam_mulai && $existJamAkhir>$jam_mulai) || ($exist[0]->jam_mulai<$jam_akhir && $existJamAkhir>=$jam_akhir)){
+                        $bisaMasuk = FALSE;
+                        break;
+                    }
+                }
+            }
+            if($bisaMasuk){
+                $data = array(
+                'user' => $userInfo['email'],
+                'hari' => $this->input->post('hari'),
+                'jam_mulai' => $this->input->post('jam_mulai'),
+                'durasi' => $this->input->post('durasi'),
+                'jenis_jadwal' => $this->input->post('jenis_jadwal'),
+                'label_jadwal' => $this->input->post('label_jadwal')
+                );
+                $this->JadwalDosen_model->addJadwal($data);
+                header('Location: /EntriJadwalDosen');
+            }
+            else{
+                $this->session->set_flashdata('error', 'Jadwal gagal dimasukan karena sudah ada jadwal pada waktu tersebut, silahkan pilih waktu lain.');
+                header('Location: /EntriJadwalDosen');
+            }
+        } else {
+            $this->session->set_flashdata('error', "Can't call method from GET request!");
+                header('Location: /EntriJadwalDosen');
+        }
+        
     }
 
 	//fungsi untuk mengupdate jadwal di dalam database dari input user
     public function update($id_jadwal) {
-        $userInfo = $this->Auth_model->getUserInfo();
-		
-		$jam_mulai = $this->input->post('jam_mulai');
-		$durasi = $this->input->post('durasi');
-		$jam_akhir = $jam_mulai + $durasi ;
-		$hari = $this->input->post('hari');
-		$bisaMasuk = TRUE;
-		for($i=7 ; $i<17 ; $i++){
-			//memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
-			$exist=$this->JadwalDosen_model->cekJadwalByJamMulai($i,$hari,$userInfo['email']);
-			if($exist!=null){  //ada potensi jadwal bentrok
-				$existJamAkhir = $exist[0]->jam_mulai+$exist[0]->durasi; //mendapatkan jam akhir dari jadwal yang berpotensi bentrok
-				if( ($exist[0]->jam_mulai<=$jam_mulai && $existJamAkhir>$jam_mulai) || ($exist[0]->jam_mulai<$jam_akhir && $existJamAkhir>=$jam_akhir)){ 
-					if(strcmp($exist[0]->id,$id_jadwal)){ //memeriksa apakah jadwal tersebut merupakan dirinya sendiri atau bukan
-						$bisaMasuk = FALSE;
-						break;
-					}
-				}
-			}
-		}
-		if($bisaMasuk){
-			$data = array(
-				'hari' => $this->input->post('hari'),
-				'jam_mulai' => $this->input->post('jam_mulai'),
-				'durasi' => $this->input->post('durasi'),
-				'jenis' => $this->input->post('jenis_jadwal'),
-				'label' => $this->input->post('label_jadwal'),
-				'lastUpdate' => date('Y-m-d H:i:s')
-			);
-			$this->JadwalDosen_model->updateJadwal($id_jadwal, $data);
-			header('Location: /EntriJadwalDosen');
-		}
-		else{
-			$this->session->set_flashdata('error', 'Jadwal gagal di-update karena menimbulkan konflik dengan jadwal lain.');
-			header('Location: /EntriJadwalDosen');
-		}
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $userInfo = $this->Auth_model->getUserInfo();
+    		
+    		$jam_mulai = $this->input->post('jam_mulai');
+    		$durasi = $this->input->post('durasi');
+    		$jam_akhir = $jam_mulai + $durasi ;
+    		$hari = $this->input->post('hari');
+    		$bisaMasuk = TRUE;
+    		for($i=7 ; $i<17 ; $i++){
+    			//memeriksa apakah ada jadwal lain di antara jam mulai dan jam akhir pada jadwal yang dimasukan oleh user
+    			$exist=$this->JadwalDosen_model->cekJadwalByJamMulai($i,$hari,$userInfo['email']);
+    			if($exist!=null){  //ada potensi jadwal bentrok
+    				$existJamAkhir = $exist[0]->jam_mulai+$exist[0]->durasi; //mendapatkan jam akhir dari jadwal yang berpotensi bentrok
+    				if( ($exist[0]->jam_mulai<=$jam_mulai && $existJamAkhir>$jam_mulai) || ($exist[0]->jam_mulai<$jam_akhir && $existJamAkhir>=$jam_akhir)){ 
+    					if(strcmp($exist[0]->id,$id_jadwal)){ //memeriksa apakah jadwal tersebut merupakan dirinya sendiri atau bukan
+    						$bisaMasuk = FALSE;
+    						break;
+    					}
+    				}
+    			}
+    		}
+    		if($bisaMasuk){
+    			$data = array(
+    				'hari' => $this->input->post('hari'),
+    				'jam_mulai' => $this->input->post('jam_mulai'),
+    				'durasi' => $this->input->post('durasi'),
+    				'jenis' => $this->input->post('jenis_jadwal'),
+    				'label' => $this->input->post('label_jadwal'),
+    				'lastUpdate' => date('Y-m-d H:i:s')
+    			);
+    			$this->JadwalDosen_model->updateJadwal($id_jadwal, $data);
+    			header('Location: /EntriJadwalDosen');
+    		}
+    		else{
+    			$this->session->set_flashdata('error', 'Jadwal gagal di-update karena menimbulkan konflik dengan jadwal lain.');
+    			header('Location: /EntriJadwalDosen');
+    		}
+        } else {
+            $this->session->set_flashdata('error', "Can't call method from GET request!");
+            header('Location: /EntriJadwalDosen');
+        }
     }
 	
 	//menghapus jadwal berdasarkan id jadwal yang dipilih user
