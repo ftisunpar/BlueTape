@@ -22,3 +22,11 @@ Saat ini tersedia layanan:
   - Copy `database-dev.php` ke `database.php` dan ubah isinya sesuai konfigurasi database lokal
   - Copy `auth-dev.php` ke `auth.php` dan ubah isi bagian `google-clientid` dan `google-clientsecret` dengan konfigurasi OAuth yang Anda dapatkan dari Google. Masuk di URL ini <https://console.cloud.google.com/> untuk mendaftar.
 4. Eksekusi <http://localhost/migrate> (atau disesuaikan dengan domain Anda)
+
+## Testing
+
+Testing menggunakan Unit Test dari Code Igniter. Ketikkan perintah ini dari terminal:
+
+```sh
+$ php index.php tests TestUnitTests
+```
