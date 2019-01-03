@@ -30,9 +30,13 @@ class TestUnitTests extends CI_Controller {
         if (self::ENABLE_COVERAGE) {
             $this->coverage->stop();        
             $writer = new \SebastianBergmann\CodeCoverage\Report\Html\Facade;
-            $writer->process($this->coverage, '../code-coverage-report');
+            $writer->process($this->coverage, '../reports/code-coverage');
         }
 
+        // Generate Test Report HTML
+        file_put_contents('../reports/test_report.html', $this->unit->report());
+
+        // Output result to screen
         $statistics = [
             'Pass' => 0,
             'Fail' => 0
