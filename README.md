@@ -1,5 +1,7 @@
 # BlueTape
 
+[![Build Status](https://travis-ci.org/pascalalfadian/BlueTape.svg?branch=master)](https://travis-ci.org/pascalalfadian/BlueTape)
+
 ## Deskripsi
 
 BlueTape adalah aplikasi+framework untuk membuat urusan-urusan paper-based di FTIS UNPAR menjadi paperless. Aplikasi ini berbasis web dengan memanfaatkan CodeIgniter + ZURB Foundation.
