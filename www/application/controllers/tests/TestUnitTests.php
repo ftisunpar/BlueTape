@@ -35,7 +35,7 @@ class TestUnitTests extends CI_Controller {
             echo "$value test(s) $key\n";
         }
 
-        if (!$statistics['Fail'] > 0) {
+        if ($statistics['Fail'] > 0) {
             exit(1);
         }        
     }
