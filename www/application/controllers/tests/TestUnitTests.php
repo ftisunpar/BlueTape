@@ -9,7 +9,7 @@ class TestUnitTests extends CI_Controller {
         $this->load->library('unit_test');
         $this->unit->use_strict(TRUE);
 
-        $this->load->library('bluetape');
+        $this->load->library('BlueTape');
     }
 
     private function report() {

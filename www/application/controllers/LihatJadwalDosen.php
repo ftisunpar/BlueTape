@@ -14,7 +14,7 @@ class LihatJadwalDosen extends CI_Controller {
             header('Location: /');
         }
         $this->excel = new PHPExcel();
-        $this->load->library('bluetape');
+        $this->load->library('BlueTape');
         $this->load->library('session');
         $this->load->model('JadwalDosen_model');
         $this->load->database();
