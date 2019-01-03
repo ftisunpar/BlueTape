@@ -4,15 +4,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class TestUnitTests extends CI_Controller {
 
+    const ENABLE_COVERAGE = true; // Requires xdebug
+
+    private $coverage;
+
     public function __construct() {
         parent::__construct();
         $this->load->library('unit_test');
         $this->unit->use_strict(TRUE);
 
+        if (self::ENABLE_COVERAGE) {
+            $this->coverage = new SebastianBergmann\CodeCoverage\CodeCoverage;
+            $this->coverage->filter()->addDirectoryToWhitelist('application/controllers');
+            $this->coverage->filter()->removeDirectoryFromWhitelist('application/controllers/tests');
+            $this->coverage->filter()->addDirectoryToWhitelist('application/libraries');
+            $this->coverage->filter()->addDirectoryToWhitelist('application/models');
+            $this->coverage->filter()->addDirectoryToWhitelist('application/views');
+            $this->coverage->start('UnitTests');
+        }
+
         $this->load->library('BlueTape');
     }
 
     private function report() {
+        if (self::ENABLE_COVERAGE) {
+            $this->coverage->stop();        
+            $writer = new \SebastianBergmann\CodeCoverage\Report\Html\Facade;
+            $writer->process($this->coverage, '../code-coverage-report');
+        }
+
         $statistics = [
             'Pass' => 0,
             'Fail' => 0
