@@ -1,0 +1,4 @@
+language: php
+before_script:
+  cp www/application/config/auth-dev.php www/application/config/auth.php
+script: php www/index.php tests TestUnitTests
