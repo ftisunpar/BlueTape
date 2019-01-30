@@ -13,7 +13,7 @@ class EntriJadwalDosen extends CI_Controller {
             header('Location: /');
         }
 		$this->excel = new PHPExcel();
-        $this->load->library('bluetape');
+        $this->load->library('BlueTape');
         $this->load->model('JadwalDosen_model');
         $this->load->model('Auth_model');
         $this->load->database();

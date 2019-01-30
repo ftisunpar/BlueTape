@@ -12,7 +12,7 @@ class TranskripRequest extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
-        $this->load->library('bluetape');
+        $this->load->library('BlueTape');
         $this->load->model('Transkrip_model');
         $this->load->database();
     }
