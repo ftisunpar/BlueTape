@@ -71,7 +71,7 @@ class TestUnitTests extends CI_Controller {
     public function index() {
         $this->testBlueTapeLibraryGetNPM();
         $this->testBlueTapeLibraryGetNPM_2017();
-        $this->testBlueTapeLibraryGetNPM_2017f();
+
 
         $this->report();
     }
@@ -95,14 +95,7 @@ class TestUnitTests extends CI_Controller {
     }
 
 
-    public function testBlueTapeLibraryGetNPM_2017f() {
-        $this->unit->run(
-            $this->bluetape->getNPM('2017730013@student.unpar.ac.id'),
-            '20017730013',
-            __FUNCTION__,
-            'Ensure e-mail to NPM conversion works, for angkatan >= 2017'
-        );
-    }
+
 
 
 }
