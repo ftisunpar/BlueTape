@@ -74,7 +74,7 @@ class TestLibrary extends CI_Controller {
         $this->testBlueTapeLibraryGetNPM();
         $this->testBlueTapeLibraryGetNPM_2017();
         $this->testGetSemester();
-        $this->testGetName();
+        // $this->testGetName();
         $this->testGetSemesterSimple();
 
 
