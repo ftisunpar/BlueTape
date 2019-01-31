@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class TestUnitTests extends CI_Controller {
+class TestLibrary extends CI_Controller {
 
     const ENABLE_COVERAGE = true; // Requires xdebug
 
@@ -69,8 +69,12 @@ class TestUnitTests extends CI_Controller {
      * Run all tests
      */
     public function index() {
+        // $this->unit->
+        $this->unit->set_test_items(array('test_name', 'test_datatype' , 'res_datatype' , 'result'));
         $this->testBlueTapeLibraryGetNPM();
         $this->testBlueTapeLibraryGetNPM_2017();
+        $this->testGetSemester();
+        $this->testGetName();
 
 
         $this->report();
@@ -93,6 +97,20 @@ class TestUnitTests extends CI_Controller {
             'Ensure e-mail to NPM conversion works, for angkatan >= 2017'
         );
     }
+
+    function testGetSemester(){
+    $this->unit->run(
+        $this->bluetape->yearMonthToSemesterCode("2016",1),"162", __FUNCTION__ , "Untuk mengecek semester"
+
+    );
+    }
+
+    function testGetName(){
+        $this->unit->run(
+            $this->bluetape->getName("7316084@student.unpar.ac.id"),"DINI PUSPITA SUKMA ARIYANTI", __FUNCTION__ , "Untuk mendapatkan nama mahasiswa dari email"
+    
+        );
+        }
 
 
 
