@@ -61,14 +61,14 @@
        <td class="danger small"><div align="right">0.00%</div></td>
        <td class="danger small"><div align="right">0&nbsp;/&nbsp;7</div></td>
        <td class="danger small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
-       <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="42.86" aria-valuemin="0" aria-valuemax="100" style="width: 42.86%">
-           <span class="sr-only">42.86% covered (danger)</span>
+       <td class="warning big">       <div class="progress">
+         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="51.43" aria-valuemin="0" aria-valuemax="100" style="width: 51.43%">
+           <span class="sr-only">51.43% covered (warning)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">42.86%</div></td>
-       <td class="danger small"><div align="right">15&nbsp;/&nbsp;35</div></td>
+       <td class="warning small"><div align="right">51.43%</div></td>
+       <td class="warning small"><div align="right">18&nbsp;/&nbsp;35</div></td>
       </tr>
 
       <tr>
@@ -89,15 +89,15 @@
 </td>
        <td class="danger small"><div align="right">0.00%</div></td>
        <td class="danger small"><div align="right">0&nbsp;/&nbsp;7</div></td>
-       <td class="danger small">112.31</td>
-       <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="42.86" aria-valuemin="0" aria-valuemax="100" style="width: 42.86%">
-           <span class="sr-only">42.86% covered (danger)</span>
+       <td class="danger small">77.46</td>
+       <td class="warning big">       <div class="progress">
+         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="51.43" aria-valuemin="0" aria-valuemax="100" style="width: 51.43%">
+           <span class="sr-only">51.43% covered (warning)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">42.86%</div></td>
-       <td class="danger small"><div align="right">15&nbsp;/&nbsp;35</div></td>
+       <td class="warning small"><div align="right">51.43%</div></td>
+       <td class="warning small"><div align="right">18&nbsp;/&nbsp;35</div></td>
       </tr>
 
       <tr>
@@ -194,15 +194,15 @@
 </td>
        <td class="danger small"><div align="right">0.00%</div></td>
        <td class="danger small"><div align="right">0&nbsp;/&nbsp;1</div></td>
-       <td class="danger small">12.00</td>
-       <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
-           <span class="sr-only">0.00% covered (danger)</span>
+       <td class="danger small">3.14</td>
+       <td class="warning big">       <div class="progress">
+         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="75.00" aria-valuemin="0" aria-valuemax="100" style="width: 75.00%">
+           <span class="sr-only">75.00% covered (warning)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">0.00%</div></td>
-       <td class="danger small"><div align="right">0&nbsp;/&nbsp;4</div></td>
+       <td class="warning small"><div align="right">75.00%</div></td>
+       <td class="warning small"><div align="right">3&nbsp;/&nbsp;4</div></td>
       </tr>
 
       <tr>
@@ -317,12 +317,12 @@
      <tr><td><div align="right"><a name="62"></a><a href="#62">62</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;int&nbsp;$month&nbsp;bulan&nbsp;(1..12)</span></td></tr>
      <tr><td><div align="right"><a name="63"></a><a href="#63">63</a></div></td><td class="codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
      <tr><td><div align="right"><a name="64"></a><a href="#64">64</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">yearMonthToSemesterCodeSimplified</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$month</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="65"></a><a href="#65">65</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="default">$month</span><span class="default">&nbsp;</span><span class="default">&gt;=</span><span class="default">&nbsp;</span><span class="default">1</span><span class="default">&nbsp;</span><span class="default">&amp;&amp;</span><span class="default">&nbsp;</span><span class="default">$month</span><span class="default">&nbsp;</span><span class="default">&lt;=</span><span class="default">&nbsp;</span><span class="default">6</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="66"></a><a href="#66">66</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$semester</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin" data-title="1 test covers line 65" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="65"></a><a href="#65">65</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="default">$month</span><span class="default">&nbsp;</span><span class="default">&gt;=</span><span class="default">&nbsp;</span><span class="default">1</span><span class="default">&nbsp;</span><span class="default">&amp;&amp;</span><span class="default">&nbsp;</span><span class="default">$month</span><span class="default">&nbsp;</span><span class="default">&lt;=</span><span class="default">&nbsp;</span><span class="default">6</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
+     <tr class="covered-by-large-tests popin" data-title="1 test covers line 66" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="66"></a><a href="#66">66</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$semester</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="67"></a><a href="#67">67</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span><span class="default">&nbsp;</span><span class="keyword">else</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
      <tr class="danger"><td><div align="right"><a name="68"></a><a href="#68">68</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$semester</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">1</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="69"></a><a href="#69">69</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="70"></a><a href="#70">70</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">.</span><span class="default">&nbsp;</span><span class="default">$semester</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin" data-title="1 test covers line 70" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="bottom" data-html="true"><td><div align="right"><a name="70"></a><a href="#70">70</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$year</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">2</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">.</span><span class="default">&nbsp;</span><span class="default">$semester</span><span class="keyword">;</span></td></tr>
      <tr class="warning"><td><div align="right"><a name="71"></a><a href="#71">71</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
      <tr><td><div align="right"><a name="72"></a><a href="#72">72</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
      <tr><td><div align="right"><a name="73"></a><a href="#73">73</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
@@ -363,7 +363,7 @@
      <span class="warning"><strong>Dead Code</strong></span>
     </p>
     <p>
-     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.7</a> with <a href="https://xdebug.org/">Xdebug 2.7.0beta1</a> at Thu Jan 31 7:20:14 CET 2019.</small>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.7</a> with <a href="https://xdebug.org/">Xdebug 2.7.0beta1</a> at Thu Jan 31 7:39:05 CET 2019.</small>
     </p>
     <a title="Back to the top" id="toplink" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M12 11L6 5l-6 6h12z"/></svg>

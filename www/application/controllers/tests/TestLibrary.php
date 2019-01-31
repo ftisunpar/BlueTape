@@ -75,6 +75,7 @@ class TestLibrary extends CI_Controller {
         $this->testBlueTapeLibraryGetNPM_2017();
         $this->testGetSemester();
         $this->testGetName();
+        $this->testGetSemesterSimple();
 
 
         $this->report();
@@ -104,6 +105,12 @@ class TestLibrary extends CI_Controller {
 
     );
     }
+    function testGetSemesterSimple(){
+        $this->unit->run(
+            $this->bluetape->yearMonthToSemesterCodeSimplified("2016",1),"162", __FUNCTION__ , "Untuk mengkonversi tahun dan bulan sekarang menjadi code smester sederhana"
+    
+        );
+        }
 
     function testGetName(){
         $this->unit->run(
