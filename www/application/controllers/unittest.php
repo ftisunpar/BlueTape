@@ -1,46 +1,45 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
-    class unittest extends CI_Controller{
+
+
+    class UnitTest extends CI_Controller{
 
        public function __construct(){
             parent::__construct();
             $this->load->library('unit_test');
             $this->load->library('BlueTape');
+            $this->load->model('Transkrip_model');
+            $this->load->model('JadwalDosen_model');
             $this->load->database();
        }
-
-       private function division($a,$b){
-            return $a/$b;
-       }
-
        public function index(){
-         $this->test();
-         $this->testBlueTapeGetNPM();
-        //  $this->testDb();
+         $this->cekAddjadwal();
+         print_r($this->unit->result());
        }
 
-       public function test(){
-        echo "COBA COBA TEST? ";
-         $test=$this->division(6,2);
-         $expected_result=3;
-         $test_name="Divison 6: 3";
-         echo $this->unit->run($test, $expected_result, $test_name);
-       }
+    public function cekAddjadwal(){
+       $jenis='Praktek';
+       $data=array("user"=>"Samuel", "hari"=>"3", "jam_mulai"=>"8","durasi"=>"2","jenis_jadwal"=>"Praktek","label_jadwal"=>"Mantap");
+       $query=$this->db->query("SELECT * from jadwal_dosen");
+       $res=$query->result();
+       $jumlahAwal=sizeof($res);
+    //    echo "jumlah awal $jumlahAwal";
 
-       public function testBlueTapeGetNPM(){
-        echo $this->unit->run(
-            $this->bluetape->getNPM('7313013@student.unpar.ac.id'),
-            '2013730013',
+       $this->JadwalDosen_model->addJadwal($data);
+
+       $query2=$this->db->query("SELECT * from jadwal_dosen");
+       $res2=$query2->result();
+       $jumlahAkhir=sizeof($res2);
+    //    echo "jumlah Akhir $jumlahAkhir";
+
+         $this->unit->run(
+           $jumlahAkhir,
+           $jumlahAwal+1,
             __FUNCTION__,
-            'Ensure e-mail to NPM conversion works, for angkatan < 2017'
-        );
-       }
-
-    //    public function testDb(){
-
-
-    //    }
-
+            'Test ini mengecek apakah data masuk atau tidak'
+         );
     }
-?>
+}
+
+
   
