@@ -3,7 +3,8 @@
 
 
     class UnitTest extends CI_Controller{
-
+      const ENABLE_COVERAGE = true; // Requires xdebug
+      private $coverage;
        public function __construct(){
             parent::__construct();
             $this->load->library('unit_test');
@@ -11,11 +12,58 @@
             $this->load->model('Transkrip_model');
             $this->load->model('JadwalDosen_model');
             $this->load->database();
+            $this->unit->use_strict(TRUE);
+            if (self::ENABLE_COVERAGE) {
+                $this->coverage = new SebastianBergmann\CodeCoverage\CodeCoverage;
+                $this->coverage->filter()->addDirectoryToWhitelist('application/controllers');
+                $this->coverage->filter()->removeDirectoryFromWhitelist('application/controllers/tests');
+                $this->coverage->filter()->addDirectoryToWhitelist('application/libraries');
+                $this->coverage->filter()->addDirectoryToWhitelist('application/models');
+                $this->coverage->filter()->addDirectoryToWhitelist('application/views');
+                $this->coverage->start('UnitTests');
+            }
        }
+
+       private function report() {
+        if (self::ENABLE_COVERAGE) {
+            $this->coverage->stop();        
+            $writer = new \SebastianBergmann\CodeCoverage\Report\Html\Facade;
+            $writer->process($this->coverage, '../reports/code-coverage');
+        }
+        // Generate Test Report HTML
+        file_put_contents('../reports/test_report.html', $this->unit->report());
+        // Output result to screen
+        $statistics = [
+            'Pass' => 0,
+            'Fail' => 0
+        ];
+        $results = $this->unit->result();
+        foreach ($results as $result) {
+            echo "=== " . $result['Test Name'] . " ===\n";
+            foreach ($result as $key => $value) {
+                echo "$key: $value\n";
+            }
+            echo "\n";
+            if ($result['Result'] === 'Passed') {
+                $statistics['Pass']++;
+            } else {
+                $statistics['Fail']++;
+            }
+        }
+        echo "==========\n";
+        foreach ($statistics as $key => $value) {
+            echo "$value test(s) $key\n";
+        }
+        if ($statistics['Fail'] > 0) {
+            exit(1);
+        }        
+    }
+
        public function index(){
          $this->cekAddjadwal();
          $this->cekGetNpm();
          $this->cekYearMonthToSemesterCodeSimplified();
+         $this->report();
          print_r($this->unit->result());
        }
     //Model -addJadwal
@@ -34,7 +82,7 @@
        $jumlahAkhir=sizeof($res2);
        //echo "jumlah Akhir $jumlahAkhir";
 
-         echo $this->unit->run(
+          $this->unit->run(
            $jumlahAkhir,
            $jumlahAwal+1,
             __FUNCTION__,
