@@ -1,0 +1,49 @@
+.title-bar, .top-bar, .top-bar ul, .top-bar ul li {
+    background: #333;
+}
+
+.menu-active {
+    font-weight: bold;
+}
+
+.title-bar {
+    padding: 0.9rem;
+}
+
+.top-bar ul li a, .menu-text {
+    color: #fff;
+}
+
+.menu-text {
+    color: #fff;
+}
+
+@media only screen and (max-width: 40em) {
+    .menu-text {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 40em) {
+    .top-bar .menu:last-child {
+        border-left: 1px solid #4e4e4e;
+    }
+
+    .top-bar .menu:first-child {
+        border-left: none;
+    }
+
+    .top-bar .menu li:not(:last-child) {
+        border-right: 1px solid #4e4e4e;
+    }
+}
+
+.textsized {
+    height: 1em;
+}
+
+i[class^="fi-"] {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;    
+}

@@ -1,0 +1,24 @@
+language: php
+php:
+  - '7.2'
+services: mysql
+cache: bundler
+
+before_script:
+  - cp www/application/config/auth-dev.php www/application/config/auth.php
+  -  cp www/application/config/database-dev.php www/application/config/database.php
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS bluetape;'
+  -  mysql -e 'USE bluetape;create table Bluetape_Userinfo(email varchar(128),name varchar(256),lastUpdate datetime);'
+  -  mysql -e 'USE bluetape;create table PerubahanKuliah(id int,requestByEmail varchar(256),requestDateTime datetime);'
+  -  mysql -e 'USE bluetape;create table jadwal_dosen (id int , user varchar(256), hari int , jam_mulai int , durasi int , jenis varchar(256) , label varchar(100) , lastUpdate datetime );'
+  - mysql -e "USE bluetape;insert into PerubahanKuliah (requestByEmail) values ('7316081@student.unpar.ac.id');"
+  - mysql -e "USE bluetape; insert into Bluetape_Userinfo values ('7316081@student.unpar.ac.id' , 'JONATHAN LAKSAMANA PURNOMO' , '2019-02-25 09:48:20');"
+  - mysql -e "USE bluetape; insert into jadwal_dosen values('','jaki',1,1,1,'a','a','2019-02-25 09:48:20');"
+
+
+
+script:
+- php www/index.php tests TestLibrary
+- php www/index.php tests TestPerubahanKuliah
+- php www/index.php tests TestJadwalDosen
+- php www/index.php tests TestAuth
