@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\xampp\htdocs\BlueTape\www\application\models</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\xampp\htdocs\BlueTape\www\application</a></li>
+         <li class="breadcrumb-item"><a href="index.html">models</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Email_model.php.html#5">Email_model</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth_model.php.html#5">Auth_model</a></td><td class="text-right">24%</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#5">Transkrip_model</a></td><td class="text-right">41%</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#5">JadwalDosen_model</a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="PerubahanKuliah_model.php.html#5">PerubahanKuliah_model</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Auth_model.php.html#5">Auth_model</a></td><td class="text-right">159</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#5">Transkrip_model</a></td><td class="text-right">53</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#5">JadwalDosen_model</a></td><td class="text-right">25</td></tr>
+       <tr><td><a href="Email_model.php.html#5">Email_model</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PerubahanKuliah_model.php.html#5">PerubahanKuliah_model</a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Auth_model.php.html#39"><abbr title="Auth_model::authenticateOauthCode">authenticateOauthCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth_model.php.html#94"><abbr title="Auth_model::checkModuleAllowed">checkModuleAllowed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Email_model.php.html#7"><abbr title="Email_model::send_email">send_email</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#14"><abbr title="JadwalDosen_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#56"><abbr title="JadwalDosen_model::deleteJadwal">deleteJadwal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#76"><abbr title="JadwalDosen_model::deleteByUsername">deleteByUsername</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#57"><abbr title="Transkrip_model::requestTypesForbidden">requestTypesForbidden</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PerubahanKuliah_model.php.html#18"><abbr title="PerubahanKuliah_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#19"><abbr title="Transkrip_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#37"><abbr title="Transkrip_model::requestByID">requestByID</abbr></a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Auth_model.php.html#39"><abbr title="Auth_model::authenticateOauthCode">authenticateOauthCode</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#57"><abbr title="Transkrip_model::requestTypesForbidden">requestTypesForbidden</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="JadwalDosen_model.php.html#14"><abbr title="JadwalDosen_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Auth_model.php.html#94"><abbr title="Auth_model::checkModuleAllowed">checkModuleAllowed</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Email_model.php.html#7"><abbr title="Email_model::send_email">send_email</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PerubahanKuliah_model.php.html#18"><abbr title="PerubahanKuliah_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#19"><abbr title="Transkrip_model::requestsBy">requestsBy</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Transkrip_model.php.html#37"><abbr title="Transkrip_model::requestByID">requestByID</abbr></a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.1</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.10</a> with <a href="https://xdebug.org/">Xdebug 2.7.0beta1</a> at Wed Feb 27 17:12:59 CET 2019.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([1,0,0,1,0,1,0,1,0,1,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([7,0,0,0,0,0,0,0,0,3,0,13], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[24.137931034482758,18,"<a href=\"Auth_model.php.html#5\">Auth_model<\/a>"],[0,3,"<a href=\"Email_model.php.html#5\">Email_model<\/a>"],[63.63636363636363,15,"<a href=\"JadwalDosen_model.php.html#5\">JadwalDosen_model<\/a>"],[87.5,4,"<a href=\"PerubahanKuliah_model.php.html#5\">PerubahanKuliah_model<\/a>"],[41.17647058823529,14,"<a href=\"Transkrip_model.php.html#5\">Transkrip_model<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Auth_model.php.html#9\">Auth_model::__construct<\/a>"],[100,1,"<a href=\"Auth_model.php.html#27\">Auth_model::createAuthURL<\/a>"],[0,11,"<a href=\"Auth_model.php.html#39\">Auth_model::authenticateOauthCode<\/a>"],[100,1,"<a href=\"Auth_model.php.html#90\">Auth_model::getUserInfo<\/a>"],[0,3,"<a href=\"Auth_model.php.html#94\">Auth_model::checkModuleAllowed<\/a>"],[100,1,"<a href=\"Auth_model.php.html#107\">Auth_model::logout<\/a>"],[0,3,"<a href=\"Email_model.php.html#7\">Email_model::send_email<\/a>"],[0,4,"<a href=\"JadwalDosen_model.php.html#14\">JadwalDosen_model::requestsBy<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#28\">JadwalDosen_model::addJadwal<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#40\">JadwalDosen_model::getAllJadwal<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#47\">JadwalDosen_model::getJadwalByUsername<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#52\">JadwalDosen_model::updateJadwal<\/a>"],[0,1,"<a href=\"JadwalDosen_model.php.html#56\">JadwalDosen_model::deleteJadwal<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#60\">JadwalDosen_model::getNamaHari<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#64\">JadwalDosen_model::getNamaBulan<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#68\">JadwalDosen_model::kolomKeHari<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#72\">JadwalDosen_model::hariKeKolom<\/a>"],[0,1,"<a href=\"JadwalDosen_model.php.html#76\">JadwalDosen_model::deleteByUsername<\/a>"],[100,1,"<a href=\"JadwalDosen_model.php.html#80\">JadwalDosen_model::cekJadwalByJamMulai<\/a>"],[87.5,4,"<a href=\"PerubahanKuliah_model.php.html#18\">PerubahanKuliah_model::requestsBy<\/a>"],[87.5,4,"<a href=\"Transkrip_model.php.html#19\">Transkrip_model::requestsBy<\/a>"],[87.5,4,"<a href=\"Transkrip_model.php.html#37\">Transkrip_model::requestByID<\/a>"],[0,6,"<a href=\"Transkrip_model.php.html#57\">Transkrip_model::requestTypesForbidden<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "require": {
+        "google/apiclient": "^1.0",
+        "phpoffice/phpexcel": "^1.8",
+        "atoum/atoum": "^3.3",
+        "friendsofphp/php-cs-fixer": "^2.14"
+    },
+    "require-dev": {
+          "codacy/coverage": "dev-master"
+      }
+}
