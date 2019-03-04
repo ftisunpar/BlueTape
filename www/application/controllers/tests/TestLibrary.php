@@ -35,34 +35,34 @@ class TestLibrary extends CI_Controller
     public function testAll()
     {
 
-//        $this->testBlueTapeLibraryGetNPM();
-//        $this->testBlueTapeLibraryGetNPM_2017();
-//        $this->testBlueTapeLibraryGetNPM_Null();
-//        $this->testGetSemester_genap();
-//        $this->testGetSemesterSimple_genap();
-//        $this->testGetSemesterSimple_ganjil();
-//        $this->testSmesterCodeToStringGanjil();
-//        $this->testSmesterCodeToStringGenap();
-//        $this->testSmesterCodeToStringPadat();
-//        $this->testGetSemester_ganjil();
-//        $this->testGetName();
-//        $this->testGetSemester_pendek();
-//        $this->testGetEmailBawah();
-//        $this->testGetEmailAtas();
-//        $this->testSmesterCodeToStringFalse();
-//        $this->testGetName_Null();
+        $this->testBlueTapeLibraryGetNPM();
+        $this->testBlueTapeLibraryGetNPM_2017();
+        $this->testBlueTapeLibraryGetNPM_Null();
+        $this->testGetSemester_genap();
+        $this->testGetSemesterSimple_genap();
+        $this->testGetSemesterSimple_ganjil();
+        $this->testSmesterCodeToStringGanjil();
+        $this->testSmesterCodeToStringGenap();
+        $this->testSmesterCodeToStringPadat();
+        $this->testGetSemester_ganjil();
+        $this->testGetName();
+        $this->testGetSemester_pendek();
+        $this->testGetEmailBawah();
+        $this->testGetEmailAtas();
+        $this->testSmesterCodeToStringFalse();
+        $this->testGetName_Null();
         $this->testdbDateTimeToReadableDate();
 
 
     }
 
     public function testdbDateTimeToReadableDate(){
-      $testcase = $this->bluetape->dbDateTimeToReadableDate('2019-02-25 09:48:20');
+      $testcase = $this->bluetape->dbDateTimeToReadableDate("2019-02-25 09:48:20");
 
-      $ex = "Senin, 25 Februari 2019";
-      var_dump($testcase);
+      $ex = "Monday, 25 February 2019";
 
-//      $this->unit->run($testcase,$ex,__FUNCTION__,'test db datetime to readable date ');
+
+      $this->unit->run($testcase,$ex,__FUNCTION__,'test db datetime to readable date ');
     }
 
     public function testBlueTapeLibraryGetNPM()
