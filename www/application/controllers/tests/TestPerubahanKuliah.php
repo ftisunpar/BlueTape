@@ -46,6 +46,7 @@ class TestPerubahanKuliah extends CI_Controller
     public function testAll()
     {
         $this->testRequest();
+        $this->testRequest_withlimit();
 
     }
 
@@ -69,6 +70,32 @@ class TestPerubahanKuliah extends CI_Controller
 
 
         $this->unit->run($testCase, $ex, __FUNCTION__, "get all record by email");
+
+    }
+
+    public function testRequest_withlimit()
+    {
+
+        $data = array(
+            'requestByEmail' => '7316081@student.unpar.ac.id'
+        );
+        $this->db->insert('PerubahanKuliah', $data);
+
+        $this->db->where('requestByEmail', '7316081@student.unpar.ac.id');
+        $this->db->from('PerubahanKuliah');
+        $this->db->order_by('requestDateTime', 'DESC');
+        $query = $this->db->get();
+        $ex = $query->result();
+
+
+        $testCase = $this->PerubahanKuliah_model->requestsBy('7316081@student.unpar.ac.id', 1, 0);
+
+
+
+
+
+        $this->unit->run($testCase, $ex, __FUNCTION__, "get all record by email with limit");
+        $this->db->delete('PerubahanKuliah', array('requestByEmail' => '7316081@student.unpar.ac.id'));
 
     }
 

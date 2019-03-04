@@ -62,13 +62,13 @@
        <td class="warning small"><div align="right">4&nbsp;/&nbsp;6</div></td>
        <td class="warning small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
        <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="24.14" aria-valuemin="0" aria-valuemax="100" style="width: 24.14%">
-           <span class="sr-only">24.14% covered (danger)</span>
+         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="32.76" aria-valuemin="0" aria-valuemax="100" style="width: 32.76%">
+           <span class="sr-only">32.76% covered (danger)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">24.14%</div></td>
-       <td class="danger small"><div align="right">14&nbsp;/&nbsp;58</div></td>
+       <td class="danger small"><div align="right">32.76%</div></td>
+       <td class="danger small"><div align="right">19&nbsp;/&nbsp;58</div></td>
       </tr>
 
       <tr>
@@ -89,15 +89,15 @@
 </td>
        <td class="warning small"><div align="right">66.67%</div></td>
        <td class="warning small"><div align="right">4&nbsp;/&nbsp;6</div></td>
-       <td class="warning small">159.46</td>
+       <td class="warning small">116.50</td>
        <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="24.14" aria-valuemin="0" aria-valuemax="100" style="width: 24.14%">
-           <span class="sr-only">24.14% covered (danger)</span>
+         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="32.76" aria-valuemin="0" aria-valuemax="100" style="width: 32.76%">
+           <span class="sr-only">32.76% covered (danger)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">24.14%</div></td>
-       <td class="danger small"><div align="right">14&nbsp;/&nbsp;58</div></td>
+       <td class="danger small"><div align="right">32.76%</div></td>
+       <td class="danger small"><div align="right">19&nbsp;/&nbsp;58</div></td>
       </tr>
 
       <tr>
@@ -194,15 +194,15 @@
 </td>
        <td class="danger small"><div align="right">0.00%</div></td>
        <td class="danger small"><div align="right">0&nbsp;/&nbsp;1</div></td>
-       <td class="danger small">12.00</td>
-       <td class="danger big">       <div class="progress">
-         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
-           <span class="sr-only">0.00% covered (danger)</span>
+       <td class="danger small">3.04</td>
+       <td class="warning big">       <div class="progress">
+         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="83.33" aria-valuemin="0" aria-valuemax="100" style="width: 83.33%">
+           <span class="sr-only">83.33% covered (warning)</span>
          </div>
        </div>
 </td>
-       <td class="danger small"><div align="right">0.00%</div></td>
-       <td class="danger small"><div align="right">0&nbsp;/&nbsp;6</div></td>
+       <td class="warning small"><div align="right">83.33%</div></td>
+       <td class="warning small"><div align="right">5&nbsp;/&nbsp;6</div></td>
       </tr>
 
       <tr>
@@ -326,12 +326,12 @@
      <tr class="warning"><td><div align="right"><a name="92"></a><a href="#92">92</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="93"></a><a href="#93">93</a></div></td><td class="codeLine"></td></tr>
      <tr><td><div align="right"><a name="94"></a><a href="#94">94</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">checkModuleAllowed</span><span class="keyword">(</span><span class="default">$module</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="95"></a><a href="#95">95</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$userInfo</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">getUserInfo</span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="96"></a><a href="#96">96</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="default">$userInfo</span><span class="default">&nbsp;</span><span class="default">===</span><span class="default">&nbsp;</span><span class="default">NULL</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="97"></a><a href="#97">97</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="keyword">(</span><span class="default">&quot;Mohon&nbsp;login&nbsp;terlebih&nbsp;dahulu.&quot;</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin"><td data-title="1 test covers line 95" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true"><div align="right"><a name="95"></a><a href="#95">95</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$userInfo</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">getUserInfo</span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin"><td data-title="1 test covers line 96" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true"><div align="right"><a name="96"></a><a href="#96">96</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="default">$userInfo</span><span class="default">&nbsp;</span><span class="default">===</span><span class="default">&nbsp;</span><span class="default">NULL</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
+     <tr class="covered-by-large-tests popin"><td data-title="1 test covers line 97" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true"><div align="right"><a name="97"></a><a href="#97">97</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="keyword">(</span><span class="default">&quot;Mohon&nbsp;login&nbsp;terlebih&nbsp;dahulu.&quot;</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="98"></a><a href="#98">98</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="99"></a><a href="#99">99</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="keyword">!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$module</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">session</span><span class="default">-&gt;</span><span class="default">userdata</span><span class="keyword">(</span><span class="default">'auth'</span><span class="keyword">)</span><span class="keyword">[</span><span class="default">'modules'</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
-     <tr class="danger"><td><div align="right"><a name="100"></a><a href="#100">100</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="keyword">(</span><span class="default">$userInfo</span><span class="keyword">[</span><span class="default">'email'</span><span class="keyword">]</span><span class="default">&nbsp;</span><span class="keyword">.</span><span class="default">&nbsp;</span><span class="string">&quot;</span><span class="string">&nbsp;tidak&nbsp;memiliki&nbsp;hak&nbsp;akses&nbsp;ke&nbsp;</span><span class="string">$module</span><span class="string">&quot;</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+     <tr class="covered-by-large-tests popin"><td data-title="1 test covers line 99" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true"><div align="right"><a name="99"></a><a href="#99">99</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span class="default">&nbsp;</span><span class="keyword">(</span><span class="keyword">!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$module</span><span class="keyword">,</span><span class="default">&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">session</span><span class="default">-&gt;</span><span class="default">userdata</span><span class="keyword">(</span><span class="default">'auth'</span><span class="keyword">)</span><span class="keyword">[</span><span class="default">'modules'</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">)</span><span class="default">&nbsp;</span><span class="keyword">{</span></td></tr>
+     <tr class="covered-by-large-tests popin"><td data-title="1 test covers line 100" data-content="&lt;ul&gt;&lt;li&gt;UnitTests&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true"><div align="right"><a name="100"></a><a href="#100">100</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">throw</span><span class="default">&nbsp;</span><span class="keyword">new</span><span class="default">&nbsp;</span><span class="default">Exception</span><span class="keyword">(</span><span class="default">$userInfo</span><span class="keyword">[</span><span class="default">'email'</span><span class="keyword">]</span><span class="default">&nbsp;</span><span class="keyword">.</span><span class="default">&nbsp;</span><span class="string">&quot;</span><span class="string">&nbsp;tidak&nbsp;memiliki&nbsp;hak&nbsp;akses&nbsp;ke&nbsp;</span><span class="string">$module</span><span class="string">&quot;</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
      <tr><td><div align="right"><a name="101"></a><a href="#101">101</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr class="danger"><td><div align="right"><a name="102"></a><a href="#102">102</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="103"></a><a href="#103">103</a></div></td><td class="codeLine"></td></tr>
@@ -355,7 +355,7 @@
      <span class="warning"><strong>Dead Code</strong></span>
     </p>
     <p>
-     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.1</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.10</a> with <a href="https://xdebug.org/">Xdebug 2.7.0beta1</a> at Wed Feb 27 17:12:59 CET 2019.</small>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.1</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.10</a> with <a href="https://xdebug.org/">Xdebug 2.7.0beta1</a> at Mon Mar 4 19:13:14 CET 2019.</small>
     </p>
     <a title="Back to the top" id="toplink" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M12 11L6 5l-6 6h12z"/></svg>
