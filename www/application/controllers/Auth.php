@@ -13,8 +13,11 @@ class Auth extends CI_Controller {
         $this->load->view('auth/login', array('authURL' => $authURL));
     }
 
+
+
     public function oauth2callback() {
-//        echo  $code = $this->input->get('code');
+
+
         try {
             $code = $this->input->get('code');
 

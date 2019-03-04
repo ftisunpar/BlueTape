@@ -81,9 +81,15 @@ class TestAuth extends CI_Controller {
             exit(1);
         }
     }
-
+//
 //    public function testauthenticateOauthCode(){
-//       $testcase = $this->Auth->authenticateOauthCode('https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%2Fauth%2Foauth2callback&client_id=755661919348-3b2u44e804efh2mghpadttnqh3u4ujd9.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=online&approval_prompt=auto');
+//        //        non valid unpar email
+//        //            4/AwE_2RB7Tt3rxPzQ8fDMvqj9CXUMxBEMSMhTtzKc-8KT07A-2Hz2clD2zgzAHuNwPkTXRTVCawxI4RaKEoLVY_I
+//
+////        valid unpar email
+////        '4/AwH_tEo_Su27RdcBvpeIQWo4q1vLPcQFIWLg1Vy1vktDrRWUWV1XYhmT6vB_5id3tPWFE4Wu1JGNq3xY24mb4Is'
+//        $code = '4/AwH_tEo_Su27RdcBvpeIQWo4q1vLPcQFIWLg1Vy1vktDrRWUWV1XYhmT6vB_5id3tPWFE4Wu1JGNq3xY24mb4Is';
+//       $testcase = $this->Auth->authenticateOauthCode($code);
 //       var_dump($testcase);
 //    }
 
