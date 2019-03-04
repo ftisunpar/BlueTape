@@ -14,8 +14,10 @@ class Auth extends CI_Controller {
     }
 
     public function oauth2callback() {
+//        echo  $code = $this->input->get('code');
         try {
             $code = $this->input->get('code');
+
             if ($code !== NULL) {
                 $this->Auth_model->authenticateOauthCode($code);
                 $userInfo = $this->Auth_model->getUserInfo();

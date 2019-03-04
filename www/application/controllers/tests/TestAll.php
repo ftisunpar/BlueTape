@@ -124,8 +124,11 @@ class TestAll extends CI_Controller
     public function testAll()
     {
 
-
-
+   
+      $this->testcheckModuleAllowed();
+   $this->testcheckModuleAllowed_unlogin();
+      $this->testGetName_Null();
+       $this->testdbDateTimeToReadableDate();
         $this->testBlueTapeLibraryGetNPM();
         $this->testBlueTapeLibraryGetNPM_2017();
         $this->testBlueTapeLibraryGetNPM_Null();
@@ -157,8 +160,86 @@ class TestAll extends CI_Controller
         $this->TestCreateAuthURL() ;
         $this->testGetUserInfo() ;
         $this-> testLogout() ;
+        $this->testRequest_withlimit();
 
 
+
+
+
+
+    }
+
+    public function testRequest_withlimit()
+    {
+
+        $data = array(
+            'requestByEmail' => '7316081@student.unpar.ac.id'
+        );
+        $this->db->insert('PerubahanKuliah', $data);
+
+        $this->db->where('requestByEmail', '7316081@student.unpar.ac.id');
+        $this->db->from('PerubahanKuliah');
+        $this->db->order_by('requestDateTime', 'DESC');
+        $query = $this->db->get();
+        $ex = $query->result();
+
+
+        $testCase = $this->PerubahanKuliah_model->requestsBy('7316081@student.unpar.ac.id', 1, 0);
+
+
+
+
+
+        $this->unit->run($testCase, $ex, __FUNCTION__, "get all record by email with limit");
+        $this->db->delete('PerubahanKuliah', array('requestByEmail' => '7316081@student.unpar.ac.id'));
+
+    }
+
+
+
+
+    public function testcheckModuleAllowed(){
+
+      try{
+           $testcase = $this->Auth->checkModuleAllowed('siswabiasa');
+      }
+      catch(Exception  $e){
+        $temp =  (string) $e->getMessage();
+
+
+      }
+
+      $ex = "7316057@student.unpar.ac.id tidak memiliki hak akses ke siswabiasa";
+      $this->unit->run($temp, $ex , __FUNCTION__ , "testcheckallow module if user auth login");
+    }
+
+    function testcheckModuleAllowed_unlogin(){
+      //unset dulu biar logout
+      $this->session->unset_userdata('auth');
+      try{
+           $testcase = $this->Auth->checkModuleAllowed('siswabiasa');
+      }
+      catch(Exception  $e){
+        $temp =  (string) $e->getMessage();
+
+      }
+      $ex =  "Mohon login terlebih dahulu.";
+        // var_dump($temp);
+        $this->unit->run($temp,$ex,__FUNCTION__,"testing invalid module if user auth logout");
+    }
+
+
+    public function testdbDateTimeToReadableDate(){
+      $testcase = $this->bluetape->dbDateTimeToReadableDate('2019-03-04 17:50:54');
+
+      $ex = 'Senin, 4 Maret 2019';
+
+      $this->unit->run($testcase,$ex,__FUNCTION__,'test db datetime to readable date ');
+    }
+    public function testGetName_Null(){
+      $testcase = $this->bluetape->getName('7316000123@student.unpar.ac.id');
+      $ex = null;
+      $this->unit->run($testcase,$ex,__FUNCTION__,"test getname when email is invaild");
     }
 
     public function testBlueTapeLibraryGetNPM()

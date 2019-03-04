@@ -62,8 +62,18 @@ class TestLibrary extends CI_Controller
         $this->testGetEmailBawah();
         $this->testGetEmailAtas();
         $this->testSmesterCodeToStringFalse();
+        $this->testGetName_Null();
+         $this->testdbDateTimeToReadableDate();
 
 
+    }
+
+    public function testdbDateTimeToReadableDate(){
+      $testcase = $this->bluetape->dbDateTimeToReadableDate('2019-03-04 17:50:54');
+
+      $ex = 'Senin, 4 Maret 2019';
+
+      $this->unit->run($testcase,$ex,__FUNCTION__,'test db datetime to readable date ');
     }
 
     public function testBlueTapeLibraryGetNPM()
@@ -189,6 +199,12 @@ class TestLibrary extends CI_Controller
 
         );
         $this->db->delete('bluetape_userinfo', array('email' => '7316081@student.unpar.ac.id'));
+    }
+
+    public function testGetName_Null(){
+      $testcase = $this->bluetape->getName('7316000123@student.unpar.ac.id');
+      $ex = null;
+      $this->unit->run($testcase,$ex,__FUNCTION__,"test getname when email is invaild");
     }
 
     function testGetSemester_pendek()
