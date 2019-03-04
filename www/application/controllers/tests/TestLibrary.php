@@ -16,19 +16,7 @@ class TestLibrary extends CI_Controller
         $this->load->library('BlueTape');
         $this->load->database();
         $this->load->dbforge();
-//         $str = '
-// <table border="0"  cellpadding="4" cellspacing="1">
-// {rows}
-//         <tr>
-//                 <td></td>
-//                 <td></td>
-//         </tr>
-//
-//         <br>
-//
-//
-// </table>';
-//         $this->unit->set_template($str);
+
 
 
     }
@@ -63,15 +51,15 @@ class TestLibrary extends CI_Controller
         $this->testGetEmailAtas();
         $this->testSmesterCodeToStringFalse();
         $this->testGetName_Null();
-         $this->testdbDateTimeToReadableDate();
+        $this->testdbDateTimeToReadableDate();
 
 
     }
 
     public function testdbDateTimeToReadableDate(){
-      $testcase = $this->bluetape->dbDateTimeToReadableDate('2019-03-04 17:50:54');
+      $testcase = $this->bluetape->dbDateTimeToReadableDate('2019-02-25 09:48:20');
 
-      $ex = 'Senin, 4 Maret 2019';
+      $ex = "Senin, 25 Februari 2019";
 
       $this->unit->run($testcase,$ex,__FUNCTION__,'test db datetime to readable date ');
     }
