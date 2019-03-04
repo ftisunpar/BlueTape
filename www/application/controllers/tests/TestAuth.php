@@ -81,17 +81,7 @@ class TestAuth extends CI_Controller {
             exit(1);
         }
     }
-//
-//    public function testauthenticateOauthCode(){
-//        //        non valid unpar email
-//        //            4/AwE_2RB7Tt3rxPzQ8fDMvqj9CXUMxBEMSMhTtzKc-8KT07A-2Hz2clD2zgzAHuNwPkTXRTVCawxI4RaKEoLVY_I
-//
-////        valid unpar email
-////        '4/AwH_tEo_Su27RdcBvpeIQWo4q1vLPcQFIWLg1Vy1vktDrRWUWV1XYhmT6vB_5id3tPWFE4Wu1JGNq3xY24mb4Is'
-//        $code = '4/AwH_tEo_Su27RdcBvpeIQWo4q1vLPcQFIWLg1Vy1vktDrRWUWV1XYhmT6vB_5id3tPWFE4Wu1JGNq3xY24mb4Is';
-//       $testcase = $this->Auth->authenticateOauthCode($code);
-//       var_dump($testcase);
-//    }
+
 
 
     function testcheckModuleAllowed_unlogin(){
@@ -149,7 +139,7 @@ class TestAuth extends CI_Controller {
         $this->TestCreateAuthURL() ;
         $this->testGetUserInfo() ;
         $this-> testLogout() ;
-//        $this->testauthenticateOauthCode();
+
     }
 
 
