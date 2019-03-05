@@ -161,7 +161,8 @@ class TestAll extends CI_Controller
         $this->testGetUserInfo() ;
         $this-> testLogout() ;
         $this->testRequest_withlimit();
-
+        $this->testDeleteJadwal();
+        $this->testDeleteByUsername();
 
 
 
@@ -505,6 +506,64 @@ class TestAll extends CI_Controller
 
         $this->unit->run($testCase, $ex, __FUNCTION__);
         $this->db->delete('jadwal_dosen', array('user' => 'jaki'));
+    }
+
+    public function testDeleteJadwal()
+    {
+        $user = 'jaki';
+        $hari = 1;
+        $jam_mulai = 1;
+        $durasi = 1;
+        $jenis = 'responsi';
+        $label = 'entahlah';
+        $lastUpdate = '2019-02-25 09:48:20';
+
+        $data = array(
+            'user' => $user,
+            'hari' => $hari,
+            'jam_mulai' => $jam_mulai,
+            'durasi' => $durasi,
+            'jenis_jadwal' => $jenis,
+            'label_jadwal' => $label,
+            'lastupdate' => $lastUpdate
+        );
+        $this->JadwalDosen_model->addJadwal($data);
+        $this->JadwalDosen_model->deleteByUsername('jaki');
+        $testCase = $this->db->affected_rows();
+        $ex = 1;
+
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk menghapus jadwal ");
+
+    }
+
+    public function testDeleteByUsername()
+    {
+        $user = 'jaki';
+        $hari = 1;
+        $jam_mulai = 1;
+        $durasi = 1;
+        $jenis = 'responsi';
+        $label = 'entahlah';
+        $lastUpdate = '2019-02-25 09:48:20';
+
+        $data = array(
+            'user' => $user,
+            'hari' => $hari,
+            'jam_mulai' => $jam_mulai,
+            'durasi' => $durasi,
+            'jenis_jadwal' => $jenis,
+            'label_jadwal' => $label,
+            'lastupdate' => $lastUpdate
+        );
+        $this->JadwalDosen_model->addJadwal($data);
+        $insert_id = $this->db->insert_id();
+
+        $this->JadwalDosen_model->deleteJadwal($insert_id);
+        $testCase = $this->db->affected_rows();
+        $ex = 1;
+
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk menghapus jadwal menggunakan username");
+
     }
 
     public function testRequest()
