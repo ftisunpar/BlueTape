@@ -134,11 +134,20 @@ class TestAuth extends CI_Controller {
         $this->unit->run($testCase,$ex,__FUNCTION__,"method untuk mengecek logout") ;
     }
 
+    function testAuthenticateOauthCode() {
+        //$testCase = $this->Auth->authenticateOauthCode() ;
+        $ex = TRUE ;
+
+        $this->unit->run($testCase,$ex,__FUNCTION__,"method untuk mengecek authenticateOauthCode") ;
+    }
+
     function testAll() {
-      $this->testcheckModuleAllowed();
+        $this->testcheckModuleAllowed();
         $this->TestCreateAuthURL() ;
         $this->testGetUserInfo() ;
         $this-> testLogout() ;
+        $this->testcheckModuleAllowed_unlogin();
+
 
     }
 
