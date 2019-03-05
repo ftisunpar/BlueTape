@@ -40,7 +40,9 @@ class TestJadwalDosen extends CI_Controller
         $this->testCekJadwalByJamMulai();
         //$this->testRequestBy();
         $this->testAddJadwal();
-        // $this->testUpdateJadwal();
+        $this->testUpdateJadwal();
+        $this->testDeleteJadwal();
+        $this->testDeleteByUsername();
 
     }
 
@@ -52,7 +54,7 @@ class TestJadwalDosen extends CI_Controller
 
         $testCase = $this->JadwalDosen_model->getAllJadwal();
         $result = $query->result();
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"method untuk mendapatkan semua jadwal ");
 
     }
 
@@ -63,7 +65,7 @@ class TestJadwalDosen extends CI_Controller
         $user = 'jojo';
         $testCase = $this->JadwalDosen_model->getJadwalByUserName($user);
         $result = $this->getJadwalByUserName($user);
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"method untuk mendapatkan jadwal melalui username ");
     }
 
     public function getJadwalByUserName($user)
@@ -76,7 +78,7 @@ class TestJadwalDosen extends CI_Controller
     {
         $testCase = $this->JadwalDosen_model->getNamaHari();
         $result = $this->getNamaHari();
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"method untuk mendapatkan nama hari");
     }
 
     public function getNamaHari()
@@ -88,7 +90,7 @@ class TestJadwalDosen extends CI_Controller
     {
         $testCase = $this->JadwalDosen_model->getNamaBulan();
         $result = $this->getNamaBulan();
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"method untuk mendapatkan nama bulan");
     }
 
     public function getNamaBulan()
@@ -100,21 +102,21 @@ class TestJadwalDosen extends CI_Controller
     {
         $testCase = $this->JadwalDosen_model->kolomKeHari("B");
         $result = 0;
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"hasil tes method untuk mengubah kolom ke hari");
     }
 
     public function testHariKeKolom()
     {
         $testCase = $this->JadwalDosen_model->hariKeKolom(1);
         $result = "C";
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"hasil tes method untuk mengubah hari ke kolom");
     }
 
     public function testCekJadwalByJamMulai()
     {
         $testCase = $this->JadwalDosen_model->cekJadwalByJamMulai(12, 1, 'jojo');
         $result = $this->cekJadwalByJamMulai(12, 1, 'jojo');
-        $this->unit->run($testCase, $result, __FUNCTION__);
+        $this->unit->run($testCase, $result, __FUNCTION__,"hasil tes method untuk mendapatkan jadwal menggunakan jam mulai");
     }
 
     public function cekJadwalByJamMulai($jam_mulai, $hari, $user)
@@ -146,7 +148,7 @@ class TestJadwalDosen extends CI_Controller
         $testCase = $this->db->affected_rows();
         $ex = 1;
 
-        $this->unit->run($testCase, $ex, __FUNCTION__);
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk menambah jadwal");
         $this->db->delete('jadwal_dosen', array('user' => 'jaki'));
     }
 
@@ -185,7 +187,7 @@ class TestJadwalDosen extends CI_Controller
             exit(1);
         }
     }
-
+// can't be tested
     public function testRequestBy()
     {
 
@@ -237,7 +239,65 @@ class TestJadwalDosen extends CI_Controller
         $row = $query->row();
         $testCase = $row->user;
         $ex = 'testcase';
-        $this->unit->run($testCase, $ex, __FUNCTION__);
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk update jadwal");
         $this->db->delete('jadwal_dosen', array('id' => $insert_id));
+    }
+
+    public function testDeleteJadwal()
+    {
+        $user = 'jaki';
+        $hari = 1;
+        $jam_mulai = 1;
+        $durasi = 1;
+        $jenis = 'responsi';
+        $label = 'entahlah';
+        $lastUpdate = '2019-02-25 09:48:20';
+
+        $data = array(
+            'user' => $user,
+            'hari' => $hari,
+            'jam_mulai' => $jam_mulai,
+            'durasi' => $durasi,
+            'jenis_jadwal' => $jenis,
+            'label_jadwal' => $label,
+            'lastupdate' => $lastUpdate
+        );
+        $this->JadwalDosen_model->addJadwal($data);
+        $this->JadwalDosen_model->deleteByUsername('jaki');
+        $testCase = $this->db->affected_rows();
+        $ex = 1;
+
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk menghapus jadwal ");
+
+    }
+
+    public function testDeleteByUsername()
+    {
+        $user = 'jaki';
+        $hari = 1;
+        $jam_mulai = 1;
+        $durasi = 1;
+        $jenis = 'responsi';
+        $label = 'entahlah';
+        $lastUpdate = '2019-02-25 09:48:20';
+
+        $data = array(
+            'user' => $user,
+            'hari' => $hari,
+            'jam_mulai' => $jam_mulai,
+            'durasi' => $durasi,
+            'jenis_jadwal' => $jenis,
+            'label_jadwal' => $label,
+            'lastupdate' => $lastUpdate
+        );
+        $this->JadwalDosen_model->addJadwal($data);
+        $insert_id = $this->db->insert_id();
+
+        $this->JadwalDosen_model->deleteJadwal($insert_id);
+        $testCase = $this->db->affected_rows();
+        $ex = 1;
+
+        $this->unit->run($testCase, $ex, __FUNCTION__,"hasil tes method untuk menghapus jadwal menggunakan username");
+
     }
 }
