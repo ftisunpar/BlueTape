@@ -6,25 +6,7 @@ class JadwalDosen_model extends CI_Model {
 
 	const DAY_NAME = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 	const MONTH_NAME = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    /**
-     * Mendapatkan seluruh request dari email tertentu
-     * @param type $email email yang melakukan request atau NULL untuk semua
-     * @return array hasil dari $query->result()
-     */
-    public function requestsBy($email, $rows = NULL, $start = NULL) {
-        if ($email !== NULL) {
-            $this->db->where('requestByEmail', $email);
-        }
-        if ($start !== NULL && $rows !== NULL) {
-            $this->db->limit($rows, $start);
-        }
-        $this->db->from('jadwal_dosen');
-        $this->db->order_by('requestDateTime', 'DESC');
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-	
+ 
     public function addJadwal($data) {
         $this->user = $data['user'];
         $this->hari = $data['hari'];
