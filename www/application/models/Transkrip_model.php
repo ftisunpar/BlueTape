@@ -5,9 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transkrip_model extends CI_Model {
 
     const REQUEST_TYPES = [
-        'DPS_ID' => 'DPS Bahasa Indonesia (Seluruh Semester)',
-        'DPS_EN' => 'DPS Bahasa Inggris (Seluruh Semester)',
-        'LHS' => 'LHS (Semester Terakhir)',
+        'DPS' => 'DPS (Seluruh Semester, Bilingual)',
     ];
     
     /**
