@@ -1,3 +1,18 @@
+@font-face {
+    font-family: TitilliumWeb;
+    src: url("/public/fonts/TitilliumWeb-Regular.ttf");
+}
+
+@font-face {
+    font-family: TitilliumWeb;
+    src: url("/public/fonts/TitilliumWeb-Bold.ttf");
+    font-weight: bold;
+}
+
+body {
+    font-family: TitilliumWeb, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+
 .title-bar, .top-bar, .top-bar ul, .top-bar ul li {
     background: #333;
 }
