@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="border p-3">
                 <h5>Permohonan Baru</h5>
-                <form class"p-3" method="POST" action="/PerubahanKuliahRequest/add">
+                <form class="p-3" method="POST" action="/PerubahanKuliahRequest/add">
                 <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                 <div class="form-group row">
                     <div class="col-sm-6">
@@ -83,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </form>
             </div>
             <br>
-            <div class="border p-3">
+            <div class="border p-3 table-responsive">
                 <h5>Histori Permohonan</h5>
                 <table class="table table-borderless">
                     <thead>
@@ -110,7 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td><?= $request->answeredMessage ?></td>
                             <td>
                                 <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>">
-                                    <i class="fas fa-eye"></i>
+                                    <span style="font-size: 18px; color: Dodgerblue;">
+                                      <i class="fas fa-eye"></i>
+                                    </span>
                                 </a>
                             </td>
                         </tr>

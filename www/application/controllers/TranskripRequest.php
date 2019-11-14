@@ -25,14 +25,14 @@ class TranskripRequest extends CI_Controller {
         $forbiddenTypes = $this->Transkrip_model->requestTypesForbidden($requests);
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
-                $request->status = 'TUNGGU';
-                $request->labelClass = 'secondary';
+                $request->status = 'TUNGGU';//abu
+                $request->labelClass = 'p-1 mb-1 bg-secondary text-white';
             } else if ($request->answer === 'printed') {
-                $request->status = 'TERCETAK';
-                $request->labelClass = 'success';
+                $request->status = 'TERCETAK';//ijo
+                $request->labelClass = 'p-1 mb-1 bg-success text-white';
             } else if ($request->answer === 'rejected') {
-                $request->status = 'DITOLAK';
-                $request->labelClass = 'alert';
+                $request->status = 'DITOLAK';//merah
+                $request->labelClass = 'p-1 mb-1 bg-danger text-white';
             }
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
             $request->requestByName = $this->bluetape->getName($request->requestByEmail);

@@ -2,9 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><div class="row">
     <?php if (isset($_SESSION['error'])): ?>
-        <div class="callout alert"><?= $_SESSION['error'] ?></div>
+        <div class="alert alert-danger" role="alert"><?= $_SESSION['error'] ?></div>
     <?php endif; ?>
     <?php if (isset($_SESSION['info'])): ?>
-        <div class="callout primary"><?= $_SESSION['info'] ?></div>
+        <div class="alert alert-primary" role="alert"><?= $_SESSION['info'] ?></div>
     <?php endif; ?>
 </div>

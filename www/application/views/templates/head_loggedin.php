@@ -8,6 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="/public/css/bootstrap.css" />
     <link rel="stylesheet" href="/public/css/bootstrap-grid.css" />
     <link rel="stylesheet" href="/public/css/bootstrap-reboot.css" />
-    <link rel="stylesheet" href="/public/css/all.css" />
-    <link rel="stylesheet" href="/public/lib/xdan-datetimepicker/jquery.datetimepicker.min.css" />
+    <link rel="stylesheet" href="/public/fontawesome/fontawesome.css">
+<!--    plugin date-time-picker-->
+    <link rel="stylesheet" href="public/lib/Date-Time-Picker-Bootstrap-4/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="public/lib/Date-Time-Picker-Bootstrap-4/bootstrap-datetimepicker.min.css">
 </head>

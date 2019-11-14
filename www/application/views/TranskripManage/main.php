@@ -8,7 +8,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
 
         <div class="container">
-
                 <div class="p-3 border">
                     <h5>Permintaan Transkrip</h5>
                     <form method="GET" action="/TranskripManage">
@@ -21,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </form>
                     <br>
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th class="table-active">ID</th>
@@ -52,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <table class="table">
+                                                    <table class="table table-striped">
                                                         <tbody>
                                                         <tr>
                                                             <th>E-mail Pemohon</th>
@@ -114,14 +113,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                                         <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                                         <input type="hidden" name="answer" value="rejected"/>
-                                                        <label>Email penjawab:
-                                                            <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
-                                                        </label>
-                                                        <label>Alasan penolakan:
-                                                            <input name="answeredMessage" class="input-group-field" type="text" required/>
-                                                        </label>
+                                                        <div class="form-group">
+                                                            <label>Email penjawab:</label>
+                                                            <input class="form-control" type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Alasan penolakan:</label>
+                                                            <input class="form-control" name="answeredMessage" class="input-group-field" type="text" required/>
+                                                        </div>
                                                         <p>&nbsp;</p>
-                                                        <input type="submit" class="alert button" value="Tolak"/>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-danger" value="Tolak"/>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -151,14 +154,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                                         <input type="hidden" name="answer" value="printed"/>
                                                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                                                        <label>Email penjawab:
+                                                        <div class="form-group">
+                                                            <label>Email penjawab:</label>
                                                             <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
-                                                        </label>
-                                                        <label>Keterangan tambahan:
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Keterangan tambahan:</label>
                                                             <input name="answeredMessage" class="input-group-field" type="text" required/>
-                                                        </label>
+                                                        </div>
                                                         <p>&nbsp;</p>
-                                                        <input type="submit" class="button" value="Sudah dicetak"/>
+                                                        <div class="form-group">
+                                                            <input class="btn btn-primary" type="submit" class="button" value="Sudah dicetak"/>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -184,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <input type="hidden" name="answer" value="remove"/>
                                                         <p><strong>Yakin ingin menghapus?</strong></p>
                                                         <p>Data akan hilang selamanya dari catatan. Biasanya menghapus tidak diperlukan, cukup menolak atau mencetak.</p>
-                                                        <input type="submit" class="alert button" value="Hapus"/>
+                                                        <input class="btn btn-danger" type="submit" value="Hapus"/>
                                                     </form>
                                                 </div>
                                             </div>

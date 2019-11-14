@@ -13,44 +13,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="p-3 border">
                         <h5>Permohonan Baru</h5>
                         <?php if (is_array($forbiddenTypes)): ?>
-                            <form method="POST" action="/TranskripRequest/add">
+                            <form class="p-3" method="POST" action="/TranskripRequest/add">
                                 <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                 <div class="row">
-                                    <div class="large-4 column">
-                                        <label>Yang memohon:
-                                            <input type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly="readonly"/>
-                                        </label>
+                                    <div class="col-lg-4">
+                                        <label class="col-form-label">Yang memohon:</label>
+                                        <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly/>
                                     </div>
-                                    <div class="large-4 column">
-                                        <label>NPM:
-                                            <input type="text" value="<?= $requestByNPM ?>" readonly="readonly"/>
-                                        </label>
+                                    <div class="col-lg-4">
+                                        <label class="col-form-label">NPM:</label>
+                                        <input class="form-control" type="text" value="<?= $requestByNPM ?>" readonly/>
                                     </div>
-                                    <div class="large-4 column">
-                                        <label>Nama:
-                                            <input type="text" name="requestByName" value="<?= $requestByName ?>" readonly="readonly"/>
-                                        </label>
+                                    <div class="col-lg-4">
+                                        <label class="col-form-label">Nama:</label>
+                                        <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly/>
+
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="large-4 column">
-                                        <label>Tipe Transkrip:
-                                            <select name="requestType">
+                                    <div class="col-lg-4">
+                                        <label class="col-form-label">Tipe Transkrip:</label>
+                                            <select class="form-control" name="requestType">
                                                 <?php foreach (Transkrip_model::REQUEST_TYPES as $type => $name): ?>
                                                     <?php if (!in_array($type, $forbiddenTypes)): ?>
                                                         <option value="<?= $type ?>"><?= $name ?></option>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </select>
-                                        </label>
                                     </div>
-                                    <div class="large-8 column">
-                                        <label>Keperluan:
-                                            <input type="text" name="requestUsage" required/>
-                                        </label>
+                                    <div class="col-lg-8">
+                                        <label class="col-form-label">Keperluan:</label>
+                                        <input class="form-control" type="text" name="requestUsage" required/>
                                     </div>
                                 </div>
-                                <input type="submit" class="button" value="Kirim Permohonan">
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input class="btn btn-primary" type="submit" class="button" value="Kirim Permohonan">
+                                    </div>
+                                </div>
                             </form>
                         <?php else: ?>
                             <p>&nbsp;</p>
@@ -60,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <br>
                     <div class="p-3 border">
                         <h5>Histori Permohonan</h5>
-                        <table class="table ">
+                        <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th class="table-active">ID</th>
@@ -83,12 +84,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?= $request->answeredMessage ?></td>
                                     <td>
                                         <!-- Button trigger modal -->
-                                        <a data-toggle="modal" data-target="#lihatModal" id="detail<?= $request->id ?>">
+                                        <a data-toggle="modal" data-target="#lihatModal<?= $request->id ?>" id="detail<?= $request->id ?>">
                                             <i class="fas fa-eye"></i>
                                         </a>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="lihatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="lihatModal<?= $request->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
