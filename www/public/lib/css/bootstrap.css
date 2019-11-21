@@ -1559,11 +1559,8 @@ pre code {
   border: 0;
 }
 
-.table-striped tbody tr:nth-of-type(even) {
+.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
-}
-.table-striped tbody tr td:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .table-hover tbody tr:hover {
@@ -1789,7 +1786,7 @@ pre code {
   border: 0;
 }
 
-.table-dark.table-striped tbody tr:nth-of-type(even) {
+.table-dark.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -5111,7 +5108,6 @@ a.badge-dark:focus, a.badge-dark.focus {
   margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-    width: 40%;
 }
 
 .alert-heading {
@@ -10037,9 +10033,6 @@ a.text-dark:hover, a.text-dark:focus {
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6;
-  }
-  .navbar-dark .nav-item > .nav-link.active  {
-    color:blue;
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */

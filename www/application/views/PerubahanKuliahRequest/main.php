@@ -164,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                                 <tr>
                                     <th>Dari Hari/Jam</th>
-                                    <td><time datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?></time></td>
+                                    <td><input class="disableable" type="text" name="fromDateTime" id="fromDateTime"/></td>
                                 </tr>
                                 <tr>
                                     <th>Dari Ruang</th>
@@ -173,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php foreach (json_decode($request->to) as $to): ?>
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
-                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                        <td><input class="disableable toDateTime" type="text" name="toDateTime[]"/></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>

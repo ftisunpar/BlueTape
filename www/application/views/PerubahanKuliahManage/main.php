@@ -14,12 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th class="table-active">ID</th>
-                        <th class="table-active">Status</th>
-                        <th class="table-active">Tanggal Permohonan</th>
-                        <th class="table-active">Kode MK</th>
-                        <th class="table-active">Perubahan</th>
-                        <th class="table-active">Aksi</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tanggal Permohonan</th>
+                        <th scope="col">Kode MK</th>
+                        <th scope="col">Perubahan</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>

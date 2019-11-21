@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h5>Tambah Jadwal</h5>
                 <div class="row">
                     <div class="col-lg-4">
-                        <form class="p-3" method="POST" action="/EntriJadwalDosen/add">
+                        <form method="POST" action="/EntriJadwalDosen/add">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             Hari
                             <select class="form-control" name="hari">
@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php } ?>
                             </select><br>
                     </div>
-                    <div class="col-lg-4 p-3">
+                    <div class="col-lg-4">
                         Durasi
                         <select class="form-control" name="durasi">
                             <?php for ($i = 1; $i <= 9; $i++) { ?>
@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option value="kelas" style="background-color:white"> Kelas </option>
                         </select>
                     </div>
-                    <div class="col-lg-4 p-3">
+                    <div class="col-lg-4">
                         Label <input class="form-control" type="text" name="label_jadwal"><br><br>
                         <input class="btn btn-primary" type="submit" class="button" value="Tambah">
                         </form>

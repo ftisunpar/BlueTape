@@ -36,15 +36,15 @@ class PerubahanKuliahManage extends CI_Controller {
             if ($request->answer === NULL) {
                 $request->status = 'MENUNGGU';
                 //kuning
-                $request->labelClass = 'p-1 mb-1 bg-warning text-white';
+                $request->labelClass = 'bg-warning';
             } else if ($request->answer === 'confirmed') {
                 $request->status = 'TERKONFIRMASI';
                 //hijau
-                $request->labelClass = 'p-1 mb-1 bg-success text-white';
+                $request->labelClass = 'bg-success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';
                 //merah
-                $request->labelClass = 'p-1 mb-1 bg-danger text-white';
+                $request->labelClass = 'bg-danger';
             }
             $request->requestByName = $this->bluetape->getName($request->requestByEmail, '(belum tersedia)');
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);

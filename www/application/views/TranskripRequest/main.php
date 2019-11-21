@@ -64,13 +64,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th class="table-active">ID</th>
-                                <th class="table-active">Status</th>
-                                <th class="table-active">Tanggal Permohonan</th>
-                                <th class="table-active">Tipe Transkrip</th>
-                                <th class="table-active">Tanggal Jawab/Cetak</th>
-                                <th class="table-active">Keterangan</th>
-                                <th class="table-active">Aksi</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Tanggal Permohonan</th>
+                                <th scope="col">Tipe Transkrip</th>
+                                <th scope="col">Tanggal Jawab/Cetak</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -26,13 +26,13 @@ class TranskripRequest extends CI_Controller {
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
                 $request->status = 'TUNGGU';//abu
-                $request->labelClass = 'p-1 mb-1 bg-secondary text-white';
+                $request->labelClass = 'bg-secondary';
             } else if ($request->answer === 'printed') {
                 $request->status = 'TERCETAK';//ijo
-                $request->labelClass = 'p-1 mb-1 bg-success text-white';
+                $request->labelClass = 'bg-success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';//merah
-                $request->labelClass = 'p-1 mb-1 bg-danger text-white';
+                $request->labelClass = 'bg-danger';
             }
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
             $request->requestByName = $this->bluetape->getName($request->requestByEmail);

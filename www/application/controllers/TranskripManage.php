@@ -40,13 +40,13 @@ class TranskripManage extends CI_Controller {
         foreach ($requests as &$request) {
             if ($request->answer === NULL) {
                 $request->status = 'MENUNGGU';
-                $request->labelClass = 'p-1 mb-1 bg-warning text-white';
+                $request->labelClass = 'bg-warning';
             } else if ($request->answer === 'printed') {
                 $request->status = 'TERCETAK';
-                $request->labelClass = 'p-1 mb-1 bg-success text-white';
+                $request->labelClass = 'bg-success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';
-                $request->labelClass = 'p-1 mb-1 bg-danger text-white';
+                $request->labelClass = 'bg-danger';
             }
             $request->requestByName = $this->bluetape->getName($request->requestByEmail, '(belum tersedia)');
             $request->requestByNPM = $this->bluetape->getNPM($request->requestByEmail);
