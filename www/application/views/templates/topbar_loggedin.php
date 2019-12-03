@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li <?= $module == $currentModule ? ' class="nav-item active"' : ' class="nav-item "' ?>><a class="nav-link" href="/<?= $module ?>"><?= $this->config->item('module-names')[$module] ?></a></li>
             <?php endforeach; ?>
         </ul>
-        <ul class="navbar-nav form-inline">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/auth/logout">Logout</a>
             </li>

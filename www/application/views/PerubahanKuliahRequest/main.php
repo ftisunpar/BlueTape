@@ -9,116 +9,126 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
 
         <div class="container">
-            <div class="border p-3">
-                <h5>Permohonan Baru</h5>
-                <form class="p-3" method="POST" action="/PerubahanKuliahRequest/add">
-                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label class="col-form-label">Pemohon:</label>
-                        <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly/>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="col-form-label">Nama:</label>
-                        <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly="readonly"/>
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    Permohonan Baru
                 </div>
+                <div class="card-body">
+                    <form class="p-3" method="POST" action="/PerubahanKuliahRequest/add">
+                        <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Pemohon:</label>
+                                <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Nama:</label>
+                                <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly="readonly"/>
+                            </div>
+                        </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Kode MK:</label>
-                        <input class="form-control" type="text" name="mataKuliahCode" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123"/>
-                    </div>
-                    <div class="col-sm-5">
-                        <label class="col-form-label">Nama Mata Kuliah:</label>
-                        <input class="form-control" type="text" name="mataKuliahName" required/>
-                    </div>
-                    <div class="col-sm-1">
-                        <label class="col-form-label">Kelas:</label>
-                        <input class="form-control" type="text" name="class" maxlength="1"/>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="col-form-label">Jenis Perubahan:</label>
-                        <select name="changeType" class="form-control">
-                            <?php foreach (PerubahanKuliah_model::CHANGETYPE_TYPES as $type => $name): ?>
-                                <option value="<?= $type ?>"><?= $name ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label class="col-form-label">Kode MK:</label>
+                                <input class="form-control" type="text" name="mataKuliahCode" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123"/>
+                            </div>
+                            <div class="col-sm-5">
+                                <label class="col-form-label">Nama Mata Kuliah:</label>
+                                <input class="form-control" type="text" name="mataKuliahName" required/>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="col-form-label">Kelas:</label>
+                                <input class="form-control" type="text" name="class" maxlength="1"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-form-label">Jenis Perubahan:</label>
+                                <select name="changeType" class="form-control">
+                                    <?php foreach (PerubahanKuliah_model::CHANGETYPE_TYPES as $type => $name): ?>
+                                        <option value="<?= $type ?>"><?= $name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Dari Hari &amp; Jam:</label>
+                                <input id="datetimepicker" class="form-control disableable" type="text" name="fromDateTime">
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Dari Ruang:</label>
+                                <input class="form-control disableable" type="text" name="fromRoom"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Keterangan Tambahan:</label>
+                                <input class="form-control disableable" type="text" name="remarks"/>
+                            </div>
+                        </div>
+                        <div class="form-group row toFields">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
+                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Menjadi Ruang:</label>
+                                <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <br/><br>
+                                <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="sendDiv">
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
+                                <a href="#" id="addToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label class="col-form-label">Dari Hari &amp; Jam:</label>
-                        <input id="datetimepicker" class="form-control disableable" type="text" name="fromDateTime">
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="col-form-label">Dari Ruang:</label>
-                        <input class="form-control disableable" type="text" name="fromRoom"/>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="col-form-label">Keterangan Tambahan:</label>
-                        <input class="form-control disableable" type="text" name="remarks"/>
-                    </div>
-                </div>
-                <div class="form-group row toFields">
-                    <div class="col-sm-3">
-                        <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
-                        <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="col-form-label">Menjadi Ruang:</label>
-                        <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <br/><br>
-                        <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
-                    </div>
-                </div>
-                <div class="form-group row" id="sendDiv">
-                    <div class="col-sm-12">
-                        <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
-                        <a href="#" id="addToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
-                    </div>
-                </div>
-                </form>
             </div>
             <br>
-            <div class="border p-3 table-responsive">
-                <h5>Histori Permohonan</h5>
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Tanggal Permohonan</th>
-                        <th scope="col">Kode MK</th>
-                        <th scope="col">Perubahan</th>
-                        <th scope="col">Tanggal Jawab</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($requests as $request): ?>
+            <div class="card">
+                <div class="card-header">
+                    Histori Permohonan
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-responsive">
+                        <thead>
                         <tr>
-                            <td>#<?= $request->id ?></td>
-                            <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
-                            <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
-                            <td><?= $request->mataKuliahCode ?></td>
-                            <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
-                            <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></time></td>
-                            <td><?= $request->answeredMessage ?></td>
-                            <td>
-                                <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>">
+                            <th scope="col">ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Tanggal Permohonan</th>
+                            <th scope="col">Kode MK</th>
+                            <th scope="col">Perubahan</th>
+                            <th scope="col">Tanggal Jawab</th>
+                            <th scope="col">Keterangan</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($requests as $request): ?>
+                            <tr>
+                                <td>#<?= $request->id ?></td>
+                                <td><span class=" badge badge-<?= $request->labelClass ?>"><?= $request->status ?></span></td>
+                                <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
+                                <td><?= $request->mataKuliahCode ?></td>
+                                <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
+                                <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></time></td>
+                                <td><?= $request->answeredMessage ?></td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>">
                                     <span style="font-size: 18px; color: Dodgerblue;">
                                       <i class="fas fa-eye"></i>
                                     </span>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <h5></h5>
+
             </div>
         </div>
         <?php foreach ($requests as $request): ?>
@@ -132,7 +142,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <table class="table">
+                            <table class="table table-striped">
                                 <tbody>
                                 <tr>
                                     <th>E-mail Pemohon</th>
@@ -164,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                                 <tr>
                                     <th>Dari Hari/Jam</th>
-                                    <td><input class="disableable" type="text" name="fromDateTime" id="fromDateTime"/></td>
+                                    <td><time datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?></time></td>
                                 </tr>
                                 <tr>
                                     <th>Dari Ruang</th>
@@ -173,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php foreach (json_decode($request->to) as $to): ?>
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
-                                        <td><input class="disableable toDateTime" type="text" name="toDateTime[]"/></td>
+                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>

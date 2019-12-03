@@ -48,12 +48,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option value="konsultasi" style="background-color:yellow"> Konsultasi </option>
                             <option value="terjadwal" style="background-color:green;color:white"> Terjadwal</option>
                             <option value="kelas" style="background-color:white"> Kelas </option>
-                        </select>
+                        </select><br>
                     </div>
                     <div class="col-lg-4">
                         Label <input class="form-control" type="text" name="label_jadwal"><br><br>
                         <input class="btn btn-primary" type="submit" class="button" value="Tambah">
-                        </form>
+                        </form><br>
                     </div>
                 </div>
 
@@ -63,12 +63,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="border p-3">
                 <h5>Daftar Jadwal</h5>
                 <div id="jadwal_table">
-                    <table class="table-bordered table-striped mx-auto w-auto" border=1 style="border-color:black ; border-collapse:separate">
+                    <table class="table table-bordered table-striped">
                         <tr>
-                            <td style='width:10%'></td>
+                            <th></th>
                             <?php
                             for ($i = 0; $i < 5; $i++) {
-                                echo "<td style='width:18%'> $namaHari[$i] </td>"; //Membuat Header Tabel yang berisi daftar hari
+                                echo "<th> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
                             }
                             ?>
                         </tr>
@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         //GENERATE BODY UTAMA TABEL
                         $cellRowID = 1;
                         for ($i = 7; $i < 17; $i++) {
-                            echo "<tr><td>" . $i . "-" . ($i + 1);
+                            echo "<tr><th>" . $i . "-" . ($i + 1);
                             $cellColID = 1;
                             for ($j = 0; $j < 5; $j++) {
                                 echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
@@ -91,6 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         foreach ($dataJadwal as $dataHariIni) {
                             $colIdx = $dataHariIni->hari + 1;   // + 1 karena perbedaan selisih index tabel dan value hari di database
                             $rowIdx = $dataHariIni->jam_mulai - 6;  // + 1 karena perbedaan selisih index tabel dan value jam_mulai di database
+                            $border = "border border-secondary align-middle";
                             if ($dataHariIni->jenis == "konsultasi") {
                                 $color = "#FEFF00";
                             } else if ($dataHariIni->jenis == "kelas") {
@@ -106,6 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                 $($cellLocation).css('background-color', '<?php echo $color; ?>');
                                 $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
+                                $($cellLocation).addClass('<?php echo $border; ?>');
 
                                 //menghapus cell-cell yang tergeser karena rowspan
                                 for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
@@ -235,7 +237,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            <option style="background-color:yellow" value="konsultasi" <?php if ($dataHariIni->jenis == 'konsultasi') echo "selected"; ?> > Konsultasi </option>
                                            <option style="background-color:green" value="terjadwal" <?php if ($dataHariIni->jenis == 'terjadwal') echo "selected"; ?>> Terjadwal</option>
                                            <option style="background-color:white" value="kelas" <?php if ($dataHariIni->jenis == 'kelas') echo "selected"; ?>> Kelas </option>
-                                       </select>
+                                       </select><br>
                                        Label
                                        <input class="form-control" type="text" name="label_jadwal" value="<?php echo $dataHariIni->label; ?>"><br>
                                        <div class="row">
@@ -245,7 +247,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            <div class="col-lg-2">
                                                <form name="formDelete<?php echo $dataHariIni->id ?>" method="POST" action="/EntriJadwalDosen/delete/<?php echo $dataHariIni->id ?>">
                                                    <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                                                   <input class="btn btn-danger" type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" class="alert button" value="Delete">
+                                                   <input class="btn btn-danger" type="submit" id="deletebtn<?php echo $dataHariIni->id ?>" name="deletebtn<?php echo $dataHariIni->id ?>" value="Delete">
                                                </form>
                                            </div>
                                        </div>

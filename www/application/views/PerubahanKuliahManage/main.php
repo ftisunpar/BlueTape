@@ -8,39 +8,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
 
         <div class="container">
-            <div class="border p-3">
-                <h5>Permohonan Perubahan Kuliah</h5>
+            <div class="card">
+                <div class="card-header">
+                    Permohonan Perubahan Kuliah
+                </div>
                 <br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Tanggal Permohonan</th>
-                        <th scope="col">Kode MK</th>
-                        <th scope="col">Perubahan</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($requests as $request): ?>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                            <td>#<?= $request->id ?></td>
-                            <td><span class="<?= $request->labelClass ?> label"><?= $request->status ?></span></td>
-                            <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
-                            <td><?= $request->mataKuliahCode ?></td>
-                            <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
-                            <td>
-                                <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>"><i class="fas fa-eye blueiconcolor"></i></a>
-                                <a target="_blank" href="/PerubahanKuliahManage/printview/<?= $request->id ?>"><i class="fas fa-print"></i></a>
-                                <a data-toggle="modal" data-target="#konfirmasi<?= $request->id ?>"><i class="fas fa-thumbs-up"></i></a>
-                                <a data-toggle="modal" data-target="#tolak<?= $request->id ?>"><i class="fas fa-thumbs-down"></i></a>
-                                <a data-toggle="modal" data-target="#hapus<?= $request->id ?>"><i class="fas fa-trash"></i></a>
-                            </td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Tanggal Permohonan</th>
+                            <th scope="col">Kode MK</th>
+                            <th scope="col">Perubahan</th>
+                            <th scope="col">Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($requests as $request): ?>
+                            <tr>
+                                <td>#<?= $request->id ?></td>
+                                <td><span class="badge badge-<?= $request->labelClass ?>"><?= $request->status ?></span></td>
+                                <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
+                                <td><?= $request->mataKuliahCode ?></td>
+                                <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>"><i class="fas fa-eye blueiconcolor"></i></a>
+                                    <a target="_blank" href="/PerubahanKuliahManage/printview/<?= $request->id ?>"><i class="fas fa-print"></i></a>
+                                    <a data-toggle="modal" data-target="#konfirmasi<?= $request->id ?>"><i class="fas fa-thumbs-up"></i></a>
+                                    <a data-toggle="modal" data-target="#tolak<?= $request->id ?>"><i class="fas fa-thumbs-down"></i></a>
+                                    <a data-toggle="modal" data-target="#hapus<?= $request->id ?>"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 <?php if ($numOfPages > 1): ?>
                     <ul class="pagination text-center" role="navigation" aria-label="Pagination">
                         <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
@@ -95,19 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                         <tr>
                                             <th>Dari Hari/Jam</th>
-                                            <td>
-                                                <div class="col-sm-6" style="height:130px;" datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?>
-                                                    <div class="form-group">
-                                                        <div class='input-group date' id='datetimepicker8'>
-                                                            <input type='text' class="form-control" />
-                                                            <span class="input-group-addon">
-                                                                <span class="fa fa-calendar">
-                                                                </span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <td><time datetime="<?= $request->fromDateTime ?>"><?= $request->fromDateTime ?></time></td>
                                         </tr>
                                         <tr>
                                             <th>Dari Ruang</th>
@@ -116,19 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php foreach (json_decode($request->to) as $to): ?>
                                             <tr>
                                                 <th>Menjadi Hari/Jam</th>
-                                                <td>
-                                                    <div class="col-sm-6" style="height:130px;" datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?>
-                                                        <div class="form-group">
-                                                            <div class='input-group date' id='datetimepicker8'>
-                                                                <input type='text' class="form-control" />
-                                                                <span class="input-group-addon">
-                                                                <span class="fas fa-calendar">
-                                                                </span>
-                                                            </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <time </time></td>
+                                                <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
                                             </tr>
                                             <tr>
                                                 <th>Menjadi Ruang</th>
@@ -171,14 +151,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                         <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                         <input type="hidden" name="answer" value="confirmed"/>
-                                        <label>Email penjawab:
-                                            <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
-                                        </label>
-                                        <label>Keterangan:
-                                            <input name="answeredMessage" class="input-group-field" type="text"/>
-                                        </label>
+                                        <div class="form-group">
+                                            <label>Email penjawab:</label>
+                                            <input class="form-control" type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Keterangan:</label>
+                                            <input class="form-control" name="answeredMessage" class="input-group-field" type="text"/>
+                                        </div>
                                         <p>&nbsp;</p>
-                                        <input type="submit" class="success button" value="Konfirmasi"/>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-success" value="Konfirmasi"/>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -198,14 +182,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                         <input type="hidden" name="id" value="<?= $request->id ?>"/>
                                         <input type="hidden" name="answer" value="rejected"/>
-                                        <label>Email penjawab:
-                                            <input type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
-                                        </label>
-                                        <label>Alasan penolakan:
-                                            <input name="answeredMessage" class="input-group-field" type="text" required/>
-                                        </label>
+                                        <div class="form-group">
+                                            <label>Email penjawab:</label>
+                                            <input class="form-control" type="text" value="<?= $answeredByEmail ?>" readonly="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Alasan penolakan:</label>
+                                            <input class="form-control" name="answeredMessage" class="input-group-field" type="text" required/>
+                                        </div>
                                         <p>&nbsp;</p>
-                                        <input type="submit" class="alert button" value="Tolak"/>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-danger" value="Tolak"/>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>
@@ -227,7 +216,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <input type="hidden" name="answer" value="remove"/>
                                         <p><strong>Yakin ingin menghapus?</strong></p>
                                         <p>Data akan hilang selamanya dari catatan. Biasanya menghapus tidak diperlukan, cukup menolak atau mencetak.</p>
-                                        <input type="submit" class="alert button" value="Hapus"/>
+                                        <input type="submit" class="btn btn-danger" value="Hapus"/>
                                     </form>
                                 </div>
                             </div>

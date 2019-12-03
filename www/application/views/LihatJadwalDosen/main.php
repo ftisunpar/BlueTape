@@ -56,21 +56,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                     }
                                     ?>
-                                    <table class="table-bordered table-striped mx-auto w-auto" id="tabel<?php echo $idx; ?>" border=1 style="border-color:black ; border-collapse:separate">
+                                    <table class="table table-bordered table-striped" id="tabel<?php echo $idx; ?>" >
                                         <!-- 						---------------------- GENERATE TEMPLATE TABEL 		------------------------------------ -->
                                         <tr>
                                             <td style='width:10%'>
                                             </td>
                                             <?php
                                             for ($i = 0; $i < 5; $i++) {
-                                                echo "<td style='width:18%'>" . $namaHari[$i] . "</td>";
+                                                echo "<th>" . $namaHari[$i] . "</th>";
                                             }
                                             ?>
                                         </tr>
                                         <?php
                                         $cellRowID = 1;
                                         for ($i = 7; $i < 17; $i++) {
-                                            echo "<tr><td>" . $i . "-" . ($i + 1);
+                                            echo "<tr><th>" . $i . "-" . ($i + 1);
                                             $cellColID = 1;
                                             for ($j = 0; $j < 5; $j++) {
                                                 echo"<td align='center' id='t" . $idx . "cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
@@ -87,13 +87,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         foreach ($currRow as $dataHariIni) {
                                             $colIdx = $dataHariIni->hari + 1;   // + 1 karena perbedaan selisih index tabel dan value hari di database
                                             $rowIdx = $dataHariIni->jam_mulai - 6;  // + 1 karena perbedaan selisih index tabel dan value jam_mulai di database
+                                            $border = "border border-secondary align-middle";
                                             if ($dataHariIni->jenis == "konsultasi") {
                                                 $color = "#FEFF00";
                                             } else if ($dataHariIni->jenis == "kelas") {
                                                 $color = "#FFFFFF";
                                             } else {
-                                                $color = "#92D14F";
-                                            }
+                                                $color = "#92D14F";                                            }
                                             ?>
                                             <script >
 
@@ -103,14 +103,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                 $($cellLocation).css('background-color', '<?php echo $color; ?>');
                                                 $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
+                                                $($cellLocation).addClass('<?php echo $border; ?>');
+
 
                                                 //menghapus cell-cell yang tergeser karena rowspan
                                                 for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
                                                     $("#t<?php echo $idx; ?>cell" + i + "-" +<?php echo $colIdx; ?>).remove();
                                                 }
                                                 $($cellLocation).html("<?php echo $dataHariIni->label ?>");
-
-
                                             </script>
                                             <?php
                                         }
