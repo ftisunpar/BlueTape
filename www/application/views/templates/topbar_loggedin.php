@@ -1,10 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!--<div class="title-bar" data-responsive-toggle="navigation-menu" data-hide-for="medium">-->
-<!--    <button class="menu-icon" type="button" data-toggle></button>-->
-<!--    <div class="title-bar-title"><img src="/public/img/logo.png" class="textsized" alt="B"/></div>-->
-<!--</div>-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#"><img src="/public/img/logo.png" width="50"/></a>
@@ -25,8 +21,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </ul>
     </div>
 </nav>
-
-
-
-
-&nbsp;

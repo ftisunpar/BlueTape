@@ -16,13 +16,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6 align-content-lg-center">
+                <div class="col-lg-6">
                     <p class="text-center">
                         <img src="/public/img/logo.png" alt="Logo BlueTape"/><br/><br/>
                         Silahkan login di aplikasi BlueTape, dengan menekan tombol di bawah ini. Gunakan akun
                         <b>@unpar.ac.id</b> atau <b>@student.unpar.ac.id</b>.<br/><br/>
                         <a href="<?= $authURL; ?>" class="btn btn-primary btn-lg">Login dengan Google</a><br/><br/>
-                        <a class="text-center" href="https://github.com/ftisunpar/BlueTape/wiki/UserGuide" target="_blank">Petunjuk Penggunaan</a>
+                        <a href="https://github.com/ftisunpar/BlueTape/wiki/UserGuide" target="_blank">Petunjuk Penggunaan</a>
                     </p>
                 </div>
             </div>

@@ -14,12 +14,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="card-body">
                         <form method="GET" action="/TranskripManage">
-                            <div class="input-group">
+                            <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Cari NPM:</span>
                                 </div>
+
                                 <input name="npm" class="form-control" type="text" placeholder="2013730013" maxlength="10" minlength="10"<?= $npmQuery === NULL ? '' : " value='$npmQuery'" ?>/>
-                                <input class="btn btn-outline-primary" type="submit" value="Cari"/>
+                                <div class="input-group-append">
+                                    <input class="btn btn-primary" type="submit" value="Cari"/>
+                                </div>
                             </div>
                         </form>
                         <br>
@@ -122,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Alasan penolakan:</label>
-                                                                <input class="form-control" name="answeredMessage" class="input-group-field" type="text" required/>
+                                                                <input class="form-control" name="answeredMessage" type="text" required/>
                                                             </div>
                                                             <p>&nbsp;</p>
                                                             <div class="form-group">
@@ -163,7 +166,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-form-label">Keterangan tambahan:</label>
-                                                                <input class="form-control" name="answeredMessage" class="input-group-field" type="text" required/>
+                                                                <input class="form-control" name="answeredMessage" type="text" required/>
                                                             </div>
                                                             <p>&nbsp;</p>
                                                             <div class="form-group">

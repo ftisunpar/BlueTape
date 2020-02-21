@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php //$this->load->view('templates/flashmessage'); ?>
 
         <div class="container">
-            <div class="border p-3">
+            <div class="card card-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="nav nav-tabs" data-tabs id="tab_jadwal">
@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             foreach ($dataJadwalPerUser as $currRow) {
                             ?>
 
-                            <div class="table-scroll" id="jadwal_table<?php echo $idx; ?>">
+                            <div id="jadwal_table<?php echo $idx; ?>">
                                 <?php
                                 if ($idx == 0) {
                                     echo '<div class="tabs-panel is-active" id="hal' . $idx . '">';
@@ -150,8 +150,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
 
                     <?php $this->load->view('templates/script_foundation'); ?>
+                </div>
     </body>
             </div>
         </div>
-
 </html>

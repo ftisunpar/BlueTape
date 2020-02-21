@@ -5,12 +5,12 @@
         "version_normalized": "1.1.8.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/googleapis/google-api-php-client.git",
+            "url": "https://github.com/google/google-api-php-client.git",
             "reference": "85309a3520bb5f53368d43e35fd24f43c9556323"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/googleapis/google-api-php-client/zipball/85309a3520bb5f53368d43e35fd24f43c9556323",
+            "url": "https://api.github.com/repos/google/google-api-php-client/zipball/85309a3520bb5f53368d43e35fd24f43c9556323",
             "reference": "85309a3520bb5f53368d43e35fd24f43c9556323",
             "shasum": ""
         },
@@ -101,60 +101,6 @@
             "spreadsheet",
             "xls",
             "xlsx"
-        ],
-        "abandoned": "phpoffice/phpspreadsheet"
-    },
-    {
-        "name": "twbs/bootstrap",
-        "version": "v4.0.0",
-        "version_normalized": "4.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/twbs/bootstrap.git",
-            "reference": "8a628b943cf31ca0a002c08af661a95772480225"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/twbs/bootstrap/zipball/8a628b943cf31ca0a002c08af661a95772480225",
-            "reference": "8a628b943cf31ca0a002c08af661a95772480225",
-            "shasum": ""
-        },
-        "replace": {
-            "twitter/bootstrap": "self.version"
-        },
-        "time": "2018-01-18T18:29:48+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jacob Thornton",
-                "email": "jacobthornton@gmail.com"
-            },
-            {
-                "name": "Mark Otto",
-                "email": "markdotto@gmail.com"
-            }
-        ],
-        "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-        "homepage": "https://getbootstrap.com",
-        "keywords": [
-            "JS",
-            "css",
-            "framework",
-            "front-end",
-            "mobile-first",
-            "responsive",
-            "sass",
-            "web"
         ]
     }
 ]

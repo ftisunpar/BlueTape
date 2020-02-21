@@ -10,158 +10,165 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/topbar_loggedin'); ?>
 
         <div class="container">
-            <div class="border p-3">
-                <h5>Tambah Jadwal</h5>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <form method="POST" action="/EntriJadwalDosen/add">
-                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                            Hari
-                            <select class="form-control" name="hari">
-                                <?php
-                                $hariValue = 0;
-                                foreach ($namaHari as $hari) {
-                                    ?>
-                                    <option value="<?= $hariValue ?>"> <?= $hari ?> </option>
-
+            <div class="card">
+                <div class="card-header">
+                    Tambah Jadwal
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form method="POST" action="/EntriJadwalDosen/add">
+                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                Hari
+                                <select class="form-control" name="hari">
                                     <?php
-                                    $hariValue++;
-                                }
-                                ?>
-                            </select><br>
-                            Jam Mulai
-                            <select class="form-control" name="jam_mulai">
-                                <?php for ($i = 7; $i <= 16; $i++) { ?>
-                                    <option value="<?php echo $i ?>"> <?php echo $i ?>:00 </option>
+                                    $hariValue = 0;
+                                    foreach ($namaHari as $hari) {
+                                        ?>
+                                        <option value="<?= $hariValue ?>"> <?= $hari ?> </option>
+
+                                        <?php
+                                        $hariValue++;
+                                    }
+                                    ?>
+                                </select><br>
+                                Jam Mulai
+                                <select class="form-control" name="jam_mulai">
+                                    <?php for ($i = 7; $i <= 16; $i++) { ?>
+                                        <option value="<?php echo $i ?>"> <?php echo $i ?>:00 </option>
+                                    <?php } ?>
+                                </select><br>
+                        </div>
+                        <div class="col-lg-4">
+                            Durasi
+                            <select class="form-control" name="durasi">
+                                <?php for ($i = 1; $i <= 9; $i++) { ?>
+                                    <option value="<?php echo $i ?>"> <?php echo $i ?> jam </option>
                                 <?php } ?>
                             </select><br>
-                    </div>
-                    <div class="col-lg-4">
-                        Durasi
-                        <select class="form-control" name="durasi">
-                            <?php for ($i = 1; $i <= 9; $i++) { ?>
-                                <option value="<?php echo $i ?>"> <?php echo $i ?> jam </option>
-                            <?php } ?>
-                        </select><br>
-                        Jenis
-                        <select class="form-control" name="jenis_jadwal">
-                            <option value="konsultasi" style="background-color:yellow"> Konsultasi </option>
-                            <option value="terjadwal" style="background-color:green;color:white"> Terjadwal</option>
-                            <option value="kelas" style="background-color:white"> Kelas </option>
-                        </select><br>
-                    </div>
-                    <div class="col-lg-4">
-                        Label <input class="form-control" type="text" name="label_jadwal"><br><br>
-                        <input class="btn btn-primary" type="submit" class="button" value="Tambah">
-                        </form><br>
+                            Jenis
+                            <select class="form-control" name="jenis_jadwal">
+                                <option value="konsultasi" style="background-color:yellow"> Konsultasi </option>
+                                <option value="terjadwal" style="background-color:green;color:white"> Terjadwal</option>
+                                <option value="kelas" style="background-color:white"> Kelas </option>
+                            </select><br>
+                        </div>
+                        <div class="col-lg-4">
+                            Label <input class="form-control" type="text" name="label_jadwal"><br><br>
+                            <input class="btn btn-primary" type="submit" value="Tambah">
+                            </form><br>
+                        </div>
                     </div>
                 </div>
-
             </div>
             <!-- ===================================================================== Pembentukan Tabel ============================================================================= -->
             <br>
-            <div class="border p-3">
-                <h5>Daftar Jadwal</h5>
-                <div id="jadwal_table">
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <th></th>
+            <div class="card">
+                <div class="card-header">
+                    Daftar Jadwal
+                </div>
+                <div class="card-body">
+                    <div id="jadwal_table">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th></th>
+                                <?php
+                                for ($i = 0; $i < 5; $i++) {
+                                    echo "<th> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
+                                }
+                                ?>
+                            </tr>
                             <?php
-                            for ($i = 0; $i < 5; $i++) {
-                                echo "<th> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
+                            //GENERATE BODY UTAMA TABEL
+                            $cellRowID = 1;
+                            for ($i = 7; $i < 17; $i++) {
+                                echo "<tr><th>" . $i . "-" . ($i + 1);
+                                $cellColID = 1;
+                                for ($j = 0; $j < 5; $j++) {
+                                    echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
+                                    $cellColID++;
+                                }
+                                $cellRowID++;
                             }
-                            ?>
-                        </tr>
-                        <?php
-                        //GENERATE BODY UTAMA TABEL
-                        $cellRowID = 1;
-                        for ($i = 7; $i < 17; $i++) {
-                            echo "<tr><th>" . $i . "-" . ($i + 1);
-                            $cellColID = 1;
-                            for ($j = 0; $j < 5; $j++) {
-                                echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
-                                $cellColID++;
+                            // MEWARNAI TABEL
+                            $rowIdx = 1;
+                            $spanCounter = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                            $cellRowID = 0;
+                            foreach ($dataJadwal as $dataHariIni) {
+                                $colIdx = $dataHariIni->hari + 1;   // + 1 karena perbedaan selisih index tabel dan value hari di database
+                                $rowIdx = $dataHariIni->jam_mulai - 6;  // + 1 karena perbedaan selisih index tabel dan value jam_mulai di database
+                                $border = "border border-secondary align-middle";
+                                if ($dataHariIni->jenis == "konsultasi") {
+                                    $color = "#FEFF00";
+                                } else if ($dataHariIni->jenis == "kelas") {
+                                    $color = "#FFFFFF";
+                                } else {
+                                    $color = "#92D14F";
+                                }
+                                ?>
+                                <script type="text/javascript">
+                                    var table = document.getElementById('jadwal_table');
+                                    var rows = table.getElementsByTagName('tr');
+                                    var $cellLocation = "#cell<?php echo $rowIdx; ?>-<?php echo $colIdx; ?>";
+
+                                    $($cellLocation).css('background-color', '<?php echo $color; ?>');
+                                    $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
+                                    $($cellLocation).addClass('<?php echo $border; ?>');
+
+                                    //menghapus cell-cell yang tergeser karena rowspan
+                                    for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
+                                        $("#cell" + i + "-" +<?php echo $colIdx; ?>).remove();
+                                    }
+                                    $($cellLocation).html("<?php echo $dataHariIni->label ?>");
+
+                                    //membuat cell-cell yang telah diwarnai jadi memunculkan pop-up untuk mengedit jadwal ketika diklik oleh mouse
+                                    $(document).on("click", $cellLocation, function () {
+                                        var $menuName = "#edit_menu<?php echo $dataHariIni->id ?>";
+                                        $($menuName).modal();
+                                    });
+                                </script>
+                                <?php
                             }
                             $cellRowID++;
-                        }
-                        // MEWARNAI TABEL
-                        $rowIdx = 1;
-                        $spanCounter = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                        $cellRowID = 0;
-                        foreach ($dataJadwal as $dataHariIni) {
-                            $colIdx = $dataHariIni->hari + 1;   // + 1 karena perbedaan selisih index tabel dan value hari di database
-                            $rowIdx = $dataHariIni->jam_mulai - 6;  // + 1 karena perbedaan selisih index tabel dan value jam_mulai di database
-                            $border = "border border-secondary align-middle";
-                            if ($dataHariIni->jenis == "konsultasi") {
-                                $color = "#FEFF00";
-                            } else if ($dataHariIni->jenis == "kelas") {
-                                $color = "#FFFFFF";
-                            } else {
-                                $color = "#92D14F";
-                            }
+                            $rowIdx++;
                             ?>
-                            <script type="text/javascript">
-                                var table = document.getElementById('jadwal_table');
-                                var rows = table.getElementsByTagName('tr');
-                                var $cellLocation = "#cell<?php echo $rowIdx; ?>-<?php echo $colIdx; ?>";
-
-                                $($cellLocation).css('background-color', '<?php echo $color; ?>');
-                                $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
-                                $($cellLocation).addClass('<?php echo $border; ?>');
-
-                                //menghapus cell-cell yang tergeser karena rowspan
-                                for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
-                                    $("#cell" + i + "-" +<?php echo $colIdx; ?>).remove();
-                                }
-                                $($cellLocation).html("<?php echo $dataHariIni->label ?>");
-
-                                //membuat cell-cell yang telah diwarnai jadi memunculkan pop-up untuk mengedit jadwal ketika diklik oleh mouse
-                                $(document).on("click", $cellLocation, function () {
-                                    var $menuName = "#edit_menu<?php echo $dataHariIni->id ?>";
-                                    $($menuName).modal();
-                                });
-                            </script>
-                            <?php
+                        </table>
+                    </div>
+                    <?php
+                    if($dataJadwal!=null){
+                        $palingBaru=$dataJadwal[0]->lastUpdate;
+                        foreach($dataJadwal as $perJadwal){
+                            if($palingBaru<$perJadwal->lastUpdate){
+                                $palingBaru=$perJadwal->lastUpdate;
+                            }
                         }
-                        $cellRowID++;
-                        $rowIdx++;
+                        $tgl = date('d',strtotime($palingBaru));
+                        $tgl = $tgl.' '.$namaBulan[date('m',strtotime($palingBaru)) - 1]; // minus 1 karena index dimulai dari 0
+                        $tgl = $tgl.' '.date('Y',strtotime($palingBaru));
                         ?>
-                    </table>
-                </div>
-                <?php
-                if($dataJadwal!=null){
-                    $palingBaru=$dataJadwal[0]->lastUpdate;
-                    foreach($dataJadwal as $perJadwal){
-                        if($palingBaru<$perJadwal->lastUpdate){
-                            $palingBaru=$perJadwal->lastUpdate;
-                        }
+                        Terakhir diupdate pada : <?=$tgl?><br>
+                        <?php
                     }
-                    $tgl = date('d',strtotime($palingBaru));
-                    $tgl = $tgl.' '.$namaBulan[date('m',strtotime($palingBaru)) - 1]; // minus 1 karena index dimulai dari 0
-                    $tgl = $tgl.' '.date('Y',strtotime($palingBaru));
+                    else{
+                        $palingBaru=FALSE;
+                        ?>
+                        Terakhir diupdate pada : Belum ada jadwal <br>
+                        <?php
+                    }
                     ?>
-                    Terakhir diupdate pada : <?=$tgl?><br>
-                    <?php
-                }
-                else{
-                    $palingBaru=FALSE;
-                    ?>
-                    Terakhir diupdate pada : Belum ada jadwal <br>
-                    <?php
-                }
-                ?>
-                <a href="/EntriJadwalDosen/deleteAll/export/" class="btn btn-danger" onClick="return konfirmasi();">Delete All</a>
-                <a href="/EntriJadwalDosen/export/" class="btn btn-primary">Ekspor ke XLS</a>
-                <script>
-                    function konfirmasi()
-                    {
-                        yakin = confirm("Anda yakin mau menghapus semua data jadwal? Aksi ini tidak dapat dibatalkan");
-                        if(yakin!=true)
+                    <a href="/EntriJadwalDosen/deleteAll/export/" class="btn btn-danger" onClick="return konfirmasi();">Delete All</a>
+                    <a href="/EntriJadwalDosen/export/" class="btn btn-primary">Ekspor ke XLS</a>
+                    <script>
+                        function konfirmasi()
                         {
-                            return false;
+                            yakin = confirm("Anda yakin mau menghapus semua data jadwal? Aksi ini tidak dapat dibatalkan");
+                            if(yakin!=true)
+                            {
+                                return false;
+                            }
                         }
-                    }
-                </script>
+                    </script>
+                </div>
             </div>
         </div>
 
