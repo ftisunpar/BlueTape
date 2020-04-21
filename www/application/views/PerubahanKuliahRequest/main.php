@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="large-12 column">
                 <div class="callout">
                     <h5>Permohonan Baru</h5>
+                    <div class="callout alert">Untuk perubahan jadwal kuliah, silakan berkoordinasi langsung dengan peserta kuliah.</div>                    
                     <form method="POST" action="/PerubahanKuliahRequest/add">
                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                         <div class="row">
@@ -86,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="row" id="sendDiv">
                             <div class="large-12 column">
-                                <input type="submit" class="button" value="Kirim Permohonan">
+                                <button type="button" class="button primary" disabled>Kirim Permohonan</button>
                                 <a href="#" id="addToButton" class="button secondary">Tambah Pertemuan Ekstra</a>
                             </div>
                         </div>
