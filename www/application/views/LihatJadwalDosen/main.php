@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->helper('url'); ?>
         <?php $this->load->view('templates/script_foundation'); ?>
         <?php //$this->load->view('templates/flashmessage'); ?>
-
+        <br>
         <div class="container">
             <div class="card card-body">
                 <div class="row">
@@ -56,7 +56,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                     }
                                     ?>
-                                    <table class="table table-bordered table-striped" id="tabel<?php echo $idx; ?>" >
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tabel<?php echo $idx; ?>" >
                                         <!-- 						---------------------- GENERATE TEMPLATE TABEL 		------------------------------------ -->
                                         <tr>
                                             <td style='width:10%'>
@@ -116,6 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         }
                                         ?>
                                     </table>
+                                    </div>
                                     <?php
                                     if($currRow!=null){
                                         $palingBaru=date('Y-m-d H:i:s', 0); // datetime paling awal di PHP (1 Januari 1970 00:00:00) agar langsung tertimpa di foreach di bawah

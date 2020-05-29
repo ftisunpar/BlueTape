@@ -38,11 +38,9 @@ class PerubahanKuliahManage extends CI_Controller {
                 $request->labelClass = 'warning';
             } else if ($request->answer === 'confirmed') {
                 $request->status = 'TERKONFIRMASI';
-                //hijau
                 $request->labelClass = 'success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';
-                //merah
                 $request->labelClass = 'danger';
             }
             $request->requestByName = $this->bluetape->getName($request->requestByEmail, '(belum tersedia)');

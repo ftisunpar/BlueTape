@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
-
+        <br>
         <div class="container">
             <div class="row ">
                 <div class="col">
@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="card-header">
                             Histori Permohonan
                         </div>
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>

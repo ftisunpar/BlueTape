@@ -7,14 +7,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
-
+        <br>
         <div class="container">
             <div class="card">
                 <div class="card-header">
                     Permohonan Baru
                 </div>
                 <div class="card-body">
-                    <form class="p-3" method="POST" action="/PerubahanKuliahRequest/add">
+                    <form method="POST" action="/PerubahanKuliahRequest/add">
                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                         <div class="form-group row">
                             <div class="col-sm-6">
@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input class="form-control disableable" type="text" name="remarks"/>
                             </div>
                         </div>
-                        <div class="form-group row toFields">
+                        <div class="form-group row toFields align-items-end">
                             <div class="col-sm-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
                                 <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
@@ -72,8 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label class="col-form-label">Menjadi Ruang:</label>
                                 <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
                             </div>
-                            <div class="col-sm-2">
-                                <br/><br>
+                            <div class="col-sm-3">
+                                <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tbody>
                         <?php foreach ($requests as $request): ?>
                             <tr>
-                                <td>#<?= $request->id ?></td>
+                                <th>#<?= $request->id ?></th>
                                 <td><span class=" badge badge-<?= $request->labelClass ?>"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                 <td><?= $request->mataKuliahCode ?></td>

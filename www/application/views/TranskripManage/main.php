@@ -6,22 +6,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
-
+        <br>
         <div class="container">
                 <div class="card">
                     <div class="card-header">
                         Permintaan Transkrip
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <form method="GET" action="/TranskripManage">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Cari NPM:</span>
                                 </div>
-
                                 <input name="npm" class="form-control" type="text" placeholder="2013730013" maxlength="10" minlength="10"<?= $npmQuery === NULL ? '' : " value='$npmQuery'" ?>/>
                                 <div class="input-group-append">
-                                    <input class="btn btn-primary" type="submit" value="Cari"/>
+                                    <input class="btn btn-outline-primary" type="submit" value="Cari"/>
                                 </div>
                             </div>
                         </form>
@@ -40,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tbody>
                             <?php foreach ($requests as $request): ?>
                                 <tr>
-                                    <td>#<?= $request->id ?></td>
+                                    <th>#<?= $request->id ?></th>
                                     <td><span class="badge badge-<?= $request->labelClass ?>"><?= $request->status ?></span></td>
                                     <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                     <td><?= $request->requestType ?></td>

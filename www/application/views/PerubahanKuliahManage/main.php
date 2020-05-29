@@ -6,14 +6,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
-
+        <br>
         <div class="container">
             <div class="card">
                 <div class="card-header">
                     Permohonan Perubahan Kuliah
                 </div>
                 <br>
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tbody>
                         <?php foreach ($requests as $request): ?>
                             <tr>
-                                <td>#<?= $request->id ?></td>
+                                <th>#<?= $request->id ?></th>
                                 <td><span class="badge badge-<?= $request->labelClass ?>"><?= $request->status ?></span></td>
                                 <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                 <td><?= $request->mataKuliahCode ?></td>
