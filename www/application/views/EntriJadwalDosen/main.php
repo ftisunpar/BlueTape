@@ -13,10 +13,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="card">
         <div class="card-header">Tambah Jadwal</div>
         <div class="card-body row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 form-group">
                 <form method="POST" action="/EntriJadwalDosen/add">
                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                    Hari
+                    <label>Hari</label>
                     <select class="form-control" name="hari">
                         <?php
                         $hariValue = 0;
@@ -29,29 +29,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                         ?>
                     </select><br>
-                    Jam Mulai
+                    <label>Jam Mulai</label>
                     <select class="form-control" name="jam_mulai">
                         <?php for ($i = 7; $i <= 16; $i++) { ?>
                             <option value="<?php echo $i ?>"> <?php echo $i ?>:00 </option>
                         <?php } ?>
-                    </select><br>
+                    </select>
             </div>
-            <div class="col-lg-4">
-                Durasi
+            <div class="col-lg-4 form-group">
+                <label>Durasi</label>
                 <select class="form-control" name="durasi">
                     <?php for ($i = 1; $i <= 9; $i++) { ?>
                         <option value="<?php echo $i ?>"> <?php echo $i ?> jam </option>
                     <?php } ?>
                 </select><br>
-                Jenis
+                <label>Jenis</label>
                 <select class="form-control" name="jenis_jadwal">
                     <option value="konsultasi" style="background-color:yellow"> Konsultasi </option>
                     <option value="terjadwal" style="background-color:green;color:white"> Terjadwal</option>
                     <option value="kelas" style="background-color:white"> Kelas </option>
                 </select>
             </div>
-            <div class="col-lg-4">
-                Label <input class="form-control" type="text" name="label_jadwal"><br><br>
+            <div class="col-lg-4 form-group">
+                <label>Label</label>
+                <input class="form-control" type="text" name="label_jadwal"><br><br>
                 <input class="btn btn-primary" type="submit" class="button" value="Tambah" class="btn btn-primary">
                 </form>
             </div>
@@ -251,7 +252,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Label</label>
+                            <label>Label</label>
                             <input class="form-control" type="text" name="label_jadwal" value="<?php echo $dataHariIni->label; ?>">
                         </div>
 

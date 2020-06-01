@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <p class="text-center">
                         <img src="/public/img/logo.png" alt="Logo BlueTape"/><br/><br/>
                         Silahkan login di aplikasi BlueTape, dengan menekan tombol di bawah ini. Gunakan akun

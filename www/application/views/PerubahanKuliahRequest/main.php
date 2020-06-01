@@ -17,30 +17,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form method="POST" action="/PerubahanKuliahRequest/add">
                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                         <div class="form-group row">
-                            <div class="col-sm-6">
+                            <div class="col-lg-6">
                                 <label class="col-form-label">Pemohon:</label>
                                 <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly/>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-lg-6">
                                 <label class="col-form-label">Nama:</label>
                                 <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly="readonly"/>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-2">
+                            <div class="col-lg-2">
                                 <label class="col-form-label">Kode MK:</label>
                                 <input class="form-control" type="text" name="mataKuliahCode" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123"/>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-lg-5">
                                 <label class="col-form-label">Nama Mata Kuliah:</label>
                                 <input class="form-control" type="text" name="mataKuliahName" required/>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-lg-1">
                                 <label class="col-form-label">Kelas:</label>
                                 <input class="form-control" type="text" name="class" maxlength="1"/>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-lg-4">
                                 <label class="col-form-label">Jenis Perubahan:</label>
                                 <select name="changeType" class="form-control">
                                     <?php foreach (PerubahanKuliah_model::CHANGETYPE_TYPES as $type => $name): ?>
@@ -50,35 +50,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm-3">
+                            <div class="col-lg-3">
                                 <label class="col-form-label">Dari Hari &amp; Jam:</label>
                                 <input id="datetimepicker" class="form-control disableable" type="text" name="fromDateTime">
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-lg-3">
                                 <label class="col-form-label">Dari Ruang:</label>
                                 <input class="form-control disableable" type="text" name="fromRoom"/>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-lg-6">
                                 <label class="col-form-label">Keterangan Tambahan:</label>
                                 <input class="form-control disableable" type="text" name="remarks"/>
                             </div>
                         </div>
                         <div class="form-group row toFields align-items-end">
-                            <div class="col-sm-3">
+                            <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
                                 <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Ruang:</label>
                                 <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-lg-3">
                                 <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
                         </div>
                         <div class="form-group row" id="sendDiv">
-                            <div class="col-sm-12">
+                            <div class="col-lg-12">
                                 <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
                                 <a href="#" id="addToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
                             </div>

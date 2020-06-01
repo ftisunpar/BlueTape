@@ -20,24 +20,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <form method="POST" action="/TranskripRequest/add">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 form-group">
                                             <label class="col-form-label">Yang memohon:</label>
                                             <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly/>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 form-group">
                                             <label class="col-form-label">NPM:</label>
                                             <input class="form-control" type="text" value="<?= $requestByNPM ?>" readonly/>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 form-group">
                                             <label class="col-form-label">Nama:</label>
                                             <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly/>
 
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <label class="col-form-label">Tipe Transkrip:</label>
-                                            <select class="form-control" name="requestType">
+                                        <div class="col-lg-4 form-group">
+                                            <label for="exampleFormControlSelect1" class="col-form-label">Tipe Transkrip:</label>
+                                            <select class="form-control" name="requestType" id="exampleFormControlSelect1">
                                                 <?php foreach (Transkrip_model::REQUEST_TYPES as $type => $name): ?>
                                                     <?php if (!in_array($type, $forbiddenTypes)): ?>
                                                         <option value="<?= $type ?>"><?= $name ?></option>
@@ -45,14 +45,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-8 form-group">
                                             <label class="col-form-label">Keperluan:</label>
                                             <input class="form-control" type="text" name="requestUsage" required/>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-12 form-group">
                                             <input class="btn btn-primary" type="submit" class="button" value="Kirim Permohonan">
                                         </div>
                                     </div>
