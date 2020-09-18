@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             Permohonan Baru
                         </div>
                         <div class="card-body">
-
+                            <p><strong>Transkrip akademik sementara dapat diakses via student portal masing-masing.</strong></p>
                             <?php if (is_array($forbiddenTypes)): ?>
                                 <form method="POST" action="/TranskripRequest/add">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <br>
                                     <div class="row">
                                         <div class="col-lg-12 form-group">
-                                            <input class="btn btn-primary" type="submit" class="button" value="Kirim Permohonan">
+                                            <input class="btn btn-primary" type="submit" class="button" disabled value="Kirim Permohonan">
                                         </div>
                                     </div>
                                 </form>

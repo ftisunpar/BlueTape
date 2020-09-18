@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     Permohonan Baru
                 </div>
                 <div class="card-body">
+                    <p><strong>Untuk perubahan jadwal kuliah, silakan berkoordinasi langsung dengan peserta kuliah.</strong></p>
                     <form method="POST" action="/PerubahanKuliahRequest/add">
                         <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                         <div class="form-group row">
@@ -79,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="form-group row" id="sendDiv">
                             <div class="col-lg-12">
-                                <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
+                                <input type="submit" class="btn btn-primary" disabled value="Kirim Permohonan">
                                 <a href="#" id="addToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
                             </div>
                         </div>
