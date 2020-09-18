@@ -32,7 +32,7 @@ class TranskripRequest extends CI_Controller {
                 $request->labelClass = 'success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';
-                $request->labelClass = 'alert';
+                $request->labelClass = 'danger';
             }
             $request->requestDateString = $this->bluetape->dbDateTimeToReadableDate($request->requestDateTime);
             $request->requestByName = $this->bluetape->getName($request->requestByEmail);

@@ -46,7 +46,7 @@ class TranskripManage extends CI_Controller {
                 $request->labelClass = 'success';
             } else if ($request->answer === 'rejected') {
                 $request->status = 'DITOLAK';
-                $request->labelClass = 'alert';
+                $request->labelClass = 'danger';
             }
             $request->requestByName = $this->bluetape->getName($request->requestByEmail, '(belum tersedia)');
             $request->requestByNPM = $this->bluetape->getNPM($request->requestByEmail);
