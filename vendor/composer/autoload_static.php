@@ -7,23 +7,991 @@ namespace Composer\Autoload;
 class ComposerStaticInit5778b0391e9b059db9ed6c600719a57f
 {
     public static $files = array (
-        'cf150f72bd303a2ff07711c9a70f2d53' => __DIR__ . '/..' . '/google/apiclient/src/Google/autoload.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        '19a7e2c3b1d506dcdc1b60aab8e102e4' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/shortcuts.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
+        '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
+        '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
+        'd2516f7f4fba5ea5905f494b4a8262e0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acot.php',
+        '4511163d560956219b96882c0980b65e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acoth.php',
+        'c361f5616dc2a8da4fa3e137077cd4ea' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsc.php',
+        '02d68920fc98da71991ce569c91df0f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsch.php',
+        '88e19525eae308b4a6aa3419364875d3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/argument.php',
+        '60e8e2d0827b58bfc904f13957e51849' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asec.php',
+        '13d2f040713999eab66c359b4d79871d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asech.php',
+        '838ab38beb32c68a79d3cd2c007d5a04' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asin.php',
+        'bb28eccd0f8f008333a1b3c163d604ac' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asinh.php',
+        '9e483de83558c98f7d3feaa402c78cb3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atan.php',
+        '36b74b5b765ded91ee58c8ee3c0e85e3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atanh.php',
+        '05c15ee9510da7fd6bf6136f436500c0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/conjugate.php',
+        'd3208dfbce2505e370788f9f22f6785f' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cos.php',
+        '141cf1fb3a3046f8b64534b0ebab33ca' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cosh.php',
+        'be660df75fd0dbe7fa7c03b7434b3294' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cot.php',
+        '01e31ea298a51bc9e91517e3ce6b9e76' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/coth.php',
+        '803ddd97f7b1da68982a7b087c3476f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csc.php',
+        '3001cdfd101ec3c32da34ee43c2e149b' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csch.php',
+        '77b2d7629ef2a93fabb8c56754a91051' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/exp.php',
+        '4a4471296dec796c21d4f4b6552396a9' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/inverse.php',
+        'c3e9897e1744b88deb56fcdc39d34d85' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/ln.php',
+        'a83cacf2de942cff288de15a83afd26d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log2.php',
+        '6a861dacc9ee2f3061241d4c7772fa21' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log10.php',
+        '4d2522d968c8ba78d6c13548a1b4200e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/negative.php',
+        'fd587ca933fc0447fa5ab4843bdd97f7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/pow.php',
+        '383ef01c62028fc78cd4388082fce3c2' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/rho.php',
+        '150fbd1b95029dc47292da97ecab9375' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sec.php',
+        '549abd9bae174286d660bdaa07407c68' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sech.php',
+        '6bfbf5eaea6b17a0ed85cb21ba80370c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sin.php',
+        '22efe13f1a497b8e199540ae2d9dc59c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sinh.php',
+        'e90135ab8e787795a509ed7147de207d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sqrt.php',
+        'bb0a7923ffc6a90919cd64ec54ff06bc' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tan.php',
+        '2d302f32ce0fd4e433dd91c5bb404a28' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tanh.php',
+        '24dd4658a952171a4ee79218c4f9fd06' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/theta.php',
+        'e49b7876281d6f5bc39536dde96d1f4a' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/add.php',
+        '47596e02b43cd6da7700134fd08f88cf' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/subtract.php',
+        '883af48563631547925fa4c3b48ead07' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/multiply.php',
+        'f190e3308e6ca23234a2875edc985c03' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideby.php',
+        'ac9e33ce6841aa5bf5d16d465a2f03a7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideinto.php',
+        '9d8e013a5160a09477beb8e44f8ae97b' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/adjoint.php',
+        '6e78d1bdea6248d6aa117229efae50f2' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/antidiagonal.php',
+        '4623d87924d94f5412fe5afbf1cef31d' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/cofactors.php',
+        '901fd1f6950a637ca85f66b701a45e13' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/determinant.php',
+        '83057abc0e4acc99ba80154ee5d02a49' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/diagonal.php',
+        '07b7fd7a434451149b4fd477fca0ce06' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/identity.php',
+        'c8d43b340583e07ae89f2a3baef2cf89' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/inverse.php',
+        '499bb10ed7a3aee2ba4c09a31a85e8d1' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/minors.php',
+        '1cad2e6414d652e8b1c64e8967f6f37d' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/trace.php',
+        '95a7f134ac17161d07def442b3b737e8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/functions/transpose.php',
+        'b3a6bc628377118d4b4b8ba08d1eb949' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/add.php',
+        '5fef6d0e407f3f8887266dfa4a6c534c' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/directsum.php',
+        '684ba247e1385946e3babdaa054119de' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/subtract.php',
+        'aa53dcba601214d17ad405b7c291b7e8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/multiply.php',
+        '75c79eb1b25749b05a47976f32b0d8a2' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideby.php',
+        '6ab8ad87a734f276a6bcd5a0fe1289be' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideinto.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'f1e40d793cba05ab531d362b1e135613' => __DIR__ . '/..' . '/rector/rector/rules/symfony-php-config/functions/functions.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpseclib\\' => 10,
+        ),
+        'Z' => 
+        array (
+            'ZipStream\\' => 10,
+        ),
+        'W' => 
+        array (
+            'Webmozart\\Assert\\' => 17,
+        ),
+        'S' => 
+        array (
+            'Symplify\\SmartFileSystem\\' => 25,
+            'Symplify\\SetConfigResolver\\' => 27,
+            'Symplify\\PackageBuilder\\' => 24,
+            'Symplify\\EasyTesting\\' => 21,
+            'Symplify\\ConsoleColorDiff\\' => 26,
+            'Symplify\\AutowireArrayParameter\\' => 32,
+            'Symplify\\AutoBindParameter\\' => 27,
+            'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Php73\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Contracts\\EventDispatcher\\' => 34,
+            'Symfony\\Contracts\\Cache\\' => 24,
+            'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\VarExporter\\' => 30,
+            'Symfony\\Component\\VarDumper\\' => 28,
+            'Symfony\\Component\\String\\' => 25,
+            'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\HttpKernel\\' => 29,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
+            'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\ErrorHandler\\' => 31,
+            'Symfony\\Component\\DependencyInjection\\' => 38,
+            'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\Cache\\' => 24,
+        ),
+        'R' => 
+        array (
+            'Rector\\VendorLocker\\' => 20,
+            'Rector\\TypeDeclaration\\' => 23,
+            'Rector\\Twig\\' => 12,
+            'Rector\\Transform\\' => 17,
+            'Rector\\Symfony\\' => 15,
+            'Rector\\SymfonyPhpConfig\\' => 24,
+            'Rector\\SymfonyPHPUnit\\' => 22,
+            'Rector\\SymfonyCodeQuality\\' => 26,
+            'Rector\\StrictCodeQuality\\' => 25,
+            'Rector\\StaticTypeMapper\\' => 24,
+            'Rector\\Set\\' => 11,
+            'Rector\\Sensio\\' => 14,
+            'Rector\\SOLID\\' => 13,
+            'Rector\\Restoration\\' => 19,
+            'Rector\\Reporting\\' => 17,
+            'Rector\\Renaming\\' => 16,
+            'Rector\\RemovingStatic\\' => 22,
+            'Rector\\RectorGenerator\\' => 23,
+            'Rector\\Privatization\\' => 21,
+            'Rector\\PostRector\\' => 18,
+            'Rector\\Polyfill\\' => 16,
+            'Rector\\PhpSpecToPHPUnit\\' => 24,
+            'Rector\\PhpDeglobalize\\' => 22,
+            'Rector\\PhpAttribute\\' => 20,
+            'Rector\\Php80\\' => 13,
+            'Rector\\Php74\\' => 13,
+            'Rector\\Php73\\' => 13,
+            'Rector\\Php72\\' => 13,
+            'Rector\\Php71\\' => 13,
+            'Rector\\Php70\\' => 13,
+            'Rector\\Php56\\' => 13,
+            'Rector\\Php55\\' => 13,
+            'Rector\\Php54\\' => 13,
+            'Rector\\Php53\\' => 13,
+            'Rector\\Php52\\' => 13,
+            'Rector\\Phalcon\\' => 15,
+            'Rector\\Performance\\' => 19,
+            'Rector\\PSR4\\' => 12,
+            'Rector\\PHPUnit\\' => 15,
+            'Rector\\PHPUnitSymfony\\' => 22,
+            'Rector\\PHPStan\\' => 15,
+            'Rector\\PHPStanStaticTypeMapper\\' => 31,
+            'Rector\\PHPOffice\\' => 17,
+            'Rector\\Order\\' => 13,
+            'Rector\\NodeTypeResolver\\' => 24,
+            'Rector\\NodeRemoval\\' => 19,
+            'Rector\\NodeNestingScope\\' => 24,
+            'Rector\\NodeNameResolver\\' => 24,
+            'Rector\\NodeCollector\\' => 21,
+            'Rector\\Nette\\' => 13,
+            'Rector\\NetteUtilsCodeQuality\\' => 29,
+            'Rector\\NetteToSymfony\\' => 22,
+            'Rector\\NetteTesterToPHPUnit\\' => 28,
+            'Rector\\NetteKdyby\\' => 18,
+            'Rector\\NetteCodeQuality\\' => 24,
+            'Rector\\Naming\\' => 14,
+            'Rector\\MysqlToMysqli\\' => 21,
+            'Rector\\MockistaToMockery\\' => 25,
+            'Rector\\MockeryToProphecy\\' => 25,
+            'Rector\\MagicDisclosure\\' => 23,
+            'Rector\\Legacy\\' => 14,
+            'Rector\\Laravel\\' => 15,
+            'Rector\\JMS\\' => 11,
+            'Rector\\Generic\\' => 15,
+            'Rector\\FileSystemRector\\' => 24,
+            'Rector\\FamilyTree\\' => 18,
+            'Rector\\DynamicTypeAnalysis\\' => 27,
+            'Rector\\DowngradePhp80\\' => 22,
+            'Rector\\DowngradePhp74\\' => 22,
+            'Rector\\DowngradePhp72\\' => 22,
+            'Rector\\DowngradePhp71\\' => 22,
+            'Rector\\DocumentationGenerator\\' => 30,
+            'Rector\\Doctrine\\' => 16,
+            'Rector\\DoctrineGedmoToKnplabs\\' => 30,
+            'Rector\\DoctrineCodeQuality\\' => 27,
+            'Rector\\DoctrineAnnotationGenerated\\' => 35,
+            'Rector\\Decouple\\' => 16,
+            'Rector\\DeadCode\\' => 16,
+            'Rector\\Core\\' => 12,
+            'Rector\\ConsoleDiffer\\' => 21,
+            'Rector\\CodingStyle\\' => 19,
+            'Rector\\CodeQuality\\' => 19,
+            'Rector\\ChangesReporting\\' => 24,
+            'Rector\\CakePHP\\' => 15,
+            'Rector\\Caching\\' => 15,
+            'Rector\\BetterPhpDocParser\\' => 26,
+            'Rector\\Autodiscovery\\' => 21,
+            'Rector\\AttributeAwarePhpDoc\\' => 28,
+            'Rector\\Architecture\\' => 20,
+            'Rector\\AnonymousClass\\' => 22,
+        ),
+        'P' => 
+        array (
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
+            'Psr\\EventDispatcher\\' => 20,
+            'Psr\\Container\\' => 14,
+            'Psr\\Cache\\' => 10,
+            'PhpParser\\' => 10,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PackageVersions\\' => 16,
+            'PHPStan\\PhpDocParser\\' => 21,
+            'PHPStan\\' => 8,
+        ),
+        'O' => 
+        array (
+            'OndraM\\CiDetector\\' => 18,
+        ),
+        'M' => 
+        array (
+            'MyCLabs\\Enum\\' => 13,
+            'Monolog\\' => 8,
+            'Migrify\\PhpConfigPrinter\\' => 25,
+            'Migrify\\MigrifyKernel\\' => 22,
+            'Matrix\\' => 7,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+            'Google\\Auth\\' => 12,
+        ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Common\\Lexer\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
+        ),
+        'C' => 
+        array (
+            'Composer\\XdebugHandler\\' => 23,
+            'Complex\\' => 8,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'phpseclib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'ZipStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Symplify\\SmartFileSystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/smart-file-system/src',
+        ),
+        'Symplify\\SetConfigResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/set-config-resolver/src',
+        ),
+        'Symplify\\PackageBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/package-builder/src',
+        ),
+        'Symplify\\EasyTesting\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/easy-testing/src',
+        ),
+        'Symplify\\ConsoleColorDiff\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/console-color-diff/src',
+        ),
+        'Symplify\\AutowireArrayParameter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src',
+        ),
+        'Symplify\\AutoBindParameter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/auto-bind-parameter/src',
+        ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
+        ),
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Symfony\\Contracts\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
+        'Symfony\\Contracts\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
+        ),
+        'Symfony\\Contracts\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/cache-contracts',
+        ),
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\VarExporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-exporter',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Symfony\\Component\\String\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/string',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Symfony\\Component\\HttpKernel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-kernel',
+        ),
+        'Symfony\\Component\\HttpFoundation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-foundation',
+        ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Symfony\\Component\\ErrorHandler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/error-handler',
+        ),
+        'Symfony\\Component\\DependencyInjection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dependency-injection',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Symfony\\Component\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'Rector\\VendorLocker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/vendor-locker/src',
+        ),
+        'Rector\\TypeDeclaration\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/type-declaration/src',
+        ),
+        'Rector\\Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/twig/src',
+        ),
+        'Rector\\Transform\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/transform/src',
+        ),
+        'Rector\\Symfony\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/symfony/src',
+        ),
+        'Rector\\SymfonyPhpConfig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/symfony-php-config/src',
+        ),
+        'Rector\\SymfonyPHPUnit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/symfony-phpunit/src',
+        ),
+        'Rector\\SymfonyCodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/symfony-code-quality/src',
+        ),
+        'Rector\\StrictCodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/strict-code-quality/src',
+        ),
+        'Rector\\StaticTypeMapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/static-type-mapper/src',
+        ),
+        'Rector\\Set\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/set/src',
+        ),
+        'Rector\\Sensio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/sensio/src',
+        ),
+        'Rector\\SOLID\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/solid/src',
+        ),
+        'Rector\\Restoration\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/restoration/src',
+        ),
+        'Rector\\Reporting\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/reporting/src',
+        ),
+        'Rector\\Renaming\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/renaming/src',
+        ),
+        'Rector\\RemovingStatic\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/removing-static/src',
+        ),
+        'Rector\\RectorGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/rector-generator/src',
+        ),
+        'Rector\\Privatization\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/privatization/src',
+        ),
+        'Rector\\PostRector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/post-rector/src',
+        ),
+        'Rector\\Polyfill\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/polyfill/src',
+        ),
+        'Rector\\PhpSpecToPHPUnit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php-spec-to-phpunit/src',
+        ),
+        'Rector\\PhpDeglobalize\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php-deglobalize/src',
+        ),
+        'Rector\\PhpAttribute\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/php-attribute/src',
+        ),
+        'Rector\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php80/src',
+        ),
+        'Rector\\Php74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php74/src',
+        ),
+        'Rector\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php73/src',
+        ),
+        'Rector\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php72/src',
+        ),
+        'Rector\\Php71\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php71/src',
+        ),
+        'Rector\\Php70\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php70/src',
+        ),
+        'Rector\\Php56\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php56/src',
+        ),
+        'Rector\\Php55\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php55/src',
+        ),
+        'Rector\\Php54\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php54/src',
+        ),
+        'Rector\\Php53\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php53/src',
+        ),
+        'Rector\\Php52\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php52/src',
+        ),
+        'Rector\\Phalcon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/phalcon/src',
+        ),
+        'Rector\\Performance\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/performance/src',
+        ),
+        'Rector\\PSR4\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/psr4/src',
+        ),
+        'Rector\\PHPUnit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/phpunit/src',
+        ),
+        'Rector\\PHPUnitSymfony\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/phpunit-symfony/src',
+        ),
+        'Rector\\PHPStan\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/phpstan/src',
+        ),
+        'Rector\\PHPStanStaticTypeMapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/phpstan-static-type-mapper/src',
+        ),
+        'Rector\\PHPOffice\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/php-office/src',
+        ),
+        'Rector\\Order\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/order/src',
+        ),
+        'Rector\\NodeTypeResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/node-type-resolver/src',
+        ),
+        'Rector\\NodeRemoval\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/node-removal/src',
+        ),
+        'Rector\\NodeNestingScope\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/node-nesting-scope/src',
+        ),
+        'Rector\\NodeNameResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/node-name-resolver/src',
+        ),
+        'Rector\\NodeCollector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/node-collector/src',
+        ),
+        'Rector\\Nette\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette/src',
+        ),
+        'Rector\\NetteUtilsCodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette-utils-code-quality/src',
+        ),
+        'Rector\\NetteToSymfony\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette-to-symfony/src',
+        ),
+        'Rector\\NetteTesterToPHPUnit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette-tester-to-phpunit/src',
+        ),
+        'Rector\\NetteKdyby\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette-kdyby/src',
+        ),
+        'Rector\\NetteCodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/nette-code-quality/src',
+        ),
+        'Rector\\Naming\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/naming/src',
+        ),
+        'Rector\\MysqlToMysqli\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/mysql-to-mysqli/src',
+        ),
+        'Rector\\MockistaToMockery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/mockista-to-mockery/src',
+        ),
+        'Rector\\MockeryToProphecy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/mockery-to-prophecy/src',
+        ),
+        'Rector\\MagicDisclosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/magic-disclosure/src',
+        ),
+        'Rector\\Legacy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/legacy/src',
+        ),
+        'Rector\\Laravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/laravel/src',
+        ),
+        'Rector\\JMS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/jms/src',
+        ),
+        'Rector\\Generic\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/generic/src',
+        ),
+        'Rector\\FileSystemRector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/file-system-rector/src',
+        ),
+        'Rector\\FamilyTree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/family-tree/src',
+        ),
+        'Rector\\DynamicTypeAnalysis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/dynamic-type-analysis/src',
+        ),
+        'Rector\\DowngradePhp80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/downgrade-php80/src',
+        ),
+        'Rector\\DowngradePhp74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/downgrade-php74/src',
+        ),
+        'Rector\\DowngradePhp72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/downgrade-php72/src',
+        ),
+        'Rector\\DowngradePhp71\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/downgrade-php71/src',
+        ),
+        'Rector\\DocumentationGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/documentation-generator/src',
+        ),
+        'Rector\\Doctrine\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/doctrine/src',
+        ),
+        'Rector\\DoctrineGedmoToKnplabs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/doctrine-gedmo-to-knplabs/src',
+        ),
+        'Rector\\DoctrineCodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/doctrine-code-quality/src',
+        ),
+        'Rector\\DoctrineAnnotationGenerated\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/doctrine-annotation-generated/src',
+        ),
+        'Rector\\Decouple\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/decouple/src',
+        ),
+        'Rector\\DeadCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/dead-code/src',
+        ),
+        'Rector\\Core\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/src',
+        ),
+        'Rector\\ConsoleDiffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/console-differ/src',
+        ),
+        'Rector\\CodingStyle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/coding-style/src',
+        ),
+        'Rector\\CodeQuality\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/code-quality/src',
+        ),
+        'Rector\\ChangesReporting\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/changes-reporting/src',
+        ),
+        'Rector\\CakePHP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/cakephp/src',
+        ),
+        'Rector\\Caching\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/caching/src',
+        ),
+        'Rector\\BetterPhpDocParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/better-php-doc-parser/src',
+        ),
+        'Rector\\Autodiscovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/autodiscovery/src',
+        ),
+        'Rector\\AttributeAwarePhpDoc\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/attribute-aware-php-doc/src',
+        ),
+        'Rector\\Architecture\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/rules/architecture/src',
+        ),
+        'Rector\\AnonymousClass\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector/packages/anonymous-class/src',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
+        'Psr\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'PhpOffice\\PhpSpreadsheet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'PackageVersions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
+        ),
+        'PHPStan\\PhpDocParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
+        ),
+        'PHPStan\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpstan/phpstan-phpunit/src',
+        ),
+        'OndraM\\CiDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ondram/ci-detector/src',
+        ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Migrify\\PhpConfigPrinter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/migrify/php-config-printer/src',
+        ),
+        'Migrify\\MigrifyKernel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/migrify/migrify-kernel/src',
+        ),
+        'Matrix\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Google\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/auth/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
+        'Composer\\XdebugHandler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/xdebug-handler/src',
+        ),
+        'Complex\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
-        'P' => 
+        'G' => 
         array (
-            'PHPExcel' => 
+            'Google_Service_' => 
             array (
-                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
+                0 => __DIR__ . '/..' . '/google/apiclient-services/src',
+            ),
+            'Google_' => 
+            array (
+                0 => __DIR__ . '/..' . '/google/apiclient/src',
             ),
         ),
+    );
+
+    public static $classMap = array (
+        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/Google/Service/Exception.php',
+        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/Google/Service/Resource.php',
+        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\FileNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\IOException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\InvalidArgumentException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\InvalidStateException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Iterators\\CachingIterator' => __DIR__ . '/..' . '/nette/utils/src/Iterators/CachingIterator.php',
+        'Nette\\Iterators\\Mapper' => __DIR__ . '/..' . '/nette/utils/src/Iterators/Mapper.php',
+        'Nette\\Loaders\\RobotLoader' => __DIR__ . '/..' . '/nette/robot-loader/src/RobotLoader/RobotLoader.php',
+        'Nette\\Localization\\ITranslator' => __DIR__ . '/..' . '/nette/utils/src/Utils/ITranslator.php',
+        'Nette\\MemberAccessException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\NotImplementedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\NotSupportedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\OutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\SmartObject' => __DIR__ . '/..' . '/nette/utils/src/Utils/SmartObject.php',
+        'Nette\\StaticClass' => __DIR__ . '/..' . '/nette/utils/src/Utils/StaticClass.php',
+        'Nette\\UnexpectedValueException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\ArrayHash' => __DIR__ . '/..' . '/nette/utils/src/Utils/ArrayHash.php',
+        'Nette\\Utils\\ArrayList' => __DIR__ . '/..' . '/nette/utils/src/Utils/ArrayList.php',
+        'Nette\\Utils\\Arrays' => __DIR__ . '/..' . '/nette/utils/src/Utils/Arrays.php',
+        'Nette\\Utils\\AssertionException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\Callback' => __DIR__ . '/..' . '/nette/utils/src/Utils/Callback.php',
+        'Nette\\Utils\\DateTime' => __DIR__ . '/..' . '/nette/utils/src/Utils/DateTime.php',
+        'Nette\\Utils\\FileSystem' => __DIR__ . '/..' . '/nette/utils/src/Utils/FileSystem.php',
+        'Nette\\Utils\\Finder' => __DIR__ . '/..' . '/nette/finder/src/Utils/Finder.php',
+        'Nette\\Utils\\Helpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/Helpers.php',
+        'Nette\\Utils\\Html' => __DIR__ . '/..' . '/nette/utils/src/Utils/Html.php',
+        'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/nette/utils/src/Utils/IHtmlString.php',
+        'Nette\\Utils\\Image' => __DIR__ . '/..' . '/nette/utils/src/Utils/Image.php',
+        'Nette\\Utils\\ImageException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\Json' => __DIR__ . '/..' . '/nette/utils/src/Utils/Json.php',
+        'Nette\\Utils\\JsonException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\ObjectHelpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectHelpers.php',
+        'Nette\\Utils\\ObjectMixin' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectMixin.php',
+        'Nette\\Utils\\Paginator' => __DIR__ . '/..' . '/nette/utils/src/Utils/Paginator.php',
+        'Nette\\Utils\\Random' => __DIR__ . '/..' . '/nette/utils/src/Utils/Random.php',
+        'Nette\\Utils\\Reflection' => __DIR__ . '/..' . '/nette/utils/src/Utils/Reflection.php',
+        'Nette\\Utils\\RegexpException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
+        'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
+        'SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
+        'SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
+        'SebastianBergmann\\Diff\\Differ' => __DIR__ . '/..' . '/sebastian/diff/src/Differ.php',
+        'SebastianBergmann\\Diff\\Exception' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/Exception.php',
+        'SebastianBergmann\\Diff\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/InvalidArgumentException.php',
+        'SebastianBergmann\\Diff\\Line' => __DIR__ . '/..' . '/sebastian/diff/src/Line.php',
+        'SebastianBergmann\\Diff\\LongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/LongestCommonSubsequenceCalculator.php',
+        'SebastianBergmann\\Diff\\MemoryEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/MemoryEfficientLongestCommonSubsequenceCalculator.php',
+        'SebastianBergmann\\Diff\\Output\\AbstractChunkOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/AbstractChunkOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\DiffOnlyOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/DiffOnlyOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\DiffOutputBuilderInterface' => __DIR__ . '/..' . '/sebastian/diff/src/Output/DiffOutputBuilderInterface.php',
+        'SebastianBergmann\\Diff\\Output\\StrictUnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/StrictUnifiedDiffOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
+        'SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
+        'SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Tracy\\Bar' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Bar/Bar.php',
+        'Tracy\\BlueScreen' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/BlueScreen/BlueScreen.php',
+        'Tracy\\Bridges\\Nette\\Bridge' => __DIR__ . '/..' . '/tracy/tracy/src/Bridges/Nette/Bridge.php',
+        'Tracy\\Bridges\\Nette\\MailSender' => __DIR__ . '/..' . '/tracy/tracy/src/Bridges/Nette/MailSender.php',
+        'Tracy\\Bridges\\Nette\\TracyExtension' => __DIR__ . '/..' . '/tracy/tracy/src/Bridges/Nette/TracyExtension.php',
+        'Tracy\\Bridges\\Psr\\PsrToTracyLoggerAdapter' => __DIR__ . '/..' . '/tracy/tracy/src/Bridges/Psr/PsrToTracyLoggerAdapter.php',
+        'Tracy\\Bridges\\Psr\\TracyToPsrLoggerAdapter' => __DIR__ . '/..' . '/tracy/tracy/src/Bridges/Psr/TracyToPsrLoggerAdapter.php',
+        'Tracy\\Debugger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Debugger/Debugger.php',
+        'Tracy\\DefaultBarPanel' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Bar/DefaultBarPanel.php',
+        'Tracy\\Dumper' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Dumper/Dumper.php',
+        'Tracy\\FireLogger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/FireLogger.php',
+        'Tracy\\Helpers' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Helpers.php',
+        'Tracy\\IBarPanel' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Bar/IBarPanel.php',
+        'Tracy\\ILogger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/ILogger.php',
+        'Tracy\\Logger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/Logger.php',
+        'Tracy\\OutputDebugger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/OutputDebugger/OutputDebugger.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5778b0391e9b059db9ed6c600719a57f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5778b0391e9b059db9ed6c600719a57f::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit5778b0391e9b059db9ed6c600719a57f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5778b0391e9b059db9ed6c600719a57f::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -61,7 +61,9 @@ class Auth_model extends CI_Model {
         $modules = array();
         foreach ($this->config->item('modules') as $module => $module_roles) {
             $accessible = FALSE;
-            foreach ($roles as $role) {
+            var_dump($module_roles);
+            console.log();
+            foreach ($roles as $role) {              
                 if (in_array($role, $module_roles)) {
                     $accessible = TRUE;
                 }
