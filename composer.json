@@ -4,6 +4,5 @@
         "phpoffice/phpspreadsheet": "^v1.11.0"
     },
     "require-dev": {
-        "rector/rector": "^0.8.7"
     }
 }

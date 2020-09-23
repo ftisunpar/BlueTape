@@ -61,9 +61,8 @@ class Auth_model extends CI_Model {
         $modules = array();
         foreach ($this->config->item('modules') as $module => $module_roles) {
             $accessible = FALSE;
-            var_dump($module_roles);
-            console.log();
             foreach ($roles as $role) {              
+                
                 if (in_array($role, $module_roles)) {
                     $accessible = TRUE;
                 }
@@ -71,7 +70,8 @@ class Auth_model extends CI_Model {
             if ($accessible) {
                 $modules[] = $module;
             }
-        }
+            
+        }        
         if (sizeof($roles) === 0 || sizeof($modules) === 0) {
             throw new Exception("Email $email tidak memiliki hak akses!");
         }

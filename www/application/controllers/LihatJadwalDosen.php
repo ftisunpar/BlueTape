@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class LihatJadwalDosen extends CI_Controller {
@@ -13,7 +15,7 @@ class LihatJadwalDosen extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
-        $this->excel = new PHPExcel();
+        $this->excel = new Spreadsheet();
         $this->load->library('bluetape');
         $this->load->library('session');
         $this->load->model('JadwalDosen_model');

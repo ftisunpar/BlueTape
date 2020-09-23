@@ -20,8 +20,6 @@ class TranskripRequest extends CI_Controller {
     public function index() {
         // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
-        var_dump($userInfo['roles']);
-        var_dump($userInfo['modules']);
         // Retrieve requests for this user
         $requests = $this->Transkrip_model->requestsBy($userInfo['email']);
         $forbiddenTypes = $this->Transkrip_model->requestTypesForbidden($requests);
