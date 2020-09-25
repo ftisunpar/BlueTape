@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <br>
                                     <div class="row">
                                         <div class="col-lg-12 form-group">
-                                            <input class="btn btn-primary" type="submit" class="button" disabled value="Kirim Permohonan">
+                                            <input class="btn btn-primary" type="submit" class="button"  value="Kirim Permohonan">
                                         </div>
                                     </div>
                                 </form>
