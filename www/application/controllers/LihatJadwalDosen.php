@@ -184,7 +184,7 @@ class LihatJadwalDosen extends CI_Controller {
     
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download 
-
+        header('Location: /LihatJadwalDosen');
 
     }
 
