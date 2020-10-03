@@ -12,7 +12,7 @@ class EntriJadwalDosen extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
-		$this->excel = new PHPExcel();
+		$this->excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $this->load->library('bluetape');
         $this->load->model('JadwalDosen_model');
         $this->load->model('Auth_model');
@@ -191,14 +191,14 @@ class EntriJadwalDosen extends CI_Controller {
             $borderStyleArray = array(
                 'borders' => array(
                     'allborders' => array(
-                        'style' => PHPExcel_Style_Border::BORDER_THIN
+                        'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
                     )
                 )
             );
 			$outlineStyle = array(
 				'borders' => array(
 					'outline' => array(
-						'style' => PHPExcel_Style_Border::BORDER_THIN
+						'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
 					)	
 				)
 			);
@@ -206,8 +206,8 @@ class EntriJadwalDosen extends CI_Controller {
 
             //Menulis bagian keterangan
             $this->excel->getActiveSheet()->setCellValue('A' . $keteranganRow, 'Keterangan :');
-            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FEFF00');
-            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('92D14F');
+            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FEFF00');
+            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('92D14F');
             $this->excel->getActiveSheet()->setCellValue('C' . $keteranganRow, 'Waktu Konsultasi');
             $this->excel->getActiveSheet()->setCellValue('C' . ($keteranganRow + 1), 'Jika Dijadwalkan');
 
@@ -224,8 +224,8 @@ class EntriJadwalDosen extends CI_Controller {
             unset($borderStyleArray);
 
             //Membuat semua tulisan dalam tabel menggunakan align center
-            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             for ($col = ord('A'); $col <= ord('F'); $col++) {
                 //mengatur lebar setiap kolom $col
                 $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setWidth(15);
@@ -267,7 +267,7 @@ class EntriJadwalDosen extends CI_Controller {
                     $cellsToBeMerged = $jadwalStartCell . ":" . $jadwalEndCell;
                     $this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);
 					$this->excel->getActiveSheet()->getStyle($cellsToBeMerged)->applyFromArray($outlineStyle);
-                    $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
+                    $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
                     $this->excel->getActiveSheet()->setCellValue($jadwalStartCell, $dataHariIni->label);
 					$this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getAlignment()->setWrapText(true); ; //agar tulisan tidak keluar dari area cell
                 }
@@ -285,7 +285,7 @@ class EntriJadwalDosen extends CI_Controller {
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
 
-        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Excel5');
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
 	}

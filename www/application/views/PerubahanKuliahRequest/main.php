@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="form-group row" id="sendDiv">
                             <div class="col-lg-12">
-                                <input type="submit" class="btn btn-primary" disabled value="Kirim Permohonan">
+                                <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
                                 <a href="#" id="addToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
                             </div>
                         </div>

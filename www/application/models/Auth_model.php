@@ -37,7 +37,7 @@ class Auth_model extends CI_Model {
      * berisi penjelasan kenapa.
      */
     public function authenticateOauthCode($oauthCode) {
-        $this->client->authenticate($oauthCode);
+        $this->client->fetchAccessTokenWithAuthCode($oauthCode);
         $oauth2Service = new Google_Service_Oauth2($this->client);
         $userinfo = $oauth2Service->userinfo->get();
         $email = $userinfo['email'];
