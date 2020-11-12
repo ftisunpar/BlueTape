@@ -55,11 +55,13 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos = [];
                 $rooms = $this->input->post('toRoom');
                 $dateTimes = $this->input->post('toDateTime');
-                if ($rooms !== NULL && $dateTimes !== NULL) {
+                $duration = $this->input->post('duration');
+                if ($rooms !== NULL && $dateTimes !== NULL && $duration !== NULL) {
                     foreach ($rooms as $i => $room) {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
-                            'room' => $room 
+                            'room' => $room ,
+                            'duration' => $duration
                         ];
                     }
                 }
@@ -96,7 +98,7 @@ class PerubahanKuliahRequest extends CI_Controller {
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }
-        header('Location: /PerubahanKuliahRequest');
+        // header('Location: /PerubahanKuliahRequest');
     }
 
 }

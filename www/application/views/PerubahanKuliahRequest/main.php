@@ -78,6 +78,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
                         </div>
+                        <div class ="form-group row">
+                            <div class="col-lg-3">
+                                <label class = "col-form-label">Lama Pertemuan: </label>
+                                <select class="form-control disableable duration"  id="exampleFormControlSelect1" name="duration">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>    
+                                <small class = "form-text text-muted">
+                                    Dalam jam
+                                </small>                            
+                            </div>
+                        </div>
                         <div class="form-group row" id="sendDiv">
                             <div class="col-lg-12">
                                 <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
@@ -228,7 +243,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('.toDateTime').datetimepicker(datepickeroptions);
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
-                    $('input.disableable').removeAttr('disabled');
+                    $('input.disableable,select.disableable').removeAttr('disabled');
                     switch ($(this).val()) {
                         case 'T':
                             $('input[name="fromDateTime"]').attr('disabled', 'disabled');
@@ -237,6 +252,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         case 'X':
                             $('input.toDateTime').attr('disabled', 'disabled');
                             $('input.toRoom').attr('disabled', 'disabled');
+                            $('select.duration').attr('disabled','disabled');
                             break;
                     }
                 });
