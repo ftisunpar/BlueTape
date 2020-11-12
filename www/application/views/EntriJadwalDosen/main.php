@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th></th>
                             <?php
                             for ($i = 0; $i < 5; $i++) {
-                                echo "<th> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
+                                echo "<th style='width:18%'> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
                             }
                             ?>
                         </tr>
