@@ -285,9 +285,10 @@ class EntriJadwalDosen extends CI_Controller {
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
 
-        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Excel5');
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Xls');
         $filepath = APPPATH . "/third_party/";
         $objWriter->save('php://output');  //membuat file langsung di download
+        header('Location: /EntriJadwalDosen');
 	}
 	
 }
