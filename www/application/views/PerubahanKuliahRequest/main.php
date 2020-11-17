@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-group row">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Dari Hari &amp; Jam:</label>
-                                <input id="datetimepicker" class="form-control disableable" type="text" name="fromDateTime">
+                                <input id="datetimepicker" class="form-control disableable fromDateTime" type="text" name="fromDateTime">
                             </div>
                             <div class="col-lg-3">
                                 <label class="col-form-label">Dari Ruang:</label>
@@ -74,24 +74,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
                             </div>
                             <div class="col-lg-3">
+                                <label class = "col-form-label">Jam Selesai: </label>
+                                <input class="form-control disableable time_finish" type = "text" id="timepicker" name="time_finish[]" />                          
+                            </div>
+                            <div class="col-lg-3">
                                 <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
-                        </div>
-                        <div class ="form-group row">
-                            <div class="col-lg-3">
-                                <label class = "col-form-label">Lama Pertemuan: </label>
-                                <select class="form-control disableable duration"  id="exampleFormControlSelect1" name="duration">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>    
-                                <small class = "form-text text-muted">
-                                    Dalam jam
-                                </small>                            
-                            </div>
+                            
                         </div>
                         <div class="form-group row" id="sendDiv">
                             <div class="col-lg-12">
@@ -199,7 +189,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php foreach (json_decode($request->to) as $to): ?>
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
-                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
+                                        <?= empty($to->finish_time)? '': '-<time datetime="'.date("H:i:s",strtotime($to->finish_time)).'">
+                                          '.date("H:i:s",strtotime($to->finish_time)).'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -234,13 +226,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $(document).ready(function () {
                 var datepickeroptions = {
                     format: 'Y-m-d H:i'
-                };
+                };              
                 function removeRow() {
                     $(this).closest('.row').remove();
                 }
-                jQuery('#datetimepicker').datetimepicker();
-                $('#fromDateTime').datetimepicker(datepickeroptions);
-                $('.toDateTime').datetimepicker(datepickeroptions);
+                jQuery('#datetimepicker').datetimepicker();                
+                $('#fromDateTime').datetimepicker(datepickeroptions);            
+                $('.toDateTime').datetimepicker(datepickeroptions);  
+                var finishdatepickeroptions = {
+                    format: 'Y-m-d H:i',
+                    onShow: function(ct){
+                        this.setOptions({
+                            minDate: $('.toDateTime').val() ? $('.toDateTime').val():false,
+                            maxDate: $('.toDateTime').val() ? $('.toDateTime').val():false
+                        })
+                    }
+                };                 
+                jQuery('#timepicker').datetimepicker(finishdatepickeroptions);    
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
                     $('input.disableable,select.disableable').removeAttr('disabled');
@@ -252,7 +254,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         case 'X':
                             $('input.toDateTime').attr('disabled', 'disabled');
                             $('input.toRoom').attr('disabled', 'disabled');
-                            $('select.duration').attr('disabled','disabled');
+                            $('input.time_finish').attr('disabled','disabled');
                             break;
                     }
                 });
@@ -263,7 +265,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     e.preventDefault();
                     var newFields = toFields.clone();
                     newFields.insertBefore($('#sendDiv'));
-                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);
+                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
+                    newFields.find('.time_finish').datetimepicker(datepickeroptions);
                     newFields.find('.eraseButton').click(removeRow);
                 });
 

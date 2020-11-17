@@ -55,16 +55,22 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos = [];
                 $rooms = $this->input->post('toRoom');
                 $dateTimes = $this->input->post('toDateTime');
-                $duration = $this->input->post('duration');
-                if ($rooms !== NULL && $dateTimes !== NULL && $duration !== NULL) {
+                $finish_time = $this->input->post('time_finish');
+                if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
+                        if($finish_time[$i] !== NULL && $finish_time[$i] < $dateTimes[$i]){
+                            $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');                            
+                            header('Location:/PerubahanKuliahRequest');
+                            exit();
+                        }
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'duration' => $duration
+                            'finish_time' => empty($finish_time[$i]) ? NULL : $finish_time[$i].':00'
                         ];
                     }
                 }
+                
                 $this->db->insert('PerubahanKuliah', array(
                     'requestByEmail' => $userInfo['email'],
                     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
@@ -92,13 +98,16 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $this->Email_model->send_email($email, $subject, $message);
                     }
                 }
+                
             } else {
                 throw new Exception("Can't call method from GET request!");
             }
+        
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
         }
-        // header('Location: /PerubahanKuliahRequest');
+        header('Location: /PerubahanKuliahRequest');
+        
     }
 
 }
