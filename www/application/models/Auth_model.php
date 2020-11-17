@@ -37,7 +37,7 @@ class Auth_model extends CI_Model {
      * berisi penjelasan kenapa.
      */
     public function authenticateOauthCode($oauthCode) {
-        $this->client->authenticate($oauthCode);
+        $this->client->fetchAccessTokenWithAuthCode($oauthCode);
         $oauth2Service = new Google_Service_Oauth2($this->client);
         $userinfo = $oauth2Service->userinfo->get();
         $email = $userinfo['email'];
@@ -61,7 +61,8 @@ class Auth_model extends CI_Model {
         $modules = array();
         foreach ($this->config->item('modules') as $module => $module_roles) {
             $accessible = FALSE;
-            foreach ($roles as $role) {
+            foreach ($roles as $role) {              
+                
                 if (in_array($role, $module_roles)) {
                     $accessible = TRUE;
                 }
@@ -69,7 +70,8 @@ class Auth_model extends CI_Model {
             if ($accessible) {
                 $modules[] = $module;
             }
-        }
+            
+        }        
         if (sizeof($roles) === 0 || sizeof($modules) === 0) {
             throw new Exception("Email $email tidak memiliki hak akses!");
         }
