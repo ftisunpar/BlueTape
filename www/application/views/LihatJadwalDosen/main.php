@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </td>
                                             <?php
                                             for ($i = 0; $i < 5; $i++) {
-                                                echo "<th>" . $namaHari[$i] . "</th>";
+                                                echo "<th style='width:18%'>" . $namaHari[$i] . "</th>";
                                             }
                                             ?>
                                         </tr>
