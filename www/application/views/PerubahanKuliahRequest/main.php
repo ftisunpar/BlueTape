@@ -240,7 +240,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('.toDateTime').datetimepicker(datepickeroptions);         
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
-                    $('input.disableable,select.disableable').removeAttr('disabled');
+                    $('input.disableable').removeAttr('disabled');
                     switch ($(this).val()) {
                         case 'T':
                             $('input[name="fromDateTime"]').attr('disabled', 'disabled');
