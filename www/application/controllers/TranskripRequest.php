@@ -94,4 +94,12 @@ class TranskripRequest extends CI_Controller {
         header('Location: /TranskripRequest');
     }
 
+    public function edit(){
+        echo "hello";
+    }
+    
+    public function remove(){
+
+    }
+
 }

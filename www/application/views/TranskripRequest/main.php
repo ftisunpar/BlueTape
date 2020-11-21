@@ -96,7 +96,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <a data-toggle="modal" data-target="#lihatModal<?= $request->id ?>" id="detail<?= $request->id ?>">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-
+                                            <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt"<?= empty($request->answer)?'':'hidden'?>></i></a>
+                                            <a data-toggle="modal" data-target="#batal<?=$request->id ?>"><i class= "fas fa-trash"<?= empty($request->answer)?'':'hidden'?>></i></a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="lihatModal<?= $request->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -153,6 +154,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="modal fade" id="ubah<?= $request->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Ubah Permohonan #<?= $request->id ?></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="POST" action="/TranskripRequest/edit">
+                                                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $request->id ?>"/>
+                                                                <div class="form-group">
+                                                                    <label>NPM:</label>
+                                                                    <input class="form-control" type="text" value="<?= $requestByNPM ?>" readonly="true"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Keterangan:</label>
+                                                                    <input class="form-control" name="ubahKeterangan" value="<?=$request->requestUsage ?>" type="text"/>
+                                                                </div>
+                                                                <p>&nbsp;</p>
+                                                                <div class="form-group">
+                                                                    <input type="submit" class="btn btn-success" value="Ubah" <?= empty($request->answer)?'':'disabled'?>/>
+                                                                </div>
+                                                            </form>
+                                                        </div>                                                        
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                            <div class="modal fade" id="batal<?= $request->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Batalkan Permohonan #<?= $request->id ?></h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="POST" action="/TranskripRequest/remove">
+                                                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $request->id ?>"/>
+                                                                <input type="hidden" name="answer" value="remove"/>
+                                                                <p><strong>Yakin ingin membatalkan?</strong></p>
+                                                                <p>Jika ingin merubah keperluan dapat klik tombol edit.</p>
+                                                                <input type="submit" class="btn btn-danger" value="Hapus" <?= empty($request->answer)?'':'disabled' ?>/>
+                                                                
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                                                                     
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
