@@ -55,7 +55,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos = [];
                 $rooms = $this->input->post('toRoom');
                 $dateTimes = $this->input->post('toDateTime');
-                $finishTime = $this->input->post('time_finish');
+                $finishTime = $this->input->post('timeFinish');
 
                 if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
@@ -68,7 +68,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'finish_time' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
+                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
                         ];
                     }
                 }

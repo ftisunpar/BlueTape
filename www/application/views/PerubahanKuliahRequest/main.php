@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-group row">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Dari Hari &amp; Jam:</label>
-                                <input id="datetimepicker" class="form-control disableable fromDateTime" type="text" name="fromDateTime">
+                                <input id="datetimepicker" class="form-control disableable" type="text" name="fromDateTime">
                             </div>
                             <div class="col-lg-3">
                                 <label class="col-form-label">Dari Ruang:</label>
@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-lg-2">
                                 <label class = "col-form-label">Jam Selesai: </label>
-                                <input class="form-control disableable time_finish" type = "text" id="timepicker" name="time_finish[]" />                          
+                                <input class="form-control disableable timeFinish" type = "text" id="timepicker" name="timeFinish[]" />                          
                             </div>
                             <div class="col-lg-3">
                                 <br><br>
@@ -190,8 +190,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
                                         <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
-                                        <?= empty($to->finish_time)? '': '-<time datetime="'.$to->finish_time.'">
-                                          '.$to->finish_time.'</time>'?></td>
+                                        <?= empty($to->timeFinish)? '': '-<time datetime="'.$to->timeFinish.'">
+                                          '.$to->timeFinish.'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -249,7 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         case 'X':
                             $('input.toDateTime').attr('disabled', 'disabled');
                             $('input.toRoom').attr('disabled', 'disabled');
-                            $('input.time_finish').attr('disabled','disabled');
+                            $('input.timeFinish').attr('disabled','disabled');
                             break;
                     }
                 });
@@ -261,7 +261,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var newFields = toFields.clone();
                     newFields.insertBefore($('#sendDiv'));
                     newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
-                    newFields.find('.time_finish').datetimepicker(finishtimepicker);
+                    newFields.find('.timeFinish').datetimepicker(finishtimepicker);
                     newFields.find('.eraseButton').click(removeRow);
                 });
 
