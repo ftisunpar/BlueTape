@@ -123,8 +123,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </a>
-                                    <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt"></i></a>
-                                    <a data-toggle="modal" data-target=""><i class="fas fa-trash"></i></a>
+                                    <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt"<?= empty($request->answer)?'':'hidden'?> ></i></a>
+                                    <a data-toggle="modal" data-target="#batal<?=$request->id ?>"><i class="fas fa-trash" <?= empty($request->answer)?'':'hidden'?> ></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -276,7 +276,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input type="hidden" name="id" value="<?= $request->id ?>" />
                             <input type="hidden" name="answer" value="remove" />
                             <p><strong>Yakin ingin membatalkan?</strong></p>
-                            <p>Jika ingin merubah keperluan dapat klik tombol edit.</p>
+                            <p>Jika ingin merubah keperluan dapat klik tombol edit. Data yang telah dihapus tidak dapat dipulihkan.</p>
                             <input type="submit" class="btn btn-danger" value="Hapus" <?= empty($request->answer) ? '' : 'disabled' ?> />
 
                         </form>

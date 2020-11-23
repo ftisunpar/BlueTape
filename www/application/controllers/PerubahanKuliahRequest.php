@@ -99,4 +99,26 @@ class PerubahanKuliahRequest extends CI_Controller {
         header('Location: /PerubahanKuliahRequest');
     }
 
+    public function edit(){
+
+    }
+    
+    public function remove(){
+        try {
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                $userInfo = $this->Auth_model->getUserInfo();
+                $this->db->where('id',htmlspecialchars($this->input->post('id')));
+                $this->db->where('requestByEmail',$userInfo['email']);
+                $this->db->where('answer',null);
+                $this->db->delete('perubahankuliah');
+                $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dihapus.');
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /PerubahanKuliahRequest');
+    }
+    
 }
