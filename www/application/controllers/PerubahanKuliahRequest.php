@@ -55,14 +55,24 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos = [];
                 $rooms = $this->input->post('toRoom');
                 $dateTimes = $this->input->post('toDateTime');
+                $finishTime = $this->input->post('timeFinish');
+
                 if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
+                        $time = date("H:i",strtotime($dateTimes[$i]));
+                        if(!empty($finishTime[$i]) && $finishTime[$i] < $time){
+                            $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
+                            header('Location:/PerubahanKuliahRequest');
+                            exit();
+                        }                        
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
-                            'room' => $room 
+                            'room' => $room ,
+                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
                         ];
                     }
                 }
+                
                 $this->db->insert('PerubahanKuliah', array(
                     'requestByEmail' => $userInfo['email'],
                     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
@@ -76,9 +86,8 @@ class PerubahanKuliahRequest extends CI_Controller {
                     'remarks' => htmlspecialchars($this->input->post('remarks')),
                 ));
                 $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
-
                 $this->load->model('Email_model');
-                $recipients = $this->config->item('roles')['tu.ftis'];
+                $recipients = $this->config->item('roles')['tu.ftis'];                
                 if (is_array($recipients)) {
                     foreach ($recipients as $email) {
                         $requestByName = $this->bluetape->getName($userInfo['email']);
@@ -90,13 +99,14 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $this->Email_model->send_email($email, $subject, $message);
                     }
                 }
+                
             } else {
                 throw new Exception("Can't call method from GET request!");
-            }
+            }                        
         } catch (Exception $e) {
             $this->session->set_flashdata('error', $e->getMessage());
-        }
-        header('Location: /PerubahanKuliahRequest');
+        }        
+        header('Location: /PerubahanKuliahRequest');        
     }
 
     public function edit(){

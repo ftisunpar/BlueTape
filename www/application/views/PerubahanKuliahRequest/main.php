@@ -74,6 +74,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <label class="col-form-label">Menjadi Ruang:</label>
                             <input class="form-control disableable toRoom" type="text" name="toRoom[]" />
                         </div>
+                        <div class="col-lg-2">
+                            <label class = "col-form-label">Jam Selesai: </label>
+                            <input class="form-control disableable timeFinish" type = "text" id="timepicker" name="timeFinish[]" />                          
+                        </div>
                         <div class="col-lg-3">
                             <br><br>
                             <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
@@ -187,7 +191,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <?php foreach (json_decode($request->to) as $to) : ?>
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
-                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
+                                        <?= empty($to->timeFinish)? '': '-<time datetime="'.$to->timeFinish.'">
+                                          '.$to->timeFinish.'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -251,7 +257,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif ?>
-
                             <p>&nbsp;</p>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-success" value="Ubah" <?= empty($request->answer) ? '' : 'disabled' ?> />
@@ -284,48 +289,51 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
             </div>
         </div>
-
     <?php endforeach; ?>
     <?php $this->load->view('templates/script_foundation'); ?>
-    <script>
-        $(document).ready(function() {
-            var datepickeroptions = {
-                format: 'Y-m-d H:i'
-            };
-
-            function removeRow() {
-                $(this).closest('.row').remove();
-            }
-            jQuery('#datetimepicker').datetimepicker();
-            $('#fromDateTime').datetimepicker(datepickeroptions);
-            $('.editDateTime').datetimepicker(datepickeroptions);
-            $('.toDateTime').datetimepicker(datepickeroptions);
-            $('.eraseButton').click(removeRow);
-            $('select[name="changeType"]').change(function() {
-                $('input.disableable').removeAttr('disabled');
-                switch ($(this).val()) {
-                    case 'T':
-                        $('input[name="fromDateTime"]').attr('disabled', 'disabled');
-                        $('input[name="fromRoom"]').attr('disabled', 'disabled');
-                        break;
-                    case 'X':
-                        $('input.toDateTime').attr('disabled', 'disabled');
-                        $('input.toRoom').attr('disabled', 'disabled');
-                        break;
+        <script>
+            $(document).ready(function () {
+                var datepickeroptions = {
+                    format: 'Y-m-d H:i'
+                };              
+                var finishtimepicker = {
+                    datepicker:false,
+                    format: 'H:i'
+                };   
+                function removeRow() {
+                    $(this).closest('.row').remove();
                 }
+                jQuery('#datetimepicker').datetimepicker();                                        
+                jQuery('#timepicker').datetimepicker(finishtimepicker);   
+                $('#fromDateTime').datetimepicker(datepickeroptions);            
+                $('.toDateTime').datetimepicker(datepickeroptions);         
+                $('.eraseButton').click(removeRow);
+                $('select[name="changeType"]').change(function () {
+                    $('input.disableable').removeAttr('disabled');
+                    switch ($(this).val()) {
+                        case 'T':
+                            $('input[name="fromDateTime"]').attr('disabled', 'disabled');
+                            $('input[name="fromRoom"]').attr('disabled', 'disabled');
+                            break;
+                        case 'X':
+                            $('input.toDateTime').attr('disabled', 'disabled');
+                            $('input.toRoom').attr('disabled', 'disabled');
+                            $('input.timeFinish').attr('disabled','disabled');
+                            break;
+                    }
+                });
+                $('select[name="changeType"]').change();
+                var toFields = $('.toFields').clone();
+                $('.toFields').find('.eraseButton').remove();
+                $('#addToButton').click(function(e) {
+                    e.preventDefault();
+                    var newFields = toFields.clone();
+                    newFields.insertBefore($('#sendDiv'));
+                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
+                    newFields.find('.timeFinish').datetimepicker(finishtimepicker);
+                    newFields.find('.eraseButton').click(removeRow);
+                });
             });
-            $('select[name="changeType"]').change();
-            var toFields = $('.toFields').clone();
-            $('.toFields').find('.eraseButton').remove();
-            $('#addToButton').click(function(e) {
-                e.preventDefault();
-                var newFields = toFields.clone();
-                newFields.insertBefore($('#sendDiv'));
-                newFields.find('.toDateTime').datetimepicker(datepickeroptions);
-                newFields.find('.eraseButton').click(removeRow);
-            });
-
-        });
     </script>
 </body>
 
