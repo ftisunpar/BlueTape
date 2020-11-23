@@ -234,7 +234,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="modal-body">
                         <form method="POST" action="/PerubahanKuliahRequest/edit">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                            <input type="hidden" name="id" value="<?= $request->id ?>" />                            
+                            <input type="hidden" name="id" value="<?= $request->id ?>" />                                               
                             <?php if($request->changeType === 'T'): ?>
                                 
                             <?php else: ?>
@@ -245,16 +245,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label>Dari Ruang</label>
                                     <input class="form-control" value="<?= $request->fromRoom ?>" type="text" name="editFromRoom">
-                                </div>
+                                </div>                       
                                 <?php foreach(json_decode($request->to) as $to): ?>
-                                    <div class="form-group">
+                                <div class = "form-group row">
+                                    <div class ="col-lg-5">
                                         <label>Menjadi Hari & Jam:</label>
                                         <input id="datetimepicker" class="form-control editDateTime" value="<?= $to->dateTime ?>" type="text" name="editToDateTime[]">
                                     </div>
-                                    <div class="form-group">
+                                    <div class = "col-lg-4">
                                         <label>Menjadi Ruang:</label>
                                         <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom">
+                                    </div>                                    
+                                    <div class="col-lg-3">
+                                        <label>Menjadi Jam:</label>
+                                        <input class="form-control timeFinish" value="<?= $to->timeFinish ?>" type="text" name="editToFinishTime[]">
                                     </div>
+                                </div>
                                 <?php endforeach; ?>
                             <?php endif ?>
                             <p>&nbsp;</p>
@@ -305,7 +311,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 }
                 jQuery('#datetimepicker').datetimepicker();                                        
                 jQuery('#timepicker').datetimepicker(finishtimepicker);   
-                $('#fromDateTime').datetimepicker(datepickeroptions);            
+                $('#fromDateTime').datetimepicker(datepickeroptions); 
+                $('.editDateTime').datetimepicker(datepickeroptions);
+                $('.timeFinish').datetimepicker(finishtimepicker);
                 $('.toDateTime').datetimepicker(datepickeroptions);         
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
