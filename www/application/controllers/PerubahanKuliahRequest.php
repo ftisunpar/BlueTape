@@ -68,7 +68,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i]
+                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
                         ];
                     }
                 }

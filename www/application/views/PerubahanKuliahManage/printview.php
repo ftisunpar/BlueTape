@@ -119,7 +119,7 @@ setlocale(LC_TIME, 'ind');
                         <td>
                             <?php foreach ($perubahan->to as $to): ?>
                                 <?= $to->dateTime === null ? '' : ($to->timeFinish === null ? 
-                                strftime('%H:%M', $to->dateTime) : strftime('%H:%M', $to->dateTime).' - '.$to->timeFinish) ?><br/>
+                                strftime('%H:%M', $to->dateTime) : strftime('%H:%M', $to->dateTime).' - '.strftime('%H:%M', strtotime($to->timeFinish))) ?><br/>
                             <?php endforeach; ?>                
                         </td>
                     </tr>
