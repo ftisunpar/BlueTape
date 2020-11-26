@@ -75,8 +75,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input class="form-control disableable toRoom" type="text" name="toRoom[]" />
                         </div>
                         <div class="col-lg-2">
-                            <label class = "col-form-label">Jam Selesai: </label>
-                            <input class="form-control disableable timeFinish" type = "text" id="timepicker" name="timeFinish[]" />                          
+                            <label class="col-form-label">Jam Selesai: </label>
+                            <input class="form-control disableable timeFinish" type="text" id="timepicker" name="timeFinish[]" />
                         </div>
                         <div class="col-lg-3">
                             <br><br>
@@ -127,8 +127,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </a>
-                                    <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt"<?= empty($request->answer)?'':'hidden'?> ></i></a>
-                                    <a data-toggle="modal" data-target="#batal<?=$request->id ?>"><i class="fas fa-trash" <?= empty($request->answer)?'':'hidden'?> ></i></a>
+                                    <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
+                                    <a data-toggle="modal" data-target="#batal<?= $request->id ?>"><i class="fas fa-trash" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -192,8 +192,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
                                         <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
-                                        <?= empty($to->timeFinish)? '': '-<time datetime="'.$to->timeFinish.'">
-                                          '.$to->timeFinish.'</time>'?></td>
+                                            <?= empty($to->timeFinish) ? '' : '-<time datetime="' . $to->timeFinish . '">
+                                          ' . $to->timeFinish . '</time>' ?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -234,42 +234,56 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="modal-body">
                         <form method="POST" action="/PerubahanKuliahRequest/edit">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                            <input type="hidden" name="id" value="<?= $request->id ?>" />                                                           
+                            <input type="hidden" name="id" value="<?= $request->id ?>" />
+                            <div class="form-group">
+                                <label>Kode MK:</label>
+                                <input class="form-control" type="text" name="editMataKuliahCode" value="<?= $request->mataKuliahCode ?>" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123" />
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Mata Kuliah:</label>
+                                <input class="form-control" type="text" name="editMataKuliahName" value="<?= $request->mataKuliahName ?>" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan Tambahan:</label>
+                                <input class="form-control disableable" type="text" name="editRemarks" value="<?= $request->remarks ?>" />
+                            </div>
                             <div class="form-group">
                                 <label class="col-form-label">Jenis Perubahan:</label>
-                                <select name="changeTypeFromEdit" class="form-control" id="<?= $request->id?>">
+                                <select name="changeTypeFromEdit" class="form-control" id="<?= $request->id ?>">
                                     <?php foreach (PerubahanKuliah_model::CHANGETYPE_TYPES as $type => $name) : ?>
-                                        <option value="<?= $type ?>"<?= $request->changeType === $type?'selected':'' ?> ><?= $name ?></option>
+                                        <option value="<?= $type ?>" <?= $request->changeType === $type ? 'selected' : '' ?>><?= $name ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                            </div>                                                                     
-                            <div class="editable<?=$request->id?>">       
-                            <?php if($request->changeType !== 'T'): ?>                        
-                                <div class="form-group">
-                                    <label>Dari Hari & jam</label>
-                                    <input id="datetimepicker" class="form-control editDateTime" value="<?= $request->fromDateTime ?>" type="text" name="editFromDateTime">
-                                </div>
-                                <div class="form-group">
-                                    <label>Dari Ruang</label>
-                                    <input class="form-control" value="<?= $request->fromRoom ?>" type="text" name="editFromRoom">
-                                </div>                       
-                            <?php endif ?>
-                            <?php foreach(json_decode($request->to) as $to): ?>
-                                <div class = "form-group row">
-                                    <div class ="col-lg-5">
-                                        <label>Menjadi Hari & Jam:</label>
-                                        <input id="datetimepicker" class="form-control editDateTime" value="<?= $to->dateTime ?>" type="text" name="editToDateTime[]">
+                            </div>
+                            <div class="editable<?= $request->id ?>">
+                                <?php if ($request->changeType !== 'T') : ?>
+                                    <div class="form-group row">
+                                        <div class=col-lg>
+                                            <label>Dari Hari & jam</label>
+                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= $request->fromDateTime ?>" type="text" name="editFromDateTime">
+                                        </div>
+                                        <div class=col-lg-3>
+                                            <label>Dari Ruang</label>
+                                            <input class="form-control" value="<?= $request->fromRoom ?>" type="text" name="editFromRoom">
+                                        </div>
                                     </div>
-                                    <div class = "col-lg-4">
-                                        <label>Menjadi Ruang:</label>
-                                        <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom">
-                                    </div>                                    
-                                    <div class="col-lg-3">
-                                        <label>Menjadi Jam:</label>
-                                        <input class="form-control editTimeFinish" value="<?= $to->timeFinish ?>" type="text" name="editToFinishTime[]">
+                                <?php endif ?>
+                                <?php foreach (json_decode($request->to) as $to) : ?>
+                                    <div class="form-group row">
+                                        <div class="col-lg-5">
+                                            <label>Menjadi Hari & Jam:</label>
+                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= $to->dateTime ?>" type="text" name="editToDateTime[]">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Menjadi Ruang:</label>
+                                            <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Menjadi Jam:</label>
+                                            <input class="form-control editTimeFinish" value="<?= $to->timeFinish ?>" type="text" name="editToFinishTime[]">
+                                        </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             </div>
                             <p>&nbsp;</p>
                             <div class="form-group">
@@ -305,94 +319,104 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
     <?php endforeach; ?>
     <?php $this->load->view('templates/script_foundation'); ?>
-        <script>
-            $(document).ready(function () {
-                var datepickeroptions = {
-                    format: 'Y-m-d H:i'
-                };              
-                var finishtimepicker = {
-                    datepicker:false,
-                    format: 'H:i',
-                    minTime: '07:00',
-                    maxTime: '17:00'
-                };   
-                function removeRow() {
-                    $(this).closest('.row').remove();
-                }
-                jQuery('#datetimepicker').datetimepicker();                                        
-                jQuery('#timepicker').datetimepicker(finishtimepicker);   
-                $('#fromDateTime').datetimepicker(datepickeroptions); 
-                $('.editDateTime').datetimepicker(datepickeroptions);
-                $('.editTimeFinish').datetimepicker(finishtimepicker);
-                $('.toDateTime').datetimepicker(datepickeroptions);         
-                $('.eraseButton').click(removeRow);
-                $('select[name="changeType"]').change(function () {
-                    $('input.disableable').removeAttr('disabled');
-                    switch ($(this).val()) {
-                        case 'T':
-                            $('input[name="fromDateTime"]').attr('disabled', 'disabled');
-                            $('input[name="fromRoom"]').attr('disabled', 'disabled');
-                            break;
-                        case 'X':
-                            $('input.toDateTime').attr('disabled', 'disabled');
-                            $('input.toRoom').attr('disabled', 'disabled');
-                            $('input.timeFinish').attr('disabled','disabled');
-                            break;
-                    }
-                });
-                $('select[name="changeType"]').change();
-                
-                $('select[name="changeTypeFromEdit"]').change(function () { 
-                    var id = $(this).attr('id');
-                    var workingField = $('.editable'+id);
-                    workingField.removeClass();
-                    workingField.empty();
-                    switch ($(this).val()) {
-                        case 'T':                                                      
-                            workingField.addClass("form-group row editable"+id);     
-                            workingField.append($('.toFields').clone().children().removeClass());                            
-                            workingField.children().eq(0).addClass("col-lg-5");
-                            workingField.children().eq(1).addClass("col-lg-4");
-                            workingField.children().eq(2).addClass("col-lg-3");  
-                            workingField.find('.toDateTime').datetimepicker(datepickeroptions);
-                            workingField.find('.timeFinish').datetimepicker(finishtimepicker);
-                            break;
-                        case 'X':
-                            workingField.addClass("editable"+id);
-                            workingField.append($('.fromFields').clone().children().removeClass()); 
-                            workingField.children().addClass('form-group');
-                            workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
-                            workingField.children().eq(2).remove();           
-                            break;
-                        case 'G':
-                            workingField.addClass("editable"+id);
-                            workingField.append($('.fromFields').clone().children().removeClass()); 
-                            workingField.children().addClass("form-group");
-                            workingField.children().eq(2).remove();       
+    <script>
+        $(document).ready(function() {
+            var datepickeroptions = {
+                format: 'Y-m-d H:i'
+            };
+            var finishtimepicker = {
+                datepicker: false,
+                format: 'H:i',
+                minTime: '07:00',
+                maxTime: '17:00'
+            };
 
-                            workingField.append("<div class ='form-group row'></div>");                        
-                            var lastChild = workingField.children().last();
-                            lastChild.append($('.toFields').clone().children().removeClass()); 
-                            lastChild.children().eq(0).addClass("col-lg-5");
-                            lastChild.children().eq(1).addClass("col-lg-4");
-                            lastChild.children().eq(2).addClass("col-lg-3");                            
-                            workingField.find('#datetimepicker').datetimepicker(datepickeroptions);                            
-                            workingField.find('.timeFinish').datetimepicker(finishtimepicker);
-                            break;
-                    }
-                });
-                
-                var toFields = $('.toFields').clone();
-                $('.toFields').find('.eraseButton').remove();
-                $('#addToButton').click(function(e) {
-                    e.preventDefault();
-                    var newFields = toFields.clone();
-                    newFields.insertBefore($('#sendDiv'));
-                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
-                    newFields.find('.timeFinish').datetimepicker(finishtimepicker);
-                    newFields.find('.eraseButton').click(removeRow);
-                });
+            function removeRow() {
+                $(this).closest('.row').remove();
+            }
+            jQuery('#datetimepicker').datetimepicker();
+            jQuery('#timepicker').datetimepicker(finishtimepicker);
+            $('#fromDateTime').datetimepicker(datepickeroptions);
+            $('.editDateTime').datetimepicker(datepickeroptions);
+            $('.editTimeFinish').datetimepicker(finishtimepicker);
+            $('.toDateTime').datetimepicker(datepickeroptions);
+            $('.eraseButton').click(removeRow);
+            $('select[name="changeType"]').change(function() {
+                $('input.disableable').removeAttr('disabled');
+                switch ($(this).val()) {
+                    case 'T':
+                        $('input[name="fromDateTime"]').attr('disabled', 'disabled');
+                        $('input[name="fromRoom"]').attr('disabled', 'disabled');
+                        break;
+                    case 'X':
+                        $('input.toDateTime').attr('disabled', 'disabled');
+                        $('input.toRoom').attr('disabled', 'disabled');
+                        $('input.timeFinish').attr('disabled', 'disabled');
+                        break;
+                }
             });
+            $('select[name="changeType"]').change();
+
+            $('select[name="changeTypeFromEdit"]').change(function() {
+                $('input.disableable').removeAttr('disabled');
+                var id = $(this).attr('id');
+                // workingField is the editable html part 
+                var workingField = $('.editable' + id);
+                workingField.removeClass();
+                workingField.empty();
+                switch ($(this).val()) {
+                    case 'T':
+                        workingField.addClass("form-group row editable" + id);
+                        workingField.append($('.toFields').clone().children().removeClass());
+                        workingField.children().eq(0).addClass("col-lg-5");
+                        workingField.children().eq(1).addClass("col-lg-4");
+                        workingField.children().eq(2).addClass("col-lg-3");
+                        workingField.find('.toDateTime').datetimepicker(datepickeroptions).attr('name', 'editToDateTime[]');
+                        workingField.find('.timeFinish').datetimepicker(finishtimepicker);
+                        break;
+                    case 'X':
+                        workingField.addClass("editable" + id);
+                        workingField.append($('.fromFields').clone().children().removeClass())
+                        workingField.addClass("row");
+                        workingField.children().eq(0).addClass("col-lg");
+                        workingField.children().eq(1).addClass("col-lg-3");
+                        workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
+                        workingField.children().eq(2).remove();
+                        break;
+                    case 'G':                    
+                        workingField.addClass("editable" + id);
+                        workingField.append("<div class ='form-group row'></div>");
+                        var fromChild = workingField.children().eq(0);
+                        // fromChild is element group that controls fromDateTime,fromRoom
+                        fromChild.append($('.fromFields').clone().children().removeClass());                        
+                        fromChild.children().eq(0).addClass("col-lg");
+                        fromChild.children().eq(1).addClass("col-lg-3");
+                        fromChild.children().eq(2).remove();
+
+                        workingField.append("<div class ='form-group row'></div>");                    
+                        var lastChild = workingField.children().last();
+                        //lastChild is the last children of the element
+                        lastChild.append($('.toFields').clone().children().removeClass());
+                        lastChild.children().eq(0).addClass("col-lg-5");
+                        lastChild.children().eq(1).addClass("col-lg-4");
+                        lastChild.children().eq(2).addClass("col-lg-3");
+                        workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
+                        workingField.find('.timeFinish').datetimepicker(finishtimepicker);
+                        break;
+                }
+            });
+
+            var toFields = $('.toFields').clone();
+            $('.toFields').find('.eraseButton').remove();
+            $('#addToButton').click(function(e) {
+                e.preventDefault();
+                var newFields = toFields.clone();
+                newFields.insertBefore($('#sendDiv'));
+                newFields.find('.toDateTime').datetimepicker(datepickeroptions);
+                newFields.find('.timeFinish').datetimepicker(finishtimepicker);
+                newFields.find('.eraseButton').click(removeRow);
+            });
+        });
     </script>
 </body>
 

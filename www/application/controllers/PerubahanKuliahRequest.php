@@ -110,7 +110,7 @@ class PerubahanKuliahRequest extends CI_Controller {
     }
 
     public function edit(){
-
+        echo implode($this->input->post('editToDateTime[]'));
     }
     
     public function remove(){
