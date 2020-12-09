@@ -279,8 +279,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom">
                                         </div>
                                         <div class="col-lg-3">
-                                            <label>Menjadi Jam:</label>
-                                            <input class="form-control editTimeFinish" value="<?= $to->timeFinish ?>" type="text" name="editToFinishTime[]">
+                                            <label>Jam Selesai:</label>
+                                            <input class="form-control editTimeFinish" value="<?= strftime('%H:%M',strtotime($to->timeFinish)) ?>" type="text" name="editToFinishTime[]">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -288,6 +288,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <p>&nbsp;</p>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-success" value="Ubah" <?= empty($request->answer) ? '' : 'disabled' ?> />
+                                <a href="#"  id="editAddToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
                             </div>
                         </form>
                     </div>
@@ -333,6 +334,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             function removeRow() {
                 $(this).closest('.row').remove();
+                return false;
             }
             jQuery('#datetimepicker').datetimepicker();
             jQuery('#timepicker').datetimepicker(finishtimepicker);
@@ -358,7 +360,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
             $('select[name="changeType"]').change();
 
             $('select[name="changeTypeFromEdit"]').change(function() {
-                $('input.disableable').removeAttr('disabled');
                 var id = $(this).attr('id');
                 // workingField is the editable html part 
                 var workingField = $('.editable' + id);
@@ -366,22 +367,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 workingField.empty();
                 switch ($(this).val()) {
                     case 'T':
-                        workingField.addClass("form-group row editable" + id);
-                        workingField.append($('.toFields').clone().children().removeClass());
-                        workingField.children().eq(0).addClass("col-lg-5");
-                        workingField.children().eq(1).addClass("col-lg-4");
-                        workingField.children().eq(2).addClass("col-lg-3");
-                        workingField.find('.toDateTime').datetimepicker(datepickeroptions).attr('name', 'editToDateTime[]');
-                        workingField.find('.timeFinish').datetimepicker(finishtimepicker);
+                        workingField.addClass("form-group editable" + id);
+                        workingField.append("<div class ='form-group row'></div>");                        
+                        var fromChild = workingField.children().eq(0);
+                        fromChild.append($('.toFields').clone().children().removeClass());
+                        fromChild.children().eq(0).addClass("col-lg-5");
+                        fromChild.children().eq(1).addClass("col-lg-4");
+                        fromChild.children().eq(2).addClass("col-lg-3");
+                        fromChild.find('.toDateTime').datetimepicker(datepickeroptions)
+                            .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
+                        fromChild.find('.timeFinish').datetimepicker(finishtimepicker)
+                            .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');      
+                        fromChild.find('.toRoom').attr('name','editToRoom[]')
+                            .removeClass('disableable').addClass('editDisableable');     
+                        $('input.editDisableable').removeAttr('disabled');         
                         break;
                     case 'X':
-                        workingField.addClass("editable" + id);
-                        workingField.append($('.fromFields').clone().children().removeClass())
-                        workingField.addClass("row");
-                        workingField.children().eq(0).addClass("col-lg");
-                        workingField.children().eq(1).addClass("col-lg-3");
-                        workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
-                        workingField.children().eq(2).remove();
+                        workingField.addClass("editable" + id);                        
+                        workingField.append("<div class ='form-group row'></div>");                        
+                        var fromChild = workingField.children().eq(0);
+                        fromChild.append($('.fromFields').clone().children().removeClass())
+                        fromChild.children().eq(0).addClass("col-lg");
+                        fromChild.children().eq(1).addClass("col-lg-3");
+                        fromChild.find('#datetimepicker').datetimepicker(datepickeroptions);
+                        fromChild.find("input[name=fromDateTime]").attr('name','editFromDateTime')
+                            .addClass('editDisableable').removeClass('disableable');
+                            fromChild.find("input[name=fromRoom]").attr('name','editFromRoom')
+                            .addClass('editDisableable').removeClass('disableable');
+                        fromChild.children().eq(2).remove();
+                        $('input.editDisableable').removeAttr('disabled');
                         break;
                     case 'G':                    
                         workingField.addClass("editable" + id);
@@ -391,6 +405,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         fromChild.append($('.fromFields').clone().children().removeClass());                        
                         fromChild.children().eq(0).addClass("col-lg");
                         fromChild.children().eq(1).addClass("col-lg-3");
+                        fromChild.find("input[name=fromDateTime]").attr('name','editFromDateTime')
+                            .addClass('editDisableable').removeClass('disableable');
+                        fromChild.find("input[name=fromRoom]").attr('name','editFromRoom')
+                            .addClass('editDisableable').removeClass('disableable');
+                        
                         fromChild.children().eq(2).remove();
 
                         workingField.append("<div class ='form-group row'></div>");                    
@@ -400,8 +419,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         lastChild.children().eq(0).addClass("col-lg-5");
                         lastChild.children().eq(1).addClass("col-lg-4");
                         lastChild.children().eq(2).addClass("col-lg-3");
+                        lastChild.find('.toDateTime').attr('name', 'editToDateTime[]')
+                            .removeClass('disableable').addClass('editDisableable');
+                        lastChild.find('.timeFinish').datetimepicker(finishtimepicker)
+                            .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');      
+                        lastChild.find('.toRoom').attr('name','editToRoom[]')
+                            .removeClass('disableable').addClass('editDisableable'); 
                         workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
-                        workingField.find('.timeFinish').datetimepicker(finishtimepicker);
+                        
+                        $('input.editDisableable').removeAttr('disabled');
                         break;
                 }
             });
@@ -415,6 +441,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 newFields.find('.toDateTime').datetimepicker(datepickeroptions);
                 newFields.find('.timeFinish').datetimepicker(finishtimepicker);
                 newFields.find('.eraseButton').click(removeRow);
+            });          
+            $('.modal').on('click','#editAddToButton',function(e) {
+                e.preventDefault();
+                var editNewFields = toFields.clone();                      
+                editNewFields.children().eq(0).removeClass().addClass("col-lg-5");   
+                editNewFields.children().eq(1).removeClass().addClass("col-lg-4");  
+                editNewFields.children().eq(2).removeClass().addClass("col-lg-3"); 
+                editNewFields.children().eq(3).removeClass().addClass("col-lg")
+                    .find('.eraseButton').addClass('form-control').click(removeRow);  
+                var workingField = $(this).parents('.form-group').prevAll().eq(1);
+                workingField.append(editNewFields);
             });
         });
     </script>

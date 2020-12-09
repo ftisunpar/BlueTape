@@ -107,20 +107,7 @@ class TranskripRequest extends CI_Controller {
                     'requestUsage' => htmlspecialchars($this->input->post('ubahKeterangan'))
                 ));
                 $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dirubah. Silahkan cek statusnya secara berkala di situs ini.');
-
-                $this->load->model('Email_model');
-                $recipients = $this->config->item('roles')['tu.ftis'];
-                if (is_array($recipients)) {
-                    foreach ($recipients as $email) {
-                        $requestByName = $this->bluetape->getName($userInfo['email']);
-                        $subject = "Perubahan Permohonan Transkrip dari $requestByName";
-                        $message = $this->load->view('TranskripRequest/email', array(
-                            'name' => $this->bluetape->getName($email),
-                            'requestByName' => $requestByName
-                        ), TRUE);
-                        $this->Email_model->send_email($email, $subject, $message);
-                    }
-                }
+                
             } else {
                 throw new Exception("Can't call method from GET request!");
             }
