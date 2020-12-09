@@ -260,7 +260,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class=col-lg>
                                             <label>Dari Hari & jam</label>
-                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= $request->fromDateTime ?>" type="text" name="editFromDateTime">
+                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M',strtotime($request->fromDateTime)) ?>" type="text" name="editFromDateTime">
                                         </div>
                                         <div class=col-lg-3>
                                             <label>Dari Ruang</label>
@@ -272,11 +272,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class="col-lg-5">
                                             <label>Menjadi Hari & Jam:</label>
-                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= $to->dateTime ?>" type="text" name="editToDateTime[]">
+                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M',strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
                                         </div>
                                         <div class="col-lg-4">
                                             <label>Menjadi Ruang:</label>
-                                            <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom">
+                                            <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom[]">
                                         </div>
                                         <div class="col-lg-3">
                                             <label>Jam Selesai:</label>
@@ -323,13 +323,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <script>
         $(document).ready(function() {
             var datepickeroptions = {
-                format: 'Y-m-d H:i'
+                format: 'Y-m-d H:i',
+                minTime: '07:00',
+                maxTime: '18:00'
             };
             var finishtimepicker = {
                 datepicker: false,
                 format: 'H:i',
                 minTime: '07:00',
-                maxTime: '17:00'
+                maxTime: '18:00'
             };
 
             function removeRow() {
@@ -450,6 +452,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 editNewFields.children().eq(2).removeClass().addClass("col-lg-3"); 
                 editNewFields.children().eq(3).removeClass().addClass("col-lg")
                     .find('.eraseButton').addClass('form-control').click(removeRow);  
+                editNewFields.find('.toDateTime').datetimepicker(datepickeroptions).attr('name','editToDateTime[]')
+                    .removeClass('toDateTime').addClass('editDateTime');
+                editNewFields.find('.timeFinish').datetimepicker(finishtimepicker).attr('name','editToFinishTime[]')
+                    .removeClass('timeFinish').addClass('editTimeFinish');
+                editNewFields.find('.toRoom').attr('name','editToRoom[]').removeClass('toRoom');
                 var workingField = $(this).parents('.form-group').prevAll().eq(1);
                 workingField.append(editNewFields);
             });
