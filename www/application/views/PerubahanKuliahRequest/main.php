@@ -286,7 +286,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <?php endforeach; ?>
                             </div>
                             <p>&nbsp;</p>
-                            <div class="form-group">
+                            <div class="form-group footer" <?= ($request->changeType !== 'X')? 'addListener=true': '' ?> >
                                 <input type="submit" class="btn btn-success" value="Ubah" <?= empty($request->answer) ? '' : 'disabled' ?> />
                                 <a href="#"  id="editAddToButton" class="btn btn-secondary">Tambah Pertemuan Ekstra</a>
                             </div>
@@ -338,6 +338,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $(this).closest('.row').remove();
                 return false;
             }
+            function bindPertemuanEkstra(footerField){    
+                var attr = footerField.attr('hasListener');  
+                if(typeof attr == typeof undefined | attr == false){
+                    footerField.on('click','#editAddToButton',function(e) {
+                        e.preventDefault();
+                        var editNewFields = toFields.clone();                      
+                        editNewFields.children().eq(0).removeClass().addClass("col-lg-5");   
+                        editNewFields.children().eq(1).removeClass().addClass("col-lg-4");  
+                        editNewFields.children().eq(2).removeClass().addClass("col-lg-3"); 
+                        editNewFields.children().eq(3).removeClass().addClass("col-lg")
+                            .find('.eraseButton').addClass('form-control').click(removeRow);  
+                        editNewFields.find('.toDateTime').datetimepicker(datepickeroptions).attr('name','editToDateTime[]')
+                            .removeClass('toDateTime').addClass('editDateTime');
+                        editNewFields.find('.timeFinish').datetimepicker(finishtimepicker).attr('name','editToFinishTime[]')
+                            .removeClass('timeFinish').addClass('editTimeFinish');
+                        editNewFields.find('.toRoom').attr('name','editToRoom[]').removeClass('toRoom');
+                        var workingField = $(this).parents('.form-group').prevAll().eq(1);
+                        workingField.append(editNewFields);
+                    });
+                    
+                    footerField.attr('hasListener',true);
+                }
+            }
+
             jQuery('#datetimepicker').datetimepicker();
             jQuery('#timepicker').datetimepicker(finishtimepicker);
             $('#fromDateTime').datetimepicker(datepickeroptions);
@@ -367,6 +391,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 var workingField = $('.editable' + id);
                 workingField.removeClass();
                 workingField.empty();
+                
+                bindPertemuanEkstra(workingField.nextAll('.footer'));
                 switch ($(this).val()) {
                     case 'T':
                         workingField.addClass("form-group editable" + id);
@@ -398,6 +424,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             .addClass('editDisableable').removeClass('disableable');
                         fromChild.children().eq(2).remove();
                         $('input.editDisableable').removeAttr('disabled');
+                        workingField.nextAll('.footer').off('click','#editAddToButton').removeAttr('hasListener');                        
                         break;
                     case 'G':                    
                         workingField.addClass("editable" + id);
@@ -443,24 +470,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 newFields.find('.toDateTime').datetimepicker(datepickeroptions);
                 newFields.find('.timeFinish').datetimepicker(finishtimepicker);
                 newFields.find('.eraseButton').click(removeRow);
-            });          
-            $('.modal').on('click','#editAddToButton',function(e) {
-                e.preventDefault();
-                var editNewFields = toFields.clone();                      
-                editNewFields.children().eq(0).removeClass().addClass("col-lg-5");   
-                editNewFields.children().eq(1).removeClass().addClass("col-lg-4");  
-                editNewFields.children().eq(2).removeClass().addClass("col-lg-3"); 
-                editNewFields.children().eq(3).removeClass().addClass("col-lg")
-                    .find('.eraseButton').addClass('form-control').click(removeRow);  
-                editNewFields.find('.toDateTime').datetimepicker(datepickeroptions).attr('name','editToDateTime[]')
-                    .removeClass('toDateTime').addClass('editDateTime');
-                editNewFields.find('.timeFinish').datetimepicker(finishtimepicker).attr('name','editToFinishTime[]')
-                    .removeClass('timeFinish').addClass('editTimeFinish');
-                editNewFields.find('.toRoom').attr('name','editToRoom[]').removeClass('toRoom');
-                var workingField = $(this).parents('.form-group').prevAll().eq(1);
-                workingField.append(editNewFields);
-            });
-        });
+            });    
+            
+            bindPertemuanEkstra($('.footer[addListener=true]'));       
+            $('.footer[addListener=true]').removeAttr('addListener');  
+        });        
     </script>
 </body>
 
