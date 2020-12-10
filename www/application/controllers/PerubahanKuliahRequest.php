@@ -55,12 +55,12 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos = [];
                 $rooms = $this->input->post('toRoom');
                 $dateTimes = $this->input->post('toDateTime');
-                $finishTime = $this->input->post('timeFinish');
+                $toTimeFinish = $this->input->post('toTimeFinish');
 
                 if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
                         $time = date("H:i",strtotime($dateTimes[$i]));
-                        if(!empty($finishTime[$i]) && $finishTime[$i] < $time){
+                        if(!empty($toTimeFinish[$i]) && $toTimeFinish[$i] < $time){
                             $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
                             header('Location:/PerubahanKuliahRequest');
                             exit();
@@ -68,7 +68,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
+                            'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
                         ];
                     }
                 }

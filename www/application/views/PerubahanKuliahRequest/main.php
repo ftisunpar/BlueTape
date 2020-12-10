@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-lg-2">
                                 <label class = "col-form-label">Jam Selesai: </label>
-                                <input class="form-control disableable timeFinish" type = "text" id="timepicker" name="timeFinish[]" />                          
+                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
                             </div>
                             <div class="col-lg-3">
                                 <br><br>
@@ -190,8 +190,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
                                         <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
-                                        <?= empty($to->timeFinish)? '': '-<time datetime="'.$to->timeFinish.'">
-                                          '.$to->timeFinish.'</time>'?></td>
+                                        <?= empty($to->toTimeFinish)? '': '-<time datetime="'.$to->toTimeFinish.'">
+                                          '.$to->toTimeFinish.'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -227,7 +227,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var datepickeroptions = {
                     format: 'Y-m-d H:i'
                 };              
-                var finishtimepicker = {
+                var timefinishpicker = {
                     datepicker:false,
                     format: 'H:i'
                 };   
@@ -235,7 +235,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(this).closest('.row').remove();
                 }
                 jQuery('#datetimepicker').datetimepicker();                                        
-                jQuery('#timepicker').datetimepicker(finishtimepicker);   
+                jQuery('#toTimeFinish').datetimepicker(timefinishpicker);   
                 $('#fromDateTime').datetimepicker(datepickeroptions);            
                 $('.toDateTime').datetimepicker(datepickeroptions);         
                 $('.eraseButton').click(removeRow);
@@ -249,7 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         case 'X':
                             $('input.toDateTime').attr('disabled', 'disabled');
                             $('input.toRoom').attr('disabled', 'disabled');
-                            $('input.timeFinish').attr('disabled','disabled');
+                            $('input.toTimeFinish').attr('disabled','disabled');
                             break;
                     }
                 });
@@ -261,7 +261,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var newFields = toFields.clone();
                     newFields.insertBefore($('#sendDiv'));
                     newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
-                    newFields.find('.timeFinish').datetimepicker(finishtimepicker);
+                    newFields.find('.toTimeFinish').datetimepicker(timefinishpicker);
                     newFields.find('.eraseButton').click(removeRow);
                 });
 
