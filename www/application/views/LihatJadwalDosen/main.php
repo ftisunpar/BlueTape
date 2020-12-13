@@ -107,22 +107,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                 $color = "#92D14F";
                                             }                                            
                                         ?>
-                                            <script>
-                                                var table = document.getElementById('jadwal_table<?php echo $idx; ?>');
+                                        <script>
+                                            var table = document.getElementById('jadwal_table<?php echo $idx; ?>');
 
-                                                var $cellLocation = "#t<?php echo $idx; ?>cell<?php echo $rowIdx; ?>-<?php echo $colIdx; ?>";
+                                            var $cellLocation = "#t<?php echo $idx; ?>cell<?php echo $rowIdx; ?>-<?php echo $colIdx; ?>";
 
-                                                $($cellLocation).css('background-color', '<?php echo $color; ?>');
-                                                $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
-                                                $($cellLocation).addClass('<?php echo $border; ?>');
+                                            $($cellLocation).css('background-color', '<?php echo $color; ?>');
+                                            $($cellLocation).attr('rowspan', <?php echo $dataHariIni->durasi ?>);
+                                            $($cellLocation).addClass('<?php echo $border; ?>');
 
-
-                                                //menghapus cell-cell yang tergeser karena rowspan
-                                                for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
-                                                    $("#t<?php echo $idx; ?>cell" + i + "-" + <?php echo $colIdx; ?>).remove();
-                                                }
-                                                $($cellLocation).html("<?php echo $dataHariIni->label ?>");
-                                            </script>
+                                            //menghapus cell-cell yang tergeser karena rowspan
+                                            for (i = <?php echo ($rowIdx + 1); ?>; i < <?php echo ($rowIdx + $dataHariIni->durasi); ?>; i++) {
+                                                $("#t<?php echo $idx; ?>cell" + i + "-" + <?php echo $colIdx; ?>).remove();
+                                            }
+                                            $($cellLocation).html("<?php echo $dataHariIni->label ?>");
+                                        </script>
                                         <?php
                                         }
                                         ?>
