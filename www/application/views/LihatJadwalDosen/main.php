@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             if ($idx == 0) {
                         ?>
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#hal<?php echo $idx; ?>" role="tab" aria-controls="<?= $idx ?>" aria-selected="true">
+                                    <a class="nav-link active" data-toggle="tab" href="#hal<?php echo $idx; ?>" role="tab"  aria-selected="true">
                                         <?php foreach ($currRow as $data) {
                                             echo $data->name;
                                             break;
@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             } else {
                             ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#hal<?php echo $idx; ?>" role="tab" aria-controls="<?= $idx ?>">
+                                    <a class="nav-link" data-toggle="tab" href="#hal<?php echo $idx; ?>" role="tab" >
                                         <?php foreach ($currRow as $data) {
                                             echo $data->name;
                                             break;
@@ -56,12 +56,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         ?>
                             <?php
                             if ($idx == 0) {
-                                echo '<div class="tab-pane fade show active" id="hal' . $idx . '" role="tabpanel" aria-labelledby=hal' . $idx . '"-tab">';
+                                echo '<div class="tab-pane fade show active" id="hal' . $idx . '" role="tabpanel" >';
                             ?>
                             <?php
                             } else {
                             ?>
-                                <div class="tab-pane fade" id="hal<?php echo $idx; ?>" role="tabpanel" aria-labelledby="hal<?= $idx ?>-tab">
+                                <div class="tab-pane fade" id="hal<?php echo $idx; ?>" role="tabpanel">
                             <?php
                             }
                             ?>
