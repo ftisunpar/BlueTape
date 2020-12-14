@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <tr>
                                                 <th>Menjadi Hari/Jam</th>
                                                 <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
-                                                <?= empty($to->toTimeFinish)? '': '-<time datetime="'.$to->toTimeFinish.'">'.$to->toTimeFinish.'</time>'?></td>
+                                                <?= empty($to->toTimeFinish)? '': '- <time datetime="'.$to->toTimeFinish.'">'.$to->toTimeFinish.'</time>'?></td>
                                             </tr>
                                             <tr>
                                                 <th>Menjadi Ruang</th>
