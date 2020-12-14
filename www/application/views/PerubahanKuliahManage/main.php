@@ -105,10 +105,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th>Dari Ruang</th>
                                             <td><?= $request->fromRoom ?></td>
                                         </tr>
-                                        <?php foreach (json_decode($request->to) as $to): ?>
+                                        <?php foreach (json_decode($request->to) as $to ): ?>
                                             <tr>
                                                 <th>Menjadi Hari/Jam</th>
-                                                <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                                <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
+                                                <?= empty($to->toTimeFinish)? '': '- <time datetime="'.$to->toTimeFinish.'">'.$to->toTimeFinish.'</time>'?></td>
                                             </tr>
                                             <tr>
                                                 <th>Menjadi Ruang</th>

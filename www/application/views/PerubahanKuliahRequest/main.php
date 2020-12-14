@@ -73,10 +73,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label class="col-form-label">Menjadi Ruang:</label>
                                 <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
                             </div>
+                            <div class="col-lg-2">
+                                <label class = "col-form-label">Jam Selesai: </label>
+                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
+                            </div>
                             <div class="col-lg-3">
                                 <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
+                            
                         </div>
                         <div class="form-group row" id="sendDiv">
                             <div class="col-lg-12">
@@ -184,7 +189,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php foreach (json_decode($request->to) as $to): ?>
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
-                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                        <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
+                                        <?= empty($to->toTimeFinish)? '': '-<time datetime="'.$to->toTimeFinish.'">
+                                          '.$to->toTimeFinish.'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -219,13 +226,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $(document).ready(function () {
                 var datepickeroptions = {
                     format: 'Y-m-d H:i'
-                };
+                };              
+                var timefinishpicker = {
+                    datepicker:false,
+                    format: 'H:i'
+                };   
                 function removeRow() {
                     $(this).closest('.row').remove();
                 }
-                jQuery('#datetimepicker').datetimepicker();
-                $('#fromDateTime').datetimepicker(datepickeroptions);
-                $('.toDateTime').datetimepicker(datepickeroptions);
+                jQuery('#datetimepicker').datetimepicker();                                        
+                jQuery('#toTimeFinish').datetimepicker(timefinishpicker);   
+                $('#fromDateTime').datetimepicker(datepickeroptions);            
+                $('.toDateTime').datetimepicker(datepickeroptions);         
                 $('.eraseButton').click(removeRow);
                 $('select[name="changeType"]').change(function () {
                     $('input.disableable').removeAttr('disabled');
@@ -237,6 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         case 'X':
                             $('input.toDateTime').attr('disabled', 'disabled');
                             $('input.toRoom').attr('disabled', 'disabled');
+                            $('input.toTimeFinish').attr('disabled','disabled');
                             break;
                     }
                 });
@@ -247,7 +260,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     e.preventDefault();
                     var newFields = toFields.clone();
                     newFields.insertBefore($('#sendDiv'));
-                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);
+                    newFields.find('.toDateTime').datetimepicker(datepickeroptions);                                        
+                    newFields.find('.toTimeFinish').datetimepicker(timefinishpicker);
                     newFields.find('.eraseButton').click(removeRow);
                 });
 
