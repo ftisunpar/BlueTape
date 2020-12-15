@@ -141,7 +141,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                     'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
                     'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
-                    'class' => $this->input->post('class'),
+                    'class' => $this->input->post('editClass'),
                     'changeType' => $this->input->post('editChangeType'),
                     'fromDateTime' => $this->input->post('editFromDateTime'),
                     'fromRoom' => htmlspecialchars($this->input->post('editFromRoom')),
