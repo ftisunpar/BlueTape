@@ -249,12 +249,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <input class="form-control disableable" type="text" name="editRemarks" value="<?= $request->remarks ?>" />
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Jenis Perubahan:</label>
-                                <select name="changeTypeFromEdit" class="form-control" id="<?= $request->id ?>">
+                                <label>Jenis Perubahan:</label>
+                                <select name="editChangeType" class="form-control" id="<?= $request->id ?>">
                                     <?php foreach (PerubahanKuliah_model::CHANGETYPE_TYPES as $type => $name) : ?>
                                         <option value="<?= $type ?>" <?= $request->changeType === $type ? 'selected' : '' ?>><?= $name ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Kelas:</label>
+                                <input class="form-control" type="text" name="editClass" maxlength="1" value="<?=$request->class ?>" />
                             </div>
                             <div class="editable<?= $request->id ?>">
                                 <?php if ($request->changeType !== 'T') : ?>
@@ -269,7 +273,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 <?php endif ?>
-                                <?php foreach (json_decode($request->to) as $to) : ?>
+                                <?php foreach (json_decode($request->to) as $to) :  ?>
                                     <div class="form-group row">
                                         <div class="col-lg-5">
                                             <label>Menjadi Hari & Jam:</label>
@@ -280,14 +284,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <input class="form-control" value="<?= $to->room ?>" type="text" name="editToRoom[]">
                                         </div>
                                         <div class="col-lg-3">
-                                            <label>Jam Selesai:</label>
-                                            <input class="form-control editTimeFinish" value="<?= strftime('%H:%M', strtotime($to->toTimeFinish)) ?>" type="text" name="editToFinishTime[]">
+                                            <label>Jam Selesai:</label>                                            
+                                            <input class="form-control editToTimeFinish" value="<?= empty($to->toTimeFinish)?'':strftime('%H:%M',strtotime($to->toTimeFinish)) ?>" type="text" name="editToTimeFinish[]">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
                             <p>&nbsp;</p>
-                            <div class="form-group footer">
+                            <div class="form-group modalFooter">
                                 <input type="submit" class="btn btn-success" value="Ubah" <?= empty($request->answer) ? '' : 'disabled' ?> />
                                 <a href="#" id="editAddToButton" class="btn btn-secondary <?= ($request->changeType === 'X')? 'disabled':'' ?>">Tambah Pertemuan Ekstra</a>
                             </div>
@@ -338,13 +342,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             function removeRow() {
                 $(this).closest('.row').remove();
-                //return false;
+                return false;
             }
             jQuery('#datetimepicker').datetimepicker();
             jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
             $('#fromDateTime').datetimepicker(datepickeroptions);
             $('.editDateTime').datetimepicker(datepickeroptions);
-            $('.editTimeFinish').datetimepicker(timefinishpicker);
+            $('.editToTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
             $('.eraseButton').click(removeRow);
             $('select[name="changeType"]').change(function() {
@@ -363,75 +367,75 @@ defined('BASEPATH') or exit('No direct script access allowed');
             });
             $('select[name="changeType"]').change();
 
-            $('select[name="changeTypeFromEdit"]').change(function() {
+            $('select[name="editChangeType"]').change(function() {
                 var id = $(this).attr('id');
-                // workingField is the editable html part 
-                var workingField = $('.editable' + id);
-                workingField.removeClass();
-                workingField.empty();
-                workingField.nextAll('.footer').find('#editAddToButton').removeClass('disabled');
+                // editableField is the editable html part 
+                var editableField = $('.editable' + id);
+                editableField.removeClass();
+                editableField.empty();
+                editableField.nextAll('.modalFooter').find('#editAddToButton').removeClass('disabled');
                 switch ($(this).val()) {
                     case 'T':
-                        workingField.addClass("form-group editable" + id);
-                        workingField.append("<div class ='form-group row'></div>");
-                        var fromChild = workingField.children().eq(0);
-                        fromChild.append($('.toFields').clone().children().removeClass());
-                        fromChild.children().eq(0).addClass("col-lg-5");
-                        fromChild.children().eq(1).addClass("col-lg-4");
-                        fromChild.children().eq(2).addClass("col-lg-3");
-                        fromChild.find('.toDateTime').datetimepicker(datepickeroptions)
+                        editableField.addClass("editable" + id);
+                        editableField.append("<div class ='form-group row'></div>");
+                        var fromFormGroup = editableField.children().eq(0);
+                        fromFormGroup.append($('.toFields').clone().children().removeClass());
+                        fromFormGroup.children().eq(0).addClass("col-lg-5");
+                        fromFormGroup.children().eq(1).addClass("col-lg-4");
+                        fromFormGroup.children().eq(2).addClass("col-lg-3");
+                        fromFormGroup.find('.toDateTime').datetimepicker(datepickeroptions)
                             .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
-                        fromChild.find('.toTimeFinish').datetimepicker(timefinishpicker)
-                            .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');
-                        fromChild.find('.toRoom').attr('name', 'editToRoom[]')
+                        fromFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
+                            .attr('name', 'editToTimeFinish[]').removeClass('disableable').addClass('editDisableable');
+                        fromFormGroup.find('.toRoom').attr('name', 'editToRoom[]')
                             .removeClass('disableable').addClass('editDisableable');
                         $('input.editDisableable').removeAttr('disabled');
                         break;
                     case 'X':
-                        workingField.addClass("editable" + id);
-                        workingField.append("<div class ='form-group row'></div>");
-                        var fromChild = workingField.children().eq(0);
-                        fromChild.append($('.fromFields').clone().children().removeClass())
-                        fromChild.children().eq(0).addClass("col-lg");
-                        fromChild.children().eq(1).addClass("col-lg-3");
-                        fromChild.find('#datetimepicker').datetimepicker(datepickeroptions);
-                        fromChild.find("input[name=fromDateTime]").attr('name', 'editFromDateTime')
+                        editableField.addClass("editable" + id);
+                        editableField.append("<div class ='form-group row'></div>");
+                        var fromFormGroup = editableField.children().eq(0);
+                        fromFormGroup.append($('.fromFields').clone().children().removeClass())
+                        fromFormGroup.children().eq(0).addClass("col-lg");
+                        fromFormGroup.children().eq(1).addClass("col-lg-3");
+                        fromFormGroup.find('#datetimepicker').datetimepicker(datepickeroptions);
+                        fromFormGroup.find("input[name=fromDateTime]").attr('name', 'editFromDateTime')
                             .addClass('editDisableable').removeClass('disableable');
-                        fromChild.find("input[name=fromRoom]").attr('name', 'editFromRoom')
+                        fromFormGroup.find("input[name=fromRoom]").attr('name', 'editFromRoom')
                             .addClass('editDisableable').removeClass('disableable');
-                        fromChild.children().eq(2).remove();
+                        fromFormGroup.children().eq(2).remove();
                         $('input.editDisableable').removeAttr('disabled');
-                        workingField.nextAll('.footer').find('#editAddToButton').addClass('disabled');
+                        editableField.nextAll('.modalFooter').find('#editAddToButton').addClass('disabled');
                         break;
                     case 'G':
-                        workingField.addClass("editable" + id);
-                        workingField.append("<div class ='form-group row'></div>");
-                        var fromChild = workingField.children().eq(0);
-                        // fromChild is element group that controls fromDateTime,fromRoom
-                        fromChild.append($('.fromFields').clone().children().removeClass());
-                        fromChild.children().eq(0).addClass("col-lg");
-                        fromChild.children().eq(1).addClass("col-lg-3");
-                        fromChild.find("input[name=fromDateTime]").attr('name', 'editFromDateTime')
+                        editableField.addClass("editable" + id);
+                        editableField.append("<div class ='form-group row'></div>");
+                        var fromFormGroup = editableField.children().eq(0);
+                        // fromFormGroup is element group that controls fromDateTime,fromRoom
+                        fromFormGroup.append($('.fromFields').clone().children().removeClass());
+                        fromFormGroup.children().eq(0).addClass("col-lg");
+                        fromFormGroup.children().eq(1).addClass("col-lg-3");
+                        fromFormGroup.find("input[name=fromDateTime]").attr('name', 'editFromDateTime')
                             .addClass('editDisableable').removeClass('disableable');
-                        fromChild.find("input[name=fromRoom]").attr('name', 'editFromRoom')
+                        fromFormGroup.find("input[name=fromRoom]").attr('name', 'editFromRoom')
                             .addClass('editDisableable').removeClass('disableable');
 
-                        fromChild.children().eq(2).remove();
+                        fromFormGroup.children().eq(2).remove();
 
-                        workingField.append("<div class ='form-group row'></div>");
-                        var lastChild = workingField.children().last();
-                        //lastChild is the last children of the element
-                        lastChild.append($('.toFields').clone().children().removeClass());
-                        lastChild.children().eq(0).addClass("col-lg-5");
-                        lastChild.children().eq(1).addClass("col-lg-4");
-                        lastChild.children().eq(2).addClass("col-lg-3");
-                        lastChild.find('.toDateTime').attr('name', 'editToDateTime[]')
+                        editableField.append("<div class ='form-group row'></div>");
+                        var toFormGroup = editableField.children().last();
+                        //toFormGroup is the last children of the element
+                        toFormGroup.append($('.toFields').clone().children().removeClass());
+                        toFormGroup.children().eq(0).addClass("col-lg-5");
+                        toFormGroup.children().eq(1).addClass("col-lg-4");
+                        toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.find('.toDateTime').attr('name', 'editToDateTime[]')
                             .removeClass('disableable').addClass('editDisableable');
-                        lastChild.find('.toTimeFinish').datetimepicker(timefinishpicker)
-                            .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');
-                        lastChild.find('.toRoom').attr('name', 'editToRoom[]')
+                        toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
+                            .attr('name', 'editToTimeFinish[]').removeClass('disableable').addClass('editDisableable');
+                        toFormGroup.find('.toRoom').attr('name', 'editToRoom[]')
                             .removeClass('disableable').addClass('editDisableable');
-                        workingField.find('#datetimepicker').datetimepicker(datepickeroptions);
+                        editableField.find('#datetimepicker').datetimepicker(datepickeroptions);
 
                         $('input.editDisableable').removeAttr('disabled');
                         break;
@@ -449,7 +453,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 newFields.find('.eraseButton').click(removeRow);
             });
 
-            $('.footer').on('click', '#editAddToButton', function(e) {
+            $('.modalFooter').on('click', '#editAddToButton', function(e) {
                 e.preventDefault();
                 var editNewFields = toFields.clone();
                 editNewFields.children().eq(0).removeClass().addClass("col-lg-5");
@@ -459,11 +463,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     .find('.eraseButton').addClass('form-control').click(removeRow);
                 editNewFields.find('.toDateTime').datetimepicker(datepickeroptions).attr('name', 'editToDateTime[]')
                     .removeClass('toDateTime').addClass('editDateTime');
-                editNewFields.find('.toTimeFinish').datetimepicker(timefinishpicker).attr('name', 'editToFinishTime[]')
-                    .removeClass('toTimeFinish').addClass('editTimeFinish');
+                editNewFields.find('.toTimeFinish').datetimepicker(timefinishpicker).attr('name', 'editToTimeFinish[]')
+                    .removeClass('toTimeFinish').addClass('editToTimeFinish');
                 editNewFields.find('.toRoom').attr('name', 'editToRoom[]').removeClass('toRoom');
-                var workingField = $(this).parents('.form-group').prevAll().eq(1);
-                workingField.append(editNewFields);
+                var editableField = $(this).parents('.form-group').prevAll().eq(1);
+                editableField.append(editNewFields);
             });
         
 

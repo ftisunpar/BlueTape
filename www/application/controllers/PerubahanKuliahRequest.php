@@ -117,11 +117,11 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $tos=[];
                 $rooms = $this->input->post('editToRoom');
                 $dateTimes = $this->input->post('editToDateTime');
-                $finishTime = $this->input->post('editToFinishTime');
+                $toTimeFinish = $this->input->post('editToTimeFinish');
                 if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
                         $time = date("H:i",strtotime($dateTimes[$i]));
-                        if(!empty($finishTime[$i]) && $finishTime[$i] < $time){
+                        if(!empty($toTimeFinish[$i]) && $toTimeFinish[$i] < $time){
                             $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
                             header('Location:/PerubahanKuliahRequest');
                             exit();
@@ -129,7 +129,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'timeFinish' => empty($finishTime[$i]) ? NULL : $finishTime[$i].':00'
+                            'timeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
                         ];
                     }
                 }
@@ -141,6 +141,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                     'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
                     'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
+                    'class' => $this->input->post('class'),
                     'changeType' => $this->input->post('changeTypeFromEdit'),
                     'fromDateTime' => $this->input->post('editFromDateTime'),
                     'fromRoom' => htmlspecialchars($this->input->post('editFromRoom')),
