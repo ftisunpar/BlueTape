@@ -129,7 +129,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                         $tos[] = [
                             'dateTime' => $dateTimes[$i] . ':00',
                             'room' => $room ,
-                            'timeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
+                            'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
                         ];
                     }
                 }
@@ -142,7 +142,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                     'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
                     'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
                     'class' => $this->input->post('class'),
-                    'changeType' => $this->input->post('changeTypeFromEdit'),
+                    'changeType' => $this->input->post('editChangeType'),
                     'fromDateTime' => $this->input->post('editFromDateTime'),
                     'fromRoom' => htmlspecialchars($this->input->post('editFromRoom')),
                     'to' => json_encode($tos),
