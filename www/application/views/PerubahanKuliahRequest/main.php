@@ -344,9 +344,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $(this).closest('.row').remove();
                 return false;
             }
-            jQuery('#datetimepicker').datetimepicker();
+            jQuery('#datetimepicker').datetimepicker(datepickeroptions);
             jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
-            $('#fromDateTime').datetimepicker(datepickeroptions);
             $('.editDateTime').datetimepicker(datepickeroptions);
             $('.editToTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
