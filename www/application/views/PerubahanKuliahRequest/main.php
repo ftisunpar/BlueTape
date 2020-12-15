@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="form-group row fromFields">
                         <div class="col-lg-3">
                             <label class="col-form-label">Dari Hari &amp; Jam:</label>
@@ -66,22 +66,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="form-group row toFields align-items-end">
-                        <div class="col-lg-3">
-                            <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
-                            <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]" />
-                        </div>
-                        <div class="col-lg-3">
-                            <label class="col-form-label">Menjadi Ruang:</label>
-                            <input class="form-control disableable toRoom" type="text" name="toRoom[]" />
-                        </div>
-                        <div class="col-lg-2">
-                            <label class="col-form-label">Jam Selesai: </label>
-                            <input class="form-control disableable timeFinish" type="text" id="timepicker" name="timeFinish[]" />
-                        </div>
-                        <div class="col-lg-3">
-                            <br><br>
-                            <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
-                        </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
+                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Menjadi Ruang:</label>
+                                <input class="form-control disableable toRoom" type="text" name="toRoom[]"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class = "col-form-label">Jam Selesai: </label>
+                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
+                            </div>
+                            <div class="col-lg-3">
+                                <br><br>
+                                <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
+                            </div>
                     </div>
                     <div class="form-group row" id="sendDiv">
                         <div class="col-lg-12">
@@ -192,8 +192,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <tr>
                                         <th>Menjadi Hari/Jam</th>
                                         <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
-                                            <?= empty($to->timeFinish) ? '' : '-<time datetime="' . $to->timeFinish . '">
-                                          ' . $to->timeFinish . '</time>' ?></td>
+                                        <?= empty($to->toTimeFinish)? '': '-<time datetime="'.$to->toTimeFinish.'">
+                                          '.$to->toTimeFinish.'</time>'?></td>
                                     </tr>
                                     <tr>
                                         <th>Menjadi Ruang</th>
@@ -221,6 +221,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="modal fade" id="ubah<?= $request->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -280,7 +281,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </div>
                                         <div class="col-lg-3">
                                             <label>Jam Selesai:</label>
-                                            <input class="form-control editTimeFinish" value="<?= strftime('%H:%M', strtotime($to->timeFinish)) ?>" type="text" name="editToFinishTime[]">
+                                            <input class="form-control editTimeFinish" value="<?= strftime('%H:%M', strtotime($to->toTimeFinish)) ?>" type="text" name="editToFinishTime[]">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -319,6 +320,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
         </div>
     <?php endforeach; ?>
+
     <?php $this->load->view('templates/script_foundation'); ?>
     <script>
         $(document).ready(function() {
@@ -327,7 +329,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 minTime: '07:00',
                 maxTime: '18:00'
             };
-            var finishtimepicker = {
+            var timefinishpicker = {
                 datepicker: false,
                 format: 'H:i',
                 minTime: '07:00',
@@ -336,15 +338,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             function removeRow() {
                 $(this).closest('.row').remove();
-                return false;
+                //return false;
             }
-
-
             jQuery('#datetimepicker').datetimepicker();
-            jQuery('#timepicker').datetimepicker(finishtimepicker);
+            jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
             $('#fromDateTime').datetimepicker(datepickeroptions);
             $('.editDateTime').datetimepicker(datepickeroptions);
-            $('.editTimeFinish').datetimepicker(finishtimepicker);
+            $('.editTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
             $('.eraseButton').click(removeRow);
             $('select[name="changeType"]').change(function() {
@@ -357,7 +357,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     case 'X':
                         $('input.toDateTime').attr('disabled', 'disabled');
                         $('input.toRoom').attr('disabled', 'disabled');
-                        $('input.timeFinish').attr('disabled', 'disabled');
+                        $('input.toTimeFinish').attr('disabled', 'disabled');
                         break;
                 }
             });
@@ -381,7 +381,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         fromChild.children().eq(2).addClass("col-lg-3");
                         fromChild.find('.toDateTime').datetimepicker(datepickeroptions)
                             .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
-                        fromChild.find('.timeFinish').datetimepicker(finishtimepicker)
+                        fromChild.find('.toTimeFinish').datetimepicker(timefinishpicker)
                             .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');
                         fromChild.find('.toRoom').attr('name', 'editToRoom[]')
                             .removeClass('disableable').addClass('editDisableable');
@@ -427,7 +427,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         lastChild.children().eq(2).addClass("col-lg-3");
                         lastChild.find('.toDateTime').attr('name', 'editToDateTime[]')
                             .removeClass('disableable').addClass('editDisableable');
-                        lastChild.find('.timeFinish').datetimepicker(finishtimepicker)
+                        lastChild.find('.toTimeFinish').datetimepicker(timefinishpicker)
                             .attr('name', 'editToFinishTime[]').removeClass('disableable').addClass('editDisableable');
                         lastChild.find('.toRoom').attr('name', 'editToRoom[]')
                             .removeClass('disableable').addClass('editDisableable');
@@ -445,7 +445,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 var newFields = toFields.clone();
                 newFields.insertBefore($('#sendDiv'));
                 newFields.find('.toDateTime').datetimepicker(datepickeroptions);
-                newFields.find('.timeFinish').datetimepicker(finishtimepicker);
+                newFields.find('.toTimeFinish').datetimepicker(timefinishpicker);
                 newFields.find('.eraseButton').click(removeRow);
             });
 
@@ -459,8 +459,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     .find('.eraseButton').addClass('form-control').click(removeRow);
                 editNewFields.find('.toDateTime').datetimepicker(datepickeroptions).attr('name', 'editToDateTime[]')
                     .removeClass('toDateTime').addClass('editDateTime');
-                editNewFields.find('.timeFinish').datetimepicker(finishtimepicker).attr('name', 'editToFinishTime[]')
-                    .removeClass('timeFinish').addClass('editTimeFinish');
+                editNewFields.find('.toTimeFinish').datetimepicker(timefinishpicker).attr('name', 'editToFinishTime[]')
+                    .removeClass('toTimeFinish').addClass('editTimeFinish');
                 editNewFields.find('.toRoom').attr('name', 'editToRoom[]').removeClass('toRoom');
                 var workingField = $(this).parents('.form-group').prevAll().eq(1);
                 workingField.append(editNewFields);
