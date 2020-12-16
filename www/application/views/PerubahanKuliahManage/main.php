@@ -46,12 +46,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </table>
                 </div>
                 <?php if ($numOfPages > 1): ?>
-                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                    <ul class="pagination justify-content-center" role="navigation" aria-label="Pagination">
                         <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
                             <?php if ($i === $page): ?>
-                                <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
+                                <li class="current page-item active"><span class="page-link"><?= $i ?></span></li>
                             <?php else: ?>
-                                <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
+                                <li class = "page-item"><a href="?page=<?= $i ?>"  aria-label="Halaman <?= $i ?>" class="page-link"><?= $i ?></a></li>
                             <?php endif; ?>
                         <?php endfor; ?>
                     </ul>
