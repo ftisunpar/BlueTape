@@ -8,6 +8,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
         <br>
         <div class="container">
+        <div class="card">
+                <div class="card-header">   
+                    <div class="row">
+                        <div class = "col">                 
+                            Statistik Perubahan Kuliah
+                        </div>
+                        <div class= "col">
+                            <a data-toggle="collapse" data-target="#statistikPerubahanKuliah">
+                                <i class="fas fa-angle-double-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id = "statistikPerubahanKuliah">
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+            <br>
             <div class="card">
                 <div class="card-header">
                     Permohonan Perubahan Kuliah
