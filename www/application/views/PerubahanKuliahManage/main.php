@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html class="no-js" lang="en">
     <?php $this->load->view('templates/head_loggedin'); ?>
+    <?php date_default_timezone_set("Asia/Jakarta"); ?>
     <body>
         <?php $this->load->view('templates/topbar_loggedin'); ?>
         <?php $this->load->view('templates/flashmessage'); ?>
@@ -15,15 +16,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             Statistik Perubahan Kuliah
                         </div>
                         <div class= "col">
-                            <a data-toggle="collapse" data-target="#statistikPerubahanKuliah">
-                                <i class="fas fa-angle-double-down"></i>
+                            <a class ="float-right" data-toggle="collapse" data-target="#statistikPerubahanKuliah">
+                                <i class="fas fa-angle-double-down" style="color:black;"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="collapse" id = "statistikPerubahanKuliah">
                     <div class="card-body">
-                        
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#">hi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#">ho</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#">he</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            hello
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,5 +261,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php $this->load->view('templates/script_foundation'); ?>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#statistikPerubahanKuliah a').on('click',function(e){
+                    e.preventDefault()
+                    console.log('im here')
+                });
+            });
+        </script>
     </body>
 </html>
