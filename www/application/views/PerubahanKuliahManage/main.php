@@ -274,14 +274,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){
                     <?php 
                     $yearLabel='"'.$statistic->requestByYear[0]->year.'",';
-                    $Diganti='';
-                    $Tambahan='';
-                    $Ditiadakan='';                    
+                    $diganti='';
+                    $tambahan='';
+                    $ditiadakan='';                    
                     foreach($statistic->requestByYear as $key => $row){
                         if($key>0 && $row->year != $statistic->requestByYear[$key - 1]->year){
                             $yearLabel .= '"'.$row->year.'",';         
                         }
-                        $perubahan = PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType];
+                        $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
                         $$perubahan .= '"'.$row->count.'",';                    
                     }?>
                     var mychart = new Chart(context, {
@@ -290,7 +290,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         labels: [<?= substr($yearLabel,0,strlen($yearLabel)-1);?>],                                                    
                         datasets: [{
                             label: 'Diganti',
-                            data: [<?=substr($Diganti,0,strlen($Diganti)-1);?>],
+                            data: [<?=substr($diganti,0,strlen($diganti)-1);?>],
                             backgroundColor:[
                                 <?php foreach($statistic->requestByYear as $row){
                                     echo "'rgba(255, 99, 132, 0.2)',";
