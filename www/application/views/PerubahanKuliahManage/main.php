@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane show active text-center">                            
-                                <canvas id="chartStatistic" style="width:80%;height:auto"></canvas>
+                                <canvas id="chartStatistic" style="width:100%"></canvas>
                             </div>
                         </div>
                     </div>
@@ -268,8 +268,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     e.preventDefault()
                     console.log('im here')
                 });
-                var canvascontainer = $('#chartStatistic')[0].getContext('2d');
-                var myChart = new Chart(canvascontainer, {
+                var canvascontainer = $('#chartStatistic');
+                var context = canvascontainer[0].getContext('2d');     
+                           
+                $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){
+                    var mychart = new Chart(context, {
                     type: 'bar',
                     data: {
                         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -293,19 +296,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 'rgba(255, 159, 64, 1)'
                             ],
                             borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
+                        }],
+
                     }
+                    
+                    });
+                    
+                    $('#statistikPerubahanKuliah').on('hide.bs.collapse',function(){
+                        mychart.destroy();
+                    });
                 });
+
+                
             });
+        
         </script>
     </body>
 </html>
