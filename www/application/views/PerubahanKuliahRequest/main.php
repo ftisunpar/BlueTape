@@ -466,9 +466,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 editNewFields.find('.toRoom').attr('name', 'editToRoom[]').removeClass('toRoom');
                 var editableField = $(this).parents('.form-group').prevAll().eq(1);
                 editableField.append(editNewFields);
-            });
-        
-
+            });        
         });
     </script>
 </body>
