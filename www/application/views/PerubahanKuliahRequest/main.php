@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
-<head><?php $this->load->view('templates/head_loggedin'); ?></head>
+<?php $this->load->view('templates/head_loggedin'); ?>
 <body>
     <?php $this->load->view('templates/topbar_loggedin'); ?>
     <?php $this->load->view('templates/flashmessage'); ?>
