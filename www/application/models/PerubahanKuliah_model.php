@@ -27,4 +27,40 @@ class PerubahanKuliah_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    /**
+     * Mendapatkan statistik yang dibagi berdasarkan tahun, hari, dan jam
+     * @return JSON format dibagi berdasarkan tahun,bulan, dan jam
+     * 
+     */
+    public function requestStatistic(){
+        date_default_timezone_set("Asia/Jakarta"); 
+        $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
+        $requestByYear = $this->db->select('requestDateTime, changeType')
+            ->order_by('requestDateTime','ASC')
+            ->get('perubahankuliah');
+        $historyByDay = new Datetime($currentDateTime);
+        $historyByDay->modify('-23 day');
+        $historyByDay = $historyByDay->format('Y-m-d H:i:s');
+        $this->db->reset_query();
+        $requestByDay = $this->db->select('requestDateTime, changeType')
+            ->order_by('requestDateTime','ASC')
+            ->where('requestDateTime >=',$historyByDay)
+            ->get('perubahankuliah');
+
+        $historyByHour = new Datetime($currentDateTime);
+        $historyByHour->modify('-23 hour');
+        $historyByHour = $historyByHour->format('Y-m-d H:i:s');
+        $this->db->reset_query();
+        $requestByHour = $this->db->select('requestDateTime','changeType')
+            ->order_by('requestDateTime','ASC')
+            ->where('requestDateTime >=',$historyByHour)
+            ->get('perubahankuliah');
+        $result = array(
+            "requestByYear" => $requestByYear->result(),
+            "requestByDay" => $requestByDay->result(),
+            "requestByHour" => $requestByHour->result()
+        );
+        $result = json_encode($result);
+        return $result;
+    }
 }
