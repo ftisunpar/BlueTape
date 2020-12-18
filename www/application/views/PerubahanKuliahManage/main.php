@@ -35,7 +35,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </li>
                         </ul>
                         <div class="tab-content">
-                            hello
+                            <div class="tab-pane show active text-center">                            
+                                <canvas id="chartStatistic" style="width:80%;height:auto"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -266,6 +268,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     e.preventDefault()
                     console.log('im here')
                 });
+                var canvascontainer = $('#chartStatistic')[0].getContext('2d');
+                
             });
         </script>
     </body>
