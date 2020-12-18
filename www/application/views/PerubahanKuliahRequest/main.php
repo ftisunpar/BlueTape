@@ -345,8 +345,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
             jQuery('#datetimepicker').datetimepicker(datepickeroptions);
             jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
-            $('.editDateTime').datetimepicker(datepickeroptions);
-            $('.editToTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
             $('.eraseButton').click(removeRow);
             $('select[name="changeType"]').change(function() {
@@ -364,7 +362,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 }
             });
             $('select[name="changeType"]').change();
-
+            
+            $('.modal[id^="ubah"]').on('shown.bs.modal',function(e){
+                
+                $(this).find('.editDateTime').datetimepicker(datepickeroptions);
+                $(this).find('.editToTimeFinish').datetimepicker(timefinishpicker);
+            });
+            
             $('select[name="editChangeType"]').change(function() {
                 var id = $(this).attr('id');
                 // editableField is the editable html part 
