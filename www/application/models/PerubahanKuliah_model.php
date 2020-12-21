@@ -51,7 +51,7 @@ class PerubahanKuliah_model extends CI_Model {
         $historyByDay = $historyByDay->format('Y-m-d H:i:s');
         $this->db->reset_query();
         $requestByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
-            CONCAT(MONTH(requestDateTime),"-",DAY(requestDateTime)) as "month-day"')
+            CONCAT(MONTH(requestDateTime),"-",DAY(requestDateTime)) as "month_day"')
             ->group_by('DAY(requestDateTime), changeType')
             ->order_by('DAY(requestDateTime)','ASC')
             ->order_by('changeType','DESC')

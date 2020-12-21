@@ -25,10 +25,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="card-body">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#">hi</a>
+                                <a class="nav-link active" data-toggle="tab" href="#" id="byYear">Statistik Berdasarkan Tahun</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#">ho</a>
+                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">ho</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#">he</a>
@@ -264,19 +264,63 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <script>
             $(document).ready(function () {
+                var perubahanKuliahChart;                
+                var canvascontainer = $('#chartStatistic');
+                var context = canvascontainer[0].getContext('2d');   
+
                 $('#statistikPerubahanKuliah a').on('click',function(e){
                     e.preventDefault()
-                    console.log('im here')
-                });
-                var canvascontainer = $('#chartStatistic');
-                var context = canvascontainer[0].getContext('2d');     
+                    if($(this).attr('id')==='byDay'){
+                        <?php 
+                        $dayLabel='';
+                        $diganti='';
+                        $tambahan='';
+                        $ditiadakan='';   
+                        foreach($statistic->requestByDay as $key => $row){
+                            
+                            $dayLabel .= '"'.$row->month_day.'",';         
+                            
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
+                            $$perubahan .= '"'.$row->count.'",';  
+                        }                        
+                        ?>         
+                        
+                        perubahanKuliahChart.data.labels=[<?=substr($dayLabel,0,strlen($dayLabel)-1);?>];
+                        perubahanKuliahChart.data.datasets[0].data=[<?=substr($diganti,0,strlen($diganti)-1);?>];
+                        perubahanKuliahChart.data.datasets[1].data=[<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>];
+                        perubahanKuliahChart.data.datasets[2].data=[<?=substr($tambahan,0,strlen($tambahan)-1);?>];
+                        perubahanKuliahChart.update();
+                    }
+                    else if($(this).attr('id')==='byYear'){
+                        <?php                     
+                        $yearLabel='"'.$statistic->requestByYear[0]->year.'",';
+                        $diganti='';
+                        $tambahan='';
+                        $ditiadakan='';                   
+
+                        foreach($statistic->requestByYear as $key => $row){
+                            if($key>0 && $row->year != $statistic->requestByYear[$key - 1]->year){
+                                $yearLabel .= '"'.$row->year.'",';         
+                            }
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
+                            $$perubahan .= '"'.$row->count.'",';                    
+                        }?>
+                        perubahanKuliahChart.data.labels=[<?=substr($yearLabel,0,strlen($yearLabel)-1);?>];
+                        perubahanKuliahChart.data.datasets[0].data=[<?=substr($diganti,0,strlen($diganti)-1);?>];
+                        perubahanKuliahChart.data.datasets[1].data=[<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>];
+                        perubahanKuliahChart.data.datasets[2].data=[<?=substr($tambahan,0,strlen($tambahan)-1);?>];
+                        perubahanKuliahChart.update();
+                    }
+                });  
                            
                 $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){
-                    <?php 
+                    
+                    <?php                     
                     $yearLabel='"'.$statistic->requestByYear[0]->year.'",';
                     $diganti='';
                     $tambahan='';
-                    $ditiadakan='';                    
+                    $ditiadakan='';                   
+
                     foreach($statistic->requestByYear as $key => $row){
                         if($key>0 && $row->year != $statistic->requestByYear[$key - 1]->year){
                             $yearLabel .= '"'.$row->year.'",';         
@@ -284,31 +328,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
                         $$perubahan .= '"'.$row->count.'",';                    
                     }?>
-                    var mychart = new Chart(context, {
-                    type: 'bar',
-                    data: {
-                        labels: [<?= substr($yearLabel,0,strlen($yearLabel)-1);?>],                                                    
-                        datasets: [{
-                            label: 'Diganti',
-                            data: [<?=substr($diganti,0,strlen($diganti)-1);?>],
-                            backgroundColor:[
-                                <?php foreach($statistic->requestByYear as $row){
-                                    echo "'rgba(255, 99, 132, 0.2)',";
-                                }?>
-                            ],
-                            borderWidth: 1
-                        }],
 
-                    }
-                    
+                    perubahanKuliahChart = new Chart(context, {
+                        type: 'bar',
+                        data: {
+                            labels: [<?= substr($yearLabel,0,strlen($yearLabel)-1);?>],                                                    
+                            datasets: [{
+                                label: 'Diganti',
+                                data: [<?=substr($diganti,0,strlen($diganti)-1);?>],
+                                backgroundColor:'rgba(68, 114, 196, 0.5)',
+                                borderWidth: 1                      
+                            },
+                            {
+                                label: 'Ditiadakan',
+                                data: [<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>],
+                                backgroundColor:'rgba(237, 125, 49, 0.5)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Tambahan',
+                                data: [<?=substr($tambahan,0,strlen($tambahan)-1);?>],
+                                backgroundColor:'rgba(165, 165, 165, 0.3)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options:{
+                            title:{
+                                display:true,
+                                fontSize:24,
+                                fontColor:"black",
+                                text: 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun'
+                            },
+                            tooltips:{
+                                mode:'label',
+                                position:'nearest'
+                            },
+                            legend:{
+                                display:true,
+                                fontSize:14
+                            },
+                            scales:{
+                                xAxes:[{
+                                    stacked:true
+                                }],
+                                yAxes:[{
+                                    stacked:true
+                                }]
+                            }
+                        },
+                        hidden:true                                 
                     });
-                    
-                    $('#statistikPerubahanKuliah').on('hide.bs.collapse',function(){
-                        mychart.destroy();
+                    $('#statistikPerubahanKuliah').on('hidden.bs.collapse',function(){
+                        perubahanKuliahChart.destroy();
                     });
-                });
-
-                
+                });                
             });
         
         </script>
