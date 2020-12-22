@@ -28,10 +28,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a class="nav-link active" data-toggle="tab" href="#" id="byYear">Statistik Berdasarkan Tahun</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">ho</a>
+                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">Statistik Berdasarkan Hari</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#">he</a>
+                                <a class="nav-link" data-toggle="tab" href="#">Statistik Berdasarkan Jam</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -267,97 +267,134 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var perubahanKuliahChart;                
                 var canvascontainer = $('#chartStatistic');
                 var context = canvascontainer[0].getContext('2d');   
+                var chartType='bar';
+                <?php                     
+                    $yearLabel='';
+                    $dayLabel='';
+                    $hourLabel='';
+                    $diganti=array_fill(0,3,'');
+                    $tambahan=array_fill(0,3,'');
+                    $ditiadakan=array_fill(0,3,'');             
 
-                $('#statistikPerubahanKuliah a').on('click',function(e){
-                    e.preventDefault()
-                    if($(this).attr('id')==='byDay'){
-                        <?php 
-                        $dayLabel='';
-                        $diganti='';
-                        $tambahan='';
-                        $ditiadakan='';   
-                        foreach($statistic->requestByDay as $key => $row){
-                            
-                            $dayLabel .= '"'.$row->month_day.'",';         
-                            
-                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
-                            $$perubahan .= '"'.$row->count.'",';  
+                    foreach($statistic->requestByYear as $key => $row){                        
+                        $yearLabel .= '"'.$key.'",';         
+                        $diganti[0] .='"0",';
+                        $ditiadakan[0] .='"0",';
+                        $tambahan[0] .= '"0",';
+
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[0] = substr($$perubahan[0],0,strlen($$perubahan[0])-4).'"'.$rowData->count.'",';                    
                         }                        
-                        ?>         
+                    }
+                    foreach($statistic->requestByDay as $key => $row){                            
+                        $dayLabel .= '"'.$key.'",';         
+                        $diganti[1] .='"0",';
+                        $ditiadakan[1] .='"0",';
+                        $tambahan[1] .= '"0",';
                         
-                        perubahanKuliahChart.data.labels=[<?=substr($dayLabel,0,strlen($dayLabel)-1);?>];
-                        perubahanKuliahChart.data.datasets[0].data=[<?=substr($diganti,0,strlen($diganti)-1);?>];
-                        perubahanKuliahChart.data.datasets[1].data=[<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>];
-                        perubahanKuliahChart.data.datasets[2].data=[<?=substr($tambahan,0,strlen($tambahan)-1);?>];
-                        perubahanKuliahChart.update();
-                    }
-                    else if($(this).attr('id')==='byYear'){
-                        <?php                     
-                        $yearLabel='"'.$statistic->requestByYear[0]->year.'",';
-                        $diganti='';
-                        $tambahan='';
-                        $ditiadakan='';                   
-
-                        foreach($statistic->requestByYear as $key => $row){
-                            if($key>0 && $row->year != $statistic->requestByYear[$key - 1]->year){
-                                $yearLabel .= '"'.$row->year.'",';         
-                            }
-                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
-                            $$perubahan .= '"'.$row->count.'",';                    
-                        }?>
-                        perubahanKuliahChart.data.labels=[<?=substr($yearLabel,0,strlen($yearLabel)-1);?>];
-                        perubahanKuliahChart.data.datasets[0].data=[<?=substr($diganti,0,strlen($diganti)-1);?>];
-                        perubahanKuliahChart.data.datasets[1].data=[<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>];
-                        perubahanKuliahChart.data.datasets[2].data=[<?=substr($tambahan,0,strlen($tambahan)-1);?>];
-                        perubahanKuliahChart.update();
-                    }
-                });  
-                           
-                $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){
-                    
-                    <?php                     
-                    $yearLabel='"'.$statistic->requestByYear[0]->year.'",';
-                    $diganti='';
-                    $tambahan='';
-                    $ditiadakan='';                   
-
-                    foreach($statistic->requestByYear as $key => $row){
-                        if($key>0 && $row->year != $statistic->requestByYear[$key - 1]->year){
-                            $yearLabel .= '"'.$row->year.'",';         
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[1] = substr($$perubahan[1],0,strlen($$perubahan[1])-4).'"'.$rowData->count.'",';
                         }
-                        $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$row->changeType]);
-                        $$perubahan .= '"'.$row->count.'",';                    
-                    }?>
-
-                    perubahanKuliahChart = new Chart(context, {
-                        type: 'bar',
-                        data: {
-                            labels: [<?= substr($yearLabel,0,strlen($yearLabel)-1);?>],                                                    
-                            datasets: [{
-                                label: 'Diganti',
-                                data: [<?=substr($diganti,0,strlen($diganti)-1);?>],
-                                backgroundColor:'rgba(68, 114, 196, 0.5)',
-                                borderWidth: 1                      
-                            },
-                            {
-                                label: 'Ditiadakan',
-                                data: [<?=substr($ditiadakan,0,strlen($ditiadakan)-1);?>],
-                                backgroundColor:'rgba(237, 125, 49, 0.5)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'Tambahan',
-                                data: [<?=substr($tambahan,0,strlen($tambahan)-1);?>],
-                                backgroundColor:'rgba(165, 165, 165, 0.3)',
-                                borderWidth: 1
-                            }]
+                    }
+                    foreach($statistic->requestByHour as $key => $row){                            
+                        $hourLabel .= '"'.$key.'",';         
+                        $diganti[2] .='"0",';
+                        $ditiadakan[2] .='"0",';
+                        $tambahan[2] .= '"0",';
+                        
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[2] = substr($$perubahan[2],0,strlen($$perubahan[2])-4).'"'.$rowData->count.'",';
+                        }
+                    }
+                ?>
+                function fillDataByYear(){
+                    var chartData = 
+                    {        
+                        labels: [<?=substr($yearLabel,0,strlen($yearLabel)-1);?>],                                          
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[0],0,strlen($diganti[0])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1                      
                         },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[0],0,strlen($ditiadakan[0])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[0],0,strlen($tambahan[0])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 1
+                        }]
+                    }
+                    return chartData;
+                }
+                function fillDataByDay(){
+                    var chartData = 
+                    {            
+                        labels: [<?=substr($dayLabel,0,strlen($dayLabel)-1);?>],                                    
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[1],0,strlen($diganti[1])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1                      
+                        },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[1],0,strlen($ditiadakan[1])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[1],0,strlen($tambahan[1])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 1
+                        }]
+                    };
+                    return chartData;
+                }
+                function fillDataByHour(){
+                    var chartData = 
+                    {            
+                        labels: [<?=substr($hourLabel,0,strlen($hourLabel)-1);?>],                                    
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1                      
+                        },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 1
+                        }]
+                    };
+                    return chartData;
+                }
+                function makeChart(chartData,chartTitle,chartScales){
+                    perubahanKuliahChart = new Chart(context, {
+                        type: chartType,
+                        data: chartData,
                         options:{
                             title:{
                                 display:true,
                                 fontSize:24,
                                 fontColor:"black",
-                                text: 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun'
+                                text: chartTitle
                             },
                             tooltips:{
                                 mode:'label',
@@ -367,21 +404,128 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 display:true,
                                 fontSize:14
                             },
-                            scales:{
+                            scales:chartScales                            
+                        }                               
+                    });           
+                }
+
+                $('#statistikPerubahanKuliah a').on('click',function(e){
+                    e.preventDefault()
+                    if($(this).attr('id') === 'byDay'){      
+                        if(chartType === 'bar'){
+                            perubahanKuliahChart.data = fillDataByDay();
+                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan hari';                        
+                            perubahanKuliahChart.update();
+                        }
+                        else{
+                            perubahanKuliahChart.destroy();
+                            chartType='bar';
+                            chartData = fillDataByDay();
+                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            chartScales =
+                            {
                                 xAxes:[{
                                     stacked:true
                                 }],
                                 yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
                                     stacked:true
                                 }]
-                            }
-                        },
-                        hidden:true                                 
-                    });
-                    $('#statistikPerubahanKuliah').on('hidden.bs.collapse',function(){
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else if($(this).attr('id')==='byYear'){ 
+                        if(chartType ==='bar'){     
+                            perubahanKuliahChart.data = fillDataByYear();
+                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            perubahanKuliahChart.update();
+                        }
+                        else{
+                            chartType='bar';
+                            perubahanKuliahChart.destroy();
+                            chartData = fillDataByYear();
+                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            chartScales =
+                            {
+                                xAxes:[{
+                                    stacked:true
+                                }],
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
+                                    stacked:true
+                                }]
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else{
                         perubahanKuliahChart.destroy();
-                    });
-                });                
+                        chartData = fillDataByHour();
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan jam';                        
+                        chartScales = {
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                        makeChart(chartData,chartTitle,chartScales);
+                    }
+                });  
+                           
+                $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){                                        
+                    var chartData='';
+                    var chartTitle= '';                    
+                    var chartScales = 
+                    {
+                        xAxes:[{
+                            stacked:true
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero:true,
+                                precision:0
+                            },
+                            stacked:true
+                        }]
+                    };
+                    if($(this).find('a.active').attr('id')==='byYear'){            
+                        chartTitle='Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                        chartType='bar';
+                        chartData = fillDataByYear();
+                    }
+                    else if($(this).find('a.active').attr('id')=='byDay'){
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Hari';
+                        chartType='bar';
+                        chartData = fillDataByDay();
+                    }
+                    else{
+                        chartType = 'line';
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Jam';
+                        chartData = fillDataByHour();
+                        chartScales = {
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                    }
+                    makeChart(chartData,chartTitle,chartScales);                             
+                });    
+                
+                $('#statistikPerubahanKuliah').on('hidden.bs.collapse',function(){
+                    perubahanKuliahChart.destroy();
+                });            
             });
         
         </script>

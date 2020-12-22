@@ -36,9 +36,9 @@ class PerubahanKuliah_model extends CI_Model {
         date_default_timezone_set("Asia/Jakarta"); 
         $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
         $historyByYear = new Datetime($currentDateTime);
-        $historyByYear->modify('-23 year');
+        $historyByYear->modify('-22 year');
         $historyByYear = $historyByYear->format('Y-m-d H:i:s');
-        $requestByYear = $this->db->select('COUNT(changeType) as "count", changeType,
+        $queryByYear = $this->db->select('COUNT(changeType) as "count", changeType,
             YEAR(requestDateTime) as "year"')
             ->group_by('YEAR(requestDateTime), changeType')
             ->order_by('YEAR(requestDateTime)','ASC')
@@ -47,33 +47,55 @@ class PerubahanKuliah_model extends CI_Model {
             ->get('perubahankuliah');
         
         $historyByDay = new Datetime($currentDateTime);
-        $historyByDay->modify('-23 day');
+        $historyByDay->modify('-22 day');
         $historyByDay = $historyByDay->format('Y-m-d H:i:s');
         $this->db->reset_query();
-        $requestByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
-            CONCAT(MONTH(requestDateTime),"-",DAY(requestDateTime)) as "month_day"')
+        $queryByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
+            DATE_FORMAT(requestDateTime,"%d-%m") as "day_month"')
             ->group_by('DAY(requestDateTime), changeType')
             ->order_by('DAY(requestDateTime)','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByDay)
             ->get('perubahankuliah');
-
         $historyByHour = new Datetime($currentDateTime);
-        $historyByHour->modify('-23 hour');
+        $historyByHour->modify('-22 hour');
         $historyByHour = $historyByHour->format('Y-m-d H:i:s');
         $this->db->reset_query();
-        $requestByHour = $this->db->select('COUNT(changeType) as "count",changeType,
-            HOUR(requestDateTime) as "jam"')
+        $queryByHour = $this->db->select('COUNT(changeType) as "count",changeType,
+            DATE_FORMAT(requestDateTime,"%H") as "jam"')
             ->group_by('DAY(requestDateTime), changeType')
             ->order_by('DAY(requestDateTime)','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByHour)
             ->get('perubahankuliah');
 
+        $requestByYear = [];    
+        $requestByDay = [];
+        $requestByHour=[];
+        $historyByYear = new Datetime($historyByYear);        
+        $historyByDay = new Datetime($historyByDay);
+        $historyByHour = new Datetime($historyByHour);
+        for($i=0;$i<23;$i++){
+            $requestByYear[$historyByYear->format('Y')]=[];
+            $historyByYear->modify('+1 year');
+            $requestByDay[$historyByDay->format('d-m')]=[];            
+            $historyByDay->modify('+1day');
+            $requestByHour[$historyByHour->format('H')]=[];
+            $historyByHour->modify('+1 hour');
+        }
+        foreach($queryByYear->result() as $row){
+            $requestByYear[$row->year][] = $row;
+        }
+        foreach($queryByDay->result() as $row){
+            $requestByDay[$row->day_month][] = $row;
+        }
+        foreach($queryByHour->result() as $row){
+            $requestByHour[$row->jam][]=$row;
+        }
         $result = array(
-            "requestByYear" => $requestByYear->result(),
-            "requestByDay" => $requestByDay->result(),
-            "requestByHour" => $requestByHour->result()
+            "requestByYear" => $requestByYear,
+            "requestByDay" => $requestByDay,
+            "requestByHour" => $requestByHour
         );
         $result = json_encode($result);
         return $result;
