@@ -367,25 +367,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         datasets: [{
                             label: 'Diganti',
                             data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
-                            backgroundColor:'rgba(68, 114, 196, 0.5)',
-                            borderWidth: 1                      
+                            backgroundColor:'rgba(68, 114, 196, 0)',
+                            borderColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 3,
+                            pointStyle:'line',         
                         },
                         {
                             label: 'Ditiadakan',
                             data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
-                            backgroundColor:'rgba(237, 125, 49, 0.5)',
-                            borderWidth: 1
+                            backgroundColor:'rgba(237, 125, 49, 0)',
+                            borderColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 3,
+                            pointStyle:'line'
                         },
                         {
                             label: 'Tambahan',
                             data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
-                            backgroundColor:'rgba(165, 165, 165, 0.3)',
-                            borderWidth: 1
+                            backgroundColor:'rgba(165, 165, 165, 0)',
+                            borderColor: 'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 3,
+                            pointStyle:'line'
                         }]
                     };
                     return chartData;
                 }
                 function makeChart(chartData,chartTitle,chartScales){
+                    var chartLegendLabel={};
                     perubahanKuliahChart = new Chart(context, {
                         type: chartType,
                         data: chartData,
@@ -400,9 +407,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 mode:'label',
                                 position:'nearest'
                             },
-                            legend:{
-                                display:true,
-                                fontSize:14
+                            legend:{       
+                                labels:{                                
+                                    usePointStyle:chartType==='line',
+                                    fontSize:16                                  
+                                }
                             },
                             scales:chartScales                            
                         }                               
@@ -422,8 +431,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             chartType='bar';
                             chartData = fillDataByDay();
                             chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
-                            chartScales =
-                            {
+                            chartScales = {
                                 xAxes:[{
                                     stacked:true
                                 }],
@@ -467,6 +475,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                     else{
                         perubahanKuliahChart.destroy();
+                        chartType = 'line'
                         chartData = fillDataByHour();
                         chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan jam';                        
                         chartScales = {
