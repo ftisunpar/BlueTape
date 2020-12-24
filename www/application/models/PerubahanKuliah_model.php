@@ -29,10 +29,11 @@ class PerubahanKuliah_model extends CI_Model {
     }
     /**
      * Mendapatkan statistik yang dibagi berdasarkan tahun, hari, dan jam
-     * @return JSON format dibagi berdasarkan tahun,bulan, dan jam
+     * @return JSON format dengan key 23 tahun/hari/jam sebelumnya dan value 
+     * dalam JSONArray yang berisi count,requestDateTime,changeType
      * 
      */
-    public function requestStatistic(){
+    public function requestPerubahanKuliahStatistic(){
         date_default_timezone_set("Asia/Jakarta"); 
         $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
         $historyByYear = new Datetime($currentDateTime);
@@ -40,8 +41,8 @@ class PerubahanKuliah_model extends CI_Model {
         $historyByYear = $historyByYear->format('Y-m-d H:i:s');
         $queryByYear = $this->db->select('COUNT(changeType) as "count", changeType,
             YEAR(requestDateTime) as "year"')
-            ->group_by('YEAR(requestDateTime), changeType')
-            ->order_by('YEAR(requestDateTime)','ASC')
+            ->group_by('year, changeType')
+            ->order_by('year','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByYear)
             ->get('perubahankuliah');
@@ -52,8 +53,8 @@ class PerubahanKuliah_model extends CI_Model {
         $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
             DATE_FORMAT(requestDateTime,"%d-%m") as "day_month"')
-            ->group_by('DAY(requestDateTime), changeType')
-            ->order_by('DAY(requestDateTime)','ASC')
+            ->group_by('day_month, changeType')
+            ->order_by('day_month','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByDay)
             ->get('perubahankuliah');
@@ -63,8 +64,8 @@ class PerubahanKuliah_model extends CI_Model {
         $this->db->reset_query();
         $queryByHour = $this->db->select('COUNT(changeType) as "count",changeType,
             DATE_FORMAT(requestDateTime,"%H") as "jam"')
-            ->group_by('DAY(requestDateTime), changeType')
-            ->order_by('DAY(requestDateTime)','ASC')
+            ->group_by('jam, changeType')
+            ->order_by('jam','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByHour)
             ->get('perubahankuliah');
@@ -79,11 +80,11 @@ class PerubahanKuliah_model extends CI_Model {
             $requestByYear[$historyByYear->format('Y')]=[];
             $historyByYear->modify('+1 year');
             $requestByDay[$historyByDay->format('d-m')]=[];            
-            $historyByDay->modify('+1day');
+            $historyByDay->modify('+1 day');
             $requestByHour[$historyByHour->format('H')]=[];
             $historyByHour->modify('+1 hour');
         }
-        foreach($queryByYear->result() as $row){
+        foreach($queryByYear->result() as $key => $row){
             $requestByYear[$row->year][] = $row;
         }
         foreach($queryByDay->result() as $row){

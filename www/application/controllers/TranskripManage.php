@@ -56,6 +56,7 @@ class TranskripManage extends CI_Controller {
         unset($request);
 
         $userInfo = $this->Auth_model->getUserInfo();
+        $statistic = $this->Transkrip_model->requestTranskripStatistic();        
         $this->load->view('TranskripManage/main', array(
             'answeredByEmail' => $userInfo['email'],
             'currentModule' => get_class(),

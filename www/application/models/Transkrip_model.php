@@ -75,5 +75,50 @@ class Transkrip_model extends CI_Model {
         }
         return $forbiddenTypes;
     }
+    /** 
+     * Mengambil statistik transkrip ditolak dan diterima berdasarkan tahun/hari/jam
+     * 
+     */
+    public function requestTranskripStatistic(){
+        date_default_timezone_set("Asia/Jakarta"); 
+        $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
+        $historyByYear = new Datetime($currentDateTime);
+        $historyByDay = new Datetime($currentDateTime);
+        $historyByHour = new Datetime($currentDateTime);
+        $historyByYear->modify('-22 year');
+        $historyByDay->modify('-22 day');
+        $historyByHour->modify('-22 hour');
+
+        $historyByYear= $historyByYear->format('Y-m-d H:i:s');
+        $queryByYear = $this->db->select('COUNT(answer) as "count",answer,
+            YEAR(requestDateTime) as "year"')            
+            ->where('requestDateTime >= "'.$historyByYear.'" AND answer IS NOT NULL' )
+            ->group_by('"year", answer')
+            ->order_by('"year"','ASC')
+            ->order_by('answer','DESC')
+            ->get('transkrip');
+
+        $historyByDay = $historyByDay->format('Y-m-d H:i:s');
+        $queryByDay = $this->db->select('COUNT(answer) as "count",answer,
+        DATE_FORMAT(requestDateTime,"%d-%m")  as "day_month"')            
+            ->where('requestDateTime >= "'.$historyByDay.'" AND answer IS NOT NULL')
+            ->group_by('day_month, answer')
+            ->order_by('day_month','ASC')
+            ->order_by('answer','DESC')
+            ->get('transkrip');
+
+        $historyByHour = $historyByHour->format('Y-m-d H:i:s');
+        $queryByHour = $this->db->select('COUNT(answer) as "count",answer,
+        DATE_FORMAT(requestDateTime,"%H") as "jam"')        
+        ->where('requestDateTime >="'.$historyByHour.'" AND answer IS NOT NULL')
+        ->group_by('jam, answer')
+        ->order_by('jam','ASC')
+        ->order_by('answer','DESC')
+        ->get('transkrip');
+
+        // foreach($queryByDay->result() as $row){
+        //     echo json_encode($row).'<br>';
+        // }
+    }
 
 }
