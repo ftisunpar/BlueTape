@@ -66,7 +66,8 @@ class TranskripManage extends CI_Controller {
             'numOfPages' => $numberOfPages,
             'startPage' => $startPage,
             'endPage' => $endPage,
-            'npmQuery' => $npmQuery
+            'npmQuery' => $npmQuery,
+            'statistic' => json_decode($statistic)
         ));
     }
 

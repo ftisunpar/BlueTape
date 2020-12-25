@@ -77,6 +77,9 @@ class Transkrip_model extends CI_Model {
     }
     /** 
      * Mengambil statistik transkrip ditolak dan diterima berdasarkan tahun/hari/jam
+     * @return JSON format yang dibagi berdasarkan tahun/hari/jam
+     * dengan key -23 tahun/hari/jam sebelumnya dan value 
+     * berupa JSONArray yang berisi count,requestDateTime,answer
      * 
      */
     public function requestTranskripStatistic(){
@@ -93,8 +96,8 @@ class Transkrip_model extends CI_Model {
         $queryByYear = $this->db->select('COUNT(answer) as "count",answer,
             YEAR(requestDateTime) as "year"')            
             ->where('requestDateTime >= "'.$historyByYear.'" AND answer IS NOT NULL' )
-            ->group_by('"year", answer')
-            ->order_by('"year"','ASC')
+            ->group_by('year, answer')
+            ->order_by('year','ASC')
             ->order_by('answer','DESC')
             ->get('transkrip');
 
@@ -116,9 +119,37 @@ class Transkrip_model extends CI_Model {
         ->order_by('answer','DESC')
         ->get('transkrip');
 
-        // foreach($queryByDay->result() as $row){
-        //     echo json_encode($row).'<br>';
-        // }
+        $requestByYear = [];    
+        $requestByDay = [];
+        $requestByHour=[];        
+        $historyByYear = new Datetime($historyByYear);        
+        $historyByDay = new Datetime($historyByDay);
+        $historyByHour = new Datetime($historyByHour);
+
+        for($i=0;$i<23;$i++){
+            $requestByYear[$historyByYear->format('Y')]=[];
+            $historyByYear->modify('+1 year');
+            $requestByDay[$historyByDay->format('d-m')]=[];            
+            $historyByDay->modify('+1 day');
+            $requestByHour[$historyByHour->format('H')]=[];
+            $historyByHour->modify('+1 hour');
+        }
+        foreach($queryByYear->result() as $key => $row){
+            $requestByYear[$row->year][] = $row;
+        }
+        foreach($queryByDay->result() as $row){
+            $requestByDay[$row->day_month][] = $row;
+        }
+        foreach($queryByHour->result() as $row){
+            $requestByHour[$row->jam][]=$row;
+        }
+        $result = array(
+            "requestByYear" => $requestByYear,
+            "requestByDay" => $requestByDay,
+            "requestByHour" => $requestByHour
+        );
+        return json_encode($result);
+        
     }
 
 }

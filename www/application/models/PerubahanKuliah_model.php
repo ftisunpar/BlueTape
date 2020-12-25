@@ -30,7 +30,7 @@ class PerubahanKuliah_model extends CI_Model {
     /**
      * Mendapatkan statistik yang dibagi berdasarkan tahun, hari, dan jam
      * @return JSON format dengan key 23 tahun/hari/jam sebelumnya dan value 
-     * dalam JSONArray yang berisi count,requestDateTime,changeType
+     * berupa JSONArray yang berisi count,requestDateTime,changeType
      * 
      */
     public function requestPerubahanKuliahStatistic(){

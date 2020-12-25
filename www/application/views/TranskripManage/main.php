@@ -8,6 +8,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php $this->load->view('templates/flashmessage'); ?>
         <br>
         <div class="container">
+            <div class="card">
+                <div class="card-header">   
+                    <div class="row">
+                        <div class = "col">                 
+                            Statistik Transkrip 
+                        </div>
+                        <div class= "col">
+                            <a class ="float-right" data-toggle="collapse" data-target="#statistikTranskrip">
+                                <i class="fas fa-angle-double-down" style="color:black;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id = "statistikTranskrip">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#" id="byYear">Statistik Berdasarkan Tahun</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">Statistik Berdasarkan Hari</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="byHour">Statistik Berdasarkan Jam</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane show active text-center">                            
+                                <canvas id="chartStatistic" style="width:100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
                 <div class="card">
                     <div class="card-header">
                         Permintaan Transkrip
@@ -212,20 +247,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </table>
                     </div>
                     <?php if ($numOfPages > 1): ?>
-                        <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-                            <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                                <?php if ($i === $page): ?>
-                                    <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
-                                <?php else: ?>
-                                    <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
-                                <?php endif; ?>
-                            <?php endfor; ?>
-                        </ul>
-                    <?php endif; ?>
+                    <ul class="pagination justify-content-center" role="navigation" aria-label="Pagination">
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <?php if ($i === $page): ?>
+                                <li class="current page-item active"><span class="page-link"><?= $i ?></span></li>
+                            <?php else: ?>
+                                <li class = "page-item"><a href="?page=<?= $i ?>"  aria-label="Halaman <?= $i ?>" class="page-link"><?= $i ?></a></li>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </ul>
+                <?php endif; ?>
                 </div>
             
         </div>
 
         <?php $this->load->view('templates/script_foundation'); ?>
+        <script>
+            $(document).ready(function () {
+                var transkripChart;                
+                var canvascontainer = $('#chartStatistic');
+                var context = canvascontainer[0].getContext('2d');   
+                var chartType='bar';
+                <?php                     
+                    $yearLabel='';
+                    $dayLabel='';
+                    $hourLabel='';
+                    $rejected=array_fill(0,2,'');
+                    $printed=array_fill(0,2,'');        
+
+                    foreach($statistic->requestByYear as $key => $row){                        
+                        $yearLabel .= '"'.$key.'",';         
+                        $rejected[0] .='"0",';
+                        $printed[0] .='"0",';
+
+                        foreach($row as $rowData){
+                            $perubahan = $rowData->answer;
+                            $$perubahan[0] = substr($$perubahan[0],0,strlen($$perubahan[0])-4).'"'.$rowData->count.'",';                    
+                        }                        
+                    }
+                    foreach($statistic->requestByDay as $key => $row){                            
+                        $dayLabel .= '"'.$key.'",';         
+                        $rejected[1] .='"0",';
+                        $printed[1] .='"0",';                        
+                        
+                        foreach($row as $rowData){
+                            $perubahan = $rowData->answer;
+                            $$perubahan[1] = substr($$perubahan[1],0,strlen($$perubahan[1])-4).'"'.$rowData->count.'",';
+                        }
+                    }
+                ?>
+
+            });
+        </script>
     </body>
 </html>
