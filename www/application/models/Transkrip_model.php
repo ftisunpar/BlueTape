@@ -92,7 +92,7 @@ class Transkrip_model extends CI_Model {
         $historyByDay->modify('-22 day');
         $historyByHour->modify('-22 hour');
 
-        $historyByYear= $historyByYear->format('Y-m-d H:i:s');
+        $historyByYear= $historyByYear->format('Y-01-01 00:00:00');
         $queryByYear = $this->db->select('COUNT(answer) as "count",answer,
             YEAR(requestDateTime) as "year"')            
             ->where('requestDateTime >= "'.$historyByYear.'" AND answer IS NOT NULL' )
@@ -101,7 +101,7 @@ class Transkrip_model extends CI_Model {
             ->order_by('answer','DESC')
             ->get('transkrip');
 
-        $historyByDay = $historyByDay->format('Y-m-d H:i:s');
+        $historyByDay = $historyByDay->format('Y-m-d 00:00:00');
         $queryByDay = $this->db->select('COUNT(answer) as "count",answer,
         DATE_FORMAT(requestDateTime,"%d-%m")  as "day_month"')            
             ->where('requestDateTime >= "'.$historyByDay.'" AND answer IS NOT NULL')
@@ -110,7 +110,7 @@ class Transkrip_model extends CI_Model {
             ->order_by('answer','DESC')
             ->get('transkrip');
 
-        $historyByHour = $historyByHour->format('Y-m-d H:i:s');
+        $historyByHour = $historyByHour->format('Y-m-d H:00:00');
         $queryByHour = $this->db->select('COUNT(answer) as "count",answer,
         DATE_FORMAT(requestDateTime,"%H") as "jam"')        
         ->where('requestDateTime >="'.$historyByHour.'" AND answer IS NOT NULL')
@@ -131,7 +131,7 @@ class Transkrip_model extends CI_Model {
             $historyByYear->modify('+1 year');
             $requestByDay[$historyByDay->format('d-m')]=[];            
             $historyByDay->modify('+1 day');
-            $requestByHour[$historyByHour->format('H')]=[];
+            $requestByHour[$historyByHour->format('H:i')]=[];
             $historyByHour->modify('+1 hour');
         }
         foreach($queryByYear->result() as $key => $row){
@@ -141,7 +141,7 @@ class Transkrip_model extends CI_Model {
             $requestByDay[$row->day_month][] = $row;
         }
         foreach($queryByHour->result() as $row){
-            $requestByHour[$row->jam][]=$row;
+            $requestByHour[$row->jam.':00'][]=$row;
         }
         $result = array(
             "requestByYear" => $requestByYear,

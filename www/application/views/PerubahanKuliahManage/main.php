@@ -369,30 +369,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
                             backgroundColor:'rgba(68, 114, 196, 0)',
                             borderColor:'rgba(68, 114, 196, 0.5)',
+                            fill:false,
                             borderWidth: 3,
-                            pointStyle:'line',         
+                            pointStyle:'line',    
+                            pointRadius:0     
                         },
                         {
                             label: 'Ditiadakan',
                             data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
                             backgroundColor:'rgba(237, 125, 49, 0)',
                             borderColor:'rgba(237, 125, 49, 0.5)',
+                            fill:false,
                             borderWidth: 3,
-                            pointStyle:'line'
+                            pointStyle:'line',    
+                            pointRadius:0    
                         },
                         {
                             label: 'Tambahan',
                             data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
                             backgroundColor:'rgba(165, 165, 165, 0)',
                             borderColor: 'rgba(165, 165, 165, 0.3)',
+                            fill:false,
                             borderWidth: 3,
-                            pointStyle:'line'
+                            pointStyle:'line',    
+                            pointRadius:0    
                         }]
                     };
                     return chartData;
                 }
                 function makeChart(chartData,chartTitle,chartScales){
-                    var chartLegendLabel={};
                     perubahanKuliahChart = new Chart(context, {
                         type: chartType,
                         data: chartData,
@@ -404,8 +409,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 text: chartTitle
                             },
                             tooltips:{
-                                mode:'label',
-                                position:'nearest'
+                                mode:'index',
+                                intersect:false
                             },
                             legend:{       
                                 labels:{                                
@@ -423,17 +428,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($(this).attr('id') === 'byDay'){      
                         if(chartType === 'bar'){
                             perubahanKuliahChart.data = fillDataByDay();
-                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan hari';                        
+                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan hari';                        
+                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                             perubahanKuliahChart.update();
                         }
                         else{
                             perubahanKuliahChart.destroy();
                             chartType='bar';
                             chartData = fillDataByDay();
-                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
                             chartScales = {
                                 xAxes:[{
-                                    stacked:true
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Hari - Bulan'
+                                    }
                                 }],
                                 yAxes:[{
                                     ticks:{
@@ -449,18 +459,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     else if($(this).attr('id')==='byYear'){ 
                         if(chartType ==='bar'){     
                             perubahanKuliahChart.data = fillDataByYear();
-                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
+                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Tahun';
                             perubahanKuliahChart.update();
                         }
                         else{
                             chartType='bar';
                             perubahanKuliahChart.destroy();
                             chartData = fillDataByYear();
-                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
                             chartScales =
                             {
                                 xAxes:[{
-                                    stacked:true
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Tahun'
+                                    }
                                 }],
                                 yAxes:[{
                                     ticks:{
@@ -477,8 +492,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         perubahanKuliahChart.destroy();
                         chartType = 'line'
                         chartData = fillDataByHour();
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan jam';                        
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan jam';                        
                         chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
                             yAxes:[{
                                 ticks:{
                                     beginAtZero:true,
@@ -496,7 +517,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var chartScales = 
                     {
                         xAxes:[{
-                            stacked:true
+                            stacked:true,
+                            scaleLabel:{
+                                display:true,
+                                labelString:'Tahun'
+                            }
                         }],
                         yAxes:[{
                             ticks:{
@@ -507,20 +532,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }]
                     };
                     if($(this).find('a.active').attr('id')==='byYear'){            
-                        chartTitle='Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Tahun';
+                        chartTitle='Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
                         chartType='bar';
                         chartData = fillDataByYear();
                     }
                     else if($(this).find('a.active').attr('id')=='byDay'){
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Hari';
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Hari';
+                        chartScales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                         chartType='bar';
                         chartData = fillDataByDay();
                     }
                     else{
                         chartType = 'line';
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Dibagi Berdasarkan Jam';
+                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Jam';
                         chartData = fillDataByHour();
                         chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
                             yAxes:[{
                                 ticks:{
                                     beginAtZero:true,

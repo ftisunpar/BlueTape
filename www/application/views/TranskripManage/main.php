@@ -272,8 +272,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $yearLabel='';
                     $dayLabel='';
                     $hourLabel='';
-                    $rejected=array_fill(0,2,'');
-                    $printed=array_fill(0,2,'');        
+                    $rejected=array_fill(0,3,'');
+                    $printed=array_fill(0,3,'');        
 
                     foreach($statistic->requestByYear as $key => $row){                        
                         $yearLabel .= '"'.$key.'",';         
@@ -295,8 +295,255 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $$perubahan[1] = substr($$perubahan[1],0,strlen($$perubahan[1])-4).'"'.$rowData->count.'",';
                         }
                     }
+                    foreach($statistic->requestByHour as $key => $row){                            
+                        $hourLabel .= '"'.$key.'",';         
+                        $rejected[2] .='"0",';
+                        $printed[2] .='"0",';                        
+                        
+                        foreach($row as $rowData){
+                            $perubahan =$rowData->answer;
+                            $$perubahan[2] = substr($$perubahan[2],0,strlen($$perubahan[2])-4).'"'.$rowData->count.'",';
+                        }
+                    }
                 ?>
+                function fillDataByYear(){
+                    var chartData = 
+                    {                                                                                                                                                            
+                        labels: [<?=substr($yearLabel,0,strlen($yearLabel)-1);?>],                                          
+                        datasets: [{                                                    
+                            label: 'Tercetak',
+                            data: [<?=substr($printed[0],0,strlen($printed[0])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Ditolak',
+                            data: [<?=substr($rejected[0],0,strlen($rejected[0])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1                      
+                        }]
+                    };
+                    return chartData;
+                }
+                function fillDataByDay(){
+                    var chartData = 
+                    {                                                                                                                                                            
+                        labels: [<?=substr($dayLabel,0,strlen($dayLabel)-1);?>],                                          
+                        datasets: [{                                                    
+                            label: 'Tercetak',
+                            data: [<?=substr($printed[1],0,strlen($printed[1])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Ditolak',
+                            data: [<?=substr($rejected[1],0,strlen($rejected[1])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1                      
+                        }]
+                    };
+                    return chartData;
+                }
 
+                function fillDataByHour(){
+                    var chartData = 
+                    {            
+                        labels: [<?=substr($hourLabel,0,strlen($hourLabel)-1);?>],                                    
+                        datasets: [{
+                            label: 'Tercetak',
+                            data: [<?=substr($printed[2],0,strlen($printed[2])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 1)',
+                            borderColor:'rgba(68, 114, 196, 0.5)',
+                            fill:false,
+                            borderWidth: 3,
+                            pointStyle:'line',
+                            pointRadius:0
+                        },
+                        {
+                            label: 'Ditolak',
+                            data: [<?=substr($rejected[2],0,strlen($rejected[2])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 1)',
+                            fill:false,
+                            borderColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 3,
+                            pointStyle:'line',
+                            pointRadius:0
+                        }]
+                    };
+                    return chartData;
+                }
+
+                function makeChart(chartData,chartTitle,chartScales){
+                    var chartLegendLabel={};
+                    transkripChart = new Chart(context, {
+                        type: chartType,
+                        data: chartData,
+                        options:{
+                            title:{
+                                display:true,
+                                fontSize:24,
+                                fontColor:"black",
+                                text: chartTitle
+                            },
+                            tooltips:{
+                                mode:'index',
+                                intersect:false                           
+                            },
+                            legend:{       
+                                labels:{                                
+                                    usePointStyle:chartType==='line',
+                                    fontSize:16                                  
+                                }
+                            },
+                            scales:chartScales                            
+                        }                               
+                    });           
+                }
+
+                $('#statistikTranskrip a').on('click',function(e){
+                    e.preventDefault()
+                    if($(this).attr('id') === 'byDay'){      
+                        if(chartType === 'bar'){
+                            transkripChart.data = fillDataByDay();
+                            transkripChart.options.title.text = 'Statistik Tercetak, Ditolak Berdasarkan hari';                        
+                            transkripChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
+                            transkripChart.update();
+                        }
+                        else{
+                            transkripChart.destroy();
+                            chartType='bar';
+                            chartData = fillDataByDay();
+                            chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            chartScales = {
+                                xAxes:[{
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Hari - Bulan'
+                                    }
+                                }],
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
+                                    stacked:true
+                                }]
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else if($(this).attr('id')==='byYear'){ 
+                        if(chartType ==='bar'){     
+                            transkripChart.data = fillDataByYear();
+                            transkripChart.options.title.text = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            transkripChart.options.scales.xAxes[0].scaleLabel.labelString = 'Tahun';
+                            transkripChart.update();
+                        }
+                        else{
+                            chartType='bar';
+                            transkripChart.destroy();
+                            chartData = fillDataByYear();
+                            chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            chartScales =
+                            {
+                                xAxes:[{
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Tahun'
+                                    }
+                                }],
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
+                                    stacked:true
+                                }]
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else{
+                        transkripChart.destroy();
+                        chartType = 'line'
+                        chartData = fillDataByHour();
+                        chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan jam';                        
+                        chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                        makeChart(chartData,chartTitle,chartScales);
+                    }
+                });
+
+                $('#statistikTranskrip').on('shown.bs.collapse',function(){                                        
+                    var chartData='';
+                    var chartTitle= '';                    
+                    var chartScales = 
+                    {
+                        xAxes:[{
+                            stacked:true,
+                            scaleLabel:{
+                                display:true,
+                                labelString:'Tahun'
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero:true,
+                                precision:0
+                            },
+                            stacked:true
+                        }]
+                    };
+                    if($(this).find('a.active').attr('id')==='byYear'){            
+                        chartTitle='Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                        chartType='bar';                        
+                        chartData = fillDataByYear();
+                    }
+                    else if($(this).find('a.active').attr('id')=='byDay'){
+                        chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Hari';
+                        chartScales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
+                        chartType='bar';
+                        chartData = fillDataByDay();
+                    }
+                    else{
+                        chartType = 'line';
+                        chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Jam';
+                        chartData = fillDataByHour();
+                        chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                    }
+                    makeChart(chartData,chartTitle,chartScales);                             
+                });    
+                
+                $('#statistikTranskrip').on('hidden.bs.collapse',function(){
+                    transkripChart.destroy();
+                });  
             });
         </script>
     </body>
