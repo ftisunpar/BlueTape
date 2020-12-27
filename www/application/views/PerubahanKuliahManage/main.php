@@ -367,7 +367,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         datasets: [{
                             label: 'Diganti',
                             data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
-                            backgroundColor:'rgba(68, 114, 196, 0)',
+                            backgroundColor:'rgba(68, 114, 196, 1)',
                             borderColor:'rgba(68, 114, 196, 0.5)',
                             fill:false,
                             borderWidth: 3,
@@ -377,7 +377,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         {
                             label: 'Ditiadakan',
                             data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
-                            backgroundColor:'rgba(237, 125, 49, 0)',
+                            backgroundColor:'rgba(237, 125, 49, 1)',
                             borderColor:'rgba(237, 125, 49, 0.5)',
                             fill:false,
                             borderWidth: 3,
@@ -387,7 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         {
                             label: 'Tambahan',
                             data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
-                            backgroundColor:'rgba(165, 165, 165, 0)',
+                            backgroundColor:'rgba(165, 165, 165, 1)',
                             borderColor: 'rgba(165, 165, 165, 0.3)',
                             fill:false,
                             borderWidth: 3,
