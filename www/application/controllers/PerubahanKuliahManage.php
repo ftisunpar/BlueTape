@@ -24,7 +24,7 @@ class PerubahanKuliahManage extends CI_Controller {
         $rowsPerPage = $this->config->item('rowsPerPage');
         $numberOfPages = intval(ceil($this->db->count_all('PerubahanKuliah') / $rowsPerPage));
         $page = $this->input->get('page');
-        if ($page === NULL) {
+        if ($page === NULL || $page<1) {
             $page = 1;
         }
         $page = intval($page);
