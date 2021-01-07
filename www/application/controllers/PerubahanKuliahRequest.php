@@ -109,4 +109,73 @@ class PerubahanKuliahRequest extends CI_Controller {
         header('Location: /PerubahanKuliahRequest');        
     }
 
+    public function edit(){
+        try{
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                date_default_timezone_set("Asia/Jakarta");
+                $userInfo = $this->Auth_model->getUserInfo();
+                $tos=[];
+                $rooms = $this->input->post('editToRoom');
+                $dateTimes = $this->input->post('editToDateTime');
+                $toTimeFinish = $this->input->post('editToTimeFinish');
+                if ($rooms !== NULL && $dateTimes !== NULL) {
+                    foreach ($rooms as $i => $room) {
+                        $time = date("H:i",strtotime($dateTimes[$i]));
+                        if(!empty($toTimeFinish[$i]) && $toTimeFinish[$i] < $time){
+                            $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
+                            header('Location:/PerubahanKuliahRequest');
+                            exit();
+                        }                        
+                        $tos[] = [
+                            'dateTime' => $dateTimes[$i] . ':00',
+                            'room' => $room ,
+                            'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
+                        ];
+                    }
+                }
+                $this->db->where('id',htmlspecialchars($this->input->post('id')));
+                $this->db->where('requestByEmail',$userInfo['email']);
+                $this->db->where('answer',null);
+                $this->db->update('PerubahanKuliah', array(
+                    'requestByEmail' => $userInfo['email'],
+                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
+                    'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
+                    'class' => $this->input->post('editClass'),
+                    'changeType' => $this->input->post('editChangeType'),
+                    'fromDateTime' => $this->input->post('editFromDateTime'),
+                    'fromRoom' => htmlspecialchars($this->input->post('editFromRoom')),
+                    'to' => json_encode($tos),
+                    'remarks' => htmlspecialchars($this->input->post('editRemarks')),
+                ));
+                $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dirubah. Silahkan cek statusnya secara berkala di situs ini.');
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }  
+
+
+        }catch(Exception $e){
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /PerubahanKuliahRequest');
+    }
+    
+    public function remove(){
+        try {
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                $userInfo = $this->Auth_model->getUserInfo();
+                $this->db->where('id',htmlspecialchars($this->input->post('id')));
+                $this->db->where('requestByEmail',$userInfo['email']);
+                $this->db->where('answer',null);
+                $this->db->delete('perubahankuliah');
+                $this->session->set_flashdata('info', 'Permintaan perubahan kuliah sudah dihapus.');
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /PerubahanKuliahRequest');
+    }
+    
 }
