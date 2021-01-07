@@ -94,4 +94,45 @@ class TranskripRequest extends CI_Controller {
         header('Location: /TranskripRequest');
     }
 
+    public function edit(){
+        try {
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                date_default_timezone_set("Asia/Jakarta");
+                $userInfo = $this->Auth_model->getUserInfo();
+                $this->db->where('id',htmlspecialchars($this->input->post('id')));
+                $this->db->where('requestByEmail',$userInfo['email']);
+                $this->db->where('answer',null);
+                $this->db->update('Transkrip', array(
+                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'requestUsage' => htmlspecialchars($this->input->post('ubahKeterangan'))
+                ));
+                $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dirubah. Silahkan cek statusnya secara berkala di situs ini.');
+                
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /TranskripRequest');
+    }
+    
+    public function remove(){
+        try {
+            if ($this->input->server('REQUEST_METHOD') == 'POST'){
+                $userInfo = $this->Auth_model->getUserInfo();
+                $this->db->where('id',htmlspecialchars($this->input->post('id')));
+                $this->db->where('requestByEmail',$userInfo['email']);
+                $this->db->where('answer',null);
+                $this->db->delete('Transkrip');
+                $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dihapus.');
+            } else {
+                throw new Exception("Can't call method from GET request!");
+            }
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        header('Location: /TranskripRequest');
+    }
+
 }
