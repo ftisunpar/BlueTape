@@ -115,9 +115,9 @@ class PerubahanKuliahRequest extends CI_Controller {
                 date_default_timezone_set("Asia/Jakarta");
                 $userInfo = $this->Auth_model->getUserInfo();
                 $tos=[];
-                $rooms = $this->input->post('editToRoom');
-                $dateTimes = $this->input->post('editToDateTime');
-                $toTimeFinish = $this->input->post('editToTimeFinish');
+                $rooms = html_special_chars($this->input->post('editToRoom'));
+                $dateTimes = html_special_chars($this->input->post('editToDateTime'));
+                $toTimeFinish = html_special_chars($this->input->post('editToTimeFinish'));
                 if ($rooms !== NULL && $dateTimes !== NULL) {
                     foreach ($rooms as $i => $room) {
                         $time = date("H:i",strtotime($dateTimes[$i]));

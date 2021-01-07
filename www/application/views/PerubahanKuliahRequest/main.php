@@ -380,16 +380,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     case 'T':
                         editableField.addClass("editable" + id);
                         editableField.append("<div class ='form-group row'></div>");
-                        var fromFormGroup = editableField.children().eq(0);
-                        fromFormGroup.append($('.toFields').clone().children().removeClass());
-                        fromFormGroup.children().eq(0).addClass("col-lg-5");
-                        fromFormGroup.children().eq(1).addClass("col-lg-4");
-                        fromFormGroup.children().eq(2).addClass("col-lg-3");
-                        fromFormGroup.find('.toDateTime').datetimepicker(datepickeroptions)
+                        var toFormGroup = editableField.children().eq(0);
+                        toFormGroup.append($('.toFields').clone().children().removeClass());
+                        toFormGroup.children().eq(0).addClass("col-lg-5");
+                        toFormGroup.children().eq(1).addClass("col-lg-4");
+                        toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.find('.toDateTime').datetimepicker(datepickeroptions)
                             .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
-                        fromFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
+                        toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
                             .attr('name', 'editToTimeFinish[]').removeClass('disableable').addClass('editDisableable');
-                        fromFormGroup.find('.toRoom').attr('name', 'editToRoom[]')
+                        toFormGroup.find('.toRoom').attr('name', 'editToRoom[]')
                             .removeClass('disableable').addClass('editDisableable');
                         $('input.editDisableable').removeAttr('disabled');
                         break;
