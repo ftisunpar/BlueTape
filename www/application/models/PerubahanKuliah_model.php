@@ -9,6 +9,15 @@ class PerubahanKuliah_model extends CI_Model {
         'T' => 'Tambahan',
         'X' => 'Ditiadakan',
     ];
+    const DAY_NAME = [
+        'Monday' => 'Senin',
+        'Tuesday' => 'Selasa',
+        'Wednesday' => 'Rabu',
+        'Thursday' => 'Kamis',
+        'Friday' => 'Jumat',
+        'Saturday' => 'Sabtu',
+        'Sunday' => 'Minggu'
+    ];
     
     /**
      * Mendapatkan seluruh request dari email tertentu
@@ -52,11 +61,10 @@ class PerubahanKuliah_model extends CI_Model {
         $historyByDay = $historyByDay->format('Y-m-d 00:00:00');
         $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
-            DATE_FORMAT(requestDateTime,"%d-%m") as "day_month"')
-            ->group_by('day_month, changeType')
-            ->order_by('day_month','ASC')
+            DAYNAME(requestDateTime) as "day"')
+            ->group_by('day, changeType')
+            ->order_by('day','ASC')
             ->order_by('changeType','DESC')
-            ->where('requestDateTime >=',$historyByDay)
             ->get('perubahankuliah');
         $historyByHour = new Datetime($currentDateTime);
         $historyByHour->modify('-22 hour');
@@ -76,19 +84,34 @@ class PerubahanKuliah_model extends CI_Model {
         $historyByYear = new Datetime($historyByYear);        
         $historyByDay = new Datetime($historyByDay);
         $historyByHour = new Datetime($historyByHour);
-        for($i=0;$i<23;$i++){
+        $startingYear =  $queryByYear->result()[0]->year - $historyByYear->format('Y');
+        $endYear = $queryByYear->result()[count($queryByYear->result())-1]->year;
+        if($startingYear > 0){
+            $historyByYear->modify('+'.$startingYear.' year');
+            $startingYear = $queryByYear->result()[0]->year;
+        }
+        else{
+            $startingYear = $historyByYear->format('Y');
+        }
+        for($i=$startingYear;$i<$endYear;$i++){            
             $requestByYear[$historyByYear->format('Y')]=[];
             $historyByYear->modify('+1 year');
-            $requestByDay[$historyByDay->format('d-m')]=[];            
-            $historyByDay->modify('+1 day');
+        }
+
+        foreach(PerubahanKuliah_model::DAY_NAME as $dayName){
+            $requestByDay[$dayName]=[];
+        }
+        for($i=0;$i<23;$i++){
             $requestByHour[$historyByHour->format('H:i')]=[];
             $historyByHour->modify('+1 hour');
         }
-        foreach($queryByYear->result() as $key => $row){
-            $requestByYear[$row->year][] = $row;
+
+        foreach($queryByYear->result() as $row){
+            $requestByYear[$row->year][] = $row;            
         }
+        
         foreach($queryByDay->result() as $row){
-            $requestByDay[$row->day_month][] = $row;
+            $requestByDay[PerubahanKuliah_model::DAY_NAME[$row->day]][] = $row;
         }
         foreach($queryByHour->result() as $row){
             $requestByHour[$row->jam.':00'][]=$row;
