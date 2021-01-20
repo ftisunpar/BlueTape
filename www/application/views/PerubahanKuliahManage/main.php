@@ -368,31 +368,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             label: 'Diganti',
                             data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
                             backgroundColor:'rgba(68, 114, 196, 1)',
-                            borderColor:'rgba(68, 114, 196, 0.5)',
+                            borderColor:'rgba(68, 114, 196, 0.6)',
                             fill:false,
                             borderWidth: 3,
                             pointStyle:'line',    
-                            pointRadius:0     
+                            pointRadius:0,
+                            lineTension:0  
                         },
                         {
                             label: 'Ditiadakan',
                             data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
                             backgroundColor:'rgba(237, 125, 49, 1)',
-                            borderColor:'rgba(237, 125, 49, 0.5)',
+                            borderColor:'rgba(237, 125, 49, 0.6)',
                             fill:false,
                             borderWidth: 3,
                             pointStyle:'line',    
-                            pointRadius:0    
+                            pointRadius:0,
+                            lineTension:0      
                         },
                         {
                             label: 'Tambahan',
                             data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
                             backgroundColor:'rgba(165, 165, 165, 1)',
-                            borderColor: 'rgba(165, 165, 165, 0.3)',
+                            borderColor: 'rgba(165, 165, 165, 0.6)',
                             fill:false,
                             borderWidth: 3,
                             pointStyle:'line',    
-                            pointRadius:0    
+                            pointRadius:0,
+                            lineTension:0    
                         }]
                     };
                     return chartData;
@@ -428,7 +431,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($(this).attr('id') === 'byDay'){      
                         if(chartType === 'bar'){
                             perubahanKuliahChart.data = fillDataByDay();
-                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan hari';                        
+                            perubahanKuliahChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
                             perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                             perubahanKuliahChart.update();
                         }
@@ -436,7 +439,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             perubahanKuliahChart.destroy();
                             chartType='bar';
                             chartData = fillDataByDay();
-                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             chartScales = {
                                 xAxes:[{
                                     stacked:true,
@@ -459,7 +462,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     else if($(this).attr('id')==='byYear'){ 
                         if(chartType ==='bar'){     
                             perubahanKuliahChart.data = fillDataByYear();
-                            perubahanKuliahChart.options.title.text = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
+                            perubahanKuliahChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Tahun';
                             perubahanKuliahChart.update();
                         }
@@ -467,7 +470,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             chartType='bar';
                             perubahanKuliahChart.destroy();
                             chartData = fillDataByYear();
-                            chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             chartScales =
                             {
                                 xAxes:[{
@@ -492,7 +495,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         perubahanKuliahChart.destroy();
                         chartType = 'line'
                         chartData = fillDataByHour();
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan jam';                        
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
                         chartScales = {
                             xAxes:[{
                                 scaleLabel:{
@@ -532,19 +535,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }]
                     };
                     if($(this).find('a.active').attr('id')==='byYear'){            
-                        chartTitle='Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Tahun';
+                        chartTitle='<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartType='bar';
                         chartData = fillDataByYear();
                     }
                     else if($(this).find('a.active').attr('id')=='byDay'){
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Hari';
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartScales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                         chartType='bar';
                         chartData = fillDataByDay();
                     }
                     else{
                         chartType = 'line';
-                        chartTitle = 'Statistik Diganti, Ditiadakan, Tambahan Berdasarkan Jam';
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartData = fillDataByHour();
                         chartScales = {
                             xAxes:[{

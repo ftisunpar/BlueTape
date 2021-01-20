@@ -56,9 +56,6 @@ class PerubahanKuliah_model extends CI_Model {
             ->where('requestDateTime >=',$historyByYear)
             ->get('perubahankuliah');
 
-        $historyByDay = new Datetime($currentDateTime);
-        $historyByDay->modify('-22 day');
-        $historyByDay = $historyByDay->format('Y-m-d 00:00:00');
         $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
             DAYNAME(requestDateTime) as "day"')
@@ -66,24 +63,20 @@ class PerubahanKuliah_model extends CI_Model {
             ->order_by('day','ASC')
             ->order_by('changeType','DESC')
             ->get('perubahankuliah');
-        $historyByHour = new Datetime($currentDateTime);
-        $historyByHour->modify('-22 hour');
-        $historyByHour = $historyByHour->format('Y-m-d H:00:00');
+
+        $historyByHour = new Datetime(strftime('%Y-%m-%d 00:00:%S'));
         $this->db->reset_query();
         $queryByHour = $this->db->select('COUNT(changeType) as "count",changeType,
             DATE_FORMAT(requestDateTime,"%H") as "jam"')
             ->group_by('jam, changeType')
             ->order_by('jam','ASC')
             ->order_by('changeType','DESC')
-            ->where('requestDateTime >=',$historyByHour)
             ->get('perubahankuliah');
 
         $requestByYear = [];    
         $requestByDay = [];
         $requestByHour=[];
-        $historyByYear = new Datetime($historyByYear);        
-        $historyByDay = new Datetime($historyByDay);
-        $historyByHour = new Datetime($historyByHour);
+        $historyByYear = new Datetime($historyByYear);  
         $startingYear =  $queryByYear->result()[0]->year - $historyByYear->format('Y');
         $endYear = $queryByYear->result()[count($queryByYear->result())-1]->year;
         if($startingYear > 0){
@@ -101,7 +94,7 @@ class PerubahanKuliah_model extends CI_Model {
         foreach(PerubahanKuliah_model::DAY_NAME as $dayName){
             $requestByDay[$dayName]=[];
         }
-        for($i=0;$i<23;$i++){
+        for($i=0;$i<24;$i++){
             $requestByHour[$historyByHour->format('H:i')]=[];
             $historyByHour->modify('+1 hour');
         }
@@ -119,7 +112,9 @@ class PerubahanKuliah_model extends CI_Model {
         $result = array(
             "requestByYear" => $requestByYear,
             "requestByDay" => $requestByDay,
-            "requestByHour" => $requestByHour
+            "requestByHour" => $requestByHour,
+            "startingYear" => $startingYear,
+            "endYear" => $endYear
         );
         $result = json_encode($result);
         return $result;
