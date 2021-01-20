@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a class="nav-link" data-toggle="tab" href="#" id="byDay">Statistik Berdasarkan Hari</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="byHour">Statistik Berdasarkan Jam</a>
+                                <a class="nav-link" data-toggle="tab" href="#">Statistik Berdasarkan Jam</a>
                             </li>
                         </ul>
                         <div class="tab-content">
