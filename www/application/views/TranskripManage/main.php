@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <br>
         <div class="container">
             <div class="card">
-                <div class="card-header">   
+                <div class="card-header" data-toggle="collapse" data-target="#statistikTranskrip">   
                     <div class="row">
                         <div class = "col">                 
                             Statistik Transkrip 
                         </div>
                         <div class= "col">
-                            <a class ="float-right" data-toggle="collapse" data-target="#statistikTranskrip">
-                                <i class="fas fa-angle-double-down" style="color:black;"></i>
+                            <a class ="float-right" >
+                                <i class="fas fa-angle-double-down" id ="collapseAccordion" style="color:black;"></i>
                             </a>
                         </div>
                     </div>
@@ -353,28 +353,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             label: 'Tercetak',
                             data: [<?=substr($printed[2],0,strlen($printed[2])-1);?>],
                             backgroundColor:'rgba(68, 114, 196, 1)',
-                            borderColor:'rgba(68, 114, 196, 0.5)',
+                            borderColor:'rgba(68, 114, 196, 0.6)',
                             fill:false,
                             borderWidth: 3,
                             pointStyle:'line',
-                            pointRadius:0
+                            pointRadius:0,
+                            lineTension:0
                         },
                         {
                             label: 'Ditolak',
                             data: [<?=substr($rejected[2],0,strlen($rejected[2])-1);?>],
                             backgroundColor:'rgba(237, 125, 49, 1)',
                             fill:false,
-                            borderColor:'rgba(237, 125, 49, 0.5)',
+                            borderColor:'rgba(237, 125, 49, 0.6)',
                             borderWidth: 3,
                             pointStyle:'line',
-                            pointRadius:0
+                            pointRadius:0,
+                            lineTension:0
                         }]
                     };
                     return chartData;
                 }
 
                 function makeChart(chartData,chartTitle,chartScales){
-                    var chartLegendLabel={};
                     transkripChart = new Chart(context, {
                         type: chartType,
                         data: chartData,
@@ -405,7 +406,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($(this).attr('id') === 'byDay'){      
                         if(chartType === 'bar'){
                             transkripChart.data = fillDataByDay();
-                            transkripChart.options.title.text = 'Statistik Tercetak, Ditolak Berdasarkan hari';                        
+                            transkripChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
                             transkripChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                             transkripChart.update();
                         }
@@ -413,7 +414,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             transkripChart.destroy();
                             chartType='bar';
                             chartData = fillDataByDay();
-                            chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             chartScales = {
                                 xAxes:[{
                                     stacked:true,
@@ -436,7 +437,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     else if($(this).attr('id')==='byYear'){ 
                         if(chartType ==='bar'){     
                             transkripChart.data = fillDataByYear();
-                            transkripChart.options.title.text = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            transkripChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             transkripChart.options.scales.xAxes[0].scaleLabel.labelString = 'Tahun';
                             transkripChart.update();
                         }
@@ -444,7 +445,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             chartType='bar';
                             transkripChart.destroy();
                             chartData = fillDataByYear();
-                            chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                             chartScales =
                             {
                                 xAxes:[{
@@ -509,19 +510,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }]
                     };
                     if($(this).find('a.active').attr('id')==='byYear'){            
-                        chartTitle='Statistik Tercetak, Ditolak Berdasarkan Tahun';
+                        chartTitle= '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartType='bar';                        
                         chartData = fillDataByYear();
                     }
                     else if($(this).find('a.active').attr('id')=='byDay'){
-                        chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Hari';
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartScales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
                         chartType='bar';
                         chartData = fillDataByDay();
                     }
                     else{
                         chartType = 'line';
-                        chartTitle = 'Statistik Tercetak, Ditolak Berdasarkan Jam';
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
                         chartData = fillDataByHour();
                         chartScales = {
                             xAxes:[{
@@ -538,10 +539,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }]
                         };
                     }
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-down').
+                            addClass('fas fa-angle-double-up');
                     makeChart(chartData,chartTitle,chartScales);                             
                 });    
                 
                 $('#statistikTranskrip').on('hidden.bs.collapse',function(){
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-up')
+                            .addClass('fas fa-angle-double-down');
                     transkripChart.destroy();
                 });  
             });

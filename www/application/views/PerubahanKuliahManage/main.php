@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <br>
         <div class="container">
             <div class="card">
-                <div class="card-header">   
+                <div class="card-header" data-toggle="collapse" data-target="#statistikPerubahanKuliah">   
                     <div class="row">
                         <div class = "col">                 
                             Statistik Perubahan Kuliah
                         </div>
                         <div class= "col">
-                            <a class ="float-right" data-toggle="collapse" data-target="#statistikPerubahanKuliah">
-                                <i class="fas fa-angle-double-down" style="color:black;"></i>
+                            <a class ="float-right">
+                                <i class="fas fa-angle-double-down" id ="collapseAccordion" style="color:black;"></i>
                             </a>
                         </div>
                     </div>
@@ -514,6 +514,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });  
                            
+
                 $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){                                        
                     var chartData='';
                     var chartTitle= '';                    
@@ -564,10 +565,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }]
                         };
                     }
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-down').
+                            addClass('fas fa-angle-double-up');
                     makeChart(chartData,chartTitle,chartScales);                             
                 });    
                 
                 $('#statistikPerubahanKuliah').on('hidden.bs.collapse',function(){
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-up')
+                            .addClass('fas fa-angle-double-down');
                     perubahanKuliahChart.destroy();
                 });            
             });

@@ -86,11 +86,11 @@ class PerubahanKuliah_model extends CI_Model {
         else{
             $startingYear = $historyByYear->format('Y');
         }
+        
         for($i=$startingYear;$i<$endYear;$i++){            
             $requestByYear[$historyByYear->format('Y')]=[];
             $historyByYear->modify('+1 year');
         }
-
         foreach(PerubahanKuliah_model::DAY_NAME as $dayName){
             $requestByDay[$dayName]=[];
         }

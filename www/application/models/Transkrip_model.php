@@ -8,6 +8,16 @@ class Transkrip_model extends CI_Model {
         'DPS' => 'DPS (Seluruh Semester, Bilingual)',
     ];
     
+    const DAY_NAME = [
+        'Monday' => 'Senin',
+        'Tuesday' => 'Selasa',
+        'Wednesday' => 'Rabu',
+        'Thursday' => 'Kamis',
+        'Friday' => 'Jumat',
+        'Saturday' => 'Sabtu',
+        'Sunday' => 'Minggu'
+    ];
+    
     /**
      * Mendapatkan seluruh request dari email tertentu
      * @param type $email email yang melakukan request atau NULL untuk semua
@@ -86,59 +96,66 @@ class Transkrip_model extends CI_Model {
         date_default_timezone_set("Asia/Jakarta"); 
         $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
         $historyByYear = new Datetime($currentDateTime);
-        $historyByDay = new Datetime($currentDateTime);
-        $historyByHour = new Datetime($currentDateTime);
-        $historyByYear->modify('-22 year');
-        $historyByDay->modify('-22 day');
-        $historyByHour->modify('-22 hour');
-
-        $historyByYear= $historyByYear->format('Y-01-01 00:00:00');
+        $historyByYear->modify('-22 year');        
+        $historyByYear = $historyByYear->format('Y-01-01 00:00:00');
         $queryByYear = $this->db->select('COUNT(answer) as "count",answer,
             YEAR(requestDateTime) as "year"')            
-            ->where('requestDateTime >= "'.$historyByYear.'" AND answer IS NOT NULL' )
             ->group_by('year, answer')
             ->order_by('year','ASC')
-            ->order_by('answer','DESC')
+            ->order_by('answer','DESC')            
+            ->where('requestDateTime >="'.$historyByYear.'" AND answer IS NOT NULL')
             ->get('transkrip');
-
-        $historyByDay = $historyByDay->format('Y-m-d 00:00:00');
+        
+        $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(answer) as "count",answer,
-        DATE_FORMAT(requestDateTime,"%d-%m")  as "day_month"')            
-            ->where('requestDateTime >= "'.$historyByDay.'" AND answer IS NOT NULL')
-            ->group_by('day_month, answer')
-            ->order_by('day_month','ASC')
+            DAYNAME(requestDateTime) as "day"')            
+            ->group_by('day, answer')
+            ->order_by('day','ASC')
             ->order_by('answer','DESC')
+            ->where('answer IS NOT NULL')
             ->get('transkrip');
 
-        $historyByHour = $historyByHour->format('Y-m-d H:00:00');
+        $historyByHour = new Datetime(strftime('%Y-%m-%d 00:00:%S'));
+        $this->db->reset_query();
         $queryByHour = $this->db->select('COUNT(answer) as "count",answer,
-        DATE_FORMAT(requestDateTime,"%H") as "jam"')        
-        ->where('requestDateTime >="'.$historyByHour.'" AND answer IS NOT NULL')
-        ->group_by('jam, answer')
-        ->order_by('jam','ASC')
-        ->order_by('answer','DESC')
-        ->get('transkrip');
+            DATE_FORMAT(requestDateTime,"%H") as "jam"')        
+            ->where('answer IS NOT NULL')
+            ->group_by('jam, answer')
+            ->order_by('jam','ASC')
+            ->order_by('answer','DESC')
+            ->get('transkrip');
 
         $requestByYear = [];    
         $requestByDay = [];
         $requestByHour=[];        
-        $historyByYear = new Datetime($historyByYear);        
-        $historyByDay = new Datetime($historyByDay);
-        $historyByHour = new Datetime($historyByHour);
+        $historyByYear = new Datetime($historyByYear);   
+        $startingYear =  $queryByYear->result()[0]->year - $historyByYear->format('Y');
+        $endYear = $queryByYear->result()[count($queryByYear->result())-1]->year;
+        if($startingYear > 0){
+            $historyByYear->modify('+'.$startingYear.' year');
+            $startingYear = $queryByYear->result()[0]->year;
+        }
+        else{
+            $startingYear = $historyByYear->format('Y');
+        }
 
-        for($i=0;$i<23;$i++){
+        for($i=$startingYear;$i<$endYear;$i++){            
             $requestByYear[$historyByYear->format('Y')]=[];
             $historyByYear->modify('+1 year');
-            $requestByDay[$historyByDay->format('d-m')]=[];            
-            $historyByDay->modify('+1 day');
+        }
+        foreach(Transkrip_model::DAY_NAME as $dayName){
+            $requestByDay[$dayName]=[];
+        }
+        for($i=0;$i<24;$i++){
             $requestByHour[$historyByHour->format('H:i')]=[];
             $historyByHour->modify('+1 hour');
         }
-        foreach($queryByYear->result() as $key => $row){
+
+        foreach($queryByYear->result() as $row){
             $requestByYear[$row->year][] = $row;
         }
         foreach($queryByDay->result() as $row){
-            $requestByDay[$row->day_month][] = $row;
+            $requestByDay[Transkrip_model::DAY_NAME[$row->day]][] = $row;
         }
         foreach($queryByHour->result() as $row){
             $requestByHour[$row->jam.':00'][]=$row;
@@ -146,8 +163,11 @@ class Transkrip_model extends CI_Model {
         $result = array(
             "requestByYear" => $requestByYear,
             "requestByDay" => $requestByDay,
-            "requestByHour" => $requestByHour
+            "requestByHour" => $requestByHour,            
+            "startingYear" => $startingYear,
+            "endYear" => $endYear
         );
+        
         return json_encode($result);
         
     }
