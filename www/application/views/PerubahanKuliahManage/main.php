@@ -432,7 +432,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         if(chartType === 'bar'){
                             perubahanKuliahChart.data = fillDataByDay();
                             perubahanKuliahChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
-                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
+                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari';
                             perubahanKuliahChart.update();
                         }
                         else{
@@ -445,7 +445,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     stacked:true,
                                     scaleLabel:{
                                         display:true,
-                                        labelString:'Hari - Bulan'
+                                        labelString:'Hari'
                                     }
                                 }],
                                 yAxes:[{
@@ -542,7 +542,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                     else if($(this).find('a.active').attr('id')=='byDay'){
                         chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
-                        chartScales.xAxes[0].scaleLabel.labelString = 'Hari - Bulan';
+                        chartScales.xAxes[0].scaleLabel.labelString = 'Hari';
                         chartType='bar';
                         chartData = fillDataByDay();
                     }
