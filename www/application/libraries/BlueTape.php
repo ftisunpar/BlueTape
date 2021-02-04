@@ -3,6 +3,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class BlueTape {
+    
+    const DAY_NAME = [
+        'Monday' => 'Senin',
+        'Tuesday' => 'Selasa',
+        'Wednesday' => 'Rabu',
+        'Thursday' => 'Kamis',
+        'Friday' => 'Jumat',
+        'Saturday' => 'Sabtu',
+        'Sunday' => 'Minggu'
+    ];
 
     public function getNPM($email, $default = NULL) {
         if (preg_match('/^\\d{7}@student\\.unpar\\.ac\\.id$/', $email)) {
@@ -94,5 +104,5 @@ class BlueTape {
     public function dbDateTimeToReadableDate($dbDateTime) {
         setlocale(LC_TIME, 'ind');
         return $dbDateTime === NULL ? NULL : strftime('%A, %#d %B %Y', (new DateTime($dbDateTime))->getTimestamp());
-    }
+    }    
 }

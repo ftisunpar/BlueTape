@@ -8,16 +8,7 @@ class PerubahanKuliah_model extends CI_Model {
         'G' => 'Diganti',
         'T' => 'Tambahan',
         'X' => 'Ditiadakan',
-    ];
-    const DAY_NAME = [
-        'Monday' => 'Senin',
-        'Tuesday' => 'Selasa',
-        'Wednesday' => 'Rabu',
-        'Thursday' => 'Kamis',
-        'Friday' => 'Jumat',
-        'Saturday' => 'Sabtu',
-        'Sunday' => 'Minggu'
-    ];
+    ];    
     
     /**
      * Mendapatkan seluruh request dari email tertentu
@@ -44,6 +35,7 @@ class PerubahanKuliah_model extends CI_Model {
      */
     public function requestPerubahanKuliahStatistic(){
         date_default_timezone_set("Asia/Jakarta"); 
+        $this->load->library('bluetape');
         $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
         $historyByYear = new Datetime($currentDateTime);
         $historyByYear->modify('-22 year');
@@ -77,46 +69,56 @@ class PerubahanKuliah_model extends CI_Model {
         $requestByDay = [];
         $requestByHour=[];
         $historyByYear = new Datetime($historyByYear);  
-        $startingYear =  $queryByYear->result()[0]->year - $historyByYear->format('Y');
-        $endYear = $queryByYear->result()[count($queryByYear->result())-1]->year;
-        if($startingYear > 0){
-            $historyByYear->modify('+'.$startingYear.' year');
-            $startingYear = $queryByYear->result()[0]->year;
-        }
-        else{
-            $startingYear = $historyByYear->format('Y');
-        }
-        
-        for($i=$startingYear;$i<$endYear;$i++){            
-            $requestByYear[$historyByYear->format('Y')]=[];
-            $historyByYear->modify('+1 year');
-        }
-        foreach(PerubahanKuliah_model::DAY_NAME as $dayName){
-            $requestByDay[$dayName]=[];
-        }
-        for($i=0;$i<24;$i++){
-            $requestByHour[$historyByHour->format('H:i')]=[];
-            $historyByHour->modify('+1 hour');
-        }
-
-        foreach($queryByYear->result() as $row){
-            $requestByYear[$row->year][] = $row;            
-        }
-        
-        foreach($queryByDay->result() as $row){
-            $requestByDay[PerubahanKuliah_model::DAY_NAME[$row->day]][] = $row;
-        }
-        foreach($queryByHour->result() as $row){
-            $requestByHour[$row->jam.':00'][]=$row;
-        }
-        $result = array(
+        $result = json_encode(array(
             "requestByYear" => $requestByYear,
             "requestByDay" => $requestByDay,
             "requestByHour" => $requestByHour,
-            "startingYear" => $startingYear,
-            "endYear" => $endYear
-        );
-        $result = json_encode($result);
+            "startingYear" => '',
+            "endYear" => ''
+        )); 
+          
+        if(count($queryByYear->result())!=0 && count($queryByDay->result())!=0 && count($queryByHour->result())!=0){
+            $startingYear =  $queryByYear->result()[0]->year - $historyByYear->format('Y');
+            $endYear = $queryByYear->result()[count($queryByYear->result())-1]->year;
+            if($startingYear > 0){
+                $historyByYear->modify('+'.$startingYear.' year');
+                $startingYear = $queryByYear->result()[0]->year;
+            }
+            else{
+                $startingYear = $historyByYear->format('Y');
+            }
+            
+            for($i=$startingYear;$i<$endYear;$i++){            
+                $requestByYear[$historyByYear->format('Y')]=[];
+                $historyByYear->modify('+1 year');
+            }
+            foreach(Bluetape::DAY_NAME as $dayName){
+                $requestByDay[$dayName]=[];
+            }
+            for($i=0;$i<24;$i++){
+                $requestByHour[$historyByHour->format('H:i')]=[];
+                $historyByHour->modify('+1 hour');
+            }
+
+            foreach($queryByYear->result() as $row){
+                $requestByYear[$row->year][] = $row;            
+            }
+            
+            foreach($queryByDay->result() as $row){
+                $requestByDay[Bluetape::DAY_NAME[$row->day]][] = $row;
+            }
+            foreach($queryByHour->result() as $row){
+                $requestByHour[$row->jam.':00'][]=$row;
+            }
+            $result = array(
+                "requestByYear" => $requestByYear,
+                "requestByDay" => $requestByDay,
+                "requestByHour" => $requestByHour,
+                "startingYear" => $startingYear,
+                "endYear" => $endYear
+            );            
+            $result = json_encode($result);
+        }        
         return $result;
     }
 }

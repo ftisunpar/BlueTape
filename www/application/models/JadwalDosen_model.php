@@ -40,7 +40,8 @@ class JadwalDosen_model extends CI_Model {
     }
 
     public function getNamaHari() {
-        return JadwalDosen_model::DAY_NAME;
+        $this->load->library('bluetape');
+        return array_values(Bluetape::DAY_NAME);
     }
 	
 	public function getNamaBulan() {
