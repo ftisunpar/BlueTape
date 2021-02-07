@@ -56,6 +56,7 @@ class TranskripManage extends CI_Controller {
         unset($request);
 
         $userInfo = $this->Auth_model->getUserInfo();
+        $statistic = $this->Transkrip_model->requestTranskripStatistic();        
         $this->load->view('TranskripManage/main', array(
             'answeredByEmail' => $userInfo['email'],
             'currentModule' => get_class(),
@@ -65,7 +66,8 @@ class TranskripManage extends CI_Controller {
             'numOfPages' => $numberOfPages,
             'startPage' => $startPage,
             'endPage' => $endPage,
-            'npmQuery' => $npmQuery
+            'npmQuery' => $npmQuery,
+            'statistic' => json_decode($statistic)
         ));
     }
 

@@ -50,6 +50,7 @@ class PerubahanKuliahManage extends CI_Controller {
         unset($request);
 
         $userInfo = $this->Auth_model->getUserInfo();
+        $statistic = $this->PerubahanKuliah_model->requestPerubahanKuliahStatistic();
         $this->load->view('PerubahanKuliahManage/main', array(
             'answeredByEmail' => $userInfo['email'],
             'currentModule' => get_class(),
@@ -58,6 +59,7 @@ class PerubahanKuliahManage extends CI_Controller {
             'numOfPages' => $numberOfPages,
             'startPage' => $startPage,
             'endPage' => $endPage,
+            'statistic'=> json_decode($statistic)
         ));
     }
 
