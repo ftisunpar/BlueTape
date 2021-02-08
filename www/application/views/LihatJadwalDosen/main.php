@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             </td>
                                             <?php
                                             for ($i = 0; $i < 5; $i++) {
-                                                echo "<th style='width:18%;;min-width:8em''>" . $namaHari[$i] . "</th>";
+                                                echo "<th style='width:18%;min-width:8em''>" . $namaHari[$i] . "</th>";
                                             }
                                             ?>
                                         </tr>
@@ -84,7 +84,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             echo "<tr><th>" . $i . "-" . ($i + 1);
                                             $cellColID = 1;
                                             for ($j = 0; $j < 5; $j++) {
-                                                echo "<td align='center' id='t" . $idx . "cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
+                                                echo "<td align='center' id='t" . $idx . "cell" . $cellRowID . "-" . $cellColID . "'  style='word-wrap:break-word;max-width: 8em'>" . "</td>";
                                                 $cellColID++;
                                             }
                                             $cellRowID++;

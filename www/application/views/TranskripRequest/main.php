@@ -205,7 +205,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Keperluan:</label>
-                                                                    <input class="form-control" name="ubahKeterangan" value="<?= $request->requestUsage ?>" type="text" />
+                                                                    <input class="form-control" name="ubahKeterangan" value="<?= $request->requestUsage ?>" type="text" required/>
                                                                 </div>
                                                                 <p>&nbsp;</p>
                                                                 <div class="form-group">
