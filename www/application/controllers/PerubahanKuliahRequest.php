@@ -65,7 +65,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                             header('Location:/PerubahanKuliahRequest');
                             exit();
                         }                  
-                        if($dateTimes[$i]!=''){      
+                        if(!empty($dateTimes[$i])){      
                             $tos[] = [
                                 'dateTime' => $dateTimes[$i] . ':00',
                                 'room' => $room ,
@@ -128,7 +128,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                             header('Location:/PerubahanKuliahRequest');
                             exit();
                         }        
-                        if($dateTimes[$i]!=''){                 
+                        if(!empty($dateTimes[$i])){                 
                             $tos[] = [
                                 'dateTime' => $dateTimes[$i] . ':00',
                                 'room' => $room ,
