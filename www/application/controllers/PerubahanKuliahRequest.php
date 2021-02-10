@@ -64,12 +64,14 @@ class PerubahanKuliahRequest extends CI_Controller {
                             $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
                             header('Location:/PerubahanKuliahRequest');
                             exit();
-                        }                        
-                        $tos[] = [
-                            'dateTime' => $dateTimes[$i] . ':00',
-                            'room' => $room ,
-                            'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
-                        ];
+                        }                  
+                        if(!empty($dateTimes[$i])){      
+                            $tos[] = [
+                                'dateTime' => $dateTimes[$i] . ':00',
+                                'room' => $room ,
+                                'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
+                            ];
+                        }
                     }
                 }
                 
@@ -125,12 +127,14 @@ class PerubahanKuliahRequest extends CI_Controller {
                             $this->session->set_flashdata('info','Harap masukkan jam selesai sesudah jam mulai');     
                             header('Location:/PerubahanKuliahRequest');
                             exit();
-                        }                        
-                        $tos[] = [
-                            'dateTime' => $dateTimes[$i] . ':00',
-                            'room' => $room ,
-                            'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
-                        ];
+                        }        
+                        if(!empty($dateTimes[$i])){                 
+                            $tos[] = [
+                                'dateTime' => $dateTimes[$i] . ':00',
+                                'room' => $room ,
+                                'toTimeFinish' => empty($toTimeFinish[$i]) ? NULL : $toTimeFinish[$i].':00'
+                            ];
+                        }
                     }
                 }
                 $this->db->where('id',htmlspecialchars($this->input->post('id')));
