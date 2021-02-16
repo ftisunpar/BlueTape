@@ -38,23 +38,21 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * System Initialization File
- *
- * Loads the base classes and executes the request.
- *
- * @package		CodeIgniter
- * @subpackage	CodeIgniter
- * @category	Front-controller
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/
- */
-
-/**
- * CodeIgniter Version
- *
- * @var	string
- *
- */
+	 * System Initialization File
+	 *
+	 * Loads the base classes and executes the request.
+	 *
+	 * @package		CodeIgniter
+	 * @subpackage	CodeIgniter
+	 * @category	Front-controller
+	 * @author		EllisLab Dev Team
+	 * @link		https://codeigniter.com/user_guide/
+	 */
+	/**
+	 * CodeIgniter Version
+	 *
+	 * @var	string
+	 */
 	const CI_VERSION = '3.1.4';
 
 /*

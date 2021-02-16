@@ -9,6 +9,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <br>
         <div class="container">
             <div class="card">
+                <div class="card-header" data-toggle="collapse" data-target="#statistikPerubahanKuliah">   
+                    <div class="row">
+                        <div class = "col">                 
+                            Statistik Perubahan Kuliah
+                        </div>
+                        <div class= "col">
+                            <a class ="float-right">
+                                <i class="fas fa-angle-double-down" id ="collapseAccordion" style="color:black;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id = "statistikPerubahanKuliah">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#" id="byYear">Statistik Berdasarkan Tahun</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#" id="byDay">Statistik Berdasarkan Hari</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#">Statistik Berdasarkan Jam</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane show active text-center">                            
+                                <canvas id="chartStatistic" style="width:100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
                 <div class="card-header">
                     Permohonan Perubahan Kuliah
                 </div>
@@ -46,12 +81,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </table>
                 </div>
                 <?php if ($numOfPages > 1): ?>
-                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                    <ul class="pagination justify-content-center" role="navigation" aria-label="Pagination">
                         <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
                             <?php if ($i === $page): ?>
-                                <li class="current"><span class="show-for-sr">Anda di halaman</span> <?= $i ?></li>
+                                <li class="current page-item active"><span class="page-link"><?= $i ?></span></li>
                             <?php else: ?>
-                                <li><a href="?page=<?= $i ?>" aria-label="Halaman <?= $i ?>"><?= $i ?></a></li>
+                                <li class = "page-item"><a href="?page=<?= $i ?>"  aria-label="Halaman <?= $i ?>" class="page-link"><?= $i ?></a></li>
                             <?php endif; ?>
                         <?php endfor; ?>
                     </ul>
@@ -105,10 +140,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th>Dari Ruang</th>
                                             <td><?= $request->fromRoom ?></td>
                                         </tr>
-                                        <?php foreach (json_decode($request->to) as $to): ?>
+                                        <?php foreach (json_decode($request->to) as $to ): ?>
                                             <tr>
                                                 <th>Menjadi Hari/Jam</th>
-                                                <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time></td>
+                                                <td><time datetime="<?= $to->dateTime ?>"><?= $to->dateTime ?></time>
+                                                <?= empty($to->toTimeFinish)? '': '- <time datetime="'.$to->toTimeFinish.'">'.$to->toTimeFinish.'</time>'?></td>
                                             </tr>
                                             <tr>
                                                 <th>Menjadi Ruang</th>
@@ -226,5 +262,321 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php $this->load->view('templates/script_foundation'); ?>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                var perubahanKuliahChart;                
+                var canvascontainer = $('#chartStatistic');
+                var context = canvascontainer[0].getContext('2d');   
+                var chartType='bar';
+                <?php                     
+                    $yearLabel='';
+                    $dayLabel='';
+                    $hourLabel='';
+                    $diganti=array_fill(0,3,'');
+                    $tambahan=array_fill(0,3,'');
+                    $ditiadakan=array_fill(0,3,'');             
+
+                    foreach($statistic->requestByYear as $key => $row){                        
+                        $yearLabel .= '"'.$key.'",';         
+                        $diganti[0] .='"0",';
+                        $ditiadakan[0] .='"0",';
+                        $tambahan[0] .= '"0",';
+
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[0] = substr($$perubahan[0],0,strlen($$perubahan[0])-4).'"'.$rowData->count.'",';                    
+                        }                        
+                    }
+                    foreach($statistic->requestByDay as $key => $row){                            
+                        $dayLabel .= '"'.$key.'",';         
+                        $diganti[1] .='"0",';
+                        $ditiadakan[1] .='"0",';
+                        $tambahan[1] .= '"0",';
+                        
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[1] = substr($$perubahan[1],0,strlen($$perubahan[1])-4).'"'.$rowData->count.'",';
+                        }
+                    }
+                    foreach($statistic->requestByHour as $key => $row){                            
+                        $hourLabel .= '"'.$key.'",';         
+                        $diganti[2] .='"0",';
+                        $ditiadakan[2] .='"0",';
+                        $tambahan[2] .= '"0",';
+                        
+                        foreach($row as $rowData){
+                            $perubahan = strtolower(PerubahanKuliah_model::CHANGETYPE_TYPES[$rowData->changeType]);
+                            $$perubahan[2] = substr($$perubahan[2],0,strlen($$perubahan[2])-4).'"'.$rowData->count.'",';
+                        }
+                    }
+                ?>
+                function fillDataByYear(){
+                    var chartData = 
+                    {        
+                        labels: [<?=substr($yearLabel,0,strlen($yearLabel)-1);?>],                                          
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[0],0,strlen($diganti[0])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1                      
+                        },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[0],0,strlen($ditiadakan[0])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[0],0,strlen($tambahan[0])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 1
+                        }]
+                    }
+                    return chartData;
+                }
+                function fillDataByDay(){
+                    var chartData = 
+                    {            
+                        labels: [<?=substr($dayLabel,0,strlen($dayLabel)-1);?>],                                    
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[1],0,strlen($diganti[1])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 0.5)',
+                            borderWidth: 1                      
+                        },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[1],0,strlen($ditiadakan[1])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 0.5)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[1],0,strlen($tambahan[1])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 0.3)',
+                            borderWidth: 1
+                        }]
+                    };
+                    return chartData;
+                }
+                function fillDataByHour(){
+                    var chartData = 
+                    {            
+                        labels: [<?=substr($hourLabel,0,strlen($hourLabel)-1);?>],                                    
+                        datasets: [{
+                            label: 'Diganti',
+                            data: [<?=substr($diganti[2],0,strlen($diganti[2])-1);?>],
+                            backgroundColor:'rgba(68, 114, 196, 1)',
+                            borderColor:'rgba(68, 114, 196, 0.6)',
+                            fill:false,
+                            borderWidth: 3,
+                            pointStyle:'line',    
+                            pointRadius:0,
+                            lineTension:0  
+                        },
+                        {
+                            label: 'Ditiadakan',
+                            data: [<?=substr($ditiadakan[2],0,strlen($ditiadakan[2])-1);?>],
+                            backgroundColor:'rgba(237, 125, 49, 1)',
+                            borderColor:'rgba(237, 125, 49, 0.6)',
+                            fill:false,
+                            borderWidth: 3,
+                            pointStyle:'line',    
+                            pointRadius:0,
+                            lineTension:0      
+                        },
+                        {
+                            label: 'Tambahan',
+                            data: [<?=substr($tambahan[2],0,strlen($tambahan[2])-1);?>],
+                            backgroundColor:'rgba(165, 165, 165, 1)',
+                            borderColor: 'rgba(165, 165, 165, 0.6)',
+                            fill:false,
+                            borderWidth: 3,
+                            pointStyle:'line',    
+                            pointRadius:0,
+                            lineTension:0    
+                        }]
+                    };
+                    return chartData;
+                }
+                function makeChart(chartData,chartTitle,chartScales){
+                    perubahanKuliahChart = new Chart(context, {
+                        type: chartType,
+                        data: chartData,
+                        options:{
+                            title:{
+                                display:true,
+                                fontSize:24,
+                                fontColor:"black",
+                                text: chartTitle
+                            },
+                            tooltips:{
+                                mode:'index',
+                                intersect:false
+                            },
+                            legend:{       
+                                labels:{                                
+                                    usePointStyle:chartType==='line',
+                                    fontSize:16                                  
+                                }
+                            },
+                            scales:chartScales                            
+                        }                               
+                    });           
+                }
+
+                $('#statistikPerubahanKuliah a').on('click',function(e){
+                    e.preventDefault()
+                    if($(this).attr('id') === 'byDay'){      
+                        if(chartType === 'bar'){
+                            perubahanKuliahChart.data = fillDataByDay();
+                            perubahanKuliahChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
+                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Hari';
+                            perubahanKuliahChart.update();
+                        }
+                        else{
+                            perubahanKuliahChart.destroy();
+                            chartType='bar';
+                            chartData = fillDataByDay();
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                            chartScales = {
+                                xAxes:[{
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Hari'
+                                    }
+                                }],
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
+                                    stacked:true
+                                }]
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else if($(this).attr('id')==='byYear'){ 
+                        if(chartType ==='bar'){     
+                            perubahanKuliahChart.data = fillDataByYear();
+                            perubahanKuliahChart.options.title.text = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                            perubahanKuliahChart.options.scales.xAxes[0].scaleLabel.labelString = 'Tahun';
+                            perubahanKuliahChart.update();
+                        }
+                        else{
+                            chartType='bar';
+                            perubahanKuliahChart.destroy();
+                            chartData = fillDataByYear();
+                            chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                            chartScales =
+                            {
+                                xAxes:[{
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Tahun'
+                                    }
+                                }],
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero:true,
+                                        precision:0
+                                    },
+                                    stacked:true
+                                }]
+                            };
+                            makeChart(chartData,chartTitle,chartScales);
+                        }
+                    }
+                    else{
+                        perubahanKuliahChart.destroy();
+                        chartType = 'line'
+                        chartData = fillDataByHour();
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';                        
+                        chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                        makeChart(chartData,chartTitle,chartScales);
+                    }
+                });  
+                           
+
+                $('#statistikPerubahanKuliah').on('shown.bs.collapse',function(){                                        
+                    var chartData='';
+                    var chartTitle= '';                    
+                    var chartScales = 
+                    {
+                        xAxes:[{
+                            stacked:true,
+                            scaleLabel:{
+                                display:true,
+                                labelString:'Tahun'
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero:true,
+                                precision:0
+                            },
+                            stacked:true
+                        }]
+                    };
+                    if($(this).find('a.active').attr('id')==='byYear'){            
+                        chartTitle='<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                        chartType='bar';
+                        chartData = fillDataByYear();
+                    }
+                    else if($(this).find('a.active').attr('id')=='byDay'){
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                        chartScales.xAxes[0].scaleLabel.labelString = 'Hari';
+                        chartType='bar';
+                        chartData = fillDataByDay();
+                    }
+                    else{
+                        chartType = 'line';
+                        chartTitle = '<?=$statistic->startingYear." - ". $statistic->endYear ?>';
+                        chartData = fillDataByHour();
+                        chartScales = {
+                            xAxes:[{
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Jam'
+                                }
+                            }],
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true,
+                                    precision:0
+                                }
+                            }]
+                        };
+                    }
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-down').
+                            addClass('fas fa-angle-double-up');
+                    makeChart(chartData,chartTitle,chartScales);                             
+                });    
+                
+                $('#statistikPerubahanKuliah').on('hidden.bs.collapse',function(){
+                    $('#collapseAccordion').removeClass('fas fa-angle-double-up')
+                            .addClass('fas fa-angle-double-down');
+                    perubahanKuliahChart.destroy();
+                });            
+            });
+        
+        </script>
     </body>
 </html>

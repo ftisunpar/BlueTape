@@ -8,4 +8,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="/public/lib/css/bootstrap.css" />
     <link rel="stylesheet" href="/public/lib/fontawesome/fontawesome.css">
     <link rel="stylesheet" href="public/lib/xdan-datetimepicker/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="public/lib/chartjs/chart.css">
 </head>

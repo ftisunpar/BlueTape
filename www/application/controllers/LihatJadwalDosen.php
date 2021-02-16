@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class LihatJadwalDosen extends CI_Controller {
@@ -13,7 +15,7 @@ class LihatJadwalDosen extends CI_Controller {
             $this->session->set_flashdata('error', $ex->getMessage());
             header('Location: /');
         }
-        $this->excel = new PHPExcel();
+        $this->excel = new Spreadsheet();
         $this->load->library('bluetape');
         $this->load->library('session');
         $this->load->model('JadwalDosen_model');
@@ -27,8 +29,8 @@ class LihatJadwalDosen extends CI_Controller {
 
         $dataJadwal = $this->JadwalDosen_model->getAllJadwal();
         $dataJadwalPerUser = array();
-        foreach ($dataJadwal as $key => $indexValue) {
-            $dataJadwalPerUser[$indexValue->user][$key] = $indexValue;  // dimensi pertama indexnya adalah user
+        foreach ($dataJadwal as $indexValue) {
+            $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
 		$this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
@@ -54,7 +56,6 @@ class LihatJadwalDosen extends CI_Controller {
         $dayRow = 4;
         $keteranganRow = 17;
         $nextTableRowsAdder = 19;
-
         $idx = 0;
         $sheetIdx = 0;
         foreach ($dataToExport as $currRow) {
@@ -65,7 +66,7 @@ class LihatJadwalDosen extends CI_Controller {
                 break;
             }; 
             $this->excel->getActiveSheet()->setTitle($name);
-
+            
             //Menulis header tabel
             $titleCell = 'A' . $titleRow;
             $this->excel->getActiveSheet()->setCellValue($titleCell, 'JADWAL AKTIVITAS DOSEN');
@@ -86,14 +87,14 @@ class LihatJadwalDosen extends CI_Controller {
             $borderStyleArray = array(
                 'borders' => array(
                     'allborders' => array(
-                        'style' => PHPExcel_Style_Border::BORDER_THIN
+                        'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
                     )
                 )
             );
 			$outlineStyle = array(
 				'borders' => array(
 					'outline' => array(
-						'style' => PHPExcel_Style_Border::BORDER_THIN
+						'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
 					)	
 				)
 			);
@@ -101,8 +102,8 @@ class LihatJadwalDosen extends CI_Controller {
 
             //Menulis bagian keterangan
             $this->excel->getActiveSheet()->setCellValue('A' . $keteranganRow, 'Keterangan :');
-            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FEFF00');
-            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('92D14F');
+            $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FEFF00');
+            $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('92D14F');
             $this->excel->getActiveSheet()->setCellValue('C' . $keteranganRow, 'Waktu Konsultasi');
             $this->excel->getActiveSheet()->setCellValue('C' . ($keteranganRow + 1), 'Jika Dijadwalkan');
 
@@ -119,8 +120,8 @@ class LihatJadwalDosen extends CI_Controller {
             unset($borderStyleArray);
 
             //Membuat semua tulisan dalam tabel menggunakan align center
-            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $this->excel->getActiveSheet()->getStyle('A' . $dayRow . ':F' . ($dayRow + 10))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             for ($col = ord('A'); $col <= ord('F'); $col++) {
                 //mengatur lebar setiap kolom $col
                 $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setWidth(15);
@@ -162,7 +163,7 @@ class LihatJadwalDosen extends CI_Controller {
                     $cellsToBeMerged = $jadwalStartCell . ":" . $jadwalEndCell;
                     $this->excel->getActiveSheet()->mergeCells($cellsToBeMerged);
 					$this->excel->getActiveSheet()->getStyle($cellsToBeMerged)->applyFromArray($outlineStyle);
-                    $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
+                    $this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color); //mewarnai cell
                     $this->excel->getActiveSheet()->setCellValue($jadwalStartCell, $dataHariIni->label);
 					$this->excel->getActiveSheet()->getStyle($jadwalStartCell)->getAlignment()->setWrapText(true); ; //agar tulisan tidak keluar dari area cell
                 }
@@ -178,10 +179,13 @@ class LihatJadwalDosen extends CI_Controller {
         $filename = 'JadwalDosen-'.date("Ymd").'.xls'; //Nama file XLS yang akan dibuat
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
-
-        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+        
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Xls');
+    
         $filepath = APPPATH . "/third_party/";
-        $objWriter->save('php://output');  //membuat file langsung di download
+        $objWriter->save('php://output');  //membuat file langsung di download 
+        header('Location: /LihatJadwalDosen');
+
     }
 
 }
