@@ -92,7 +92,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                         <td><?= $request->requestType ?></td>
                                         <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></td>
-                                        <td><?= $request->answeredMessage ?></td>
+                                        <td style='word-wrap:break-word;max-width:12em;min-width:10em'><?= $request->answeredMessage ?></td>
                                         <td>
                                             <!-- Button trigger modal -->
                                             <a data-toggle="modal" data-target="#lihatModal<?= $request->id ?>" id="detail<?= $request->id ?>">
