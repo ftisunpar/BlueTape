@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th></th>
                             <?php
                             for ($i = 0; $i < 5; $i++) {
-                                echo "<th style='width:18%'> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
+                                echo "<th style='width:18%;min-width:8em'> $namaHari[$i] </th>"; //Membuat Header Tabel yang berisi daftar hari
                             }
                             ?>
                         </tr>
@@ -83,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             echo "<tr><th>" . $i . "-" . ($i + 1);
                             $cellColID = 1;
                             for ($j = 0; $j < 5; $j++) {
-                                echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "'>" . "</td>";
+                                echo"<td align='center' id='cell" . $cellRowID . "-" . $cellColID . "' style='word-wrap:break-word;max-width: 8em'>" . "</td>";
                                 $cellColID++;
                             }
                             $cellRowID++;

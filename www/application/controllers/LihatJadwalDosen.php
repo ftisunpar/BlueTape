@@ -29,8 +29,8 @@ class LihatJadwalDosen extends CI_Controller {
 
         $dataJadwal = $this->JadwalDosen_model->getAllJadwal();
         $dataJadwalPerUser = array();
-        foreach ($dataJadwal as $key => $indexValue) {
-            $dataJadwalPerUser[$indexValue->user][$key] = $indexValue;  // dimensi pertama indexnya adalah user
+        foreach ($dataJadwal as $indexValue) {
+            $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
 		$this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );

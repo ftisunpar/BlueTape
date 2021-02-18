@@ -18,47 +18,59 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                     <div class="card-body">
                         <p><strong>Transkrip akademik sementara dapat diakses via student portal masing-masing.</strong></p>
-                        <?php if (is_array($forbiddenTypes)) : ?>
-                            <form method="POST" action="/TranskripRequest/add">
-                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
-                                <div class="row">
-                                    <div class="col-lg-4 form-group">
-                                        <label class="col-form-label">Yang memohon:</label>
-                                        <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly />
-                                    </div>
-                                    <div class="col-lg-4 form-group">
-                                        <label class="col-form-label">NPM:</label>
-                                        <input class="form-control" type="text" value="<?= $requestByNPM ?>" readonly />
-                                    </div>
-                                    <div class="col-lg-4 form-group">
-                                        <label class="col-form-label">Nama:</label>
-                                        <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly />
-
+                        <?php if (is_array($forbiddenTypes)) : ?>                            
+                            <div class="row">
+                                <div class="col-lg-12 form-group">
+                                    <button class="btn btn-primary button" data-target="#requestTranskrip" data-toggle="modal" disabled>Ajukan Permohonan</button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="requestTranskrip" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Buat Permohonan</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="/TranskripRequest/add">
+                                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
+                                                <div class="form-group">
+                                                    <label>Yang memohon:</label>
+                                                    <input class="form-control" type="email" name="requestByEmail" value="<?= $requestByEmail ?>" readonly />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>NPM:</label>
+                                                    <input class="form-control" type="text" value="<?= $requestByNPM ?>" readonly />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nama:</label>
+                                                    <input class="form-control" type="text" name="requestByName" value="<?= $requestByName ?>" readonly />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlSelect1" class="col-form-label">Tipe Transkrip:</label>
+                                                    <select class="form-control" name="requestType" id="exampleFormControlSelect1">
+                                                        <?php foreach (Transkrip_model::REQUEST_TYPES as $type => $name) : ?>
+                                                            <?php if (!in_array($type, $forbiddenTypes)) : ?>
+                                                                <option value="<?= $type ?>"><?= $name ?></option>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keperluan:</label>
+                                                    <input class="form-control" type="text" name="requestUsage" required />
+                                                </div>
+                                                <p>&nbsp;</p>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-primary" value="Kirim Permohonan" <?= empty($request->answer) ? '' : 'disabled' ?> />
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-4 form-group">
-                                        <label for="exampleFormControlSelect1" class="col-form-label">Tipe Transkrip:</label>
-                                        <select class="form-control" name="requestType" id="exampleFormControlSelect1">
-                                            <?php foreach (Transkrip_model::REQUEST_TYPES as $type => $name) : ?>
-                                                <?php if (!in_array($type, $forbiddenTypes)) : ?>
-                                                    <option value="<?= $type ?>"><?= $name ?></option>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-8 form-group">
-                                        <label class="col-form-label">Keperluan:</label>
-                                        <input class="form-control" type="text" name="requestUsage" required />
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-lg-12 form-group">
-                                        <input class="btn btn-primary" type="submit" class="button" value="Kirim Permohonan">
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         <?php else : ?>
                             <p>&nbsp;</p>
                             <?= $forbiddenTypes ?>
@@ -192,8 +204,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Keterangan:</label>
-                                                                    <input class="form-control" name="ubahKeterangan" value="<?= $request->requestUsage ?>" type="text" />
+                                                                    <label>Keperluan:</label>
+                                                                    <input class="form-control" name="ubahKeterangan" value="<?= $request->requestUsage ?>" type="text" required/>
                                                                 </div>
                                                                 <p>&nbsp;</p>
                                                                 <div class="form-group">
