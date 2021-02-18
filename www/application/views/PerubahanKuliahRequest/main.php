@@ -119,8 +119,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><?= $request->mataKuliahCode ?></td>
                                 <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
                                 <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></time></td>
-                                <td style='word-wrap:break-word;max-width:12em;min-width:10em'><?= $request->answeredMessage ?></td>
-                                <td>
+                                <td style='word-wrap:break-word;max-width:14em'><?= $request->answeredMessage ?></td>
+                                <td class="text-nowrap actionColumn">
                                     <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>"><i class="fas fa-eye"></i></a>
                                     <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
                                     <a data-toggle="modal" data-target="#batal<?= $request->id ?>"><i class="fas fa-trash" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
@@ -323,6 +323,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php $this->load->view('templates/script_foundation'); ?>
     <script>
         $(document).ready(function() {
+            if(window.innerWidth <= 768){
+                $('.actionColumn').removeClass("text-nowrap");
+            }
             var datepickeroptions = {
                 format: 'Y-m-d H:i',
                 minTime: '07:00',
