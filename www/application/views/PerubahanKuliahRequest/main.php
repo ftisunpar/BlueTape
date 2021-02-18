@@ -96,8 +96,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="card-header">
                 Histori Permohonan
             </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -119,7 +119,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><?= $request->mataKuliahCode ?></td>
                                 <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
                                 <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></time></td>
-                                <td><?= $request->answeredMessage ?></td>
+                                <td style=""><?= $request->answeredMessage ?></td>
                                 <td>
                                     <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>">
                                         <span style="font-size: 18px; color: Dodgerblue;">
