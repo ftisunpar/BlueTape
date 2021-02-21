@@ -88,7 +88,7 @@ class LihatJadwalDosen extends CI_Controller {
             //Menentukan style dari border
             $borderStyleArray = array(
                 'borders' => array(
-                    'allborders' => array(
+                    'allBorders' => array(
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
                     )
                 )
