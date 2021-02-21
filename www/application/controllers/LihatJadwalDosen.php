@@ -26,16 +26,17 @@ class LihatJadwalDosen extends CI_Controller {
     public function index() {
         // Retrieve logged in user data
         $userInfo = $this->Auth_model->getUserInfo();
-
-        $dataJadwal = $this->JadwalDosen_model->getAllJadwal();
-        $dataJadwalPerUser = array();
-        foreach ($dataJadwal as $indexValue) {
-            $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
-        }
-        ksort($dataJadwalPerUser);
+        $dataJadwalPerUser=$this->session->userdata('dataJadwalPerUser');
         if(!$this->session->userdata('dataJadwalPerUser')){
+            $dataJadwal = $this->JadwalDosen_model->getAllJadwal();
+            $dataJadwalPerUser = array();
+            foreach ($dataJadwal as $indexValue) {
+                $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
+            }
+            ksort($dataJadwalPerUser);
             $this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
         }
+        
         $namaHari = $this->JadwalDosen_model->getNamaHari();
 		$namaBulan = $this->JadwalDosen_model->getNamaBulan();
         $this->load->view('LihatJadwalDosen/main', array(
