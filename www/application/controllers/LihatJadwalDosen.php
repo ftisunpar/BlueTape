@@ -33,7 +33,9 @@ class LihatJadwalDosen extends CI_Controller {
             $dataJadwalPerUser[$indexValue->user][] = $indexValue;  // dimensi pertama indexnya adalah user
         }
         ksort($dataJadwalPerUser);
-		$this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
+        if(!$this->session->userdata('dataJadwalPerUser')){
+            $this->session->set_userdata( 'dataJadwalPerUser', $dataJadwalPerUser );
+        }
         $namaHari = $this->JadwalDosen_model->getNamaHari();
 		$namaBulan = $this->JadwalDosen_model->getNamaBulan();
         $this->load->view('LihatJadwalDosen/main', array(
@@ -87,14 +89,14 @@ class LihatJadwalDosen extends CI_Controller {
             $borderStyleArray = array(
                 'borders' => array(
                     'allborders' => array(
-                        'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
                     )
                 )
             );
 			$outlineStyle = array(
 				'borders' => array(
 					'outline' => array(
-						'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+						'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
 					)	
 				)
 			);
@@ -109,12 +111,14 @@ class LihatJadwalDosen extends CI_Controller {
 
             //Membuat border
             $this->excel->getActiveSheet()->getStyle('A4:A14')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
-            $this->excel->getActiveSheet()->getStyle('B4:F4')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
-            $this->excel->getActiveSheet()->getStyle('A4:F14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('B4:H4')->applyFromArray($borderStyleArray);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('A4:H14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
             $this->excel->getActiveSheet()->getStyle('B4:B14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
             $this->excel->getActiveSheet()->getStyle('C4:C14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
             $this->excel->getActiveSheet()->getStyle('D4:D14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
             $this->excel->getActiveSheet()->getStyle('E4:E14')->applyFromArray($outlineStyle);    						//menambah outline pada body tabel
+            $this->excel->getActiveSheet()->getStyle('F4:F14')->applyFromArray($outlineStyle); 
+            $this->excel->getActiveSheet()->getStyle('G4:G14')->applyFromArray($outlineStyle);  
             $this->excel->getActiveSheet()->getStyle('B' . $keteranganRow)->applyFromArray($borderStyleArray);    			//menambah border pada kotak keterangan
             $this->excel->getActiveSheet()->getStyle('B' . ($keteranganRow + 1))->applyFromArray($borderStyleArray);   		//menambah border pada kotak keterangan yang kedua
             unset($borderStyleArray);
