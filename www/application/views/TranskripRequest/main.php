@@ -104,8 +104,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <td><time datetime="<?= $request->requestDateTime ?>"><?= $request->requestDateString ?></time></td>
                                         <td><?= $request->requestType ?></td>
                                         <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></td>
-                                        <td><?= $request->answeredMessage ?></td>
-                                        <td>
+                                        <td style='word-wrap:break-word;max-width:14em'><?= $request->answeredMessage ?></td>
+                                        <td class="text-nowrap actionColumn">
                                             <!-- Button trigger modal -->
                                             <a data-toggle="modal" data-target="#lihatModal<?= $request->id ?>" id="detail<?= $request->id ?>">
                                                 <i class="fas fa-eye"></i>
@@ -252,5 +252,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <?php $this->load->view('templates/script_foundation'); ?>
 </body>
-
+<script>
+    if(window.innerWidth <= 768){
+        $('.actionColumn').removeClass("text-nowrap");
+    }
+</script>
 </html>

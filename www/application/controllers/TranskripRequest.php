@@ -106,7 +106,7 @@ class TranskripRequest extends CI_Controller {
                     'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                     'requestUsage' => htmlspecialchars($this->input->post('ubahKeterangan'))
                 ));
-                $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dirubah. Silahkan cek statusnya secara berkala di situs ini.');
+                $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah diubah. Silahkan cek statusnya secara berkala di situs ini.');
                 
             } else {
                 throw new Exception("Can't call method from GET request!");
