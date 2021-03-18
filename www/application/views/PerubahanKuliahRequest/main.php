@@ -235,7 +235,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="/PerubahanKuliahRequest/edit">
+                        <form method="POST" action="/PerubahanKuliahRequest/edit" class="edit-needs-validation">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <input type="hidden" name="id" value="<?= $request->id ?>" />
                             <div class="alert alert-warning alert-dismissible fade d-none show fixed-top" id="modalAlert">
@@ -285,7 +285,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class="col-lg-5">
                                             <label>Menjadi Hari & Jam:</label>
-                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
+                                            <input id="datetime" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
                                         </div>
                                         <div class="col-lg-4">
                                             <label>Menjadi Ruang:</label>
@@ -376,10 +376,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
             });
             $('select[name="changeType"]').change();
             
-            $('.modal[id^="ubah"]').on('shown.bs.modal',function(e){
-                
+            $('.modal[id^="ubah"]').on('shown.bs.modal',function(e){                
                 $(this).find('.editDateTime').datetimepicker(datepickeroptions);
                 $(this).find('.editToTimeFinish').datetimepicker(timefinishpicker);
+                var editForms = $(this).find('.edit-needs-validation');  
+                var editValidation = Array.prototype.filter.call(editForms, function(editForm) {                
+                    editForm.addEventListener('submit', function(event){
+                        $(editForm).find('.is-invalid').removeClass('is-invalid');
+                        $(editForm).find('#modalAlert').addClass('d-none');
+                        var editToTimeFinishArr = $(editForm).find('input[name="editToTimeFinish[]"]');
+                        var editToDateTimeArr = $(editForm).find('input[name="editToDateTime[]"]');
+                        console.log(editToTimeFinishArr);
+                        console.log(editToDateTimeArr);
+                        var i;
+                        var validateState = true;
+                        if(editToTimeFinishArr.length === editToDateTimeArr.length){
+                            for(i=0;i<editToTimeFinishArr.length;i++){
+                                var dateTime = new Date(editToDateTimeArr[i].value);
+                                var hour = (dateTime.getHours() < 10)? '0'+dateTime.getHours() : dateTime.getHours();
+                                var minute = (dateTime.getMinutes() < 10)? '0'+dateTime.getMinutes() : dateTime.getMinutes();                            
+                                dateTime = hour+':'+minute;
+                                if(editToTimeFinishArr[i].value < dateTime && (editToTimeFinishArr[i].value && typeof editToTimeFinishArr[i].value!== 'undefined')){
+                                    event.preventDefault();
+                                    $(editForm).find('#modalAlert').removeClass('d-none');
+                                    editToTimeFinishArr[i].classList.add('is-invalid');
+                                    validateState = false;
+                                }
+                            }                                      
+                            if(validateState === true){
+                                editForm.submit();
+                            }
+                        }      
+                },false); 
+                });         
             });
             
             $('select[name="editChangeType"]').change(function() {
@@ -488,7 +517,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
             var forms = $('.needs-validation');  
             var validation = Array.prototype.filter.call(forms, function(form) {                
                 form.addEventListener('submit', function(event){
-                    event.preventDefault();
                     $('.is-invalid').removeClass('is-invalid');
                     $('#topAlert').addClass('d-none');
                     var toTimeFinishArr = $('.toTimeFinish');
@@ -504,7 +532,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             var hour = (dateTime.getHours() < 10)? '0'+dateTime.getHours() : dateTime.getHours();
                             var minute = (dateTime.getMinutes() < 10)? '0'+dateTime.getMinutes() : dateTime.getMinutes();                            
                             dateTime = hour+':'+minute;
-                            console.log(toTimeFinishArr[i].value);
                             if(toTimeFinishArr[i].value < dateTime && (toTimeFinishArr[i].value && typeof toTimeFinishArr[i].value!== 'undefined')){
                                 event.preventDefault();
                                 $('#topAlert').removeClass('d-none');
@@ -518,8 +545,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     }      
                },false); 
             });          
-            
-                  
+                              
         });                   
     </script>
 </body>
