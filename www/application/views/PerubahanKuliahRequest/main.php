@@ -7,6 +7,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
     <?php $this->load->view('templates/topbar_loggedin'); ?>
     <?php $this->load->view('templates/flashmessage'); ?>
+    <div class="alert alert-warning fade show d-none fixed-top" id ="topAlert">
+        Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    </div>
     <br>
     <div class="container">
         <div class="card">
@@ -15,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
             <div class="card-body">
                 <p><strong>Untuk perubahan jadwal kuliah, silakan berkoordinasi langsung dengan peserta kuliah.</strong></p>
-                <form method="POST" action="/PerubahanKuliahRequest/add">
+                <form method="POST" action="/PerubahanKuliahRequest/add" class="needs-validation">
                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                     <div class="form-group row">
                         <div class="col-lg-6">
@@ -64,10 +70,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input class="form-control disableable" type="text" name="remarks" />
                         </div>
                     </div>
-                    <div class="form-group row toFields align-items-end">
+                    <div class="form-group row toFields">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
-                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
+                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>                                                                
                             </div>
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Ruang:</label>
@@ -75,13 +81,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
                             <div class="col-lg-2">
                                 <label class = "col-form-label">Jam Selesai: </label>
-                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
+                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]"/>                                                                                      
                             </div>
                             <div class="col-lg-3">
                                 <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
                     </div>
+                    <br>
                     <div class="form-group row" id="sendDiv">
                         <div class="col-lg-12">
                             <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
@@ -231,6 +238,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <form method="POST" action="/PerubahanKuliahRequest/edit">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <input type="hidden" name="id" value="<?= $request->id ?>" />
+                            <div class="alert alert-warning alert-dismissible fade d-none show fixed-top" id="modalAlert">
+                                Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
                             <div class="form-group">
                                 <label>Kode MK:</label>
                                 <input class="form-control" type="text" name="editMataKuliahCode" value="<?= $request->mataKuliahCode ?>" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123" />
@@ -342,6 +355,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $(this).closest('.row').remove();
                 return false;
             }
+
             jQuery('#datetimepicker').datetimepicker(datepickeroptions);
             jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
@@ -470,7 +484,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 var editableField = $(this).parents('.form-group').prevAll().eq(1);
                 editableField.append(editNewFields);
             });        
-        });
+
+            var forms = $('.needs-validation');  
+            var validation = Array.prototype.filter.call(forms, function(form) {                
+                form.addEventListener('submit', function(event){
+                    event.preventDefault();
+                    $('.is-invalid').removeClass('is-invalid');
+                    $('#topAlert').addClass('d-none');
+                    var toTimeFinishArr = $('.toTimeFinish');
+                    var toDateTimeArr = $('.toDateTime');
+                    var i;
+                    var validateState = true;
+                    if(toTimeFinishArr[0].getAttribute("disabled")==='disabled'){
+                        form.submit();
+                    }
+                    else if(toTimeFinishArr.length === toDateTimeArr.length){
+                        for(i=0;i<toTimeFinishArr.length;i++){
+                            var dateTime = new Date(toDateTimeArr[i].value);
+                            var hour = (dateTime.getHours() < 10)? '0'+dateTime.getHours() : dateTime.getHours();
+                            var minute = (dateTime.getMinutes() < 10)? '0'+dateTime.getMinutes() : dateTime.getMinutes();                            
+                            dateTime = hour+':'+minute;
+                            console.log(toTimeFinishArr[i].value);
+                            if(toTimeFinishArr[i].value < dateTime && (toTimeFinishArr[i].value && typeof toTimeFinishArr[i].value!== 'undefined')){
+                                event.preventDefault();
+                                $('#topAlert').removeClass('d-none');
+                                toTimeFinishArr[i].classList.add('is-invalid');
+                                validateState = false;
+                            }
+                        }                                      
+                        if(validateState === true){
+                            form.submit();
+                        }
+                    }      
+               },false); 
+            });          
+            
+                  
+        });                   
     </script>
 </body>
 
