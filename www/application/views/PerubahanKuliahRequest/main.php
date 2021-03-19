@@ -7,11 +7,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
     <?php $this->load->view('templates/topbar_loggedin'); ?>
     <?php $this->load->view('templates/flashmessage'); ?>
-    <div class="alert alert-warning fade show d-none fixed-top" id ="topAlert">
-        Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
+    <div class="collapse fade" id="topAlertWrapper">
+        <div class="alert alert-warning fixed-top" id ="topAlert">
+            Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+            <button type="button" class="close" data-toggle="collapse" data-target="#topAlertWrapper">
+                <span>&times;</span>
+            </button>
+        </div>
     </div>
     <br>
     <div class="container">
@@ -238,11 +240,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <form method="POST" action="/PerubahanKuliahRequest/edit" class="edit-needs-validation">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <input type="hidden" name="id" value="<?= $request->id ?>" />
-                            <div class="alert alert-warning alert-dismissible fade d-none show fixed-top" id="modalAlert">
-                                Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <span>&times;</span>
-                                </button>
+                            <div class="collapse fade" id="modalAlertWrapper">
+                                <div class="alert alert-warning fixed-top" id="modalAlert">
+                                    Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+                                    <button type="button" class="close" data-toggle="collapse" data-target="#modalAlertWrapper">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Kode MK:</label>
@@ -383,7 +387,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 var editValidation = Array.prototype.filter.call(editForms, function(editForm) {                
                     editForm.addEventListener('submit', function(event){
                         $(editForm).find('.is-invalid').removeClass('is-invalid');
-                        $(editForm).find('#modalAlert').addClass('d-none');
+                        $(editForm).find('#modalAlertWrapper').removeClass('show');
                         var editToTimeFinishArr = $(editForm).find('input[name="editToTimeFinish[]"]');
                         var editToDateTimeArr = $(editForm).find('input[name="editToDateTime[]"]');
                         console.log(editToTimeFinishArr);
@@ -398,7 +402,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 dateTime = hour+':'+minute;
                                 if(editToTimeFinishArr[i].value < dateTime && (editToTimeFinishArr[i].value && typeof editToTimeFinishArr[i].value!== 'undefined')){
                                     event.preventDefault();
-                                    $(editForm).find('#modalAlert').removeClass('d-none');
+                                    $(editForm).find('#modalAlertWrapper').addClass('show');
                                     editToTimeFinishArr[i].classList.add('is-invalid');
                                     validateState = false;
                                 }
@@ -518,7 +522,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             var validation = Array.prototype.filter.call(forms, function(form) {                
                 form.addEventListener('submit', function(event){
                     $('.is-invalid').removeClass('is-invalid');
-                    $('#topAlert').addClass('d-none');
+                    $('#topAlertWrapper').removeClass('show');
                     var toTimeFinishArr = $('.toTimeFinish');
                     var toDateTimeArr = $('.toDateTime');
                     var i;
@@ -534,7 +538,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             dateTime = hour+':'+minute;
                             if(toTimeFinishArr[i].value < dateTime && (toTimeFinishArr[i].value && typeof toTimeFinishArr[i].value!== 'undefined')){
                                 event.preventDefault();
-                                $('#topAlert').removeClass('d-none');
+                                $('#topAlertWrapper').addClass('show');
                                 toTimeFinishArr[i].classList.add('is-invalid');
                                 validateState = false;
                             }
