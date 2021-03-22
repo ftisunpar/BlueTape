@@ -7,6 +7,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
     <?php $this->load->view('templates/topbar_loggedin'); ?>
     <?php $this->load->view('templates/flashmessage'); ?>
+    <div class="collapse fade" id="topAlertWrapper">
+        <div class="alert alert-warning fixed-top" id ="topAlert">
+            Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+            <button type="button" class="close" data-toggle="collapse" data-target="#topAlertWrapper">
+                <span>&times;</span>
+            </button>
+        </div>
+    </div>
     <br>
     <div class="container">
         <div class="card">
@@ -15,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
             <div class="card-body">
                 <p><strong>Untuk perubahan jadwal kuliah, silakan berkoordinasi langsung dengan peserta kuliah.</strong></p>
-                <form method="POST" action="/PerubahanKuliahRequest/add">
+                <form method="POST" action="/PerubahanKuliahRequest/add" class="needs-validation">
                     <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                     <div class="form-group row">
                         <div class="col-lg-6">
@@ -64,10 +72,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input class="form-control disableable" type="text" name="remarks" />
                         </div>
                     </div>
-                    <div class="form-group row toFields align-items-end">
+                    <div class="form-group row toFields">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
-                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>
+                                <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>                                                                
                             </div>
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Ruang:</label>
@@ -75,13 +83,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
                             <div class="col-lg-2">
                                 <label class = "col-form-label">Jam Selesai: </label>
-                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]" />                          
+                                <input class="form-control disableable toTimeFinish" type = "text" id="toTimeFinish" name="toTimeFinish[]"/>                                                                                      
                             </div>
                             <div class="col-lg-3">
                                 <br><br>
                                 <a href="#" class="eraseButton btn btn-secondary">Hapus</a>
                             </div>
                     </div>
+                    <br>
                     <div class="form-group row" id="sendDiv">
                         <div class="col-lg-12">
                             <input type="submit" class="btn btn-primary" value="Kirim Permohonan">
@@ -96,8 +105,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="card-header">
                 Histori Permohonan
             </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive">
+            <div class="card-body table-responsive">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -119,13 +128,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><?= $request->mataKuliahCode ?></td>
                                 <td><?= PerubahanKuliah_model::CHANGETYPE_TYPES[$request->changeType] ?></td>
                                 <td><time datetime="<?= $request->answeredDateTime ?>"><?= $request->answeredDateString ?></time></td>
-                                <td><?= $request->answeredMessage ?></td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>">
-                                        <span style="font-size: 18px; color: Dodgerblue;">
-                                            <i class="fas fa-eye"></i>
-                                        </span>
-                                    </a>
+                                <td style='word-wrap:break-word;max-width:12em'><?= $request->answeredMessage ?></td>
+                                <td class="text-nowrap actionColumn">
+                                    <a data-toggle="modal" data-target="#detail<?= $request->id ?>" id="detailIkon<?= $request->id ?>"><i class="fas fa-eye"></i></a>
                                     <a data-toggle="modal" data-target="#ubah<?= $request->id ?>"><i class="fas fa-pencil-alt" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
                                     <a data-toggle="modal" data-target="#batal<?= $request->id ?>"><i class="fas fa-trash" <?= empty($request->answer) ? '' : 'hidden' ?>></i></a>
                                 </td>
@@ -232,9 +237,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="/PerubahanKuliahRequest/edit">
+                        <form method="POST" action="/PerubahanKuliahRequest/edit" class="edit-needs-validation">
                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <input type="hidden" name="id" value="<?= $request->id ?>" />
+                            <div class="collapse fade" id="modalAlertWrapper">
+                                <div class="alert alert-warning fixed-top" id="modalAlert">
+                                    Mohon masukkan jam selesai lebih besar dari jam pada menjadi hari & jam
+                                    <button type="button" class="close" data-toggle="collapse" data-target="#modalAlertWrapper">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Kode MK:</label>
                                 <input class="form-control" type="text" name="editMataKuliahCode" value="<?= $request->mataKuliahCode ?>" required maxlength="9" pattern="[A-Z]{3}[0-9]{3}([0-9]{3})?" title="Kode MK dalam format XYZ123" />
@@ -276,7 +289,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class="col-lg-5">
                                             <label>Menjadi Hari & Jam:</label>
-                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
+                                            <input id="datetime" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
                                         </div>
                                         <div class="col-lg-4">
                                             <label>Menjadi Ruang:</label>
@@ -327,6 +340,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php $this->load->view('templates/script_foundation'); ?>
     <script>
         $(document).ready(function() {
+            if(window.innerWidth <= 768){
+                $('.actionColumn').removeClass("text-nowrap");
+            }
             var datepickeroptions = {
                 format: 'Y-m-d H:i',
                 minTime: '07:00',
@@ -343,6 +359,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $(this).closest('.row').remove();
                 return false;
             }
+
             jQuery('#datetimepicker').datetimepicker(datepickeroptions);
             jQuery('#toTimeFinish').datetimepicker(timefinishpicker);
             $('.toDateTime').datetimepicker(datepickeroptions);
@@ -363,10 +380,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
             });
             $('select[name="changeType"]').change();
             
-            $('.modal[id^="ubah"]').on('shown.bs.modal',function(e){
-                
+            $('.modal[id^="ubah"]').on('shown.bs.modal',function(e){                
                 $(this).find('.editDateTime').datetimepicker(datepickeroptions);
                 $(this).find('.editToTimeFinish').datetimepicker(timefinishpicker);
+                var editForms = $(this).find('.edit-needs-validation');  
+                var editValidation = Array.prototype.filter.call(editForms, function(editForm) {                
+                    editForm.addEventListener('submit', function(event){
+                        $(editForm).find('.is-invalid').removeClass('is-invalid');
+                        $(editForm).find('#modalAlertWrapper').removeClass('show');
+                        var editToTimeFinishArr = $(editForm).find('input[name="editToTimeFinish[]"]');
+                        var editToDateTimeArr = $(editForm).find('input[name="editToDateTime[]"]');
+                        console.log(editToTimeFinishArr);
+                        console.log(editToDateTimeArr);
+                        var i;
+                        var validateState = true;
+                        if(editToTimeFinishArr.length === editToDateTimeArr.length){
+                            for(i=0;i<editToTimeFinishArr.length;i++){
+                                var dateTime = new Date(editToDateTimeArr[i].value);
+                                var hour = (dateTime.getHours() < 10)? '0'+dateTime.getHours() : dateTime.getHours();
+                                var minute = (dateTime.getMinutes() < 10)? '0'+dateTime.getMinutes() : dateTime.getMinutes();                            
+                                dateTime = hour+':'+minute;
+                                if(editToTimeFinishArr[i].value < dateTime && (editToTimeFinishArr[i].value && typeof editToTimeFinishArr[i].value!== 'undefined')){
+                                    event.preventDefault();
+                                    $(editForm).find('#modalAlertWrapper').addClass('show');
+                                    editToTimeFinishArr[i].classList.add('is-invalid');
+                                    validateState = false;
+                                }
+                            }                                      
+                            if(validateState === true){
+                                editForm.submit();
+                            }
+                        }      
+                },false); 
+                });         
             });
             
             $('select[name="editChangeType"]').change(function() {
@@ -471,7 +517,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 var editableField = $(this).parents('.form-group').prevAll().eq(1);
                 editableField.append(editNewFields);
             });        
-        });
+
+            var forms = $('.needs-validation');  
+            var validation = Array.prototype.filter.call(forms, function(form) {                
+                form.addEventListener('submit', function(event){
+                    $('.is-invalid').removeClass('is-invalid');
+                    $('#topAlertWrapper').removeClass('show');
+                    var toTimeFinishArr = $('.toTimeFinish');
+                    var toDateTimeArr = $('.toDateTime');
+                    var i;
+                    var validateState = true;
+                    if(toTimeFinishArr[0].getAttribute("disabled")==='disabled'){
+                        form.submit();
+                    }
+                    else if(toTimeFinishArr.length === toDateTimeArr.length){
+                        for(i=0;i<toTimeFinishArr.length;i++){
+                            var dateTime = new Date(toDateTimeArr[i].value);
+                            var hour = (dateTime.getHours() < 10)? '0'+dateTime.getHours() : dateTime.getHours();
+                            var minute = (dateTime.getMinutes() < 10)? '0'+dateTime.getMinutes() : dateTime.getMinutes();                            
+                            dateTime = hour+':'+minute;
+                            if(toTimeFinishArr[i].value < dateTime && (toTimeFinishArr[i].value && typeof toTimeFinishArr[i].value!== 'undefined')){
+                                event.preventDefault();
+                                $('#topAlertWrapper').addClass('show');
+                                toTimeFinishArr[i].classList.add('is-invalid');
+                                validateState = false;
+                            }
+                        }                                      
+                        if(validateState === true){
+                            form.submit();
+                        }
+                    }      
+               },false); 
+            });          
+                              
+        });                   
     </script>
 </body>
 

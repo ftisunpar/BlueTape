@@ -152,7 +152,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                     'to' => json_encode($tos),
                     'remarks' => htmlspecialchars($this->input->post('editRemarks')),
                 ));
-                $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah dirubah. Silahkan cek statusnya secara berkala di situs ini.');
+                $this->session->set_flashdata('info', 'Permohonan perubahan kuliah sudah diubah. Silahkan cek statusnya secara berkala di situs ini.');
             } else {
                 throw new Exception("Can't call method from GET request!");
             }  

@@ -105,7 +105,7 @@ class Transkrip_model extends CI_Model {
             ->order_by('year','ASC')
             ->order_by('answer','DESC')            
             ->where('requestDateTime >="'.$historyByYear.'" AND answer IS NOT NULL')
-            ->get('transkrip');
+            ->get('Transkrip');
         
         $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(answer) as "count",answer,
@@ -114,7 +114,7 @@ class Transkrip_model extends CI_Model {
             ->order_by('day','ASC')
             ->order_by('answer','DESC')
             ->where('answer IS NOT NULL')
-            ->get('transkrip');
+            ->get('Transkrip');
 
         $historyByHour = new Datetime(strftime('%Y-%m-%d 00:00:%S'));
         $this->db->reset_query();
@@ -124,7 +124,7 @@ class Transkrip_model extends CI_Model {
             ->group_by('jam, answer')
             ->order_by('jam','ASC')
             ->order_by('answer','DESC')
-            ->get('transkrip');
+            ->get('Transkrip');
 
         $requestByYear = [];    
         $requestByDay = [];
