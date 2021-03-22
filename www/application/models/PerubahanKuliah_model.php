@@ -46,7 +46,7 @@ class PerubahanKuliah_model extends CI_Model {
             ->order_by('year','ASC')
             ->order_by('changeType','DESC')
             ->where('requestDateTime >=',$historyByYear)
-            ->get('perubahankuliah');
+            ->get('PerubahanKuliah');
 
         $this->db->reset_query();
         $queryByDay = $this->db->select('COUNT(changeType) as "count",changeType, 
@@ -54,7 +54,7 @@ class PerubahanKuliah_model extends CI_Model {
             ->group_by('day, changeType')
             ->order_by('day','ASC')
             ->order_by('changeType','DESC')
-            ->get('perubahankuliah');
+            ->get('PerubahanKuliah');
 
         $historyByHour = new Datetime(strftime('%Y-%m-%d 00:00:%S'));
         $this->db->reset_query();
@@ -63,7 +63,7 @@ class PerubahanKuliah_model extends CI_Model {
             ->group_by('jam, changeType')
             ->order_by('jam','ASC')
             ->order_by('changeType','DESC')
-            ->get('perubahankuliah');
+            ->get('PerubahanKuliah');
 
         $requestByYear = [];    
         $requestByDay = [];
