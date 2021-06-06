@@ -191,7 +191,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Nama:</label>
-                                                                    <input class="form-control" type="text" value="<?= $requestByEmail ?>" readonly="true" />
+                                                                    <input class="form-control" type="text" value="<?= $requestByName ?>" readonly="true" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tipe transkrip:</label>
