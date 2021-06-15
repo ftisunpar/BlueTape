@@ -72,7 +72,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input class="form-control disableable" type="text" name="remarks" />
                         </div>
                     </div>
-                    <div class="form-group row toFields">
+                    <div class="form-group row toFields align-items-end">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
                                 <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>                                                                
