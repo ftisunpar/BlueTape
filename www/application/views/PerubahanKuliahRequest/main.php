@@ -432,6 +432,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         toFormGroup.children().eq(0).addClass("col-lg-5");
                         toFormGroup.children().eq(1).addClass("col-lg-4");
                         toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.children().eq(3).remove();
                         toFormGroup.find('.toDateTime').datetimepicker(datepickeroptions)
                             .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
                         toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
@@ -479,6 +480,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         toFormGroup.children().eq(0).addClass("col-lg-5");
                         toFormGroup.children().eq(1).addClass("col-lg-4");
                         toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.children().eq(3).remove();
                         toFormGroup.find('.toDateTime').attr('name', 'editToDateTime[]')
                             .removeClass('disableable').addClass('editDisableable');
                         toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
