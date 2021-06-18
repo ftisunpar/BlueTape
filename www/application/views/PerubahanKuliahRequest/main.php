@@ -72,7 +72,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <input class="form-control disableable" type="text" name="remarks" />
                         </div>
                     </div>
-                    <div class="form-group row toFields">
+                    <div class="form-group row toFields align-items-end">
                             <div class="col-lg-3">
                                 <label class="col-form-label">Menjadi Hari &amp; Jam:</label>
                                 <input id="datetimepicker" class="form-control disableable toDateTime" type="text" name="toDateTime[]"/>                                                                
@@ -427,10 +427,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         editableField.addClass("editable" + id);
                         editableField.append("<div class ='form-group row'></div>");
                         var toFormGroup = editableField.children().eq(0);
-                        toFormGroup.append($('.toFields').clone().children().removeClass());
+                        toFormGroup.append(toFields.clone().children().removeClass());
+                        toFormGroup.find('.eraseButton').remove();
                         toFormGroup.children().eq(0).addClass("col-lg-5");
                         toFormGroup.children().eq(1).addClass("col-lg-4");
                         toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.children().eq(3).remove();
                         toFormGroup.find('.toDateTime').datetimepicker(datepickeroptions)
                             .attr('name', 'editToDateTime[]').removeClass('disableable').addClass('editDisableable');
                         toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
@@ -473,10 +475,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         editableField.append("<div class ='form-group row'></div>");
                         var toFormGroup = editableField.children().last();
                         //toFormGroup is the last children of the element
-                        toFormGroup.append($('.toFields').clone().children().removeClass());
+                        toFormGroup.append(toFields.clone().children().removeClass());
+                        toFormGroup.find('.eraseButton').remove();
                         toFormGroup.children().eq(0).addClass("col-lg-5");
                         toFormGroup.children().eq(1).addClass("col-lg-4");
                         toFormGroup.children().eq(2).addClass("col-lg-3");
+                        toFormGroup.children().eq(3).remove();
                         toFormGroup.find('.toDateTime').attr('name', 'editToDateTime[]')
                             .removeClass('disableable').addClass('editDisableable');
                         toFormGroup.find('.toTimeFinish').datetimepicker(timefinishpicker)
