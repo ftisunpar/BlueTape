@@ -428,7 +428,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         beginAtZero:true,
                                         precision:0
                                     },
-                                    stacked:true
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Frekuensi'
+                                    }
                                 }]
                             };
                             makeChart(chartData,chartTitle,chartScales);
@@ -460,7 +464,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         beginAtZero:true,
                                         precision:0
                                     },
-                                    stacked:true
+                                    stacked:true,
+                                    scaleLabel:{
+                                        display:true,
+                                        labelString:'Frekuensi'
+                                    }
                                 }]
                             };
                             makeChart(chartData,chartTitle,chartScales);
@@ -482,6 +490,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 ticks:{
                                     beginAtZero:true,
                                     precision:0
+                                },
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Frekuensi'
                                 }
                             }]
                         };
@@ -506,7 +518,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 beginAtZero:true,
                                 precision:0
                             },
-                            stacked:true
+                            stacked:true,
+                            scaleLabel:{
+                                display:true,
+                                labelString:'Frekuensi'
+                            }
                         }]
                     };
                     if($(this).find('a.active').attr('id')==='byYear'){            
@@ -535,6 +551,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 ticks:{
                                     beginAtZero:true,
                                     precision:0
+                                },
+                                scaleLabel:{
+                                    display:true,
+                                    labelString:'Frekuensi'
                                 }
                             }]
                         };

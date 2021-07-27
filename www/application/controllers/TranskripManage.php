@@ -67,7 +67,7 @@ class TranskripManage extends CI_Controller {
             'startPage' => $startPage,
             'endPage' => $endPage,
             'npmQuery' => $npmQuery,
-            'statistic' => json_decode($statistic)
+            'statistic' => $statistic
         ));
     }
 

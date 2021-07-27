@@ -97,7 +97,7 @@ class Transkrip_model extends CI_Model {
         $this->load->library('bluetape');
         $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
         $historyByYear = new Datetime($currentDateTime);
-        $historyByYear->modify('-22 year');        
+        $historyByYear->modify('-20 year');        
         $historyByYear = $historyByYear->format('Y-01-01 00:00:00');
         $queryByYear = $this->db->select('COUNT(answer) as "count",answer,
             YEAR(requestDateTime) as "year"')            
@@ -177,10 +177,9 @@ class Transkrip_model extends CI_Model {
                 "startingYear" => $startingYear,
                 "endYear" => $endYear
             );
-            $result = json_encode($result);
         }
         
-        return $result;
+        return (object)$result;
         
     }
 
