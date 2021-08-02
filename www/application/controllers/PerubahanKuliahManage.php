@@ -59,7 +59,7 @@ class PerubahanKuliahManage extends CI_Controller {
             'numOfPages' => $numberOfPages,
             'startPage' => $startPage,
             'endPage' => $endPage,
-            'statistic'=> json_decode($statistic)
+            'statistic'=> $statistic
         ));
     }
 
