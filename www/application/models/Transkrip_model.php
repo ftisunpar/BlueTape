@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transkrip_model extends CI_Model {
 
     const REQUEST_TYPES = [
-        'DPS' => 'DPS (Seluruh Semester, Bilingual)',
+        'DNM' => 'DNM (Daftar Nilai Mahasiswa, bilingual)',
     ];
     
     const DAY_NAME = [
