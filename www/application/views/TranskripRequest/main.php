@@ -17,11 +17,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         Permohonan Baru
                     </div>
                     <div class="card-body">
-                        <p><strong>Transkrip akademik sementara dapat diakses via student portal masing-masing.</strong></p>
                         <?php if (is_array($forbiddenTypes)) : ?>                            
                             <div class="row">
                                 <div class="col-lg-12 form-group">
-                                    <button class="btn btn-primary button" data-target="#requestTranskrip" data-toggle="modal" disabled>Ajukan Permohonan</button>
+                                    <button class="btn btn-primary button" data-target="#requestTranskrip" data-toggle="modal">Ajukan Permohonan</button>
                                 </div>
                             </div>
                             <div class="modal fade" id="requestTranskrip" tabindex="-1" role="dialog" aria-hidden="true">
