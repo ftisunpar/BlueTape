@@ -66,7 +66,7 @@ class TranskripRequest extends CI_Controller {
                 }
                 $this->db->insert('Transkrip', array(
                     'requestByEmail' => $userInfo['email'],
-                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'requestDateTime' => date('Y-m-d H:i:s'),
                     'requestType' => $requestType,
                     'requestUsage' => htmlspecialchars($this->input->post('requestUsage'))
                 ));
@@ -103,7 +103,7 @@ class TranskripRequest extends CI_Controller {
                 $this->db->where('requestByEmail',$userInfo['email']);
                 $this->db->where('answer',null);
                 $this->db->update('Transkrip', array(
-                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'requestDateTime' => date('Y-m-d H:i:s'),
                     'requestUsage' => htmlspecialchars($this->input->post('ubahKeterangan'))
                 ));
                 $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah diubah. Silahkan cek statusnya secara berkala di situs ini.');

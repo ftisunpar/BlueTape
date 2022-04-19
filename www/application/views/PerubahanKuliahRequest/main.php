@@ -277,7 +277,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class=col-lg>
                                             <label>Dari Hari & jam</label>
-                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($request->fromDateTime)) ?>" type="text" name="editFromDateTime">
+                                            <input id="datetimepicker" class="form-control editDateTime" value="<?= date('Y-m-d H:i', strtotime($request->fromDateTime)) ?>" type="text" name="editFromDateTime">
                                         </div>
                                         <div class=col-lg-3>
                                             <label>Dari Ruang</label>
@@ -289,7 +289,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <div class="form-group row">
                                         <div class="col-lg-5">
                                             <label>Menjadi Hari & Jam:</label>
-                                            <input id="datetime" class="form-control editDateTime" value="<?= strftime('%Y-%m-%d %H:%M', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
+                                            <input id="datetime" class="form-control editDateTime" value="<?= date('Y-m-d H:i', strtotime($to->dateTime)) ?>" type="text" name="editToDateTime[]">
                                         </div>
                                         <div class="col-lg-4">
                                             <label>Menjadi Ruang:</label>
@@ -297,7 +297,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </div>
                                         <div class="col-lg-3">
                                             <label>Jam Selesai:</label>                                            
-                                            <input class="form-control editToTimeFinish" value="<?= empty($to->toTimeFinish)?'':strftime('%H:%M',strtotime($to->toTimeFinish)) ?>" type="text" name="editToTimeFinish[]">
+                                            <input class="form-control editToTimeFinish" value="<?= empty($to->toTimeFinish)?'':date('H:i',strtotime($to->toTimeFinish)) ?>" type="text" name="editToTimeFinish[]">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

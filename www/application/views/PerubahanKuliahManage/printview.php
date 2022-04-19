@@ -87,12 +87,12 @@ setlocale(LC_TIME, 'ind');
                     <tr>
                         <td>Hari</td>
                         <td>:</td>
-                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%A, %#d %B %Y', $perubahan->fromDateTime) ?></td>
+                        <td><?= $perubahan->fromDateTime === null ? '' : date('l, j F Y', $perubahan->fromDateTime) ?></td>
                     </tr>
                     <tr>
                         <td>Jam</td>
                         <td>:</td>
-                        <td><?= $perubahan->fromDateTime === null ? '' : strftime('%H:%M', $perubahan->fromDateTime) ?></td>
+                        <td><?= $perubahan->fromDateTime === null ? '' : date('H:i', $perubahan->fromDateTime) ?></td>
                     </tr>
                     <tr>
                         <td>Ruang</td>
@@ -109,7 +109,7 @@ setlocale(LC_TIME, 'ind');
                         <td>:</td>
                         <td>
                             <?php foreach ($perubahan->to as $to): ?>
-                                <?= $to->dateTime === null ? '' : strftime('%A, %#d %B %Y', $to->dateTime) ?><br/>
+                                <?= $to->dateTime === null ? '' : date('l, j F Y', $to->dateTime) ?><br/>
                             <?php endforeach; ?>            
                         </td>
                     </tr>
@@ -119,7 +119,7 @@ setlocale(LC_TIME, 'ind');
                         <td>
                             <?php foreach ($perubahan->to as $to): ?>
                                 <?= $to->dateTime === null ? '' : (empty($to->toTimeFinish)  ? 
-                                strftime('%H:%M', $to->dateTime) : strftime('%H:%M', $to->dateTime).' - '.strftime('%H:%M', strtotime($to->toTimeFinish))) ?><br/>
+                                date('H:i', $to->dateTime) : date('H:i', $to->dateTime).' - '.date('H:i', strtotime($to->toTimeFinish))) ?><br/>
                             <?php endforeach; ?>                
                         </td>
                     </tr>
@@ -143,7 +143,7 @@ setlocale(LC_TIME, 'ind');
                 <tr>
                     <td></td>
                     <td>
-                        Bandung, <?= strftime('%#d-%b-%Y') ?><br/>
+                        Bandung, <?= date('j-M-Y') ?><br/>
                         <br/>
                         <br/>
                         <br/>

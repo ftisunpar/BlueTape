@@ -72,7 +72,7 @@ class PerubahanKuliahManage extends CI_Controller {
                 $this->db->update('PerubahanKuliah', array(
                     'answer' => $this->input->post('answer'),
                     'answeredByEmail' => $userInfo['email'],
-                    'answeredDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'answeredDateTime' => date('Y-m-d H:i:s'),
                     'answeredMessage' => htmlspecialchars($this->input->post('answeredMessage'))
                 ));
 

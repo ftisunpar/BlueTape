@@ -103,6 +103,6 @@ class BlueTape {
      */
     public function dbDateTimeToReadableDate($dbDateTime) {
         setlocale(LC_TIME, 'ind');
-        return $dbDateTime === NULL ? NULL : strftime('%A, %#d %B %Y', (new DateTime($dbDateTime))->getTimestamp());
+        return $dbDateTime === NULL ? NULL : date('l, j F Y', (new DateTime($dbDateTime))->getTimestamp());
     }    
 }

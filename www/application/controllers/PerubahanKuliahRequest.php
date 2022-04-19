@@ -77,7 +77,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                 
                 $this->db->insert('PerubahanKuliah', array(
                     'requestByEmail' => $userInfo['email'],
-                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'requestDateTime' => date('Y-m-d H:i:s'),
                     'mataKuliahName' => htmlspecialchars($this->input->post('mataKuliahName')),
                     'mataKuliahCode' => htmlspecialchars($this->input->post('mataKuliahCode')),
                     'class' => $this->input->post('class'),
@@ -142,7 +142,7 @@ class PerubahanKuliahRequest extends CI_Controller {
                 $this->db->where('answer',null);
                 $this->db->update('PerubahanKuliah', array(
                     'requestByEmail' => $userInfo['email'],
-                    'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
+                    'requestDateTime' => date('Y-m-d H:i:s'),
                     'mataKuliahName' => htmlspecialchars($this->input->post('editMataKuliahName')),
                     'mataKuliahCode' => htmlspecialchars($this->input->post('editMataKuliahCode')),
                     'class' => $this->input->post('editClass'),

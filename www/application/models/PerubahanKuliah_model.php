@@ -36,7 +36,7 @@ class PerubahanKuliah_model extends CI_Model {
     public function requestPerubahanKuliahStatistic(){
         date_default_timezone_set("Asia/Jakarta"); 
         $this->load->library('bluetape');
-        $currentDateTime = strftime('%Y-%m-%d %H:%M:%S');
+        $currentDateTime = date('Y-m-d H:i:s');
         $historyByYear = new Datetime($currentDateTime);
         $historyByYear->modify('-20 year');
         $historyByYear = $historyByYear->format('Y-01-01 00:00:00');
@@ -56,7 +56,7 @@ class PerubahanKuliah_model extends CI_Model {
             ->order_by('changeType','DESC')
             ->get('PerubahanKuliah');
 
-        $historyByHour = new Datetime(strftime('%Y-%m-%d 00:00:%S'));
+        $historyByHour = new Datetime(date('Y-m-d 00:00:s'));
         $this->db->reset_query();
         $queryByHour = $this->db->select('COUNT(changeType) as "count",changeType,
             DATE_FORMAT(requestDateTime,"%H") as "jam"')
