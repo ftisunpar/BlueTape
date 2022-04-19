@@ -184,10 +184,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <?php if ($request->requestByNPM !== NULL): ?>
-                                                            <a target="_blank" href="<?= sprintf($transkripURLs[$request->requestType], $request->requestByNPM) ?>">Klik untuk membuka DPS/LHS</a>
+                                                        <?php if ($request->requestByNPM !== NULL || strstr($transkripURLs[$request->requestType], '%s') === false): ?>
+                                                            <a target="_blank" href="<?= sprintf($transkripURLs[$request->requestType], $request->requestByNPM) ?>">Klik untuk membuka transkrip</a>
                                                         <?php else: ?>
-                                                            Link DPS tidak tersedia
+                                                            Link transkrip tidak tersedia
                                                         <?php endif ?>
                                                         <form method="POST" action="/TranskripManage/answer">
                                                             <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
