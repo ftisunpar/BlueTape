@@ -2,6 +2,7 @@
 
 namespace GuzzleHttp;
 
+use GuzzleHttp\Promise as P;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,15 +36,12 @@ class RetryMiddleware
      *                                                                         returns true if the request is to be
      *                                                                         retried.
      * @param callable(RequestInterface, array): PromiseInterface $nextHandler Next handler to invoke.
-     * @param null|callable(int): int                             $delay       Function that accepts the number of retries
+     * @param (callable(int): int)|null                           $delay       Function that accepts the number of retries
      *                                                                         and returns the number of
      *                                                                         milliseconds to delay.
      */
-    public function __construct(
-        callable $decider,
-        callable $nextHandler,
-        callable $delay = null
-    ) {
+    public function __construct(callable $decider, callable $nextHandler, callable $delay = null)
+    {
         $this->decider = $decider;
         $this->nextHandler = $nextHandler;
         $this->delay = $delay ?: __CLASS__ . '::exponentialDelay';
@@ -103,7 +101,7 @@ class RetryMiddleware
                 null,
                 $reason
             )) {
-                return \GuzzleHttp\Promise\rejection_for($reason);
+                return P\Create::rejectionFor($reason);
             }
             return $this->doRetry($req, $options);
         };
